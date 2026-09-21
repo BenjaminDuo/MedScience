@@ -77,6 +77,14 @@ export interface ExecutionRequest {
   cwd?: string;
   /** Assigned by ExecutionRouter so cancel(runId) can route to the right backend without the caller needing to track which backend handled a request. A backend used directly (outside the router) may generate its own if absent. */
   runId?: string;
+  /**
+   * Only consulted by ApiResearchBackend, and only when this request starts
+   * a brand-new session (no session record yet for sessionId) -- an
+   * existing session already has its sessionType fixed from creation and
+   * ignores this. Defaults to 'research' when omitted, matching prior
+   * behavior. See RuntimeSession.sessionType.
+   */
+  sessionType?: 'chat' | 'research';
 }
 
 export interface ExecutionResult {

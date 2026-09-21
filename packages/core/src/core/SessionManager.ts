@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import os from 'node:os';
-import { RuntimeSession, Turn, AgentId, Artifact, Citation, AgentStatus } from '../types/runtime.js';
+import { RuntimeSession, Turn, AgentId, Artifact, Citation, AgentStatus, SessionType } from '../types/runtime.js';
 import { globalEventBus, EventBus } from './EventBus.js';
 
 export class SessionManager {
@@ -66,7 +66,8 @@ export class SessionManager {
     agentId: AgentId = 'research',
     profileId?: string,
     modelName?: string,
-    explicitId?: string
+    explicitId?: string,
+    sessionType: SessionType = 'research'
   ): RuntimeSession {
     // Most callers let this mint a fresh id. Execution backends that must
     // track a session by an id they generated *before* the record exists
@@ -92,6 +93,7 @@ export class SessionManager {
       artifacts: [],
       citations: [],
       metadata: {},
+      sessionType,
     };
 
     this.sessions.set(id, session);

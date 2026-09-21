@@ -19,7 +19,7 @@ interface AgentContextType {
   status: AgentStatus;
   planTasks: PlanTask[];
   submitPrompt: (promptText: string) => Promise<void>;
-  resetSession: () => void;
+  resetSession: (sessionType?: 'chat' | 'research') => void;
   openSession: (sessionId: string) => void;
   renameSession: (sessionId: string, newTitle: string) => Promise<void>;
   deleteSession: (sessionId: string) => Promise<void>;
@@ -43,16 +43,17 @@ interface AgentContextType {
 
 const AgentContext = createContext<AgentContextType | undefined>(undefined);
 
-function createFreshSession(): AgentSession {
+function createFreshSession(sessionType: 'chat' | 'research' = 'research'): AgentSession {
   const id = `sess-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`;
   const now = new Date().toISOString();
   return {
     id,
-    title: 'New Scientific Exploration',
+    title: sessionType === 'chat' ? 'New Chat' : 'New Scientific Exploration',
     createdAt: now,
     updatedAt: now,
     status: 'idle',
     messages: [],
+    sessionType,
   };
 }
 
@@ -97,19 +98,28 @@ export const AgentProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   // prompt bar's pickers. Defaults the selection to whatever is active in
   // Settings so nothing changes until the user explicitly picks something.
   useEffect(() => {
-    if (!window.medscience) return;
+    if (!window.medscience) {
+      console.error('[MedScience] window.medscience is not defined -- the runtime bridge (Electron preload or webApi.ts) never installed itself. The prompt bar\'s runtime/tool pickers cannot load.');
+      return;
+    }
+    if (!window.medscience.runtime) {
+      console.error('[MedScience] window.medscience.runtime is missing from the bridge API -- the execution-profile picker cannot load its list.');
+    }
     window.medscience.runtime
       ?.listProfiles()
-      .then((profiles) => setRuntimeProfiles(profiles || []))
-      .catch(() => {});
+      .then((profiles) => {
+        console.log('[MedScience] runtime.listProfiles() ->', profiles);
+        setRuntimeProfiles(profiles || []);
+      })
+      .catch((err) => console.error('[MedScience] runtime.listProfiles() failed:', err));
     window.medscience.runtime
       ?.getActiveProfile()
       .then((active) => setSelectedExecutionProfileId((prev) => prev ?? active?.id))
-      .catch(() => {});
+      .catch((err) => console.error('[MedScience] runtime.getActiveProfile() failed:', err));
     window.medscience.agent
       ?.listTools?.()
       .then((tools) => setAvailableTools(tools || []))
-      .catch(() => {});
+      .catch((err) => console.error('[MedScience] agent.listTools() failed:', err));
   }, []);
 
   // Register ⌘N shortcut handler
@@ -139,6 +149,7 @@ export const AgentProvider: React.FC<{ children: React.ReactNode }> = ({ childre
               createdAt: rs.createdAt,
               updatedAt: rs.updatedAt,
               status: rs.status as AgentStatus,
+              sessionType: (rs as { sessionType?: 'chat' | 'research' }).sessionType || 'research',
               messages:
                 rs.turns?.flatMap((t, idx) => [
                   {
@@ -414,8 +425,8 @@ export const AgentProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     }
   };
 
-  const resetSession = () => {
-    const fresh = createFreshSession();
+  const resetSession = (sessionType: 'chat' | 'research' = 'research') => {
+    const fresh = createFreshSession(sessionType);
     setCurrentSession(fresh);
     setStatus('idle');
     setPlanTasks([]);
@@ -658,7 +669,12 @@ export const AgentProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
     try {
       if (window.medscience?.agent) {
-        const result = await window.medscience.agent.submitPrompt(trimmed, currentSession.id, selectedExecutionProfileId);
+        const result = await window.medscience.agent.submitPrompt(
+          trimmed,
+          currentSession.id,
+          selectedExecutionProfileId,
+          currentSession.sessionType
+        );
         if (result?.turn) {
           applyTurnResult(result.turn as Turn, result.session as CoreRuntimeSession | undefined);
         }

@@ -225,14 +225,21 @@ export class CritiqueEngine {
   public async evaluate(
     inquiry: string,
     evidenceTracker: EvidenceTracker,
-    proposedResponse: string
+    proposedResponse: string,
+    options?: { requireEvidence?: boolean }
   ): Promise<CritiqueResult> {
     const issues: string[] = [];
     const recommendations: string[] = [];
+    const requireEvidence = options?.requireEvidence !== false;
 
     // Check 1: Evidence Coverage
+    // Skipped entirely for turns that never attempted any tool call (e.g. a
+    // greeting or small talk the model correctly answered without research) --
+    // forcing an "Execute real tool queries..." feedback loop onto a plain
+    // "hello" is what used to make every message kick off a full multi-step
+    // research run. Genuine research turns still go through this check.
     const evidenceCount = evidenceTracker.count();
-    if (evidenceCount === 0) {
+    if (requireEvidence && evidenceCount === 0) {
       issues.push('No empirical tool evidence collected. Report is based entirely on parametric memory.');
       recommendations.push('Execute real tool queries on PubMed, UniProt, ChEMBL, or ClinicalTrials.gov.');
     }

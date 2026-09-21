@@ -28,9 +28,10 @@ const api = {
     submitPrompt: (
       prompt: string,
       sessionId?: string,
-      executionProfileId?: string
+      executionProfileId?: string,
+      sessionType?: 'chat' | 'research'
     ): Promise<{ session: RuntimeSession; turn: any }> =>
-      ipcRenderer.invoke('agent:submitPrompt', { prompt, sessionId, executionProfileId }),
+      ipcRenderer.invoke('agent:submitPrompt', { prompt, sessionId, executionProfileId, sessionType }),
     listTools: (): Promise<{ name: string; description: string; category: string }[]> =>
       ipcRenderer.invoke('agent:listTools'),
     cancel: (runId: string): Promise<boolean> => ipcRenderer.invoke('agent:cancel', runId),

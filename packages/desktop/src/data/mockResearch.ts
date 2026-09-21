@@ -142,6 +142,7 @@ export const mockDefaultSession: AgentSession = {
   createdAt: new Date(Date.now() - 3600000).toISOString(),
   updatedAt: new Date().toISOString(),
   status: 'completed',
+  sessionType: 'research',
   messages: [
     {
       id: 'msg-1',

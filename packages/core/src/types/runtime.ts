@@ -115,6 +115,8 @@ export interface Turn {
   runtimeTurnId?: string;
 }
 
+export type SessionType = 'chat' | 'research';
+
 export interface RuntimeSession {
   id: string;
   projectId: string;
@@ -129,6 +131,21 @@ export interface RuntimeSession {
   artifacts: Artifact[];
   citations: Citation[];
   metadata: Record<string, any>;
+  /**
+   * Fixed at session creation and never changed afterwards. 'research'
+   * routes every turn through AutonomousResearchEngine's full
+   * hypothesize/retrieve/verify pipeline (mandatory tool use, evidence
+   * tracking, the CritiqueEngine gate); 'chat' routes through the
+   * lightweight ChatEngine instead (plain conversation, no forced tool use
+   * or evidence gate). Deciding this once per session -- rather than
+   * per-message -- is deliberate: inferring intent message-by-message
+   * (from a model-emitted tag, or from whether tools happened to get
+   * called) is exactly what used to make a plain "你好" kick off a full
+   * research run. Optional so existing on-disk sessions from before this
+   * field existed keep loading unchanged; treat a missing value as
+   * 'research' (the prior, only behavior).
+   */
+  sessionType?: SessionType;
   /** All fields below are optional so existing on-disk sessions (pre-local-runtime) keep loading unchanged. */
   executionMode?: ExecutionMode;
   executionProfileId?: string;

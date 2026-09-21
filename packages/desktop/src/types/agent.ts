@@ -72,4 +72,6 @@ export interface AgentSession {
   updatedAt: string;
   status: AgentStatus;
   messages: AgentMessage[];
+  /** Fixed at session creation -- see RuntimeSession.sessionType in @medscience/core. Defaults to 'research' for sessions created before this field existed. */
+  sessionType: 'chat' | 'research';
 }

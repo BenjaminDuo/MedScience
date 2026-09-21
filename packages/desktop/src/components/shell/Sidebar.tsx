@@ -7,6 +7,7 @@ import {
   ShieldCheck,
   Files,
   Plus,
+  MessageCirclePlus,
   PanelLeftClose,
   PanelLeft,
   Settings,
@@ -63,7 +64,12 @@ export const Sidebar: React.FC<SidebarProps> = ({ className = '' }) => {
   const { t, language } = useLanguage();
 
   const handleNewChat = () => {
-    resetSession();
+    resetSession('chat');
+    setActiveSection('home');
+  };
+
+  const handleNewResearch = () => {
+    resetSession('research');
     setActiveSection('home');
   };
 
@@ -102,25 +108,33 @@ export const Sidebar: React.FC<SidebarProps> = ({ className = '' }) => {
         </button>
       </div>
 
-      {/* New Research Button */}
-      <div className="p-3">
+      {/* New Chat / New Research -- two distinct session types, fixed at
+          creation (see RuntimeSession.sessionType): a plain chat never
+          forces tool calls or the evidence-verification pipeline, a
+          research session always does. Not a per-message guess. */}
+      <div className={`p-3 flex gap-2 ${isSidebarCollapsed ? 'flex-col' : ''}`}>
         <button
           onClick={handleNewChat}
-          className={`w-full flex items-center justify-between gap-2 px-3 py-2 rounded-lg border border-border hover:border-accent/40 bg-bg-elevated hover:bg-bg-hover text-text-primary transition-all group ${
-            isSidebarCollapsed ? 'justify-center px-0' : ''
+          className={`flex-1 flex items-center justify-center gap-1.5 px-2.5 py-2 rounded-lg border border-border hover:border-accent/40 bg-bg-elevated hover:bg-bg-hover text-text-primary transition-all group ${
+            isSidebarCollapsed ? 'px-0' : ''
+          }`}
+          title={t('New Chat', '新建对话')}
+        >
+          <MessageCirclePlus size={15} className="text-accent group-hover:scale-110 transition-transform shrink-0" />
+          {!isSidebarCollapsed && (
+            <span className="text-[13px] font-medium tracking-tight">{t('New Chat', '新建对话')}</span>
+          )}
+        </button>
+        <button
+          onClick={handleNewResearch}
+          className={`flex-1 flex items-center justify-center gap-1.5 px-2.5 py-2 rounded-lg border border-border hover:border-accent/40 bg-bg-elevated hover:bg-bg-hover text-text-primary transition-all group ${
+            isSidebarCollapsed ? 'px-0' : ''
           }`}
           title={t('New Research (⌘N)', '新建研究 (⌘N)')}
         >
-          <div className="flex items-center gap-2">
-            <Plus size={16} className="text-accent group-hover:scale-110 transition-transform" />
-            {!isSidebarCollapsed && (
-              <span className="text-[13.5px] font-medium tracking-tight">{t('New Research', '新建研究')}</span>
-            )}
-          </div>
+          <Plus size={15} className="text-accent group-hover:scale-110 transition-transform shrink-0" />
           {!isSidebarCollapsed && (
-            <kbd className="text-[10px] font-mono uppercase px-1.5 py-0.5 rounded bg-bg-surface text-text-muted border border-border-subtle">
-              ⌘ N
-            </kbd>
+            <span className="text-[13px] font-medium tracking-tight">{t('New Research', '新建研究')}</span>
           )}
         </button>
       </div>

@@ -2,11 +2,12 @@ import React, { useRef, useEffect } from 'react';
 import { useAgent } from '../../context/AgentContext';
 import { AgentMessage } from '../workspace/AgentMessage';
 import { WorkspaceComposer } from '../workspace/WorkspaceComposer';
+import { RuntimeApprovalCard } from '../workspace/RuntimeApprovalCard';
 import { Loader2 } from 'lucide-react';
 import { useLanguage } from '../../context/LanguageContext';
 
 export const DesktopWorkspaceView: React.FC = () => {
-  const { currentSession, status } = useAgent();
+  const { currentSession, status, pendingApprovals } = useAgent();
   const { t } = useLanguage();
   const bottomRef = useRef<HTMLDivElement>(null);
   const prevLengthRef = useRef(currentSession.messages.length);
@@ -36,6 +37,12 @@ export const DesktopWorkspaceView: React.FC = () => {
               {status === 'tool_calling' && t('Querying scientific tools and running pipeline...', '正在调用科研工具并运行流水线…')}
               {status === 'generating' && t('Synthesizing evidence and generating artifacts...', '正在整合证据并生成产物…')}
             </span>
+          </div>
+        )}
+
+        {pendingApprovals.length > 0 && (
+          <div className="pt-1">
+            <RuntimeApprovalCard />
           </div>
         )}
 

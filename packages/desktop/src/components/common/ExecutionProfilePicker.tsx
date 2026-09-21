@@ -36,7 +36,26 @@ export const ExecutionProfilePicker: React.FC<{ compact?: boolean }> = ({ compac
     return () => document.removeEventListener('mousedown', onClickOutside);
   }, []);
 
-  if (runtimeProfiles.length === 0) return null;
+  // Previously returned null (and so was invisible) whenever
+  // runtimeProfiles was still empty -- indistinguishable from "hasn't
+  // loaded yet" vs "load actually failed", which made this picker's
+  // reported disappearances impossible to diagnose. Always render a
+  // slot here instead: a disabled placeholder while there's nothing to
+  // pick from, so a real problem is visible rather than silent.
+  if (runtimeProfiles.length === 0) {
+    return (
+      <div
+        className="flex items-center gap-1 px-1.5 py-1 rounded text-text-muted/50 cursor-not-allowed"
+        title={t(
+          'No runtime profiles loaded yet -- check the browser console for [MedScience] errors.',
+          '尚未加载到可用运行时 -- 请查看浏览器控制台中的 [MedScience] 错误信息。'
+        )}
+      >
+        <Terminal size={14} />
+        {!compact && <span className="text-[11px]">{t('Runtime unavailable', '运行时不可用')}</span>}
+      </div>
+    );
+  }
 
   const selected = runtimeProfiles.find((p) => p.id === selectedExecutionProfileId) || runtimeProfiles[0];
   const Icon = profileIcon(selected);

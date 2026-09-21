@@ -59,10 +59,10 @@ const webApi: MedScienceDesktopAPI = {
       request('/api/model/test', { method: 'POST', body: JSON.stringify(profile) }),
   },
   agent: {
-    submitPrompt: (prompt, sessionId, executionProfileId) =>
+    submitPrompt: (prompt, sessionId, executionProfileId, sessionType) =>
       request('/api/agent/inquiries', {
         method: 'POST',
-        body: JSON.stringify({ prompt, sessionId, executionProfileId }),
+        body: JSON.stringify({ prompt, sessionId, executionProfileId, sessionType }),
       }),
     listTools: () => request('/api/agent/tools'),
     cancel: (runId) => request(`/api/agent/runs/${encodeURIComponent(runId)}/cancel`, { method: 'POST' }),

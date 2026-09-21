@@ -145,9 +145,12 @@ export class AutonomousResearchEngine {
 
     // Initial system prompt
     const baseSystemPrompt = `You are MedScience, an autonomous empirical research agent.
-Goal: Investigate the scientific inquiry with real data, empirical calculations, and rigorous verification.
 
-Guidelines:
+First, judge the user's message:
+- If it is a greeting, small talk, thanks, or a simple clarifying/meta question that does NOT ask you to investigate, verify, or compute anything, just reply directly and briefly in plain conversation. Do NOT call any tools, do NOT claim to be "formulating a hypothesis" or "searching databases", and do NOT produce a multi-step research plan for it.
+- Only when the message is an actual scientific/research inquiry that needs evidence, data, or computation, follow the full empirical research protocol below.
+
+Guidelines for genuine research inquiries:
 1. Always formulate hypotheses and retrieve data using official tools (UniProtKB, PDB, ChEMBL, PubChem, PubMed, openFDA, ClinicalTrials.gov, RxNorm, DailyMed).
 2. Execute Python scripts locally for statistical computations, radiomics, or clinical NLP.
 3. Every empirical finding is verified by the Evidence Verification Gate before adoption as [Evidence: EV-xxx].
@@ -382,7 +385,15 @@ ${skillInjectionPrompt ? `\n${skillInjectionPrompt}` : ''}`;
       // If model generated final draft: Run Critique Gate & Stop Hooks
       if (response.finishReason === 'stop' || !response.toolCalls || response.toolCalls.length === 0) {
         this.planTracker.startTask(sessionId, 'task-5');
-        const critique = await this.critiqueEngine.evaluate(userInquiry, evidenceTracker, finalContent);
+        // A turn that never attempted any tool call (e.g. the model judged the
+        // message to be a greeting / small talk per the system prompt above)
+        // should not be forced through the evidence-coverage gate -- that gate
+        // used to reject every such reply and push the model back into calling
+        // tools for a plain "hello", turning every message into a full
+        // multi-step research run regardless of what was actually asked.
+        const critique = await this.critiqueEngine.evaluate(userInquiry, evidenceTracker, finalContent, {
+          requireEvidence: accumulatedToolCalls.length > 0,
+        });
 
         if (critique.passed) {
           const planTable = this.planTracker.formatPlanChecklist(sessionId);

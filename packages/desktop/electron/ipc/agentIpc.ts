@@ -25,7 +25,10 @@ export function registerAgentIpcHandlers(ipcMain: any, getMainWindow: () => any)
 
   ipcMain.handle(
     'agent:submitPrompt',
-    async (_event: any, payload: { prompt: string; sessionId?: string; executionProfileId?: string }) => {
+    async (
+      _event: any,
+      payload: { prompt: string; sessionId?: string; executionProfileId?: string; sessionType?: 'chat' | 'research' }
+    ) => {
       const win = getMainWindow();
       // Routes through ExecutionRouter rather than calling the API research
       // engine directly, so the active ExecutionProfile (API vs local Codex,
@@ -34,7 +37,12 @@ export function registerAgentIpcHandlers(ipcMain: any, getMainWindow: () => any)
       // (the prompt bar's permission/runtime selector), in which case that
       // wins for this request only, without touching the global default.
       const result = await globalExecutionRouter.execute(
-        { prompt: payload.prompt, sessionId: payload.sessionId, executionProfileId: payload.executionProfileId },
+        {
+          prompt: payload.prompt,
+          sessionId: payload.sessionId,
+          executionProfileId: payload.executionProfileId,
+          sessionType: payload.sessionType,
+        },
         {
           onDelta: (delta: string) => {
             if (win && !win.isDestroyed()) {

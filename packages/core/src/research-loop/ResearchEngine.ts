@@ -1,11 +1,12 @@
 import { AutonomousResearchEngine } from './AutonomousResearchEngine.js';
+import { ChatEngine } from './ChatEngine.js';
 import { SessionManager, globalSessionManager } from '../core/SessionManager.js';
 import { EventBus, globalEventBus } from '../core/EventBus.js';
 import { ModelProvider } from '../client/ModelProvider.js';
 import { GenericModelClient } from '../client/GenericModelClient.js';
 import { fallbackMockProvider } from '../client/ScientificMockProvider.js';
 import { ProfileManager, globalProfileManager } from '../config/ProfileManager.js';
-import { RuntimeSession, Turn } from '../types/runtime.js';
+import { RuntimeSession, SessionType, Turn } from '../types/runtime.js';
 
 export interface ResearchEngineOptions {
   profileManager?: ProfileManager;
@@ -15,6 +16,7 @@ export interface ResearchEngineOptions {
 
 export class ResearchEngine {
   private autonomousEngine: AutonomousResearchEngine;
+  private chatEngine: ChatEngine;
   private profileManager: ProfileManager;
   private sessionManager: SessionManager;
   private eventBus: EventBus;
@@ -42,6 +44,11 @@ export class ResearchEngine {
       sessionManager: this.sessionManager,
       eventBus: this.eventBus,
       maxTurns: 8,
+    });
+    this.chatEngine = new ChatEngine({
+      modelProvider: provider,
+      sessionManager: this.sessionManager,
+      eventBus: this.eventBus,
     });
   }
 
@@ -74,6 +81,7 @@ export class ResearchEngine {
   public updateProviderFromActiveProfile(): void {
     const provider = this.resolveActiveProvider();
     this.autonomousEngine.setModelProvider(provider);
+    this.chatEngine.setModelProvider(provider);
   }
 
   public getModelProvider(): ModelProvider {
@@ -83,7 +91,8 @@ export class ResearchEngine {
   public async executeInquiry(
     inquiry: string,
     sessionId?: string,
-    onDelta?: (chunk: string) => void
+    onDelta?: (chunk: string) => void,
+    sessionType: SessionType = 'research'
   ): Promise<{ session: RuntimeSession; turn: Turn }> {
     let session = sessionId ? this.sessionManager.getSession(sessionId) : undefined;
     if (!session) {
@@ -93,7 +102,9 @@ export class ResearchEngine {
         'proj-1',
         'research',
         activeProfile?.id,
-        activeProfile?.model
+        activeProfile?.model,
+        undefined,
+        sessionType
       );
     } else {
       const activeProfile = this.profileManager.getActiveProfile();
@@ -105,7 +116,11 @@ export class ResearchEngine {
     // Refresh model provider before running
     this.updateProviderFromActiveProfile();
 
-    const turn = await this.autonomousEngine.run(session, inquiry, onDelta);
+    // sessionType is fixed at creation (see RuntimeSession.sessionType) --
+    // an existing session always keeps routing through the engine it
+    // started with, regardless of what this call was passed.
+    const engine = session.sessionType === 'chat' ? this.chatEngine : this.autonomousEngine;
+    const turn = await engine.run(session, inquiry, onDelta);
     return { session, turn };
   }
 }

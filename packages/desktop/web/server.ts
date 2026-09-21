@@ -193,7 +193,12 @@ async function handleApi(req: IncomingMessage, res: ServerResponse, url: URL): P
   }
 
   if (req.method === 'POST' && url.pathname === '/api/agent/inquiries') {
-    const body = await readJson<{ prompt?: string; sessionId?: string; executionProfileId?: string }>(req);
+    const body = await readJson<{
+      prompt?: string;
+      sessionId?: string;
+      executionProfileId?: string;
+      sessionType?: 'chat' | 'research';
+    }>(req);
     const prompt = body.prompt?.trim();
     if (!prompt) {
       sendJson(res, 400, { error: 'A non-empty prompt is required' });
@@ -207,7 +212,12 @@ async function handleApi(req: IncomingMessage, res: ServerResponse, url: URL): P
     // API-only. executionProfileId (from the prompt bar's permission
     // selector) overrides the active profile for this one request only.
     const result = await globalExecutionRouter.execute(
-      { prompt, sessionId: body.sessionId, executionProfileId: body.executionProfileId },
+      {
+        prompt,
+        sessionId: body.sessionId,
+        executionProfileId: body.executionProfileId,
+        sessionType: body.sessionType,
+      },
       { onDelta: (delta) => broadcast('delta', delta) }
     );
     sendJson(res, 200, result);

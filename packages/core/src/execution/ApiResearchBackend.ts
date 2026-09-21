@@ -15,9 +15,14 @@ export class ApiResearchBackend implements ExecutionBackend {
   constructor(private engine: ResearchEngine = globalResearchEngine) {}
 
   public async execute(request: ExecutionRequest, callbacks?: ExecutionCallbacks): Promise<ExecutionResult> {
-    const { session, turn } = await this.engine.executeInquiry(request.prompt, request.sessionId, (delta) => {
-      callbacks?.onDelta?.(delta);
-    });
+    const { session, turn } = await this.engine.executeInquiry(
+      request.prompt,
+      request.sessionId,
+      (delta) => {
+        callbacks?.onDelta?.(delta);
+      },
+      request.sessionType || 'research'
+    );
     return { session, turn, backend: 'api' };
   }
 

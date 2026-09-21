@@ -38,6 +38,7 @@ export * from './research-loop/SubagentTreeEngine.js';
 export * from './research-loop/PlanTracker.js';
 export * from './research-loop/CritiqueEngine.js';
 export * from './research-loop/AutonomousResearchEngine.js';
+export * from './research-loop/ChatEngine.js';
 export * from './research-loop/MemoryCompactor.js';
 export * from './research-loop/ResearchEngine.js';
 
