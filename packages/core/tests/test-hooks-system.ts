@@ -11,7 +11,7 @@ import {
 } from '../src/index.js';
 
 async function testHooksSystem() {
-  console.log('=== Running JunScience Formal Hooks System Verification Suite ===\n');
+  console.log('=== Running MedScience Formal Hooks System Verification Suite ===\n');
 
   // [Test 1/5] Hook Registry Listing & Builtin Registration
   console.log('[Test 1/5] Hook Registry Listing & Builtin Registration');

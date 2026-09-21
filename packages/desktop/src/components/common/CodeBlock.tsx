@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Copy, Check, Terminal } from 'lucide-react';
+import { useLanguage } from '../../context/LanguageContext';
 
 interface CodeBlockProps {
   code: string;
@@ -13,6 +14,7 @@ export const CodeBlock: React.FC<CodeBlockProps> = ({
   filename,
 }) => {
   const [copied, setCopied] = useState(false);
+  const { t } = useLanguage();
 
   const handleCopy = () => {
     navigator.clipboard.writeText(code);
@@ -37,17 +39,17 @@ export const CodeBlock: React.FC<CodeBlockProps> = ({
         <button
           onClick={handleCopy}
           className="flex items-center gap-1 px-2 py-1 rounded bg-[#162035] hover:bg-[#1E2C48] text-text-muted hover:text-white transition-colors text-[11px]"
-          title="Copy code"
+          title={t('Copy code', '复制代码')}
         >
           {copied ? (
             <>
               <Check size={12} className="text-emerald-400" />
-              <span className="text-emerald-400">Copied</span>
+              <span className="text-emerald-400">{t('Copied', '已复制')}</span>
             </>
           ) : (
             <>
               <Copy size={12} />
-              <span>Copy</span>
+              <span>{t('Copy', '复制')}</span>
             </>
           )}
         </button>

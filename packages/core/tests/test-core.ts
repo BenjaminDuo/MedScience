@@ -16,9 +16,9 @@ import {
 } from '../src/index';
 
 async function runTests() {
-  console.log('\n=== Running @junscience/core Test Suite ===\n');
+  console.log('\n=== Running @medscience/core Test Suite ===\n');
 
-  const testDir = path.join(os.tmpdir(), `junscience-test-${Date.now()}`);
+  const testDir = path.join(os.tmpdir(), `medscience-test-${Date.now()}`);
   fs.mkdirSync(testDir, { recursive: true });
 
   try {
@@ -202,7 +202,7 @@ async function runTests() {
     }
     console.log(`  ✔ AgentLoop completed turn with ${turn.toolCalls.length} tool calls and verified dependency injection`);
 
-    console.log('\n✔ ALL @junscience/core TESTS PASSED (100% SUCCESS)\n');
+    console.log('\n✔ ALL @medscience/core TESTS PASSED (100% SUCCESS)\n');
   } finally {
     // Cleanup temporary test directory
     try {

@@ -5,7 +5,7 @@ import { ModelProfile } from '../types/model.js';
 import { globalSecureStore, SecureStore } from './SecureStore.js';
 import { validateProfile, normalizeBaseUrl } from './ModelConfig.js';
 
-export interface JunScienceConfigFile {
+export interface MedScienceConfigFile {
   version: string;
   activeProfileId?: string;
   profiles: Omit<ModelProfile, 'apiKey'>[];
@@ -21,7 +21,7 @@ export class ProfileManager {
   }
 
   private getConfigDir(): string {
-    return this.customDir || process.env.JUNSCIENCE_HOME || path.join(os.homedir(), '.junscience');
+    return this.customDir || process.env.MEDSCIENCE_HOME || path.join(os.homedir(), '.medscience');
   }
 
   private getConfigFile(): string {
@@ -39,7 +39,7 @@ export class ProfileManager {
     }
   }
 
-  private readConfigFile(): JunScienceConfigFile {
+  private readConfigFile(): MedScienceConfigFile {
     const configFile = this.getConfigFile();
     if (!fs.existsSync(configFile)) {
       return { version: '1.0.0', profiles: [] };
@@ -52,7 +52,7 @@ export class ProfileManager {
     }
   }
 
-  private writeConfigFile(data: JunScienceConfigFile): void {
+  private writeConfigFile(data: MedScienceConfigFile): void {
     this.ensureDirectory();
     fs.writeFileSync(this.getConfigFile(), JSON.stringify(data, null, 2), { mode: 0o600 });
   }

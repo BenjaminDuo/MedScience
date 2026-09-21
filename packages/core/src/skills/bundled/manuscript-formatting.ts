@@ -7,7 +7,7 @@ export const ManuscriptFormattingSkill: SkillDefinition = {
   description: 'Format structured scientific research drafts into publication-ready LaTeX / Markdown manuscript frameworks adhering to target journal guidelines (e.g. Journal of Hepatology, Hepatology, Nature Medicine).',
   category: 'writing',
   version: '1.0.0',
-  author: 'JunScience Core',
+  author: 'MedScience Core',
   bundled: true,
   requiredTools: ['python_runner'],
   keywords: ['manuscript', 'latex', 'journal', 'formatting', 'abstract', 'hepatology', 'masld', 'mash', 'writing'],
@@ -30,7 +30,7 @@ export const ManuscriptFormattingSkill: SkillDefinition = {
     'manuscript_formatter.py': `
 def format_journal_manuscript(meta: dict, sections: dict, journal: str = "Journal of Hepatology") -> str:
     title = meta.get("title", "Untitled Manuscript")
-    authors = meta.get("authors", "JunScience Research Consortium")
+    authors = meta.get("authors", "MedScience Research Consortium")
     abstract = sections.get("abstract", "")
     
     latex_doc = f"""\\\\documentclass[11pt,a4paper]{{article}}

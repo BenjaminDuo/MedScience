@@ -28,7 +28,7 @@ interface ProjectContextType {
   getProject: (id: string) => ResearchProject | undefined;
 }
 
-const LOCAL_STORAGE_PROJECTS_KEY = 'junscience_desktop_projects_v1';
+const LOCAL_STORAGE_PROJECTS_KEY = 'medscience_desktop_projects_v1';
 
 const ProjectContext = createContext<ProjectContextType | undefined>(undefined);
 

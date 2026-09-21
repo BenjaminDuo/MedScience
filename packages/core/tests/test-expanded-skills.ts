@@ -1,7 +1,7 @@
 import { globalSkillRegistry, SkillRegistry } from '../src/skills/SkillRegistry.js';
 
 async function testExpandedSkillsSuite() {
-  console.log('=== Running JunScience Expanded Scientific Skills Suite (19 Total Skills) ===\n');
+  console.log('=== Running MedScience Expanded Scientific Skills Suite (19 Total Skills) ===\n');
 
   const registry = globalSkillRegistry;
   const allSkills = registry.list();

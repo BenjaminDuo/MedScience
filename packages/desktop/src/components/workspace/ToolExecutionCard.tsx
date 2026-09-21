@@ -12,6 +12,7 @@ import {
   Terminal,
 } from 'lucide-react';
 import { ToolExecution } from '../../types/agent';
+import { useLanguage } from '../../context/LanguageContext';
 
 interface ToolExecutionCardProps {
   tool: ToolExecution;
@@ -27,6 +28,7 @@ const categoryIcons: Record<string, React.ElementType> = {
 
 export const ToolExecutionCard: React.FC<ToolExecutionCardProps> = ({ tool }) => {
   const [isExpanded, setIsExpanded] = useState(false);
+  const { t } = useLanguage();
   const Icon = categoryIcons[tool.category] || Terminal;
 
   const isCompleted = tool.status === 'completed';
@@ -56,12 +58,12 @@ export const ToolExecutionCard: React.FC<ToolExecutionCardProps> = ({ tool }) =>
               )}
               {tool.logs?.some((l) => l.includes('WARNING: Bare Subprocess') || l.includes('Sandbox Unsupported')) && (
                 <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/30 flex items-center gap-1 font-medium">
-                  <span>⚠️</span> Sandbox Unavailable (Windows Unisolated)
+                  <span>⚠️</span> {t('Sandbox Unavailable (Windows Unisolated)', '沙盒不可用（Windows 未隔离）')}
                 </span>
               )}
               {tool.logs?.some((l) => l.includes('Seatbelt Sandbox')) && (
                 <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 flex items-center gap-1">
-                  <span>🛡️</span> macOS Seatbelt Sandbox
+                  <span>🛡️</span> {t('macOS Seatbelt Sandbox', 'macOS Seatbelt 沙盒')}
                 </span>
               )}
             </div>
@@ -75,19 +77,19 @@ export const ToolExecutionCard: React.FC<ToolExecutionCardProps> = ({ tool }) =>
           {isRunning && (
             <div className="flex items-center gap-1.5 text-xs text-accent">
               <Loader2 size={14} className="animate-spin" />
-              <span className="hidden sm:inline font-mono text-[11px]">Executing...</span>
+              <span className="hidden sm:inline font-mono text-[11px]">{t('Executing...', '执行中…')}</span>
             </div>
           )}
           {isCompleted && (
             <div className="flex items-center gap-1 text-xs text-status-success">
               <CheckCircle2 size={15} />
-              <span className="hidden sm:inline font-mono text-[11px]">Done</span>
+              <span className="hidden sm:inline font-mono text-[11px]">{t('Done', '已完成')}</span>
             </div>
           )}
           {isFailed && (
             <div className="flex items-center gap-1 text-xs text-status-error">
               <AlertCircle size={15} />
-              <span className="hidden sm:inline font-mono text-[11px]">Failed</span>
+              <span className="hidden sm:inline font-mono text-[11px]">{t('Failed', '失败')}</span>
             </div>
           )}
 

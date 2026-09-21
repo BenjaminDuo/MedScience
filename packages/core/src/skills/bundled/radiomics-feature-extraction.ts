@@ -7,7 +7,7 @@ export const RadiomicsFeatureExtractionSkill: SkillDefinition = {
   description: 'Extract quantitative radiomics descriptors from medical CT/MRI volumetric Regions of Interest (ROI), including first-order intensity statistics, morphological shape sphericity, and GLCM texture metrics.',
   category: 'imaging',
   version: '1.0.0',
-  author: 'JunScience Core',
+  author: 'MedScience Core',
   bundled: true,
   requiredTools: ['medical_imaging_process', 'python_runner'],
   keywords: ['radiomics', 'texture', 'glcm', 'ct', 'mri', 'hounsfield', 'sphericity', 'homogeneity', 'imaging', 'masld'],

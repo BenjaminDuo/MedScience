@@ -1,14 +1,14 @@
 {
-  "name": "@junscience/desktop",
+  "name": "@medscience/desktop",
   "version": "1.4.0",
-  "description": "JunScience Autonomous Scientific Workstation Desktop",
-  "author": "JunScience Team",
-  "productName": "JunScience",
-  "desktopName": "JunScience",
-  "executableName": "junscience",
+  "description": "MedScience Autonomous Scientific Workstation Desktop",
+  "author": "MedScience Team",
+  "productName": "MedScience",
+  "desktopName": "MedScience",
+  "executableName": "medscience",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Benjamin-JHou/JunScience.git"
+    "url": "https://github.com/BenjaminDuo/MedScience.git"
   },
   "private": true,
   "type": "module",
@@ -25,7 +25,7 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "@junscience/core": "*",
+    "@medscience/core": "*",
     "@types/node": "^22.13.4",
     "@types/react": "^18.3.18",
     "@types/react-dom": "^18.3.5",

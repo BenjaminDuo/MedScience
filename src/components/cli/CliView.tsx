@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { JunScienceLogo } from '../common/JunScienceLogo';
+import { MedScienceLogo } from '../common/MedScienceLogo';
 import { useTheme } from '../../context/ThemeContext';
 import { CliTheme } from '../../types/theme';
 
@@ -33,7 +33,7 @@ export const CliView: React.FC = () => {
     const userPromptLine: TerminalLine = {
       id: `line-${Date.now()}-prompt`,
       type: 'prompt',
-      content: `junscience> ${trimmed}`,
+      content: `medscience> ${trimmed}`,
     };
 
     setHistory((prev) => [...prev, userPromptLine]);
@@ -47,7 +47,7 @@ export const CliView: React.FC = () => {
         {
           id: `line-${Date.now()}-h1`,
           type: 'output',
-          content: 'JunScience Agent Terminal Commands:',
+          content: 'MedScience Agent Terminal Commands:',
         },
         {
           id: `line-${Date.now()}-h2`,
@@ -87,7 +87,7 @@ export const CliView: React.FC = () => {
         {
           id: `line-${Date.now()}-h9`,
           type: 'output',
-          content: '  desktop           Return to JunScience Desktop Workstation',
+          content: '  desktop           Return to MedScience Desktop Workstation',
         },
         {
           id: `line-${Date.now()}-h10`,
@@ -238,7 +238,7 @@ export const CliView: React.FC = () => {
       ];
     } else {
       steps = [
-        { symbol: '◌', text: `JunScience Agent: Reasoning on scientific query...`, delay: 300 },
+        { symbol: '◌', text: `MedScience Agent: Reasoning on scientific query...`, delay: 300 },
         { symbol: '◌', text: `Querying scientific databases and literature...`, delay: 700 },
         { symbol: '✓', text: `Evidence synthesis converged. Results available in desktop workspace.`, delay: 1200 },
       ];
@@ -293,7 +293,7 @@ export const CliView: React.FC = () => {
             className="text-xs font-mono font-medium tracking-wide"
             style={{ color: 'var(--term-muted)' }}
           >
-            junscience
+            medscience
           </div>
 
           {/* Quick Theme Switcher Pills inside window header */}
@@ -340,14 +340,14 @@ export const CliView: React.FC = () => {
           {/* Header Block with Wireframe Logo */}
           <div className="flex items-start gap-5 pb-2">
             <div className="flex-shrink-0">
-              <JunScienceLogo size={70} variant="wireframe-cli" />
+              <MedScienceLogo size={70} variant="wireframe-cli" />
             </div>
             <div className="flex flex-col pt-1">
               <h2
                 className="text-[19px] font-bold tracking-tight terminal-accent-glow"
                 style={{ color: 'var(--term-accent)' }}
               >
-                JunScience Agent
+                MedScience Agent
               </h2>
               <p
                 className="text-[13px] font-medium"
@@ -490,7 +490,7 @@ export const CliView: React.FC = () => {
               className="font-bold select-none"
               style={{ color: 'var(--term-accent)' }}
             >
-              junscience&gt;
+              medscience&gt;
             </span>
             <div className="relative flex-1 flex items-center">
               <input

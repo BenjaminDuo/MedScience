@@ -44,39 +44,39 @@ export const PortalHome: React.FC = () => {
   const [activeModeDemo, setActiveModeDemo] = useState<'plan' | 'act'>('plan');
 
   const codeSnippets = {
-    'cli-curl': `# Install JunScience CLI via one-line installer (macOS & Linux)
-curl -fsSL https://benjamin-jhou.github.io/JunScience/install.sh | bash
+    'cli-curl': `# Install MedScience CLI via one-line installer (macOS & Linux)
+curl -fsSL https://benjaminduo.github.io/MedScience/install.sh | bash
 
 # Launch interactive scientific agent
-junscience`,
-    'cli-npm': `# Install JunScience CLI globally via npm
-npm install -g @junscience/cli
+medscience`,
+    'cli-npm': `# Install MedScience CLI globally via npm
+npm install -g @medscience/cli
 
 # Start interactive research REPL
-junscience
+medscience
 
 # Or run one-shot scientific research task
-junscience research "Analyze TYK2 JH2 pseudokinase binding"`,
+medscience research "Analyze TYK2 JH2 pseudokinase binding"`,
     'cli-npx': `# Run instantly without installation via npx
-npx @junscience/cli
+npx @medscience/cli
 
 # Run one-shot research directly
-npx @junscience/cli research "Screen FAERS adverse events for Deucravacitinib"`,
-    git: `# 1. Clone JunScience repository
-git clone https://github.com/Benjamin-JHou/JunScience.git
-cd JunScience
+npx @medscience/cli research "Screen FAERS adverse events for Deucravacitinib"`,
+    git: `# 1. Clone MedScience repository
+git clone https://github.com/BenjaminDuo/MedScience.git
+cd MedScience
 
 # 2. Install workspace dependencies
 npm install
 
 # 3. Launch autonomous research inquiry in CLI
 npm run cli`,
-    desktop: `# Launch the JunScience Desktop Electron interface
+    desktop: `# Launch the MedScience Desktop Electron interface
 npm run desktop:dev
 
 # Or build native desktop application (.dmg / .exe)
 npm run build`,
-    sdk: `import { AutonomousResearchEngine, globalToolRegistry } from '@junscience/core';
+    sdk: `import { AutonomousResearchEngine, globalToolRegistry } from '@medscience/core';
 
 // Initialize the scientific research engine
 const engine = new AutonomousResearchEngine({
@@ -112,7 +112,7 @@ console.log(turn.agentResponse);`,
               </span>
             </div>
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-text-primary leading-[1.15]">
-              <span className="text-text-primary">JunScience</span>
+              <span className="text-text-primary">MedScience</span>
               <br />
               <span className="bg-gradient-to-r from-accent via-accent-secondary to-purple-600 bg-clip-text text-transparent">
                 {isZh ? '人工智能' : 'AI'}
@@ -123,8 +123,8 @@ console.log(turn.agentResponse);`,
             </h1>
             <p className="text-[14.5px] sm:text-[16px] text-text-secondary leading-relaxed pt-1">
               {isZh
-                ? 'JunScience 是一套专为生物医药与生命科学打造的开源自主智能体系统。内置19项领域技能、4道不可绕过的安全守卫Hook、隔离工作区文件编辑器，以及严苛的物理/数学边界验证网关，确保每一次推演结论都有据可查、可重复、零虚构。'
-                : 'JunScience is an open-source AI agent framework for scientific research. It features 19 domain skills, 4 non-bypassable guardrail hooks, a confined workspace file editor, and cryptographic evidence verification for reproducible scientific discoveries.'}
+                ? 'MedScience 是一套专为生物医药与生命科学打造的开源自主智能体系统。内置19项领域技能、4道不可绕过的安全守卫Hook、隔离工作区文件编辑器，以及严苛的物理/数学边界验证网关，确保每一次推演结论都有据可查、可重复、零虚构。'
+                : 'MedScience is an open-source AI agent framework for scientific research. It features 19 domain skills, 4 non-bypassable guardrail hooks, a confined workspace file editor, and cryptographic evidence verification for reproducible scientific discoveries.'}
             </p>
           </div>
 
@@ -137,7 +137,7 @@ console.log(turn.agentResponse);`,
               </span>
               <button
                 onClick={() => {
-                  navigator.clipboard.writeText('curl -fsSL https://benjamin-jhou.github.io/JunScience/install.sh | bash');
+                  navigator.clipboard.writeText('curl -fsSL https://benjaminduo.github.io/MedScience/install.sh | bash');
                   setCopiedCode(true);
                   setTimeout(() => setCopiedCode(false), 2000);
                 }}
@@ -149,7 +149,7 @@ console.log(turn.agentResponse);`,
             </div>
             <div className="flex items-center gap-2 font-mono text-[13px] text-emerald-400 select-all overflow-x-auto py-0.5">
               <span className="text-slate-500 select-none">$</span>
-              <span>curl -fsSL https://benjamin-jhou.github.io/JunScience/install.sh | bash</span>
+              <span>curl -fsSL https://benjaminduo.github.io/MedScience/install.sh | bash</span>
             </div>
           </div>
 
@@ -171,7 +171,7 @@ console.log(turn.agentResponse);`,
               <ArrowRight size={15} />
             </button>
             <a
-              href="https://github.com/Benjamin-JHou/JunScience"
+              href="https://github.com/BenjaminDuo/MedScience"
               target="_blank"
               rel="noreferrer"
               className="flex items-center gap-2 px-4 py-2.5 rounded-lg border border-border bg-bg-surface hover:bg-bg-hover text-text-secondary hover:text-text-primary font-medium text-[13.5px] transition-all shadow-2xs"
@@ -269,7 +269,7 @@ console.log(turn.agentResponse);`,
             <p className="text-[14px] text-text-secondary">
               {isZh
                 ? '自由切换审慎规划的 Plan Mode 与自主执行的 Act Mode，使用 /model 动态管理模型，通过 /cost 洞悉Token开销。'
-                : 'Seamlessly switch between deliberative Plan Mode and autonomous Act Mode, inspect guardrails with junscience hooks list, manage skills, and track evidence.'}
+                : 'Seamlessly switch between deliberative Plan Mode and autonomous Act Mode, inspect guardrails with medscience hooks list, manage skills, and track evidence.'}
             </p>
           </div>
 
@@ -342,11 +342,11 @@ console.log(turn.agentResponse);`,
               </h3>
               <div className="space-y-2">
                 <div className="flex items-center justify-between p-2 rounded-lg bg-bg-elevated/50 font-mono text-[12px]">
-                  <span className="text-accent font-bold">junscience hooks list</span>
+                  <span className="text-accent font-bold">medscience hooks list</span>
                   <span className="text-text-secondary">{isZh ? '审查所有活跃的生命周期Hook' : 'Inspect active guardrail hooks'}</span>
                 </div>
                 <div className="flex items-center justify-between p-2 rounded-lg bg-bg-elevated/50 font-mono text-[12px]">
-                  <span className="text-emerald-500 font-bold">junscience skill install</span>
+                  <span className="text-emerald-500 font-bold">medscience skill install</span>
                   <span className="text-text-secondary">{isZh ? '通过静态安全审查安装三方技能' : 'Securely install third-party skill'}</span>
                 </div>
                 <div className="flex items-center justify-between p-2 rounded-lg bg-bg-elevated/50 font-mono text-[12px]">
@@ -375,7 +375,7 @@ console.log(turn.agentResponse);`,
                   <span className="w-2.5 h-2.5 rounded-full bg-amber-500/80"></span>
                   <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/80"></span>
                 </div>
-                <span className="text-slate-300 ml-2 font-semibold">junscience — interactive scientific repl</span>
+                <span className="text-slate-300 ml-2 font-semibold">medscience — interactive scientific repl</span>
               </div>
               <span className="text-slate-500 font-mono">v1.4.0</span>
             </div>
@@ -383,7 +383,7 @@ console.log(turn.agentResponse);`,
             {/* Terminal Body */}
             <div className="p-4 sm:p-5 font-mono text-[12.5px] leading-relaxed space-y-3 overflow-x-auto text-left flex-1 min-h-[340px]">
               <div className="text-slate-400">
-                <span className="text-emerald-400 font-bold">JunScience v1.4.0</span> — Autonomous Scientific Workstation
+                <span className="text-emerald-400 font-bold">MedScience v1.4.0</span> — Autonomous Scientific Workstation
                 <br />
                 Type <span className="text-accent font-bold">/help</span> for commands,{' '}
                 <span className="text-purple-400 font-bold">/plan</span> for hypothesis mode,{' '}
@@ -393,7 +393,7 @@ console.log(turn.agentResponse);`,
               {activeModeDemo === 'plan' ? (
                 <div className="space-y-2 text-slate-300 pt-1">
                   <div className="flex items-center gap-2 text-purple-400 font-bold">
-                    <span>junscience [PLAN] &gt;</span>
+                    <span>medscience [PLAN] &gt;</span>
                     <span className="text-slate-100">
                       Investigate TYK2 JH2 allosteric pseudokinase binding vs JAK1 catalytic domain
                     </span>
@@ -411,7 +411,7 @@ console.log(turn.agentResponse);`,
               ) : (
                 <div className="space-y-2 text-slate-300 pt-1">
                   <div className="flex items-center gap-2 text-emerald-400 font-bold">
-                    <span>junscience [ACT] &gt;</span>
+                    <span>medscience [ACT] &gt;</span>
                     <span className="text-slate-100">Executing verification plan and bioactivity extraction...</span>
                   </div>
                   <div className="text-slate-400 text-[12px] space-y-1">
@@ -437,7 +437,7 @@ console.log(turn.agentResponse);`,
             {isZh ? '快速安装与运行' : 'Installation & Quick Start'}
           </h2>
           <p className="text-[14px] text-text-secondary">
-            {isZh ? '数秒内即可配置并运行 JunScience 终端智能体或桌面工作站。' : 'Get started with JunScience CLI or Desktop in seconds.'}
+            {isZh ? '数秒内即可配置并运行 MedScience 终端智能体或桌面工作站。' : 'Get started with MedScience CLI or Desktop in seconds.'}
           </p>
         </div>
 
@@ -519,7 +519,7 @@ console.log(turn.agentResponse);`,
             <p className="text-[14px] text-text-secondary">
               {isZh
                 ? '支持基于 Electron 的沉浸式学术科研桌面工作站，以及面向开发者的全功能终端交互智能体。'
-                : 'Experience JunScience in native Desktop Electron or high-speed CLI terminal.'}
+                : 'Experience MedScience in native Desktop Electron or high-speed CLI terminal.'}
             </p>
           </div>
 
@@ -566,13 +566,13 @@ console.log(turn.agentResponse);`,
             <div className="space-y-3">
               <img
                 src={`${import.meta.env.BASE_URL}screenshots/screenshot_desktop_light.png`}
-                alt="JunScience Desktop Light Theme"
+                alt="MedScience Desktop Light Theme"
                 className="w-full rounded-xl border border-border/80 shadow-sm"
               />
               <p className="text-[12px] text-text-muted text-center">
                 {isZh
-                  ? 'JunScience 桌面端浅色模式 — 高信息密度的科研工作台，集成实时计划追踪与证据流卡片。'
-                  : 'JunScience Desktop Light Mode — High-density research workspace with real-time Plan & To-Do tracker.'}
+                  ? 'MedScience 桌面端浅色模式 — 高信息密度的科研工作台，集成实时计划追踪与证据流卡片。'
+                  : 'MedScience Desktop Light Mode — High-density research workspace with real-time Plan & To-Do tracker.'}
               </p>
             </div>
           )}
@@ -581,13 +581,13 @@ console.log(turn.agentResponse);`,
             <div className="space-y-3">
               <img
                 src={`${import.meta.env.BASE_URL}screenshots/screenshot_desktop_dark.png`}
-                alt="JunScience Desktop Dark Theme"
+                alt="MedScience Desktop Dark Theme"
                 className="w-full rounded-xl border border-border/80 shadow-sm"
               />
               <p className="text-[12px] text-text-muted text-center">
                 {isZh
-                  ? 'JunScience 桌面端深色模式 — 深邃沉浸的暗色护眼主题，专为长时间科研攻关优化。'
-                  : 'JunScience Desktop Dark Mode — Deep navy theme tailored for prolonged academic discovery.'}
+                  ? 'MedScience 桌面端深色模式 — 深邃沉浸的暗色护眼主题，专为长时间科研攻关优化。'
+                  : 'MedScience Desktop Dark Mode — Deep navy theme tailored for prolonged academic discovery.'}
               </p>
             </div>
           )}
@@ -596,7 +596,7 @@ console.log(turn.agentResponse);`,
             <div className="space-y-3">
               <img
                 src={`${import.meta.env.BASE_URL}screenshots/screenshot_m2_workspace.png`}
-                alt="JunScience Workspace Active Research Loop"
+                alt="MedScience Workspace Active Research Loop"
                 className="w-full rounded-xl border border-border/80 shadow-sm"
               />
               <p className="text-[12px] text-text-muted text-center">
@@ -627,13 +627,13 @@ console.log(turn.agentResponse);`,
               </div>
               <img
                 src={`${import.meta.env.BASE_URL}screenshots/screenshot_cli_${activeCliColor}.png`}
-                alt={`JunScience CLI ${activeCliColor} theme`}
+                alt={`MedScience CLI ${activeCliColor} theme`}
                 className="w-full max-w-4xl mx-auto rounded-xl border border-border/80 shadow-sm"
               />
               <p className="text-[12px] text-text-muted text-center">
                 {isZh
-                  ? 'JunScience CLI 终端智能体 (v1.4.0) — 基于 Ink 架构与全新量子轨道科学图腾，支持三向模式切换（Act/Plan/Hypothesis）、实时任务清单与多假说思考流。'
-                  : 'JunScience CLI Agent (v1.4.0) — Built with Ink engine and clean quantum orbital typography, featuring tri-mode execution, live To-Do checklist, and verified scientific synthesis.'}
+                  ? 'MedScience CLI 终端智能体 (v1.4.0) — 基于 Ink 架构与全新量子轨道科学图腾，支持三向模式切换（Act/Plan/Hypothesis）、实时任务清单与多假说思考流。'
+                  : 'MedScience CLI Agent (v1.4.0) — Built with Ink engine and clean quantum orbital typography, featuring tri-mode execution, live To-Do checklist, and verified scientific synthesis.'}
               </p>
             </div>
           )}

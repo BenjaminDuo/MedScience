@@ -94,7 +94,7 @@ export const PALETTE_COMMANDS: CommandItem[] = [
   },
   {
     command: '/exit',
-    label: 'Exit JunScience CLI',
+    label: 'Exit MedScience CLI',
     description: 'Gracefully close workstation and exit process',
     category: 'session',
   },
@@ -160,7 +160,7 @@ export function CommandPaletteModal({
     >
       <Box justifyContent="space-between" marginBottom={1}>
         <Text color="cyan" bold>
-          ⚡ JunScience Command Palette
+          ⚡ MedScience Command Palette
         </Text>
         <Text color="dim">[↑/↓: Navigate  •  Enter: Run  •  Esc: Close]</Text>
       </Box>

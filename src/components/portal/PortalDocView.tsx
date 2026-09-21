@@ -107,11 +107,11 @@ export const PortalDocView: React.FC<PortalDocViewProps> = ({ section }) => {
               <span>{isZh ? '科学研究自主工作站' : 'AUTONOMOUS RESEARCH WORKSTATION'}</span>
             </div>
             <h1 className="text-3xl font-extrabold text-text-primary tracking-tight">
-              {isZh ? 'JunScience 架构总览与核心设计理念' : 'Documentation & Core Concepts'}
+              {isZh ? 'MedScience 架构总览与核心设计理念' : 'Documentation & Core Concepts'}
             </h1>
             <p className="text-[15px] text-text-secondary leading-relaxed">
               {isZh
-                ? '深入了解 JunScience 的循证哲学、多假说子智能体树设计、不可绕过的生命周期守卫 Hook 与内核级隔离沙箱。'
+                ? '深入了解 MedScience 的循证哲学、多假说子智能体树设计、不可绕过的生命周期守卫 Hook 与内核级隔离沙箱。'
                 : 'Understand the core design philosophy, evidence-first execution model, multi-agent hypothesis tree, and hardened biomedical runtime architecture.'}
             </p>
           </div>
@@ -120,12 +120,12 @@ export const PortalDocView: React.FC<PortalDocViewProps> = ({ section }) => {
             {/* Mission Statement */}
             <div className="space-y-3">
               <h2 className="text-xl font-bold text-text-primary flex items-center gap-2">
-                <span>{isZh ? '1. 什么是 JunScience？' : '1. What is JunScience?'}</span>
+                <span>{isZh ? '1. 什么是 MedScience？' : '1. What is MedScience?'}</span>
               </h2>
               <p>
                 {isZh
-                  ? 'JunScience 是一套专为经验科学与生物医药发现设计的开源自主智能体工作站与多智能体框架。不同于传统仅依靠预训练知识对话的聊天机器人，JunScience 恪守严苛的科学怀疑主义原则：所有推演结论必须完全锚定在从权威数据库（UniProt、PDB、ChEMBL、ClinicalTrials.gov、openFDA 等）检索到的真实数据，或在内核隔离沙箱中由 Python 代码精确计算的数值。'
-                  : 'JunScience is an autonomous, open-source scientific and biomedical research workstation and multi-agent framework. Unlike general-purpose conversational LLMs, JunScience operates with strict scientific skepticism: every synthesized finding must be anchored in verified data retrieved from authoritative databases or computed deterministically inside kernel-enforced sandboxes.'}
+                  ? 'MedScience 是一套专为经验科学与生物医药发现设计的开源自主智能体工作站与多智能体框架。不同于传统仅依靠预训练知识对话的聊天机器人，MedScience 恪守严苛的科学怀疑主义原则：所有推演结论必须完全锚定在从权威数据库（UniProt、PDB、ChEMBL、ClinicalTrials.gov、openFDA 等）检索到的真实数据，或在内核隔离沙箱中由 Python 代码精确计算的数值。'
+                  : 'MedScience is an autonomous, open-source scientific and biomedical research workstation and multi-agent framework. Unlike general-purpose conversational LLMs, MedScience operates with strict scientific skepticism: every synthesized finding must be anchored in verified data retrieved from authoritative databases or computed deterministically inside kernel-enforced sandboxes.'}
               </p>
               <div className="p-4 rounded-xl bg-accent/5 border border-accent/20 space-y-1.5">
                 <div className="font-bold text-[13.5px] text-text-primary flex items-center gap-2">
@@ -191,8 +191,8 @@ export const PortalDocView: React.FC<PortalDocViewProps> = ({ section }) => {
               </h2>
               <p>
                 {isZh
-                  ? 'JunScience 采用模块化解耦的 npm workspaces 结构，核心运行引擎、命令行工具和桌面客户端职责清晰：'
-                  : 'JunScience is structured as an npm workspaces monorepo separating core scientific runtime, CLI REPL, desktop application, and standardized OpenScience skills:'}
+                  ? 'MedScience 采用模块化解耦的 npm workspaces 结构，核心运行引擎、命令行工具和桌面客户端职责清晰：'
+                  : 'MedScience is structured as an npm workspaces monorepo separating core scientific runtime, CLI REPL, desktop application, and standardized OpenScience skills:'}
               </p>
               <div className="overflow-x-auto rounded-xl border border-border bg-bg-surface shadow-xs">
                 <table className="w-full text-left text-[12.5px]">
@@ -247,8 +247,8 @@ export const PortalDocView: React.FC<PortalDocViewProps> = ({ section }) => {
             </h1>
             <p className="text-[15px] text-text-secondary leading-relaxed">
               {isZh
-                ? '在2分钟内安装并启动 JunScience，发起您的第一个循证科研推演循环。'
-                : 'Install and launch JunScience in under 2 minutes, and run an evidence-anchored scientific research loop.'}
+                ? '在2分钟内安装并启动 MedScience，发起您的第一个循证科研推演循环。'
+                : 'Install and launch MedScience in under 2 minutes, and run an evidence-anchored scientific research loop.'}
             </p>
           </div>
 
@@ -260,8 +260,8 @@ export const PortalDocView: React.FC<PortalDocViewProps> = ({ section }) => {
               </h2>
               <p>
                 {isZh
-                  ? 'JunScience 设计为即开即用，依赖轻量：'
-                  : 'JunScience requires minimal local system prerequisites:'}
+                  ? 'MedScience 设计为即开即用，依赖轻量：'
+                  : 'MedScience requires minimal local system prerequisites:'}
               </p>
               <ul className="list-disc list-inside space-y-1 text-[13px] text-text-secondary">
                 <li><strong>Node.js:</strong> v20.x 或 v22.x LTS ({isZh ? '推荐 Node 22' : 'recommended Node 22'})</li>
@@ -278,21 +278,21 @@ export const PortalDocView: React.FC<PortalDocViewProps> = ({ section }) => {
               <div className="space-y-2">
                 <div className="text-[13px] font-semibold text-text-primary">{isZh ? '方式 A：一键脚本 (macOS & Linux)' : 'Option A: One-Line Installer (macOS & Linux)'}</div>
                 {renderCodeBlock(
-                  `curl -fsSL https://benjamin-jhou.github.io/JunScience/install.sh | bash`,
+                  `curl -fsSL https://benjaminduo.github.io/MedScience/install.sh | bash`,
                   'bash',
                   'qs-curl'
                 )}
 
                 <div className="text-[13px] font-semibold text-text-primary pt-2">{isZh ? '方式 B：全局 npm 安装' : 'Option B: Global npm Package'}</div>
                 {renderCodeBlock(
-                  `npm install -g @junscience/cli\njunscience`,
+                  `npm install -g @medscience/cli\nmedscience`,
                   'bash',
                   'qs-npm'
                 )}
 
                 <div className="text-[13px] font-semibold text-text-primary pt-2">{isZh ? '方式 C：免安装即时运行 (npx)' : 'Option C: Zero-Install Instant Run (npx)'}</div>
                 {renderCodeBlock(
-                  `npx @junscience/cli`,
+                  `npx @medscience/cli`,
                   'bash',
                   'qs-npx'
                 )}
@@ -319,7 +319,7 @@ export const PortalDocView: React.FC<PortalDocViewProps> = ({ section }) => {
                     {isZh ? '启动后输入 /model 配置您的大模型（内置离线科学 Mock 服务可直接用于测试）：' : 'Launch the CLI and configure your provider (or use the offline scientific mock provider):'}
                   </p>
                   {renderCodeBlock(
-                    `# 启动终端\njunscience\n\n# 在终端内配置大模型提供方 (如 DeepSeek V3 或 Claude 3.7)\n/model set --model deepseek-chat --api-key sk-your-key-here`,
+                    `# 启动终端\nmedscience\n\n# 在终端内配置大模型提供方 (如 DeepSeek V3 或 Claude 3.7)\n/model set --model deepseek-chat --api-key sk-your-key-here`,
                     'bash',
                     'qs-step1'
                   )}
@@ -333,7 +333,7 @@ export const PortalDocView: React.FC<PortalDocViewProps> = ({ section }) => {
                     {isZh ? '输入 /plan，输入研究课题。智能体将制定5阶段里程碑计划，拆解靶点与文献，不触发改变环境的沙箱代码：' : 'Switch to /plan mode and enter your research query. The agent formulates a 5-stage plan without modifying state:'}
                   </p>
                   {renderCodeBlock(
-                    `junscience [PLAN] > Investigate TYK2 JH2 allosteric pseudokinase binding vs JAK1/2/3 catalytic domain for Deucravacitinib`,
+                    `medscience [PLAN] > Investigate TYK2 JH2 allosteric pseudokinase binding vs JAK1/2/3 catalytic domain for Deucravacitinib`,
                     'bash',
                     'qs-step2'
                   )}
@@ -347,7 +347,7 @@ export const PortalDocView: React.FC<PortalDocViewProps> = ({ section }) => {
                     {isZh ? '输入 /act，智能体将自主调用 UniProt、ChEMBL、Python 沙箱执行统计拟合，并通过 EvidenceVerifier 边界审查：' : 'Switch to /act mode to autonomously trigger database queries, compute fold selectivity, and verify bounds:'}
                   </p>
                   {renderCodeBlock(
-                    `junscience [ACT] > Proceed with data retrieval and compute fold selectivity\n\n# 智能体将输出：\n# [TOOL] uniprot_fetch(P29597) -> 1187 aa sequence [EV-001]\n# [TOOL] chembl_query(target: "TYK2", drug: "Deucravacitinib") -> IC50 = 12.8 nM [EV-002]\n# [SANDBOX] Running Python fold selectivity script...\n# [VERIFIER] Pre-adoption gate passed: IC50 > 0, p < 0.001. Digest: sha256:7f4a...`,
+                    `medscience [ACT] > Proceed with data retrieval and compute fold selectivity\n\n# 智能体将输出：\n# [TOOL] uniprot_fetch(P29597) -> 1187 aa sequence [EV-001]\n# [TOOL] chembl_query(target: "TYK2", drug: "Deucravacitinib") -> IC50 = 12.8 nM [EV-002]\n# [SANDBOX] Running Python fold selectivity script...\n# [VERIFIER] Pre-adoption gate passed: IC50 > 0, p < 0.001. Digest: sha256:7f4a...`,
                     'bash',
                     'qs-step3'
                   )}
@@ -387,8 +387,8 @@ export const PortalDocView: React.FC<PortalDocViewProps> = ({ section }) => {
               </h2>
               <p>
                 {isZh
-                  ? '为了解决通用自主智能体容易在缺乏充分论证前盲目执行破坏性工具或浪费 API 配额的问题，JunScience 引入了双重状态机控制：'
-                  : 'JunScience provides deliberate mode separation to ensure scientists can inspect study design before executing mutating tool calls:'}
+                  ? '为了解决通用自主智能体容易在缺乏充分论证前盲目执行破坏性工具或浪费 API 配额的问题，MedScience 引入了双重状态机控制：'
+                  : 'MedScience provides deliberate mode separation to ensure scientists can inspect study design before executing mutating tool calls:'}
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 my-2">
                 <div className="p-4 rounded-xl border border-purple-500/30 bg-purple-500/5 space-y-2">
@@ -419,7 +419,7 @@ export const PortalDocView: React.FC<PortalDocViewProps> = ({ section }) => {
               <p>
                 {isZh
                   ? '核心包内置经过加固与物理边界检测的权威科学连接器：'
-                  : 'JunScience ships with hardened, production-tested scientific database connectors:'}
+                  : 'MedScience ships with hardened, production-tested scientific database connectors:'}
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div className="p-3 rounded-xl bg-bg-surface border border-border">
@@ -453,7 +453,7 @@ export const PortalDocView: React.FC<PortalDocViewProps> = ({ section }) => {
                   : 'Every verified data point receives a unique immutable EV-xxx tag. When context window usage increases during long research sessions, the /compact command compresses conversational clutter while preserving all evidence records.'}
               </p>
               {renderCodeBlock(
-                `# 在 REPL 中压缩记忆\njunscience > /compact\n\n# 查看当前会话 Token 消耗与缓存命中率\njunscience > /cost`,
+                `# 在 REPL 中压缩记忆\nmedscience > /compact\n\n# 查看当前会话 Token 消耗与缓存命中率\nmedscience > /cost`,
                 'bash',
                 'ug-compact'
               )}
@@ -622,7 +622,7 @@ export const PortalDocView: React.FC<PortalDocViewProps> = ({ section }) => {
             </h1>
             <p className="text-[15px] text-text-secondary leading-relaxed">
               {isZh
-                ? '剖析 JunScience 的分层设计、跨平台操作系统内核沙箱（macOS Seatbelt、Linux Bubblewrap、Windows MIC）以及形式化生命周期守卫。'
+                ? '剖析 MedScience 的分层设计、跨平台操作系统内核沙箱（macOS Seatbelt、Linux Bubblewrap、Windows MIC）以及形式化生命周期守卫。'
                 : 'Deep dive into OS kernel isolation, multi-harness design, formal verification gates, and patient data privacy.'}
             </p>
           </div>
@@ -632,7 +632,7 @@ export const PortalDocView: React.FC<PortalDocViewProps> = ({ section }) => {
             <div className="rounded-xl overflow-hidden border border-border shadow-xs bg-bg-surface p-2">
               <img
                 src={`${import.meta.env.BASE_URL}screenshots/architecture.png`}
-                alt="JunScience Core Architecture"
+                alt="MedScience Core Architecture"
                 className="w-full rounded-lg"
               />
             </div>
@@ -739,7 +739,7 @@ export const PortalDocView: React.FC<PortalDocViewProps> = ({ section }) => {
               <span>{isZh ? '科学领域技能库' : 'DOMAIN SOP REPOSITORY'}</span>
             </div>
             <h1 className="text-3xl font-extrabold text-text-primary tracking-tight">
-              {isZh ? 'JunScience 科学技能库 (共19项)' : 'Scientific Skills & SOP Library (19 Total)'}
+              {isZh ? 'MedScience 科学技能库 (共19项)' : 'Scientific Skills & SOP Library (19 Total)'}
             </h1>
             <p className="text-[15px] text-text-secondary leading-relaxed">
               {isZh
@@ -757,11 +757,11 @@ export const PortalDocView: React.FC<PortalDocViewProps> = ({ section }) => {
               </div>
               <p className="text-[12.5px] text-text-secondary">
                 {isZh
-                  ? 'JunScience 兼容 OpenScience SKILL.md 标准规范。安装任何第三方技能时，SkillInstaller 均会自动执行针对 RCE、路径穿越与守卫绕过的静态安全代码审计：'
+                  ? 'MedScience 兼容 OpenScience SKILL.md 标准规范。安装任何第三方技能时，SkillInstaller 均会自动执行针对 RCE、路径穿越与守卫绕过的静态安全代码审计：'
                   : 'Manage scientific skills via CLI with automated static security checks against code injection and hook bypassing:'}
               </p>
               {renderCodeBlock(
-                `# 列出所有已安装技能\njunscience skill list\n\n# 安全安装第三方技能并审计\njunscience skill install https://github.com/OpenScience/custom-crispr-screening.git\n\n# 运行特定领域技能\njunscience skill run pathway-enrichment --input ./genes.txt`,
+                `# 列出所有已安装技能\nmedscience skill list\n\n# 安全安装第三方技能并审计\nmedscience skill install https://github.com/OpenScience/custom-crispr-screening.git\n\n# 运行特定领域技能\nmedscience skill run pathway-enrichment --input ./genes.txt`,
                 'bash',
                 'skills-cli'
               )}
@@ -914,11 +914,11 @@ export const PortalDocView: React.FC<PortalDocViewProps> = ({ section }) => {
               <span>{isZh ? '开发者贡献指南' : 'COMMUNITY & DEVELOPMENT'}</span>
             </div>
             <h1 className="text-3xl font-extrabold text-text-primary tracking-tight">
-              {isZh ? '参与贡献 JunScience 核心生态' : 'Contributing to JunScience'}
+              {isZh ? '参与贡献 MedScience 核心生态' : 'Contributing to MedScience'}
             </h1>
             <p className="text-[15px] text-text-secondary leading-relaxed">
               {isZh
-                ? '欢迎开发者与科研工作者为 JunScience 贡献新的科学工具连接器、生命周期守卫 Hook 或领域标准技能。'
+                ? '欢迎开发者与科研工作者为 MedScience 贡献新的科学工具连接器、生命周期守卫 Hook 或领域标准技能。'
                 : 'How to add scientific tools, write formal guardrail hooks, build domain skills, and run core test suites.'}
             </p>
           </div>
@@ -930,7 +930,7 @@ export const PortalDocView: React.FC<PortalDocViewProps> = ({ section }) => {
                 <span>{isZh ? '1. 开发环境配置与代码检出' : '1. Development Workflow & Setup'}</span>
               </h2>
               {renderCodeBlock(
-                `# 1. Fork 并克隆代码仓库\ngit clone https://github.com/Benjamin-JHou/JunScience.git\ncd JunScience\n\n# 2. 安装所有 workspace 依赖\nnpm install\n\n# 3. 运行全套核心测试验证\nnpm test\n\n# 4. 单独运行守卫 Hook 自动化测试\nnpx tsx packages/core/tests/test-hooks-system.ts`,
+                `# 1. Fork 并克隆代码仓库\ngit clone https://github.com/BenjaminDuo/MedScience.git\ncd MedScience\n\n# 2. 安装所有 workspace 依赖\nnpm install\n\n# 3. 运行全套核心测试验证\nnpm test\n\n# 4. 单独运行守卫 Hook 自动化测试\nnpx tsx packages/core/tests/test-hooks-system.ts`,
                 'bash',
                 'contrib-setup'
               )}
@@ -979,7 +979,7 @@ export const PortalDocView: React.FC<PortalDocViewProps> = ({ section }) => {
             </h1>
             <p className="text-[15px] text-text-secondary leading-relaxed">
               {isZh
-                ? 'JunScience 官方发布日志、里程碑功能与可验证的架构升级。'
+                ? 'MedScience 官方发布日志、里程碑功能与可验证的架构升级。'
                 : 'Official releases, verifiable architectural improvements, and roadmap milestones.'}
             </p>
           </div>
@@ -1098,7 +1098,7 @@ export const PortalDocView: React.FC<PortalDocViewProps> = ({ section }) => {
                 <div className="flex items-center gap-2">
                   <span className="px-2 py-0.5 rounded text-[11px] font-bold font-mono bg-slate-500 text-white">v0.1.0</span>
                   <span className="font-bold text-[15px] text-text-primary">
-                    {isZh ? 'JunScience 初始架构发布' : 'JunScience Initial Architecture Release'}
+                    {isZh ? 'MedScience 初始架构发布' : 'MedScience Initial Architecture Release'}
                   </span>
                 </div>
                 <span className="text-[12px] text-text-muted font-mono">August 2026</span>
@@ -1124,7 +1124,7 @@ export const PortalDocView: React.FC<PortalDocViewProps> = ({ section }) => {
               <span>{isZh ? '终端研究智能体手册' : 'TERMINAL AGENT WORKSTATION'}</span>
             </div>
             <h1 className="text-3xl font-extrabold text-text-primary tracking-tight">
-              {isZh ? 'JunScience CLI 终端智能体操作手册' : 'JunScience CLI Agent Manual'}
+              {isZh ? 'MedScience CLI 终端智能体操作手册' : 'MedScience CLI Agent Manual'}
             </h1>
             <p className="text-[15px] text-text-secondary leading-relaxed">
               {isZh
@@ -1142,21 +1142,21 @@ export const PortalDocView: React.FC<PortalDocViewProps> = ({ section }) => {
               <div className="space-y-2">
                 <div className="text-[12.5px] font-semibold text-text-primary">{isZh ? '方式 A：一键 Bash 脚本 (macOS & Linux)' : 'Option A: One-Line Bash Installer (macOS & Linux)'}</div>
                 {renderCodeBlock(
-                  `curl -fsSL https://benjamin-jhou.github.io/JunScience/install.sh | bash`,
+                  `curl -fsSL https://benjaminduo.github.io/MedScience/install.sh | bash`,
                   'bash',
                   'cli-curl'
                 )}
 
                 <div className="text-[12.5px] font-semibold text-text-primary pt-2">{isZh ? '方式 B：全局 npm 安装' : 'Option B: Global npm Package'}</div>
                 {renderCodeBlock(
-                  `npm install -g @junscience/cli\njunscience`,
+                  `npm install -g @medscience/cli\nmedscience`,
                   'bash',
                   'cli-npm'
                 )}
 
                 <div className="text-[12.5px] font-semibold text-text-primary pt-2">{isZh ? '方式 C：免安装即时体验 (npx)' : 'Option C: Zero-Install Instant Run (npx)'}</div>
                 {renderCodeBlock(
-                  `npx @junscience/cli`,
+                  `npx @medscience/cli`,
                   'bash',
                   'cli-npx'
                 )}
@@ -1268,7 +1268,7 @@ export const PortalDocView: React.FC<PortalDocViewProps> = ({ section }) => {
               <span>{isZh ? '下载与安装' : 'CROSS-PLATFORM DISTRIBUTION'}</span>
             </div>
             <h1 className="text-3xl font-extrabold text-text-primary tracking-tight">
-              {isZh ? 'JunScience 安装部署指南' : 'Installation Guide'}
+              {isZh ? 'MedScience 安装部署指南' : 'Installation Guide'}
             </h1>
             <p className="text-[15px] text-text-secondary leading-relaxed">
               {isZh
@@ -1290,7 +1290,7 @@ export const PortalDocView: React.FC<PortalDocViewProps> = ({ section }) => {
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 my-3">
                 <a
-                  href="https://github.com/Benjamin-JHou/JunScience/releases/download/v1.4.0/JunScience-1.4.0-arm64.dmg"
+                  href="https://github.com/BenjaminDuo/MedScience/releases/download/v1.4.0/MedScience-1.4.0-arm64.dmg"
                   target="_blank"
                   rel="noreferrer"
                   className="p-3.5 rounded-xl bg-bg-surface border border-border hover:border-accent hover:shadow-xs flex items-center justify-between group transition-all"
@@ -1303,7 +1303,7 @@ export const PortalDocView: React.FC<PortalDocViewProps> = ({ section }) => {
                 </a>
 
                 <a
-                  href="https://github.com/Benjamin-JHou/JunScience/releases/download/v1.4.0/JunScience-1.4.0.dmg"
+                  href="https://github.com/BenjaminDuo/MedScience/releases/download/v1.4.0/MedScience-1.4.0.dmg"
                   target="_blank"
                   rel="noreferrer"
                   className="p-3.5 rounded-xl bg-bg-surface border border-border hover:border-accent hover:shadow-xs flex items-center justify-between group transition-all"
@@ -1316,7 +1316,7 @@ export const PortalDocView: React.FC<PortalDocViewProps> = ({ section }) => {
                 </a>
 
                 <a
-                  href="https://github.com/Benjamin-JHou/JunScience/releases/download/v1.4.0/JunScience.Setup.1.4.0.exe"
+                  href="https://github.com/BenjaminDuo/MedScience/releases/download/v1.4.0/MedScience.Setup.1.4.0.exe"
                   target="_blank"
                   rel="noreferrer"
                   className="p-3.5 rounded-xl bg-bg-surface border border-border hover:border-accent hover:shadow-xs flex items-center justify-between group transition-all"
@@ -1329,7 +1329,7 @@ export const PortalDocView: React.FC<PortalDocViewProps> = ({ section }) => {
                 </a>
 
                 <a
-                  href="https://github.com/Benjamin-JHou/JunScience/releases/download/v1.4.0/JunScience-1.4.0-win.zip"
+                  href="https://github.com/BenjaminDuo/MedScience/releases/download/v1.4.0/MedScience-1.4.0-win.zip"
                   target="_blank"
                   rel="noreferrer"
                   className="p-3.5 rounded-xl bg-bg-surface border border-border hover:border-accent hover:shadow-xs flex items-center justify-between group transition-all"
@@ -1349,7 +1349,7 @@ export const PortalDocView: React.FC<PortalDocViewProps> = ({ section }) => {
                 <span>{isZh ? '2. 快速安装 CLI 终端' : '2. Quick Install CLI Agent'}</span>
               </h2>
               {renderCodeBlock(
-                `# 方式 A：一键脚本 (macOS & Linux)\ncurl -fsSL https://benjamin-jhou.github.io/JunScience/install.sh | bash\n\n# 方式 B：全局 npm\nnpm install -g @junscience/cli`,
+                `# 方式 A：一键脚本 (macOS & Linux)\ncurl -fsSL https://benjaminduo.github.io/MedScience/install.sh | bash\n\n# 方式 B：全局 npm\nnpm install -g @medscience/cli`,
                 'bash',
                 'inst-cli'
               )}
@@ -1361,7 +1361,7 @@ export const PortalDocView: React.FC<PortalDocViewProps> = ({ section }) => {
                 <span>{isZh ? '3. 源码编译 (Monorepo)' : '3. Build From Source (Monorepo)'}</span>
               </h2>
               {renderCodeBlock(
-                `# 克隆仓库\ngit clone https://github.com/Benjamin-JHou/JunScience.git\ncd JunScience\n\n# 安装依赖\nnpm install\n\n# 编译全工作区包 (@junscience/core, @junscience/cli, @junscience/desktop)\nnpm run build\n\n# 启动客户端\nnpm run desktop:dev`,
+                `# 克隆仓库\ngit clone https://github.com/BenjaminDuo/MedScience.git\ncd MedScience\n\n# 安装依赖\nnpm install\n\n# 编译全工作区包 (@medscience/core, @medscience/cli, @medscience/desktop)\nnpm run build\n\n# 启动客户端\nnpm run desktop:dev`,
                 'bash',
                 'inst-src'
               )}
@@ -1385,8 +1385,8 @@ export const PortalDocView: React.FC<PortalDocViewProps> = ({ section }) => {
             </h1>
             <p className="text-[15px] text-text-secondary leading-relaxed">
               {isZh
-                ? '@junscience/core 核心包对外暴露的主要类、守卫中间件与推演方法。'
-                : 'Core SDK classes and methods available in @junscience/core.'}
+                ? '@medscience/core 核心包对外暴露的主要类、守卫中间件与推演方法。'
+                : 'Core SDK classes and methods available in @medscience/core.'}
             </p>
           </div>
 
@@ -1397,7 +1397,7 @@ export const PortalDocView: React.FC<PortalDocViewProps> = ({ section }) => {
                 {isZh ? 'Codex 风格预采纳验证网关，严格拦截数学异常与物理边界溢出：' : 'Codex-style verification middleware for empirical tool outputs.'}
               </p>
               {renderCodeBlock(
-                `import { EvidenceVerifier } from '@junscience/core';\n\nconst verifier = new EvidenceVerifier();\nconst result = verifier.verify(\n  'python_runner',\n  'computation',\n  'IC50 calculation',\n  { ic50: 12.8, pValue: 0.0002 }\n);\n\n// 返回：{ verdict: 'ADOPTED' | 'FLAGGED_WITH_WARNING' | 'REJECTED', confidenceScore: 1.0 }`,
+                `import { EvidenceVerifier } from '@medscience/core';\n\nconst verifier = new EvidenceVerifier();\nconst result = verifier.verify(\n  'python_runner',\n  'computation',\n  'IC50 calculation',\n  { ic50: 12.8, pValue: 0.0002 }\n);\n\n// 返回：{ verdict: 'ADOPTED' | 'FLAGGED_WITH_WARNING' | 'REJECTED', confidenceScore: 1.0 }`,
                 'typescript',
                 'api-verifier'
               )}
@@ -1409,7 +1409,7 @@ export const PortalDocView: React.FC<PortalDocViewProps> = ({ section }) => {
                 {isZh ? '多假说分支并发探索与综合矩阵生成器：' : 'Parallel hypothesis branch orchestrator and matrix synthesizer.'}
               </p>
               {renderCodeBlock(
-                `import { SubagentTreeEngine, HypothesisNode } from '@junscience/core';\n\nconst engine = new SubagentTreeEngine();\nconst { hypothesisTree, comparisonMatrix } = await engine.exploreHypothesesParallel(\n  sessionId,\n  [\n    { id: 'hyp-1', targetEntity: 'TYK2', statement: 'JH2 allosteric binding' },\n    { id: 'hyp-2', targetEntity: 'JAK1', statement: 'Orthosteric cross-reactivity' },\n  ],\n  evidenceTracker,\n  3 // maxConcurrency\n);`,
+                `import { SubagentTreeEngine, HypothesisNode } from '@medscience/core';\n\nconst engine = new SubagentTreeEngine();\nconst { hypothesisTree, comparisonMatrix } = await engine.exploreHypothesesParallel(\n  sessionId,\n  [\n    { id: 'hyp-1', targetEntity: 'TYK2', statement: 'JH2 allosteric binding' },\n    { id: 'hyp-2', targetEntity: 'JAK1', statement: 'Orthosteric cross-reactivity' },\n  ],\n  evidenceTracker,\n  3 // maxConcurrency\n);`,
                 'typescript',
                 'api-subagent'
               )}

@@ -27,7 +27,7 @@ export class SkillRegistry {
   private userSkillsDir: string;
 
   constructor(userSkillsDir?: string) {
-    const baseHome = process.env.JUNSCIENCE_HOME || path.join(os.homedir(), '.junscience');
+    const baseHome = process.env.MEDSCIENCE_HOME || path.join(os.homedir(), '.medscience');
     this.userSkillsDir = userSkillsDir || path.join(baseHome, 'skills');
     this.initBundledSkills();
     this.loadUserInstalledSkills();

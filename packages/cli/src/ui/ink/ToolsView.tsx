@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, Text, useInput } from 'ink';
-import { globalToolRegistry } from '@junscience/core';
+import { globalToolRegistry } from '@medscience/core';
 import { Table, Column } from './Table.js';
 
 interface ToolsViewProps {

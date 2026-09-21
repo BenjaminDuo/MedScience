@@ -7,7 +7,7 @@ export const SystematicReviewPrismaSkill: SkillDefinition = {
   description: 'Track literature search counts, deduplication, screening exclusions with structured reasons, and generate standard PRISMA 2020 four-phase flowchart data.',
   category: 'literature',
   version: '1.0.0',
-  author: 'JunScience Core',
+  author: 'MedScience Core',
   bundled: true,
   requiredTools: ['literature_search', 'clinical_trials_lookup', 'python_runner'],
   keywords: ['prisma', 'systematic review', 'flowchart', 'screening', 'deduplication', 'inclusion', 'literature', 'meta-analysis'],

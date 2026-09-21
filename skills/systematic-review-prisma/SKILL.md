@@ -4,7 +4,7 @@ displayName: PRISMA 2020 Systematic Review Workflow & Flowchart Generator
 description: Track literature search counts, deduplication, screening exclusions with structured reasons, and generate standard PRISMA 2020 four-phase flowchart data.
 category: literature
 version: 1.0.0
-author: JunScience Core
+author: MedScience Core
 requiredTools:
   - literature_search
   - clinical_trials_lookup

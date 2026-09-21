@@ -4,7 +4,7 @@ displayName: Patient Cohort & Clinical Trial Eligibility Matching
 description: Parse unstructured patient clinical profiles and match against ClinicalTrials.gov Protocol Section inclusion/exclusion criteria (e.g. age, stage, prior lines of therapy, laboratory cutoffs).
 category: clinical
 version: 1.0.0
-author: JunScience Core
+author: MedScience Core
 requiredTools:
   - clinical_trials_lookup
   - python_runner

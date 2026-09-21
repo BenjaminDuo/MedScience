@@ -1,10 +1,10 @@
-# JunScience Software Design Document (SDD)
+# MedScience Software Design Document (SDD)
 
-> 中文标题：JunScience 软件设计说明书
+> 中文标题：MedScience 软件设计说明书
 >
 > Document version: 1.0
 >
-> Product baseline: JunScience v1.4.0
+> Product baseline: MedScience v1.4.0
 >
 > Source baseline: `1eeac83`
 >
@@ -16,7 +16,7 @@
 
 ### 1.1 English
 
-This Software Design Document describes the as-built architecture of JunScience, an autonomous
+This Software Design Document describes the as-built architecture of MedScience, an autonomous
 scientific and biomedical research workstation. It defines system boundaries, components,
 interfaces, runtime behavior, data structures, security controls, deployment modes, quality
 attributes, verification strategy, and known design risks. It is intended to be the engineering
@@ -30,7 +30,7 @@ here or in a linked specification.
 
 ### 1.2 中文
 
-本软件设计说明书描述 JunScience 自主科学与生物医学研究工作站的当前实现架构，明确系统边界、
+本软件设计说明书描述 MedScience 自主科学与生物医学研究工作站的当前实现架构，明确系统边界、
 组件职责、接口、运行流程、数据结构、安全控制、部署方式、质量属性、验证策略与已知设计风险。
 本文档用于代码审查、维护、安全评估以及后续架构决策的工程基线。
 
@@ -42,7 +42,7 @@ here or in a linked specification.
 
 ### 2.1 In scope / 范围内
 
-- The `@junscience/core` autonomous research runtime.
+- The `@medscience/core` autonomous research runtime.
 - Model-provider abstraction and OpenAI-compatible or Anthropic-compatible protocol adapters.
 - Scientific tool, skill, hook, evidence, planning, critique, and subagent subsystems.
 - Local session and model-profile persistence.
@@ -63,7 +63,7 @@ here or in a linked specification.
 - Guaranteed reproducibility of third-party databases or model-provider responses.
 
 中文：当前系统不是多租户云平台，不提供组织级身份与权限、计费或云租户隔离；本文档也不构成
-FDA、HIPAA 或临床有效性认证。第三方数据库与模型服务的可用性和确定性不属于 JunScience 可单独
+FDA、HIPAA 或临床有效性认证。第三方数据库与模型服务的可用性和确定性不属于 MedScience 可单独
 保证的范围。
 
 ### 2.3 Primary actors / 主要参与者
@@ -74,7 +74,7 @@ FDA、HIPAA 或临床有效性认证。第三方数据库与模型服务的可�
 | Local operator | Installs dependencies, starts a delivery surface, grants permissions | 安装依赖、启动应用并处理权限决策 |
 | Model provider | Produces text, streaming deltas, and structured tool calls | 返回文本、流式增量和结构化工具调用 |
 | Scientific data service | Supplies literature, molecular, biomedical, and clinical metadata | 提供文献、分子、生物医学和临床元数据 |
-| MCP peer | Exposes tools to JunScience or consumes JunScience tools | 向 JunScience 提供工具或调用其工具 |
+| MCP peer | Exposes tools to MedScience or consumes MedScience tools | 向 MedScience 提供工具或调用其工具 |
 | CI/CD system | Builds, tests, packages, and publishes supported artifacts | 构建、测试、打包和发布产物 |
 
 ## 3. Architectural drivers / 架构驱动因素
@@ -84,13 +84,13 @@ FDA、HIPAA 或临床有效性认证。第三方数据库与模型服务的可�
 | AD-01 | Evidence-grounded scientific output | Tool results pass a post-use evidence gate before adoption into `EvidenceTracker` |
 | AD-02 | Clinical privacy | `ClinicalDataGateHook` blocks unapproved raw clinical-text or medical-image transmission |
 | AD-03 | Local-first operation | Sessions, profiles, secrets, artifacts, and Python workspaces are stored locally |
-| AD-04 | Multiple user interfaces | CLI, Electron, and Web share `@junscience/core` and a common renderer bridge contract |
+| AD-04 | Multiple user interfaces | CLI, Electron, and Web share `@medscience/core` and a common renderer bridge contract |
 | AD-05 | Model portability | `ModelProvider` abstracts generation, streaming, tool calling, and connection testing |
 | AD-06 | Extensible research operations | Registries provide dynamic tools, skills, hooks, agents, and MCP integrations |
 | AD-07 | Observable execution | `EventBus` emits session, agent, tool, artifact, citation, plan, job, and permission events |
 | AD-08 | Cross-platform distribution | npm workspaces, Electron Builder, Vite, and Node.js target macOS and Windows releases |
 
-中文概述：JunScience 的核心设计目标是证据可追溯、临床数据本地优先、多终端复用、模型可替换、
+中文概述：MedScience 的核心设计目标是证据可追溯、临床数据本地优先、多终端复用、模型可替换、
 工具与 Skill 可扩展、运行过程可观察，以及跨平台交付。所有目标都必须以代码中真实存在的机制为准。
 
 ## 4. High-level architecture / 总体架构
@@ -102,7 +102,7 @@ flowchart LR
     UI[React renderer]
     EL[Electron IPC bridge]
     WEB[Loopback HTTP and SSE bridge]
-    CORE[JunScience core runtime]
+    CORE[MedScience core runtime]
     MODEL[Model provider]
     TOOLS[Scientific tools]
     DB[External scientific services]
@@ -285,14 +285,14 @@ falls back to the line-oriented REPL.
 The Electron main process starts a loopback static server on an ephemeral port and loads the React
 renderer into a sandboxed `BrowserWindow`. The renderer has `nodeIntegration: false`,
 `contextIsolation: true`, and Electron sandboxing enabled. A preload script exposes a narrow
-`window.junscience` API. IPC handlers delegate model, session, and agent operations to Core.
+`window.medscience` API. IPC handlers delegate model, session, and agent operations to Core.
 
 中文：Electron 主进程在随机回环端口提供静态 UI，并使用关闭 Node 注入、开启上下文隔离和
-Electron sandbox 的窗口加载页面。预加载脚本仅暴露收窄后的 `window.junscience` 接口。
+Electron sandbox 的窗口加载页面。预加载脚本仅暴露收窄后的 `window.medscience` 接口。
 
 ### 8.3 Local Web
 
-The local Web mode reuses the same React renderer and `window.junscience` contract. Its Node server:
+The local Web mode reuses the same React renderer and `window.medscience` contract. Its Node server:
 
 - binds only to `127.0.0.1` on port 3000 by default;
 - validates `Host` and, when present, `Origin` against the configured loopback endpoint;
@@ -302,7 +302,7 @@ The local Web mode reuses the same React renderer and `window.junscience` contra
 - removes stored API keys from responses and preserves secrets server-side;
 - serves Vite middleware in development and built assets in production.
 
-The port can be changed using `JUNSCIENCE_WEB_PORT`. This mode is a single-user local application,
+The port can be changed using `MEDSCIENCE_WEB_PORT`. This mode is a single-user local application,
 not a network service. Binding it to a non-loopback interface would require authentication,
 authorization, TLS, CSRF protection, rate limiting, and a revised clinical threat model.
 
@@ -400,10 +400,10 @@ stores user input, tool calls, tool results, final response, status, and timing.
 
 ### 10.2 Filesystem layout
 
-Unless `JUNSCIENCE_HOME` is set, persistent state is rooted at `~/.junscience`:
+Unless `MEDSCIENCE_HOME` is set, persistent state is rooted at `~/.medscience`:
 
 ```text
-~/.junscience/
+~/.medscience/
 ├── config.json                 # Profiles without API keys; mode 0600
 ├── credentials.enc            # AES-256-GCM encrypted secret map; mode 0600
 ├── sessions/
@@ -416,7 +416,7 @@ Directories are created with mode `0700` where supported. Session and configurat
 single-process filesystem persistence and does not implement transactions, schema migrations,
 cross-process locking, or database-level concurrency control.
 
-中文：默认数据根目录为 `~/.junscience`。配置与凭据文件使用限制性权限，研究会话和 Python 工作区
+中文：默认数据根目录为 `~/.medscience`。配置与凭据文件使用限制性权限，研究会话和 Python 工作区
 按会话保存。当前是单进程 JSON/文件系统持久化，不具备数据库事务、迁移、跨进程锁或并发控制。
 
 ### 10.3 Secret storage
@@ -470,7 +470,7 @@ them as success.
 | Linux | Bubblewrap namespace, read-only root, bound workspace, and unshared network | POSIX workspace subprocess |
 | Windows | Low-integrity ACL on the session workspace | Workspace subprocess |
 
-`JUNSCIENCE_SANDBOX=strict` or `JUNSCIENCE_REQUIRE_SANDBOX=true` blocks execution on macOS when
+`MEDSCIENCE_SANDBOX=strict` or `MEDSCIENCE_REQUIRE_SANDBOX=true` blocks execution on macOS when
 Seatbelt is unavailable. Equivalent fail-closed behavior is not currently implemented for Linux or
 Windows fallbacks. Therefore, “air-gapped” is guaranteed only when the selected kernel mechanism is
 successfully active; workspace-only fallback must not be represented as kernel or network isolation.
@@ -513,7 +513,7 @@ validation, retention rules, audit persistence, incident response, and applicabl
 ### 12.3 Maintainability
 
 - TypeScript contracts define model, runtime, event, tool, skill, and bridge boundaries.
-- UI transports share the `JunScienceDesktopAPI` shape.
+- UI transports share the `MedScienceDesktopAPI` shape.
 - Registries avoid hard-coding orchestration against individual tools and skills.
 - Source and compiled artifacts must remain separated; `dist` is a build output.
 
@@ -542,7 +542,7 @@ validation, retention rules, audit persistence, incident response, and applicabl
 |---|---|
 | `npm run build` | Build Core, CLI, renderer, Web type checks, and Electron process |
 | `npm test` | Run the package-level Core and CLI test entry points |
-| `npm run cli` | Start JunScience CLI |
+| `npm run cli` | Start MedScience CLI |
 | `npm run desktop` | Start a previously built Electron desktop application |
 | `npm run web` | Build and start the production-style loopback Web application |
 | `npm run web:dev` | Start the loopback Web application with Vite middleware |
@@ -619,13 +619,13 @@ baseline validation.
 
 ### ADR-001: Shared Core across delivery surfaces
 
-- **Decision:** Keep research behavior in `@junscience/core`; keep CLI, Electron, and Web as adapters.
+- **Decision:** Keep research behavior in `@medscience/core`; keep CLI, Electron, and Web as adapters.
 - **Rationale:** Prevent scientific-policy divergence and duplicate verification logic.
 - **Consequence:** Core must remain independent of DOM and Electron APIs.
 
 ### ADR-002: Shared renderer bridge contract
 
-- **Decision:** Electron preload and local Web implement the same `window.junscience` contract.
+- **Decision:** Electron preload and local Web implement the same `window.medscience` contract.
 - **Rationale:** One React renderer can serve native and browser-based local workflows.
 - **Consequence:** Transport-specific errors must be normalized behind the contract.
 
@@ -692,10 +692,10 @@ baseline validation.
 
 - [`Agent.md`](Agent.md)
 - [`Frontend_UI.md`](Frontend_UI.md)
-- [`JunScience_Audit.md`](JunScience_Audit.md)
-- [`JunScience_GitHub_Pages.md`](JunScience_GitHub_Pages.md)
-- [`JunScience_Hooks_Skills_Agents.md`](JunScience_Hooks_Skills_Agents.md)
-- [`JunScience_Medical_Multimodal.md`](JunScience_Medical_Multimodal.md)
+- [`MedScience_Audit.md`](MedScience_Audit.md)
+- [`MedScience_GitHub_Pages.md`](MedScience_GitHub_Pages.md)
+- [`MedScience_Hooks_Skills_Agents.md`](MedScience_Hooks_Skills_Agents.md)
+- [`MedScience_Medical_Multimodal.md`](MedScience_Medical_Multimodal.md)
 - [`../../AGENTS.md`](../../AGENTS.md)
 
 ## 20. Approval and maintenance / 批准与维护

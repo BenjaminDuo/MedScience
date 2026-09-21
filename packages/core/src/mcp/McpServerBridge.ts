@@ -81,7 +81,7 @@ export class McpServerBridge {
             tools: { listChanged: false },
           },
           serverInfo: {
-            name: 'junscience-scientific-mcp',
+            name: 'medscience-scientific-mcp',
             version: '1.0.0',
           },
         },

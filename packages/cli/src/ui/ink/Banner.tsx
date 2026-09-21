@@ -21,7 +21,7 @@ export function Banner({
     return (
       <Box flexDirection="row" justifyContent="space-between" paddingBottom={1} borderStyle="single" borderColor="gray">
         <Box>
-          <Text color="cyan" bold>⚛ JunScience</Text>
+          <Text color="cyan" bold>⚛ MedScience</Text>
           <Text color="dim"> v{version} │ </Text>
           <Text color="cyan">Agent: </Text>
           <Text color="white" bold>{activeAgentName} │ </Text>
@@ -39,7 +39,7 @@ export function Banner({
 
   return (
     <Box flexDirection="column" marginY={1}>
-      {/* 1. ATOMIC QUANTUM ORBITAL & CLEAN JUNSCIENCE TITLE */}
+      {/* 1. ATOMIC QUANTUM ORBITAL & CLEAN MEDSCIENCE TITLE */}
       <Box flexDirection="row" alignItems="center">
         {/* Quantum Orbital Science Icon */}
         <Box flexDirection="column" marginRight={2}>
@@ -79,7 +79,7 @@ export function Banner({
         <Text color="cyan" bold>
           {'> '}
           <Text color="white" bold>
-            Welcome to JunScience CLI <Text color="dim">(v{version})</Text>
+            Welcome to MedScience CLI <Text color="dim">(v{version})</Text>
           </Text>
         </Text>
         <Text color="gray">

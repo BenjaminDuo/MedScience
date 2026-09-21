@@ -4,7 +4,7 @@ displayName: Publication-Ready Scientific Figure Generation
 description: Generate publication-grade matplotlib and seaborn visual schematics conforming to high-impact journal standards (300 DPI, vector PDF/EPS export, Arial font, and colorblind-safe palettes).
 category: visualization
 version: 1.0.0
-author: JunScience Core
+author: MedScience Core
 requiredTools:
   - python_runner
 keywords:

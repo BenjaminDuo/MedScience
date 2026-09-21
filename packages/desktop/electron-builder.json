@@ -1,7 +1,7 @@
 {
-  "appId": "com.junscience.desktop",
-  "productName": "JunScience",
-  "executableName": "junscience",
+  "appId": "com.medscience.desktop",
+  "productName": "MedScience",
+  "executableName": "medscience",
   "electronVersion": "28.3.3",
   "npmRebuild": false,
   "nodeGypRebuild": false,
@@ -11,8 +11,8 @@
   },
   "publish": {
     "provider": "github",
-    "owner": "Benjamin-JHou",
-    "repo": "JunScience"
+    "owner": "BenjaminDuo",
+    "repo": "MedScience"
   },
   "files": [
     "dist/**/*",

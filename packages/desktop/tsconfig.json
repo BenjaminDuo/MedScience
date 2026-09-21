@@ -17,8 +17,8 @@
     "noFallthroughCasesInSwitch": true,
     "baseUrl": ".",
     "paths": {
-      "@junscience/core": ["../core/src/index.ts"],
-      "@junscience/core/*": ["../core/src/*"]
+      "@medscience/core": ["../core/src/index.ts"],
+      "@medscience/core/*": ["../core/src/*"]
     }
   },
   "include": ["src"]

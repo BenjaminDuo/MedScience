@@ -4,7 +4,7 @@ displayName: Transcriptomic Differential Expression & Volcano Plot Analysis
 description: Perform statistical two-group differential gene expression analysis, calculating Log2 Fold Change, Welch t-test / Wilcoxon p-values, Benjamini-Hochberg FDR correction, and Volcano plot thresholds.
 category: bioinformatics
 version: 1.0.0
-author: JunScience Core
+author: MedScience Core
 requiredTools:
   - python_runner
 keywords:

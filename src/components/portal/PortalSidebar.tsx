@@ -18,7 +18,7 @@ import {
   Moon,
   X,
 } from 'lucide-react';
-import { JunScienceLogo } from '../common/JunScienceLogo';
+import { MedScienceLogo } from '../common/MedScienceLogo';
 import { useNav } from '../../context/NavContext';
 import { useTheme } from '../../context/ThemeContext';
 import { useLanguage } from '../../context/LanguageContext';
@@ -76,10 +76,10 @@ export const PortalSidebar: React.FC = () => {
             onClick={() => setActiveSection('home')}
             className="flex items-center gap-2.5 text-left group transition-transform"
           >
-            <JunScienceLogo size={32} />
+            <MedScienceLogo size={32} />
             <div className="flex flex-col">
               <span className="font-bold text-[15px] text-text-primary tracking-tight leading-tight group-hover:text-accent transition-colors">
-                JunScience
+                MedScience
               </span>
               <span className="text-[10px] text-text-muted font-medium tracking-wide">
                 {language === 'zh' ? '科学研究自主智能体' : 'AI for Scientific Discovery'}
@@ -136,7 +136,7 @@ export const PortalSidebar: React.FC = () => {
           {/* External Links */}
           <div className="space-y-1 text-[12px] text-text-muted">
             <a
-              href="https://github.com/Benjamin-JHou/JunScience"
+              href="https://github.com/BenjaminDuo/MedScience"
               target="_blank"
               rel="noreferrer"
               className="flex items-center gap-2 px-2 py-1 rounded hover:text-text-primary hover:bg-bg-hover transition-colors"
@@ -145,7 +145,7 @@ export const PortalSidebar: React.FC = () => {
               <span>GitHub</span>
             </a>
             <a
-              href="https://github.com/Benjamin-JHou/JunScience/discussions"
+              href="https://github.com/BenjaminDuo/MedScience/discussions"
               target="_blank"
               rel="noreferrer"
               className="flex items-center gap-2 px-2 py-1 rounded hover:text-text-primary hover:bg-bg-hover transition-colors"
@@ -183,7 +183,7 @@ export const PortalSidebar: React.FC = () => {
 
           {/* Copyright */}
           <div className="pt-1 px-1 flex items-center justify-between text-[10.5px] text-text-muted">
-            <span>© 2026 JunScience</span>
+            <span>© 2026 MedScience</span>
             <span className="font-mono">MIT License</span>
           </div>
         </div>

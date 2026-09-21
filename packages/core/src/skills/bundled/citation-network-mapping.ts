@@ -7,7 +7,7 @@ export const CitationNetworkMappingSkill: SkillDefinition = {
   description: 'Construct directed citation/co-citation graphs from bibliographic literature data, calculating in-degree centrality, PageRank, and identifying seminal scientific hub publications.',
   category: 'literature',
   version: '1.0.0',
-  author: 'JunScience Core',
+  author: 'MedScience Core',
   bundled: true,
   requiredTools: ['literature_search', 'python_runner'],
   keywords: ['citation network', 'graph', 'pagerank', 'centrality', 'bibliometrics', 'co-citation', 'hub', 'literature'],

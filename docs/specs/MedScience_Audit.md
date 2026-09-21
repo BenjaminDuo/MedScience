@@ -1,10 +1,10 @@
-# JunScience — Engineering & Scientific Agent Reality Audit
+# MedScience — Engineering & Scientific Agent Reality Audit
 
 > This document is an AUDIT SPECIFICATION.
 >
 > The purpose is NOT to implement new features.
 >
-> The purpose is to determine the TRUE current state of the JunScience repository before the next major upgrade.
+> The purpose is to determine the TRUE current state of the MedScience repository before the next major upgrade.
 >
 > Codex MUST inspect the actual source code, runtime behavior, configuration, tests, dependencies, and upstream integrations.
 >
@@ -14,7 +14,7 @@
 
 # 0. Mission
 
-JunScience is intended to become:
+MedScience is intended to become:
 
 > **A programmable scientific research environment powered by autonomous AI agents.**
 
@@ -35,9 +35,9 @@ Before implementing these upgrades, perform a rigorous reality audit of the curr
 
 # 1. CRITICAL PRODUCT PRINCIPLE
 
-## JunScience does NOT intend to build a model-provider marketplace.
+## MedScience does NOT intend to build a model-provider marketplace.
 
-JunScience should NOT hard-code commercial model vendors into the product architecture as first-class built-in integrations unless technically required for protocol compatibility.
+MedScience should NOT hard-code commercial model vendors into the product architecture as first-class built-in integrations unless technically required for protocol compatibility.
 
 The intended model configuration philosophy is:
 
@@ -73,7 +73,7 @@ Model:
 some-model-name
 ````
 
-JunScience should then use a generic model/API abstraction.
+MedScience should then use a generic model/API abstraction.
 
 The product should NOT require a predefined list such as:
 
@@ -99,7 +99,7 @@ Generic Model Client
         └── Custom protocol
 ```
 
-Do NOT assume that JunScience needs:
+Do NOT assume that MedScience needs:
 
 ```text
 OpenAIProvider
@@ -316,7 +316,7 @@ Report exact evidence.
 
 # 6. REAL AGENT LOOP CHECK
 
-Determine whether JunScience currently has a genuine LLM-driven Agent loop.
+Determine whether MedScience currently has a genuine LLM-driven Agent loop.
 
 The intended conceptual loop is:
 
@@ -369,7 +369,7 @@ If not, it may be a workflow engine rather than an autonomous Agent.
 
 # 7. SCIENTIFIC RESEARCH CAPABILITY
 
-Determine whether JunScience can perform a genuine end-to-end scientific task.
+Determine whether MedScience can perform a genuine end-to-end scientific task.
 
 Use this conceptual benchmark:
 
@@ -530,7 +530,7 @@ Inspect:
 scientific-agent-skills
 ```
 
-Determine exactly which skills were incorporated into JunScience.
+Determine exactly which skills were incorporated into MedScience.
 
 For each skill determine:
 
@@ -601,7 +601,7 @@ Inspect:
 * artifact generation
 * workspace concepts
 
-Determine whether JunScience genuinely uses these components or merely contains similar names.
+Determine whether MedScience genuinely uses these components or merely contains similar names.
 
 ---
 
@@ -639,7 +639,7 @@ For each:
 ```text
 DeepSeek upstream
 ↓
-JunScience implementation
+MedScience implementation
 ```
 
 classify:
@@ -695,7 +695,7 @@ Prompt template, not independent Agent.
 
 # 14. MEMORY / PROJECT / SESSION AUDIT
 
-Determine whether JunScience has:
+Determine whether MedScience has:
 
 ```text
 Conversation memory
@@ -779,7 +779,7 @@ For every citation system inspect:
 
 Critical test:
 
-> Can JunScience identify exactly which source supports a particular scientific claim?
+> Can MedScience identify exactly which source supports a particular scientific claim?
 
 Determine whether citations are:
 
@@ -871,10 +871,10 @@ LOW
 
 # 19. HARNESS ARCHITECTURE AUDIT
 
-JunScience's intended future architecture is:
+MedScience's intended future architecture is:
 
 ```text
-                    JunScience Core
+                    MedScience Core
                           │
                   Harness Abstraction
                           │
@@ -885,7 +885,7 @@ JunScience's intended future architecture is:
 
 The goal is NOT to merge three repositories into one giant codebase.
 
-JunScience should own:
+MedScience should own:
 
 ```text
 Scientific orchestration
@@ -979,7 +979,7 @@ Produce an architecture comparison.
 
 Answer this question:
 
-> What is the smallest stable interface JunScience should require from a Harness?
+> What is the smallest stable interface MedScience should require from a Harness?
 
 Propose an interface conceptually similar to:
 
@@ -1002,7 +1002,7 @@ Derive the interface from the actual upstream architectures.
 Identify:
 
 ```text
-JunScience-owned responsibility
+MedScience-owned responsibility
 vs
 Harness-owned responsibility
 ```
@@ -1116,7 +1116,7 @@ Desktop
 CLI
 Headless
    ↓
-Same JunScience Agent Core
+Same MedScience Agent Core
 ```
 
 ---
@@ -1134,7 +1134,7 @@ Gemini integration
 
 merely because other Agent products have them.
 
-Instead evaluate whether JunScience has a strong:
+Instead evaluate whether MedScience has a strong:
 
 ```text
 user-configured model/API layer
@@ -1295,7 +1295,7 @@ Especially:
 
 ## I. Multi-harness assessment
 
-Explain how ready JunScience currently is for:
+Explain how ready MedScience currently is for:
 
 ```text
 DeepSeek Harness
@@ -1323,15 +1323,15 @@ Do NOT implement the next phase.
 Instead, finish with a proposed architecture for:
 
 ```text
-JunScience v1.0
+MedScience v1.0
 ```
 
 The target should conceptually contain:
 
 ```text
-JunScience UI
+MedScience UI
       ↓
-JunScience API
+MedScience API
       ↓
 Research Job System
       ↓
@@ -1397,7 +1397,7 @@ DO NOT replace the user-configured API strategy with a provider marketplace arch
 
 The only deliverable of this task is:
 
-> **A brutally honest engineering and scientific-agent reality audit of the current JunScience repository.**
+> **A brutally honest engineering and scientific-agent reality audit of the current MedScience repository.**
 
 ````
 

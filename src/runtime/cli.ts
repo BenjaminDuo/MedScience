@@ -10,7 +10,7 @@ async function main() {
   const inquiry = args.slice(1).join(' ') || 'Investigate the role of TAD boundary disruption and STAT4/TYK2 in autoimmune disease';
 
   console.log(`\x1b[36m===============================================================\x1b[0m`);
-  console.log(`\x1b[1m\x1b[35m  ⚛ JunScience Scientific Agent Runtime (Headless CLI)\x1b[0m`);
+  console.log(`\x1b[1m\x1b[35m  ⚛ MedScience Scientific Agent Runtime (Headless CLI)\x1b[0m`);
   console.log(`\x1b[36m===============================================================\x1b[0m`);
   console.log(`\x1b[33m[Command]\x1b[0m ${command}`);
   console.log(`\x1b[33m[Inquiry]\x1b[0m ${inquiry}\n`);
@@ -51,6 +51,6 @@ async function main() {
 }
 
 main().catch((err) => {
-  console.error('[JunScience CLI Error]', err);
+  console.error('[MedScience CLI Error]', err);
   process.exit(1);
 });

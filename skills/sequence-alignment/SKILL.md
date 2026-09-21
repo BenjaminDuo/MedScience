@@ -4,7 +4,7 @@ displayName: Multiple Sequence Alignment & Conservation Mapping
 description: Align homologous protein/nucleotide sequences, calculate position-specific conservation scores, and annotate key functional motifs or drug-binding residues.
 category: molecular-biology
 version: 1.0.0
-author: JunScience Core
+author: MedScience Core
 requiredTools:
   - uniprot_lookup
   - python_runner

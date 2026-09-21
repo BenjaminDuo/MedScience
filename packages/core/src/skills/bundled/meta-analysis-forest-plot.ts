@@ -7,7 +7,7 @@ export const MetaAnalysisForestPlotSkill: SkillDefinition = {
   description: 'Aggregate effect sizes across multi-center clinical trials using Inverse-Variance fixed-effects and DerSimonian-Laird random-effects models, evaluating Cochran Q and I² heterogeneity.',
   category: 'statistics',
   version: '1.0.0',
-  author: 'JunScience Core',
+  author: 'MedScience Core',
   bundled: true,
   requiredTools: ['clinical_trials_lookup', 'python_runner'],
   keywords: ['meta-analysis', 'forest plot', 'random effects', 'fixed effects', 'heterogeneity', 'cochran q', 'i2', 'odds ratio'],

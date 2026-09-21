@@ -9,6 +9,7 @@ import {
   Minimize2,
 } from 'lucide-react';
 import { Artifact } from '../../types/agent';
+import { useLanguage } from '../../context/LanguageContext';
 
 interface ArtifactCardProps {
   artifact: Artifact;
@@ -16,6 +17,7 @@ interface ArtifactCardProps {
 
 export const ArtifactCard: React.FC<ArtifactCardProps> = ({ artifact }) => {
   const [isExpanded, setIsExpanded] = useState(false);
+  const { t } = useLanguage();
 
   const renderContent = () => {
     if (artifact.type === 'figure') {
@@ -92,11 +94,11 @@ export const ArtifactCard: React.FC<ArtifactCardProps> = ({ artifact }) => {
             <thead className="bg-bg-surface border-b border-border text-text-muted uppercase text-[10.5px] tracking-wider font-semibold">
               <tr>
                 <th className="py-2 px-3">#</th>
-                <th className="py-2 px-3">Gene</th>
+                <th className="py-2 px-3">{t('Gene', '基因')}</th>
                 <th className="py-2 px-3">Log2FC</th>
                 <th className="py-2 px-3">p-Adj</th>
-                <th className="py-2 px-3">Target Class</th>
-                <th className="py-2 px-3">Clinical Status</th>
+                <th className="py-2 px-3">{t('Target Class', '靶点类别')}</th>
+                <th className="py-2 px-3">{t('Clinical Status', '临床状态')}</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-border-subtle font-mono text-[12px]">
@@ -142,7 +144,7 @@ export const ArtifactCard: React.FC<ArtifactCardProps> = ({ artifact }) => {
             </div>
           </div>
           <button className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-bg-surface hover:bg-bg-hover border border-border text-text-primary text-xs font-medium transition-colors">
-            <span>3D View</span>
+            <span>{t('3D View', '3D 视图')}</span>
             <ExternalLink size={12} />
           </button>
         </div>
@@ -196,13 +198,13 @@ export const ArtifactCard: React.FC<ArtifactCardProps> = ({ artifact }) => {
           <button
             onClick={() => setIsExpanded((prev) => !prev)}
             className="p-1.5 rounded-md text-text-muted hover:text-text-primary hover:bg-bg-hover transition-colors"
-            title={isExpanded ? 'Collapse' : 'Expand'}
+            title={isExpanded ? t('Collapse', '收起') : t('Expand', '展开')}
           >
             {isExpanded ? <Minimize2 size={15} /> : <Maximize2 size={15} />}
           </button>
           <button
             className="p-1.5 rounded-md text-text-muted hover:text-text-primary hover:bg-bg-hover transition-colors"
-            title="Export / Download Artifact"
+            title={t('Export / Download Artifact', '导出 / 下载产物')}
           >
             <Download size={15} />
           </button>

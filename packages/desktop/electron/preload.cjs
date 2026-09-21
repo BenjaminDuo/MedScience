@@ -10,7 +10,10 @@ const api = {
     testConnection: (profile) => ipcRenderer.invoke('model:testConnection', profile),
   },
   agent: {
-    submitPrompt: (prompt, sessionId) => ipcRenderer.invoke('agent:submitPrompt', { prompt, sessionId }),
+    submitPrompt: (prompt, sessionId, executionProfileId) =>
+      ipcRenderer.invoke('agent:submitPrompt', { prompt, sessionId, executionProfileId }),
+    listTools: () => ipcRenderer.invoke('agent:listTools'),
+    cancel: (runId) => ipcRenderer.invoke('agent:cancel', runId),
     onEvent: (callback) => {
       const handler = (_e, event) => callback(event);
       ipcRenderer.on('agent:event', handler);
@@ -20,6 +23,34 @@ const api = {
       const handler = (_e, delta) => callback(delta);
       ipcRenderer.on('agent:delta', handler);
       return () => ipcRenderer.removeListener('agent:delta', handler);
+    },
+  },
+  runtime: {
+    listProfiles: () => ipcRenderer.invoke('runtime:listProfiles'),
+    getActiveProfile: () => ipcRenderer.invoke('runtime:getActiveProfile'),
+    saveProfile: (profile) => ipcRenderer.invoke('runtime:saveProfile', profile),
+    deleteProfile: (id) => ipcRenderer.invoke('runtime:deleteProfile', id),
+    setActiveProfile: (id) => ipcRenderer.invoke('runtime:setActiveProfile', id),
+    detect: (executablePath) => ipcRenderer.invoke('runtime:detect', executablePath),
+    respondApproval: (sessionId, approvalId, decision) =>
+      ipcRenderer.invoke('runtime:respondApproval', { sessionId, approvalId, decision }),
+  },
+  teams: {
+    list: (includeArchived) => ipcRenderer.invoke('team:list', includeArchived),
+    listAgents: () => ipcRenderer.invoke('team:listAgents'),
+    get: (id) => ipcRenderer.invoke('team:get', id),
+    create: (team) => ipcRenderer.invoke('team:create', team),
+    update: (team) => ipcRenderer.invoke('team:update', team),
+    archive: (id) => ipcRenderer.invoke('team:archive', id),
+    cloneTemplate: (templateId, overrides) => ipcRenderer.invoke('team:cloneTemplate', templateId, overrides),
+    run: {
+      start: (teamId, inquiry, sessionId) => ipcRenderer.invoke('team:run:start', teamId, inquiry, sessionId),
+      approvePlan: (runId) => ipcRenderer.invoke('team:run:approvePlan', runId),
+      pause: (runId) => ipcRenderer.invoke('team:run:pause', runId),
+      resume: (runId) => ipcRenderer.invoke('team:run:resume', runId),
+      cancel: (runId) => ipcRenderer.invoke('team:run:cancel', runId),
+      get: (runId) => ipcRenderer.invoke('team:run:get', runId),
+      list: (teamId) => ipcRenderer.invoke('team:run:list', teamId),
     },
   },
   session: {
@@ -33,4 +64,4 @@ const api = {
   },
 };
 
-contextBridge.exposeInMainWorld('junscience', api);
+contextBridge.exposeInMainWorld('medscience', api);

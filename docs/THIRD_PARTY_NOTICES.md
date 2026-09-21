@@ -1,6 +1,6 @@
 # Third-Party Software Notices & Acknowledgements
 
-This document lists the open-source software and architectural patterns referenced and adapted within **JunScience**.
+This document lists the open-source software and architectural patterns referenced and adapted within **MedScience**.
 
 ---
 

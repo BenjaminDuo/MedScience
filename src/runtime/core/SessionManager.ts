@@ -6,7 +6,7 @@ import { mockDefaultSession } from '../../data/mockResearch';
 export class SessionManager {
   private sessions: Map<string, RuntimeSession> = new Map();
   private activeSessionId: string | null = null;
-  private storageKey = 'junscience_runtime_sessions';
+  private storageKey = 'medscience_runtime_sessions';
 
   constructor() {
     this.loadFromStorage();
@@ -34,7 +34,7 @@ export class SessionManager {
         createdAt: mockDefaultSession.createdAt,
         updatedAt: mockDefaultSession.updatedAt,
         activeAgent: 'research',
-        activeModel: 'JunScience-Research-v1',
+        activeModel: 'MedScience-Research-v1',
         status: mockDefaultSession.status,
         turns: [
           {
@@ -83,7 +83,7 @@ export class SessionManager {
       createdAt: now,
       updatedAt: now,
       activeAgent: agentId,
-      activeModel: 'JunScience-Research-v1',
+      activeModel: 'MedScience-Research-v1',
       status: 'idle',
       turns: [],
       artifacts: [],

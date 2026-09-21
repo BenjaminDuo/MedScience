@@ -1,8 +1,8 @@
-# Agent.md — JunScience Scientific Agent Runtime & Research Engine
+# Agent.md — MedScience Scientific Agent Runtime & Research Engine
 
-> **Purpose:** This document is the single source of truth for building the JunScience Agent runtime and scientific capability layer.
+> **Purpose:** This document is the single source of truth for building the MedScience Agent runtime and scientific capability layer.
 >
-> **Important:** The JunScience frontend shell has already been implemented. This task is the **second major milestone**: turn JunScience from a polished frontend into a real, extensible AI4S research agent.
+> **Important:** The MedScience frontend shell has already been implemented. This task is the **second major milestone**: turn MedScience from a polished frontend into a real, extensible AI4S research agent.
 >
 > The implementation must study, adapt, and integrate ideas/components from:
 >
@@ -10,15 +10,15 @@
 > 2. `synthetic-sciences/openscience` — scientific research workflows, agents, tools, databases, workspace-oriented research capabilities
 > 3. `K-Dense-AI/scientific-agent-skills` — production-ready scientific Agent Skills
 >
-> Do not blindly copy these repositories. **Study them, understand their architecture, select the strongest ideas, adapt them to JunScience, and preserve clean boundaries.**
+> Do not blindly copy these repositories. **Study them, understand their architecture, select the strongest ideas, adapt them to MedScience, and preserve clean boundaries.**
 
 ---
 
 # 1. Mission
 
-Build **JunScience** as a production-quality AI4S (AI for Science) agent.
+Build **MedScience** as a production-quality AI4S (AI for Science) agent.
 
-JunScience should eventually behave like:
+MedScience should eventually behave like:
 
 > **Claude Code / Codex + OpenScience + a scientific computing environment**
 
@@ -29,7 +29,7 @@ The target experience is:
 ```text
 Scientist
    ↓
-JunScience Agent
+MedScience Agent
    ↓
 Plan / Reason / Delegate
    ↓
@@ -40,7 +40,7 @@ Experiments / Analysis / Literature / Computation
 Artifacts + Evidence + Citations + Reproducible Results
 ```
 
-JunScience is NOT a generic chatbot.
+MedScience is NOT a generic chatbot.
 
 It is a **research execution system**.
 
@@ -75,7 +75,7 @@ Use the architecture philosophy of DeepSeek Harness:
 
 DeepSeek Harness is built around Cordis, where capabilities register services, tools, events, and effects into a shared runtime context.
 
-JunScience should adopt this philosophy rather than creating a giant monolithic `agent.ts`.
+MedScience should adopt this philosophy rather than creating a giant monolithic `agent.ts`.
 
 Reference architecture to study:
 
@@ -195,7 +195,7 @@ Primary source for:
 
 OpenScience currently describes a research loop covering literature, hypotheses, code, experiments, analysis, and write-up.
 
-JunScience should adopt this research-loop philosophy.
+MedScience should adopt this research-loop philosophy.
 
 ---
 
@@ -236,12 +236,12 @@ Use the repository as the **scientific capability library**.
 
 # 5. Do Not Blindly Vendor Everything
 
-Do NOT simply copy 100% of OpenScience and 100% of Scientific Agent Skills into JunScience.
+Do NOT simply copy 100% of OpenScience and 100% of Scientific Agent Skills into MedScience.
 
 Instead create a layered capability model.
 
 ```text
-JunScience Core
+MedScience Core
 │
 ├── Agent Runtime
 ├── Session Runtime
@@ -430,7 +430,7 @@ Avoid storing the entire state only in frontend memory.
 
 # 9. Projects
 
-JunScience should support persistent research projects.
+MedScience should support persistent research projects.
 
 Conceptually:
 
@@ -697,7 +697,7 @@ Inspect every skill's:
 - external network requirements
 - security implications
 - scientific domain
-- usefulness to JunScience
+- usefulness to MedScience
 
 Then create a curated built-in skill set.
 
@@ -711,7 +711,7 @@ The following categories should be available out of the box.
 
 ## Tier 0 — Core Research Skills
 
-These should be built into every JunScience installation.
+These should be built into every MedScience installation.
 
 Recommended:
 
@@ -805,7 +805,7 @@ The Agent should activate them when the task requires them.
 
 OpenScience demonstrates the value of direct scientific database connectors.
 
-JunScience should build a unified scientific database interface.
+MedScience should build a unified scientific database interface.
 
 At minimum design for:
 
@@ -865,7 +865,7 @@ Each database tool should expose:
 
 # 20. Literature System
 
-Literature search is a core JunScience capability.
+Literature search is a core MedScience capability.
 
 The Agent should be able to:
 
@@ -960,7 +960,7 @@ dataset
 
 # 23. Code Execution
 
-JunScience must support real code execution.
+MedScience must support real code execution.
 
 The runtime should provide controlled execution for:
 
@@ -1160,12 +1160,12 @@ Notebook execution should use the same execution and provenance layer as normal 
 
 # 30. MCP / External Tool Layer
 
-JunScience should support MCP-style external tools.
+MedScience should support MCP-style external tools.
 
 Architecture:
 
 ```text
-JunScience
+MedScience
     ↓
 MCP Manager
     ↓
@@ -1366,7 +1366,7 @@ Before integrating code:
 2. preserve attribution
 3. preserve notices
 4. record source commit/version
-5. distinguish copied code from JunScience-original code
+5. distinguish copied code from MedScience-original code
 
 Do not silently copy incompatible code.
 
@@ -1411,7 +1411,7 @@ Maintain an `UPSTREAM.md` documenting:
 Adapt to the existing project if necessary, but aim for a structure conceptually similar to:
 
 ```text
-junscience/
+medscience/
 │
 ├── apps/
 │   ├── desktop/
@@ -1895,13 +1895,13 @@ Only the presentation layer differs.
 Implement a headless mode suitable for:
 
 ```bash
-junscience run "Analyze this dataset"
+medscience run "Analyze this dataset"
 ```
 
 and:
 
 ```bash
-junscience research "Investigate the mechanisms of ..."
+medscience research "Investigate the mechanisms of ..."
 ```
 
 The same Agent runtime should power:
@@ -1995,7 +1995,7 @@ Prioritize:
 11. project/workspace concepts
 12. scientific domain-specific utilities
 
-Adapt them into JunScience's plugin architecture.
+Adapt them into MedScience's plugin architecture.
 
 Do not duplicate equivalent runtime systems from both repositories.
 
@@ -2021,7 +2021,7 @@ Prioritize:
 14. skill registry
 15. event-driven extension points
 
-The final JunScience runtime should have one coherent architecture.
+The final MedScience runtime should have one coherent architecture.
 
 ---
 
@@ -2240,7 +2240,7 @@ Do not enter infinite repair loops.
 
 # 68. Long-Term Goal
 
-JunScience should eventually be able to execute a request such as:
+MedScience should eventually be able to execute a request such as:
 
 > "Investigate whether pathway X contributes to disease Y. Review the literature, identify candidate genes, retrieve public datasets, analyze them, compare the evidence, generate figures, and prepare a research report with citations."
 
@@ -2290,7 +2290,7 @@ containing:
 - components to reject
 - licensing notes
 - dependency conflicts
-- proposed JunScience architecture
+- proposed MedScience architecture
 
 Do this before large-scale implementation.
 
@@ -2382,7 +2382,7 @@ Plan
 
 ## Phase 6 — Frontend Integration
 
-Connect the already-built JunScience UI to:
+Connect the already-built MedScience UI to:
 
 - sessions
 - Agent streaming
@@ -2471,7 +2471,7 @@ When implementing this task, follow these rules.
 
 **Read before rewriting.**
 
-Inspect the current JunScience codebase before making architectural changes.
+Inspect the current MedScience codebase before making architectural changes.
 
 ---
 
@@ -2611,11 +2611,11 @@ Do not start implementing major runtime code until the architecture reconnaissan
 
 # 73. Final Product Principle
 
-The goal is not to make JunScience:
+The goal is not to make MedScience:
 
 > "an AI chatbot with some scientific tools."
 
-The goal is to make JunScience:
+The goal is to make MedScience:
 
 > **a programmable scientific research environment powered by an autonomous AI agent.**
 
@@ -2649,7 +2649,7 @@ Reproducibility
 Safety
 ```
 
-That is the core identity of JunScience.
+That is the core identity of MedScience.
 
 ---
 
@@ -2658,7 +2658,7 @@ That is the core identity of JunScience.
 A successful implementation should make this command meaningful:
 
 ```bash
-junscience research "Investigate the role of TAD boundary disruption in autoimmune disease"
+medscience research "Investigate the role of TAD boundary disruption in autoimmune disease"
 ```
 
 and the Agent should be architecturally capable of:

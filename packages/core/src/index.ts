@@ -9,6 +9,7 @@ export * from './types/skills.js';
 export * from './config/SecureStore.js';
 export * from './config/ModelConfig.js';
 export * from './config/ProfileManager.js';
+export * from './config/ExecutionProfileManager.js';
 
 // Client & Protocols
 export * from './client/ModelProvider.js';
@@ -39,6 +40,29 @@ export * from './research-loop/CritiqueEngine.js';
 export * from './research-loop/AutonomousResearchEngine.js';
 export * from './research-loop/MemoryCompactor.js';
 export * from './research-loop/ResearchEngine.js';
+
+// Execution backends (API vs local Codex runtime)
+export * from './execution/types.js';
+export * from './execution/ExecutionBackend.js';
+export * from './execution/ApiResearchBackend.js';
+export * from './execution/ExecutionRouter.js';
+export * from './execution/local/RuntimeDetector.js';
+export * from './execution/local/ChildProcessSupervisor.js';
+export * from './execution/local/JsonlRpcClient.js';
+export * from './execution/local/CodexAppServerClient.js';
+export * from './execution/local/CodexRuntimeBackend.js';
+
+// Research Teams (Phase 1: types + read-only/clonable registries only)
+export * from './teams/types.js';
+export * from './teams/BuiltInAgents.js';
+export * from './teams/BuiltInTeamTemplates.js';
+export * from './teams/TeamRegistry.js';
+export * from './teams/TeamProfileManager.js';
+export * from './teams/TeamRunStore.js';
+export * from './teams/TeamPlanner.js';
+export * from './teams/TeamScheduler.js';
+export * from './teams/ApiAgentRunner.js';
+export * from './teams/TeamOrchestrator.js';
 export * from './mcp/McpTypes.js';
 export * from './mcp/McpServerBridge.js';
 export * from './mcp/McpClientManager.js';

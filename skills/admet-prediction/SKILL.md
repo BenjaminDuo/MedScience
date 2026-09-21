@@ -4,7 +4,7 @@ displayName: Small-Molecule ADMET & Druglikeness Profiling
 description: Evaluate small-molecule physicochemical properties (MW, LogP, TPSA, HBD, HBA, RotB), Lipinski Rule of Five compliance, Veber oral bioavailability criteria, and quantitative drug-likeness (QED).
 category: cheminformatics
 version: 1.0.0
-author: JunScience Core
+author: MedScience Core
 requiredTools:
   - pubchem_lookup
   - chembl_lookup

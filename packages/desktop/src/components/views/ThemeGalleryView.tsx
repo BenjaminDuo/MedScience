@@ -2,9 +2,11 @@ import React from 'react';
 import { useTheme } from '../../context/ThemeContext';
 import { DesktopTheme } from '../../types/theme';
 import { Check, Moon, Sun } from 'lucide-react';
+import { useLanguage } from '../../context/LanguageContext';
 
 export const ThemeGalleryView: React.FC = () => {
   const { desktopTheme, setDesktopTheme } = useTheme();
+  const { t: tr } = useLanguage();
 
   const themes: {
     id: string;
@@ -17,8 +19,8 @@ export const ThemeGalleryView: React.FC = () => {
   }[] = [
     {
       id: 'd-dark',
-      name: 'Desktop Dark',
-      description: 'Futuristic scientific workstation (#090D16, cyan & electric blue glow)',
+      name: tr('Desktop Dark', '深色工作站'),
+      description: tr('Futuristic scientific workstation (#090D16, cyan & electric blue glow)', '未来感科研工作站（#090D16，青色与电光蓝辉光）'),
       desktop: 'dark',
       icon: Moon,
       bgPreview: '#090D16',
@@ -26,8 +28,8 @@ export const ThemeGalleryView: React.FC = () => {
     },
     {
       id: 'd-light',
-      name: 'Desktop Light',
-      description: 'Minimalist clean academic science (crisp white/slate, royal blue)',
+      name: tr('Desktop Light', '浅色工作站'),
+      description: tr('Minimalist clean academic science (crisp white/slate, royal blue)', '极简清爽学术科研风格（清白/石板灰，宝蓝色）'),
       desktop: 'light',
       icon: Sun,
       bgPreview: '#F8FAFC',
@@ -38,9 +40,9 @@ export const ThemeGalleryView: React.FC = () => {
   return (
     <div className="p-8 max-w-5xl mx-auto space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-text-primary">Desktop Workstation Themes</h1>
+        <h1 className="text-2xl font-bold text-text-primary">{tr('Desktop Workstation Themes', '桌面工作站主题')}</h1>
         <p className="text-sm text-text-muted mt-1">
-          High-contrast, scientific workstation color themes optimized for research and data analysis.
+          {tr('High-contrast, scientific workstation color themes optimized for research and data analysis.', '为科研与数据分析优化的高对比度科研工作站配色主题。')}
         </p>
       </div>
 
@@ -81,7 +83,7 @@ export const ThemeGalleryView: React.FC = () => {
               >
                 <div className="flex items-center gap-2">
                   <div className="w-2 h-2 rounded-full" style={{ backgroundColor: t.accentPreview }} />
-                  <span className="text-[11px] font-mono text-slate-400">Preview: {t.name}</span>
+                  <span className="text-[11px] font-mono text-slate-400">{tr('Preview: ', '预览：')}{t.name}</span>
                 </div>
                 <div className="flex gap-2">
                   <div className="h-4 w-16 rounded" style={{ backgroundColor: t.accentPreview, opacity: 0.3 }} />

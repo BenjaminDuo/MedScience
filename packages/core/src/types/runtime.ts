@@ -96,6 +96,9 @@ export interface ToolResult {
   execution: ToolExecution;
 }
 
+export type ExecutionMode = 'api' | 'local-runtime';
+export type LocalRuntimeKind = 'codex';
+
 export interface Turn {
   index: number;
   userInput: string;
@@ -106,6 +109,10 @@ export interface Turn {
   status: AgentStatus;
   startedAt: string;
   completedAt?: string;
+  /** Which execution backend produced this turn. Absent means API (pre-existing sessions). */
+  backend?: ExecutionMode;
+  /** The local runtime's own turn id (e.g. Codex's turn/start result), for diagnostics/export. */
+  runtimeTurnId?: string;
 }
 
 export interface RuntimeSession {
@@ -122,4 +129,10 @@ export interface RuntimeSession {
   artifacts: Artifact[];
   citations: Citation[];
   metadata: Record<string, any>;
+  /** All fields below are optional so existing on-disk sessions (pre-local-runtime) keep loading unchanged. */
+  executionMode?: ExecutionMode;
+  executionProfileId?: string;
+  runtimeKind?: LocalRuntimeKind;
+  runtimeThreadId?: string;
+  runtimeCwd?: string;
 }

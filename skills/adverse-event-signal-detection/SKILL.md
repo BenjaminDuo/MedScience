@@ -4,7 +4,7 @@ displayName: Pharmacovigilance Disproportionality & FAERS Signal Detection
 description: Quantify adverse event reporting disproportionality from spontaneous reporting databases (openFDA FAERS) using Reporting Odds Ratio (ROR), Proportional Reporting Ratio (PRR), and 95% confidence intervals.
 category: clinical
 version: 1.0.0
-author: JunScience Core
+author: MedScience Core
 requiredTools:
   - openfda_lookup
   - python_runner

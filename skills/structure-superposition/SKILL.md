@@ -4,7 +4,7 @@ displayName: 3D Protein Structure Superposition & RMSD Calculation
 description: Superimpose two PDB or AlphaFold 3D coordinate sets using Kabsch rotation algorithm, computing global C-alpha RMSD and per-residue displacement distances.
 category: molecular-biology
 version: 1.0.0
-author: JunScience Core
+author: MedScience Core
 requiredTools:
   - pdb_lookup
   - python_runner

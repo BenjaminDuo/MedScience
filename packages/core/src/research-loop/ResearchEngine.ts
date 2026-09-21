@@ -24,7 +24,19 @@ export class ResearchEngine {
     this.sessionManager = options?.sessionManager || globalSessionManager;
     this.eventBus = options?.eventBus || globalEventBus;
 
-    const provider = this.resolveActiveProvider();
+    // At construction time (module load / app boot) there may not be a
+    // usable profile yet -- e.g. before the user has opened Settings for
+    // the first time. That must not crash app startup, so fall back to the
+    // mock provider here ONLY as an inert placeholder: executeInquiry()
+    // always re-resolves via updateProviderFromActiveProfile() before
+    // running a real turn, which throws loudly at that point instead of
+    // this placeholder ever actually answering a real question.
+    let provider: ModelProvider;
+    try {
+      provider = this.resolveActiveProvider();
+    } catch {
+      provider = fallbackMockProvider;
+    }
     this.autonomousEngine = new AutonomousResearchEngine({
       modelProvider: provider,
       sessionManager: this.sessionManager,
@@ -33,14 +45,32 @@ export class ResearchEngine {
     });
   }
 
+  /**
+   * Resolves the real, currently-active model. Throws rather than silently
+   * degrading: this engine only ever runs under ExecutionRouter's 'api'
+   * backend, and a user who has neither a working API profile (baseUrl +
+   * model) nor a working Local Runtime (Codex CLI) profile must see a clear
+   * error telling them to configure one -- never a fabricated "Demo Mode"
+   * answer that looks like a real scientific result.
+   */
   public resolveActiveProvider(): ModelProvider {
     const activeProfile = this.profileManager.getActiveProfile();
     if (activeProfile && activeProfile.baseUrl && activeProfile.model) {
       return new GenericModelClient(activeProfile);
     }
-    return fallbackMockProvider;
+    throw new Error(
+      'No usable model is configured. Open Settings -> Model & API and set a Base URL + Model, ' +
+        'or switch the active execution profile to Local Runtime (Codex CLI) in Settings -> Execution Runtime.'
+    );
   }
 
+  /**
+   * Re-resolves and swaps the live provider. Tolerant at this call site
+   * only when invoked opportunistically (e.g. right after a profile save,
+   * before any turn has actually been requested) -- executeInquiry() below
+   * calls this too and does NOT swallow the error, so an actually
+   * unconfigured setup still fails loudly the moment a turn is requested.
+   */
   public updateProviderFromActiveProfile(): void {
     const provider = this.resolveActiveProvider();
     this.autonomousEngine.setModelProvider(provider);

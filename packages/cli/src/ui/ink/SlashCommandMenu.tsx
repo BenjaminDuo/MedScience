@@ -22,7 +22,7 @@ export const SLASH_COMMANDS: SlashCommandItem[] = [
   { label: '/new', value: '/new', description: 'Start a fresh scientific inquiry session' },
   { label: '/clear', value: '/clear', description: 'Clear terminal viewport and history' },
   { label: '/help', value: '/help', description: 'Display complete command reference' },
-  { label: '/exit', value: '/exit', description: 'Exit JunScience CLI' },
+  { label: '/exit', value: '/exit', description: 'Exit MedScience CLI' },
 ];
 
 interface SlashCommandMenuProps {

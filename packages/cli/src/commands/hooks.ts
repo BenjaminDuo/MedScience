@@ -1,4 +1,4 @@
-import { globalHookRegistry } from '@junscience/core';
+import { globalHookRegistry } from '@medscience/core';
 import { colors } from '../ui/banner.js';
 
 export async function handleHooksCommand(args: string[]): Promise<void> {
@@ -8,7 +8,7 @@ export async function handleHooksCommand(args: string[]): Promise<void> {
   if (subCommand === 'list' || subCommand === 'ls') {
     const hooks = globalHookRegistry.list();
 
-    console.log(`\n${c.bold}${c.brightCyan}=== JunScience Mandatory Security & Scientific Hooks ===${c.reset}\n`);
+    console.log(`\n${c.bold}${c.brightCyan}=== MedScience Mandatory Security & Scientific Hooks ===${c.reset}\n`);
     console.log(
       `${c.gray}Hooks are deterministic, non-bypassable guardrails executed across the research lifecycle.${c.reset}`
     );
@@ -37,5 +37,5 @@ export async function handleHooksCommand(args: string[]): Promise<void> {
     return;
   }
 
-  console.log(`${c.yellow}Unknown hooks subcommand: "${subCommand}". Available: "junscience hooks list"${c.reset}`);
+  console.log(`${c.yellow}Unknown hooks subcommand: "${subCommand}". Available: "medscience hooks list"${c.reset}`);
 }

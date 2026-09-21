@@ -4,7 +4,7 @@ displayName: Scientific Pipeline Reproducibility & Provenance Packaging
 description: Package complete research pipelines into deterministic reproducibility bundles (manifest.json) containing executed script hashes, random seeds, input data SHA-256 digests, runtime environment snapshots, and parameter dictionaries.
 category: reproducibility
 version: 1.0.0
-author: JunScience Core
+author: MedScience Core
 requiredTools:
   - python_runner
 keywords:

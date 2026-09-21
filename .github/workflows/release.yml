@@ -1,4 +1,4 @@
-name: JunScience Desktop Release
+name: MedScience Desktop Release
 
 on:
   push:
@@ -59,7 +59,7 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/')
         with:
           tag_name: ${{ github.ref_name }}
-          name: JunScience Release ${{ github.ref_name }}
+          name: MedScience Release ${{ github.ref_name }}
           draft: false
           prerelease: false
           generate_release_notes: true

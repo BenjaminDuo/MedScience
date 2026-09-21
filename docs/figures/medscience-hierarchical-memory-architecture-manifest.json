@@ -1,0 +1,45 @@
+{
+  "artifact": "Evidence-gated hierarchical scientific memory for MedScience",
+  "artifact_id": "medscience-hierarchical-memory-architecture",
+  "created_at": "2026-09-08",
+  "intended_use": "SCI manuscript architecture figure; full-page or landscape placement",
+  "canvas": {
+    "view_box": "0 0 1800 1180",
+    "physical_size": "300 mm x 196.667 mm",
+    "aspect_ratio": 1.5254
+  },
+  "exports": [
+    {
+      "path": "medscience-hierarchical-memory-architecture.svg",
+      "media_type": "image/svg+xml",
+      "editable": true,
+      "size_bytes": 25284,
+      "sha256": "532000edf72b484f1ba3eb50b63f2e60c7ec4352435b3d726cf2cb66e206358a"
+    },
+    {
+      "path": "medscience-hierarchical-memory-architecture.pdf",
+      "media_type": "application/pdf",
+      "vector": true,
+      "embedded_fonts": true,
+      "raster_xobjects": 0,
+      "page_size_points": "851.13 x 558.23",
+      "size_bytes": 50405,
+      "sha256": "e32f8a8cd1e3e38ee30b87fdc07e25e1f590d6b95d6cc98859418732bb03471e"
+    },
+    {
+      "path": "medscience-hierarchical-memory-architecture.png",
+      "media_type": "image/png",
+      "pixel_dimensions": "3600 x 2359",
+      "dpi": 300,
+      "size_bytes": 2185768,
+      "sha256": "654179d94e018021b6ef9263a0a2073e2454454fd703f2de0b9cdf52017a886c"
+    }
+  ],
+  "content_panels": [
+    "Context-aware memory routing",
+    "Three-tier memory and semantic namespace tree",
+    "Scope-specific memory mounts",
+    "Evidence-gated consolidation"
+  ],
+  "asset_provenance": "Deterministically authored vector artwork; no external or AI-generated raster assets were used."
+}

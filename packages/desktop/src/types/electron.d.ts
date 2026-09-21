@@ -1,8 +1,8 @@
-import type { JunScienceDesktopAPI } from '../../electron/preload';
+import type { MedScienceDesktopAPI } from '../../electron/preload';
 
 declare global {
   interface Window {
-    junscience?: JunScienceDesktopAPI;
+    medscience?: MedScienceDesktopAPI;
   }
 }
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, Text, Static } from 'ink';
-import { Artifact, Citation } from '@junscience/core';
+import { Artifact, Citation } from '@medscience/core';
 
 export interface HistoryTurn {
   id: string;

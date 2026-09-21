@@ -7,7 +7,7 @@ export const DifferentialExpressionAnalysisSkill: SkillDefinition = {
   description: 'Perform statistical two-group differential gene expression analysis, calculating Log2 Fold Change, Welch t-test p-values, Benjamini-Hochberg FDR correction, and Volcano plot thresholds.',
   category: 'bioinformatics',
   version: '1.0.0',
-  author: 'JunScience Core',
+  author: 'MedScience Core',
   bundled: true,
   requiredTools: ['python_runner'],
   keywords: ['differential expression', 'transcriptomics', 'volcano', 'deg', 'rnaseq', 'fdr', 'log2fc', 'masld', 'nash'],

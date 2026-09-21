@@ -161,6 +161,13 @@ export class AnthropicProtocol {
         description: t.description,
         input_schema: t.parameters || t.inputSchema || {},
       }));
+
+      if (request.toolChoice === 'required') {
+        payload.tool_choice = { type: 'any' };
+      } else if (request.toolChoice && typeof request.toolChoice === 'object') {
+        payload.tool_choice = { type: 'tool', name: request.toolChoice.name };
+      }
+      // 'auto' / unset: omit tool_choice and let the API's own default apply.
     }
 
     return payload;

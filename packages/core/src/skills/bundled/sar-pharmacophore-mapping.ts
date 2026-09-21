@@ -7,7 +7,7 @@ export const SarPharmacophoreMappingSkill: SkillDefinition = {
   description: 'Correlate chemical substituent modifications with target bioactivity (IC50, Ki, Kd) shifts across ChEMBL assays, evaluate Lipinski rule-of-5 compliance, and deduce essential pharmacophore motifs.',
   category: 'chemistry',
   version: '1.0.0',
-  author: 'JunScience Core',
+  author: 'MedScience Core',
   bundled: true,
   requiredTools: ['chembl_lookup', 'pubchem_lookup', 'python_runner'],
   keywords: ['sar', 'pharmacophore', 'ic50', 'ki', 'lipinski', 'smiles', 'bioactivity', 'docking', 'scaffold'],

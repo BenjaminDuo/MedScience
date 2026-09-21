@@ -5,9 +5,12 @@ import { ContextPanel } from './ContextPanel';
 import { DesktopHomeView } from '../views/DesktopHomeView';
 import { DesktopWorkspaceView } from '../views/DesktopWorkspaceView';
 import { SessionsView } from '../views/SessionsView';
+import { ResearchTeamsView } from '../views/ResearchTeamsView';
 import { SkillsCatalogView } from '../views/SkillsCatalogView';
 import { EvidenceRegistryView } from '../views/EvidenceRegistryView';
 import { WorkspaceFilesView } from '../views/WorkspaceFilesView';
+import { ModelConfigView } from '../views/ModelConfigView';
+import { GuardrailHooksView } from '../views/GuardrailHooksView';
 import { CommandPalette } from '../common/CommandPalette';
 import { SettingsModal } from '../common/SettingsModal';
 import { useNav } from '../../context/NavContext';
@@ -33,13 +36,16 @@ export const AppShell: React.FC = () => {
             activeView === 'home' ? <DesktopHomeView /> : <DesktopWorkspaceView />
           )}
           {activeSection === 'sessions' && <SessionsView />}
+          {activeSection === 'teams' && <ResearchTeamsView />}
           {activeSection === 'skills' && <SkillsCatalogView />}
           {activeSection === 'evidence' && <EvidenceRegistryView />}
           {activeSection === 'files' && <WorkspaceFilesView />}
+          {activeSection === 'model-config' && <ModelConfigView />}
+          {activeSection === 'guardrails' && <GuardrailHooksView />}
         </main>
 
-        {/* Right Context Panel (Only in Research Agent Home / Workspace mode) */}
-        {activeSection === 'home' && <ContextPanel />}
+        {/* Right Context Panel (Only in active Workspace conversation, never on blank Home) */}
+        {activeSection === 'home' && activeView === 'workspace' && <ContextPanel />}
       </div>
 
       {/* Global Modals & Overlays */}

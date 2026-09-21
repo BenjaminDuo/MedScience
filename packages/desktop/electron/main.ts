@@ -6,7 +6,10 @@ import { fileURLToPath } from 'node:url';
 import { registerModelIpcHandlers } from './ipc/modelIpc.js';
 import { registerAgentIpcHandlers } from './ipc/agentIpc.js';
 import { registerSessionIpcHandlers } from './ipc/sessionIpc.js';
+import { registerRuntimeIpcHandlers } from './ipc/runtimeIpc.js';
+import { registerTeamIpcHandlers } from './ipc/teamIpc.js';
 import { resolveStaticAssetPath } from './staticAssetPath.js';
+import { globalExecutionRouter } from '@medscience/core';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -46,7 +49,7 @@ function createInternalServer(distDir: string): Promise<number> {
 
     staticServer.listen(0, '127.0.0.1', () => {
       const addr = staticServer!.address() as any;
-      console.log(`[JunScience Desktop] Internal UI server running on http://127.0.0.1:${addr.port}`);
+      console.log(`[MedScience Desktop] Internal UI server running on http://127.0.0.1:${addr.port}`);
       resolve(addr.port);
     });
   });
@@ -60,7 +63,7 @@ async function createWindow(): Promise<void> {
     minHeight: 700,
     backgroundColor: '#090d16',
     titleBarStyle: 'hiddenInset',
-    title: 'JunScience — AI for Scientific Discovery',
+    title: 'MedScience — AI for Scientific Discovery',
     show: true,
     webPreferences: {
       preload: path.join(__dirname, 'preload.cjs'),
@@ -82,7 +85,7 @@ async function createWindow(): Promise<void> {
   const port = await createInternalServer(distDir);
   const targetUrl = `http://127.0.0.1:${port}`;
 
-  console.log(`[JunScience Desktop] Loading window URL: ${targetUrl}`);
+  console.log(`[MedScience Desktop] Loading window URL: ${targetUrl}`);
   await mainWindow.loadURL(targetUrl);
 
   mainWindow.on('closed', () => {
@@ -98,6 +101,8 @@ async function createWindow(): Promise<void> {
 registerModelIpcHandlers(ipcMain);
 registerAgentIpcHandlers(ipcMain, () => mainWindow);
 registerSessionIpcHandlers(ipcMain);
+registerRuntimeIpcHandlers(ipcMain);
+registerTeamIpcHandlers(ipcMain);
 
 app.whenReady().then(() => {
   createWindow();
@@ -113,4 +118,30 @@ app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
     app.quit();
   }
+});
+
+// Local Codex runtime processes are spawned detached (their own process
+// group, so CodexRuntimeBackend can send it a process-group-scoped signal
+// rather than killing by name) -- which also means they do NOT die
+// automatically when this Electron process exits. Without waiting for
+// dispose() to actually finish before quitting, they would leak as
+// orphaned background processes every time the app closes mid-session.
+// before-quit fires on every quit path (Cmd+Q, window close on non-mac,
+// app.quit()), unlike window-all-closed, which mac skips -- so this is the
+// one place cleanup is guaranteed to run. preventDefault + a re-entry guard
+// lets it actually finish (up to ChildProcessSupervisor's own termination
+// timeout) before quitting for real.
+let quitCleanupDone = false;
+app.on('before-quit', (event) => {
+  if (quitCleanupDone) return;
+  event.preventDefault();
+  globalExecutionRouter
+    .dispose()
+    .catch((error) => {
+      console.error('[MedScience Desktop] Error disposing execution backends on quit:', error);
+    })
+    .finally(() => {
+      quitCleanupDone = true;
+      app.quit();
+    });
 });

@@ -7,7 +7,7 @@ export const ClinicalTrialEligibilityMatchingSkill: SkillDefinition = {
   description: 'Parse unstructured patient clinical profiles and match against ClinicalTrials.gov Protocol Section inclusion/exclusion criteria (e.g. age, stage, prior lines of therapy, laboratory cutoffs).',
   category: 'clinical',
   version: '1.0.0',
-  author: 'JunScience Core',
+  author: 'MedScience Core',
   bundled: true,
   requiredTools: ['clinical_trials_lookup', 'python_runner'],
   keywords: ['eligibility', 'matching', 'clinical trial', 'inclusion', 'exclusion', 'nct', 'patient', 'masld', 'nash'],

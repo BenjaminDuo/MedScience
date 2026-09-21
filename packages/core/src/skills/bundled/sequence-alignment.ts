@@ -7,7 +7,7 @@ export const SequenceAlignmentSkill: SkillDefinition = {
   description: 'Align homologous protein or nucleotide sequences, calculate position-specific identity scores, and map conserved functional motifs or drug-binding residues.',
   category: 'molecular-biology',
   version: '1.0.0',
-  author: 'JunScience Core',
+  author: 'MedScience Core',
   bundled: true,
   requiredTools: ['uniprot_lookup', 'python_runner'],
   keywords: ['alignment', 'sequence', 'msa', 'conservation', 'homology', 'paralog', 'identity', 'blosum62'],

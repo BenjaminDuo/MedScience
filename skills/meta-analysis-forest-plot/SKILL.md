@@ -4,7 +4,7 @@ displayName: Meta-Analysis & Forest Plot Synthesis
 description: Aggregate effect sizes across multi-center clinical trials using Inverse-Variance fixed-effects and DerSimonian-Laird random-effects models, evaluating Cochran Q and I² heterogeneity.
 category: statistics
 version: 1.0.0
-author: JunScience Core
+author: MedScience Core
 requiredTools:
   - clinical_trials_lookup
   - python_runner

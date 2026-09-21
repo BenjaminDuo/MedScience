@@ -12,6 +12,7 @@ import {
 } from 'lucide-react';
 import { useAgent } from '../../context/AgentContext';
 import { useNav } from '../../context/NavContext';
+import { useLanguage } from '../../context/LanguageContext';
 
 interface EvidenceRecord {
   id: string;
@@ -28,6 +29,7 @@ interface EvidenceRecord {
 export const EvidenceRegistryView: React.FC = () => {
   const { currentSession, sessions, resetSession } = useAgent();
   const { setActiveSection } = useNav();
+  const { t } = useLanguage();
 
   const [searchQuery, setSearchQuery] = useState('');
   const [filterType, setFilterType] = useState<string>('All');
@@ -88,9 +90,9 @@ export const EvidenceRegistryView: React.FC = () => {
               <ShieldCheck size={22} />
             </div>
             <div>
-              <h2 className="text-2xl font-bold tracking-tight text-text-primary">Evidence Registry</h2>
+              <h2 className="text-2xl font-bold tracking-tight text-text-primary">{t('Evidence Registry', '证据登记库')}</h2>
               <p className="text-sm text-text-secondary mt-0.5">
-                Immutable, formal evidence tracking gate for citations, bioactivities, and clinical records.
+                {t('Immutable, formal evidence tracking gate for citations, bioactivities, and clinical records.', '面向引用、生物活性与临床记录的不可篡改正式证据追踪门禁。')}
               </p>
             </div>
           </div>
@@ -98,7 +100,7 @@ export const EvidenceRegistryView: React.FC = () => {
 
         <div className="flex items-center gap-2 text-xs font-mono px-3 py-1.5 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
           <CheckCircle size={14} />
-          <span>EvidenceVerifier Active</span>
+          <span>{t('EvidenceVerifier Active', '证据验证器运行中')}</span>
         </div>
       </div>
 
@@ -124,7 +126,7 @@ export const EvidenceRegistryView: React.FC = () => {
           <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
           <input
             type="text"
-            placeholder="Search PMIDs, trials, titles..."
+            placeholder={t('Search PMIDs, trials, titles...', '搜索 PMID、试验、标题...')}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="w-full pl-8 pr-3 py-1.5 rounded-lg bg-bg-surface border border-border focus:border-accent text-xs text-text-primary placeholder:text-text-muted"
@@ -140,12 +142,12 @@ export const EvidenceRegistryView: React.FC = () => {
           </div>
           <div className="max-w-md mx-auto space-y-1.5">
             <h3 className="text-base font-semibold text-text-primary">
-              {searchQuery ? 'No matching verified evidence found' : 'No evidence records verified yet'}
+              {searchQuery ? t('No matching verified evidence found', '未找到匹配的已验证证据') : t('No evidence records verified yet', '尚无已验证的证据记录')}
             </h3>
             <p className="text-xs text-text-secondary leading-relaxed">
               {searchQuery
-                ? `No evidence matched "${searchQuery}". Try searching by PMID or gene symbol.`
-                : 'As you query biological databases and run scientific workflows, all verified citations and evidence will be formally recorded here.'}
+                ? t(`No evidence matched "${searchQuery}". Try searching by PMID or gene symbol.`, `未找到匹配 "${searchQuery}" 的证据。请尝试通过 PMID 或基因符号搜索。`)
+                : t('As you query biological databases and run scientific workflows, all verified citations and evidence will be formally recorded here.', '当您查询生物数据库并运行科研工作流时，所有已验证的引用和证据将被正式记录于此。')}
             </p>
           </div>
           {!searchQuery && (
@@ -154,7 +156,7 @@ export const EvidenceRegistryView: React.FC = () => {
               className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-accent text-white text-xs font-medium hover:bg-accent-hover transition-colors shadow-sm"
             >
               <Sparkles size={14} />
-              <span>Start Scientific Inquiry</span>
+              <span>{t('Start Scientific Inquiry', '开始科研探究')}</span>
             </button>
           )}
         </div>
@@ -173,7 +175,7 @@ export const EvidenceRegistryView: React.FC = () => {
                   <span className="text-[11px] font-mono px-2 py-0.5 rounded bg-bg-elevated text-text-muted border border-border-subtle">
                     {rec.sourceType}
                   </span>
-                  <span className="text-xs text-text-muted">from: {rec.sessionTitle}</span>
+                  <span className="text-xs text-text-muted">{t('from: ', '来自：')}{rec.sessionTitle}</span>
                 </div>
 
                 <h4 className="text-[14px] font-semibold text-text-primary leading-snug">
@@ -197,7 +199,7 @@ export const EvidenceRegistryView: React.FC = () => {
                   rel="noopener noreferrer"
                   className="flex items-center gap-1 px-3 py-1.5 rounded-lg border border-border hover:border-accent/40 bg-bg-elevated hover:bg-bg-hover text-text-secondary hover:text-text-primary text-xs font-medium transition-all shrink-0 self-start"
                 >
-                  <span>View Source</span>
+                  <span>{t('View Source', '查看来源')}</span>
                   <ExternalLink size={12} />
                 </a>
               )}

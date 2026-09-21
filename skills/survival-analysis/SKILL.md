@@ -4,7 +4,7 @@ displayName: Kaplan-Meier Survival Analysis & Log-Rank Testing
 description: Compute non-parametric Kaplan-Meier survival curves, Greenwood standard errors, median survival times, and Log-Rank comparative statistics across clinical trial cohorts.
 category: statistics
 version: 1.0.0
-author: JunScience Core
+author: MedScience Core
 requiredTools:
   - python_runner
 keywords:

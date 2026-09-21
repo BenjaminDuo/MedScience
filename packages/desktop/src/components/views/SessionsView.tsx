@@ -15,10 +15,12 @@ import {
 } from 'lucide-react';
 import { useAgent } from '../../context/AgentContext';
 import { useNav } from '../../context/NavContext';
+import { useLanguage } from '../../context/LanguageContext';
 
 export const SessionsView: React.FC = () => {
   const { sessions, openSession, renameSession, deleteSession, exportSession, resetSession } = useAgent();
   const { setActiveSection } = useNav();
+  const { t } = useLanguage();
 
   const [searchQuery, setSearchQuery] = useState('');
   const [editingSessionId, setEditingSessionId] = useState<string | null>(null);
@@ -60,7 +62,7 @@ export const SessionsView: React.FC = () => {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `JunScience_Report_${id}.md`;
+    a.download = `MedScience_Report_${id}.md`;
     a.click();
     URL.revokeObjectURL(url);
 
@@ -83,9 +85,9 @@ export const SessionsView: React.FC = () => {
               <FolderKanban size={22} />
             </div>
             <div>
-              <h2 className="text-2xl font-bold tracking-tight text-text-primary">Research Sessions</h2>
+              <h2 className="text-2xl font-bold tracking-tight text-text-primary">{t('Research Sessions', '研究会话')}</h2>
               <p className="text-sm text-text-secondary mt-0.5">
-                Local, persistent investigation records and verified scientific findings.
+                {t('Local, persistent investigation records and verified scientific findings.', '本地持久化的研究记录与已验证的科研发现。')}
               </p>
             </div>
           </div>
@@ -97,7 +99,7 @@ export const SessionsView: React.FC = () => {
             className="flex items-center gap-2 px-3.5 py-2 rounded-lg bg-accent hover:bg-accent-hover text-white text-xs font-semibold shadow-xs transition-colors"
           >
             <Sparkles size={14} />
-            <span>New Research</span>
+            <span>{t('New Research', '新建研究')}</span>
           </button>
         </div>
       </div>
@@ -108,7 +110,7 @@ export const SessionsView: React.FC = () => {
           <Search size={15} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-text-muted" />
           <input
             type="text"
-            placeholder="Filter sessions by title or ID..."
+            placeholder={t('Filter sessions by title or ID...', '按标题或 ID 筛选会话…')}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="w-full pl-9 pr-4 py-2 rounded-xl bg-bg-surface border border-border focus:border-accent focus:ring-1 focus:ring-accent text-xs text-text-primary placeholder:text-text-muted transition-all"
@@ -116,7 +118,7 @@ export const SessionsView: React.FC = () => {
         </div>
 
         <span className="text-xs font-mono text-text-muted">
-          {filteredSessions.length} {filteredSessions.length === 1 ? 'session' : 'sessions'} stored
+          {t(`${filteredSessions.length} ${filteredSessions.length === 1 ? 'session' : 'sessions'} stored`, `已保存 ${filteredSessions.length} 个会话`)}
         </span>
       </div>
 
@@ -128,12 +130,12 @@ export const SessionsView: React.FC = () => {
           </div>
           <div className="max-w-md mx-auto space-y-1.5">
             <h3 className="text-base font-semibold text-text-primary">
-              {searchQuery ? 'No matching research sessions' : 'No research sessions recorded yet'}
+              {searchQuery ? t('No matching research sessions', '未找到匹配的研究会话') : t('No research sessions recorded yet', '暂无历史研究会话')}
             </h3>
             <p className="text-xs text-text-secondary leading-relaxed">
               {searchQuery
-                ? `No sessions matched "${searchQuery}". Try a different keyword.`
-                : 'All your scientific investigations, tool executions, and generated manuscripts will be saved here.'}
+                ? t(`No sessions matched "${searchQuery}". Try a different keyword.`, `未找到匹配 "${searchQuery}" 的会话，换个关键词试试。`)
+                : t('All your scientific investigations, tool executions, and generated manuscripts will be saved here.', '你所有的科研探索、工具执行记录与生成的报告都会保存在这里。')}
             </p>
           </div>
           {!searchQuery && (
@@ -142,7 +144,7 @@ export const SessionsView: React.FC = () => {
               className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-accent text-white text-xs font-medium hover:bg-accent-hover transition-colors shadow-sm"
             >
               <Sparkles size={14} />
-              <span>Launch First Research Inquiry</span>
+              <span>{t('Launch First Research Inquiry', '发起第一个研究问题')}</span>
             </button>
           )}
         </div>
@@ -172,14 +174,14 @@ export const SessionsView: React.FC = () => {
                       <button
                         onClick={() => handleSaveRename(session.id)}
                         className="p-1.5 rounded-md bg-emerald-500/10 text-emerald-500 hover:bg-emerald-500/20"
-                        title="Save title"
+                        title={t('Save title', '保存标题')}
                       >
                         <Check size={14} />
                       </button>
                       <button
                         onClick={handleCancelRename}
                         className="p-1.5 rounded-md bg-rose-500/10 text-rose-500 hover:bg-rose-500/20"
-                        title="Cancel"
+                        title={t('Cancel', '取消')}
                       >
                         <X size={14} />
                       </button>
@@ -198,7 +200,7 @@ export const SessionsView: React.FC = () => {
                       <button
                         onClick={() => handleStartRename(session.id, session.title)}
                         className="opacity-0 group-hover:opacity-100 p-1 rounded hover:bg-bg-hover text-text-muted hover:text-text-primary transition-all"
-                        title="Rename title"
+                        title={t('Rename title', '重命名')}
                       >
                         <Edit2 size={13} />
                       </button>
@@ -213,7 +215,7 @@ export const SessionsView: React.FC = () => {
                     <span>•</span>
                     <span className="flex items-center gap-1">
                       <MessageSquare size={12} />
-                      <span>{agentTurns} {agentTurns === 1 ? 'synthesis turn' : 'synthesis turns'}</span>
+                      <span>{t(`${agentTurns} ${agentTurns === 1 ? 'synthesis turn' : 'synthesis turns'}`, `${agentTurns} 次综合回复`)}</span>
                     </span>
                     <span>•</span>
                     <span className="font-mono text-[11px] text-accent/90 bg-accent/5 px-1.5 py-0.5 rounded border border-accent/10">
@@ -226,12 +228,12 @@ export const SessionsView: React.FC = () => {
                 <div className="flex items-center gap-2 self-end sm:self-center">
                   {isConfirmingDelete ? (
                     <div className="flex items-center gap-2 p-1 rounded-lg bg-rose-500/10 border border-rose-500/30">
-                      <span className="text-xs text-rose-500 font-medium px-2">Confirm delete?</span>
+                      <span className="text-xs text-rose-500 font-medium px-2">{t('Confirm delete?', '确认删除？')}</span>
                       <button
                         onClick={() => handleDelete(session.id)}
                         className="px-2.5 py-1 rounded bg-rose-600 hover:bg-rose-700 text-white text-xs font-semibold transition-colors"
                       >
-                        Delete
+                        {t('Delete', '删除')}
                       </button>
                       <button
                         onClick={() => setConfirmDeleteId(null)}
@@ -245,16 +247,16 @@ export const SessionsView: React.FC = () => {
                       <button
                         onClick={() => handleExport(session.id)}
                         className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg border border-border hover:border-accent/40 bg-bg-elevated hover:bg-bg-hover text-text-secondary hover:text-text-primary text-xs font-medium transition-all"
-                        title="Export Markdown Report"
+                        title={t('Export Markdown Report', '导出 Markdown 报告')}
                       >
                         <FileDown size={13} />
-                        <span>{copiedId === session.id ? 'Exported!' : 'Export'}</span>
+                        <span>{copiedId === session.id ? t('Exported!', '已导出！') : t('Export', '导出')}</span>
                       </button>
 
                       <button
                         onClick={() => setConfirmDeleteId(session.id)}
                         className="p-1.5 rounded-lg border border-border hover:border-rose-500/40 bg-bg-elevated hover:bg-rose-500/10 text-text-muted hover:text-rose-500 transition-colors"
-                        title="Delete Session"
+                        title={t('Delete Session', '删除会话')}
                       >
                         <Trash2 size={14} />
                       </button>
@@ -266,7 +268,7 @@ export const SessionsView: React.FC = () => {
                         }}
                         className="flex items-center gap-1 px-3 py-1.5 rounded-lg bg-accent hover:bg-accent-hover text-white text-xs font-semibold transition-colors"
                       >
-                        <span>Open</span>
+                        <span>{t('Open', '打开')}</span>
                         <ArrowRight size={13} />
                       </button>
                     </>

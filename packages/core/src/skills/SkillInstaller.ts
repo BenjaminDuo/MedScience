@@ -45,7 +45,7 @@ export class SkillInstaller {
   private userSkillsDir: string;
 
   constructor(userSkillsDir?: string) {
-    const baseHome = process.env.JUNSCIENCE_HOME || path.join(os.homedir(), '.junscience');
+    const baseHome = process.env.MEDSCIENCE_HOME || path.join(os.homedir(), '.medscience');
     this.userSkillsDir = userSkillsDir || path.join(baseHome, 'skills');
     if (!fs.existsSync(this.userSkillsDir)) {
       fs.mkdirSync(this.userSkillsDir, { recursive: true, mode: 0o700 });
@@ -171,7 +171,7 @@ export class SkillInstaller {
           });
         }
 
-        // Rule SEC-GATE-01: JunScience Mandatory Hook & Gate Tampering
+        // Rule SEC-GATE-01: MedScience Mandatory Hook & Gate Tampering
         if (
           /unregister\s*\(\s*['"](?:clinical-data-gate|evidence-verifier|secret-redaction)['"]\s*\)/.test(lineContent) ||
           /disableHook\s*\(\s*['"](?:clinical-data-gate|evidence-verifier|secret-redaction)['"]\s*\)/.test(lineContent) ||
@@ -284,7 +284,7 @@ export class SkillInstaller {
       requiredTools: requiredTools.length > 0 ? requiredTools : ['python_runner'],
       helperScripts,
       networkPolicy: 'AIR-GAPPED (No outbound network access permitted)',
-      filesystemScope: 'Strictly confined to ~/.junscience/workspace/<sessionId>/',
+      filesystemScope: 'Strictly confined to ~/.medscience/workspace/<sessionId>/',
     };
   }
 
@@ -295,7 +295,7 @@ export class SkillInstaller {
     sourceUrlOrPath: string,
     autoConfirm: boolean = false
   ): Promise<SkillInstallResult> {
-    const tempStagingDir = path.join(os.tmpdir(), `junscience-skill-${Date.now()}`);
+    const tempStagingDir = path.join(os.tmpdir(), `medscience-skill-${Date.now()}`);
 
     try {
       // 1. Staging preparation

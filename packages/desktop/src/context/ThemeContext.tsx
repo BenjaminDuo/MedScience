@@ -9,13 +9,14 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
   const [desktopTheme, setDesktopThemeState] = useState<DesktopTheme>(() => {
     if (paramDesktop && ['dark', 'light'].includes(paramDesktop)) return paramDesktop;
-    const saved = localStorage.getItem('junscience_desktop_theme');
-    return saved === 'light' ? 'light' : 'dark';
+    const saved = localStorage.getItem('medscience_desktop_theme');
+    // Default appearance is light; a user who has explicitly picked dark keeps it via localStorage.
+    return saved === 'dark' ? 'dark' : 'light';
   });
 
   const setDesktopTheme = (theme: DesktopTheme) => {
     setDesktopThemeState(theme);
-    localStorage.setItem('junscience_desktop_theme', theme);
+    localStorage.setItem('medscience_desktop_theme', theme);
   };
 
   useEffect(() => {

@@ -94,7 +94,7 @@ export const ThemeGalleryView: React.FC = () => {
       <div className="pb-6 border-b border-border">
         <h2 className="text-2xl font-bold text-text-primary">Theme & Environment Showcase</h2>
         <p className="text-sm text-text-secondary mt-1">
-          Select any of the 6 official JunScience visual specifications to inspect live.
+          Select any of the 6 official MedScience visual specifications to inspect live.
         </p>
       </div>
 

@@ -4,7 +4,7 @@ displayName: Protein Domain Architecture & 3D Hotspot Mapping
 description: Deconstruct multidomain protein topological architectures from Swiss-Prot UniProtKB, map active catalytic and allosteric pocket boundaries, and cross-reference AlphaFold pLDDT disorder scores.
 category: proteomics
 version: 1.0.0
-author: JunScience Core
+author: MedScience Core
 requiredTools:
   - uniprot_lookup
   - pdb_lookup

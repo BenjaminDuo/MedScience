@@ -14,7 +14,7 @@ import {
   PanelLeftClose,
   PanelLeft,
 } from 'lucide-react';
-import { JunScienceLogo } from '../common/JunScienceLogo';
+import { MedScienceLogo } from '../common/MedScienceLogo';
 import { useNav } from '../../context/NavContext';
 import { useAgent } from '../../context/AgentContext';
 import { NavSection } from '../../types/navigation';
@@ -75,10 +75,10 @@ export const Sidebar: React.FC<SidebarProps> = ({ className = '' }) => {
             setActiveSection('home');
           }}
         >
-          <JunScienceLogo size={28} />
+          <MedScienceLogo size={28} />
           {!isSidebarCollapsed && (
             <span className="font-semibold text-[17px] tracking-tight text-text-primary whitespace-nowrap">
-              JunScience
+              MedScience
             </span>
           )}
         </div>

@@ -4,7 +4,7 @@ displayName: Chemical Similarity & Fingerprint Tanimoto Search
 description: Compute structural similarity across chemical compound libraries using circular fingerprints (Morgan / ECFP4) and Tanimoto coefficient matrices.
 category: cheminformatics
 version: 1.0.0
-author: JunScience Core
+author: MedScience Core
 requiredTools:
   - pubchem_lookup
   - chembl_lookup

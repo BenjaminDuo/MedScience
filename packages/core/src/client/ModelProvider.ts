@@ -2,7 +2,7 @@ import { ModelRequest, ModelResponse, ConnectionTestResult } from '../types/mode
 
 export interface ModelProvider {
   name: string;
-  /** Whether requests leave the local JunScience process/host boundary. */
+  /** Whether requests leave the local MedScience process/host boundary. */
   readonly isExternal?: boolean;
   listModels(): Promise<string[]>;
   generate(request: ModelRequest): Promise<ModelResponse>;

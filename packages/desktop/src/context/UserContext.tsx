@@ -14,7 +14,7 @@ interface UserContextType {
   resetUser: () => void;
 }
 
-const LOCAL_STORAGE_USER_KEY = 'junscience_user_profile_v1';
+const LOCAL_STORAGE_USER_KEY = 'medscience_user_profile_v1';
 
 const DEFAULT_USER: UserProfile = {
   name: 'Researcher',

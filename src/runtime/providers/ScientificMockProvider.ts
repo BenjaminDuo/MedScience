@@ -4,7 +4,7 @@ export class ScientificMockProvider implements ModelProvider {
   public name = 'scientific-mock';
 
   public async listModels(): Promise<string[]> {
-    return ['JunScience-Research-v1', 'JunScience-Bio-v1', 'JunScience-Chem-v1'];
+    return ['MedScience-Research-v1', 'MedScience-Bio-v1', 'MedScience-Chem-v1'];
   }
 
   public async generate(request: ModelRequest): Promise<ModelResponse> {

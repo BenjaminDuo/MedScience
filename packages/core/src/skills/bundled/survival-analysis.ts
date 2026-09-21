@@ -7,7 +7,7 @@ export const SurvivalAnalysisSkill: SkillDefinition = {
   description: 'Compute non-parametric Kaplan-Meier survival curves, Greenwood standard errors, median survival times, and Log-Rank comparative statistics across clinical trial cohorts.',
   category: 'statistics',
   version: '1.0.0',
-  author: 'JunScience Core',
+  author: 'MedScience Core',
   bundled: true,
   requiredTools: ['python_runner'],
   keywords: ['survival', 'kaplan meier', 'log rank', 'hazard ratio', 'pfs', 'os', 'censoring', 'clinical trial'],

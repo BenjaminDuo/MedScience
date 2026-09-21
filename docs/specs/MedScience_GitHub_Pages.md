@@ -1,10 +1,10 @@
-# JunScience GitHub Pages — Landing Page Specification
+# MedScience GitHub Pages — Landing Page Specification
 
 ## 0. Task
 
-Build the official **JunScience GitHub Pages landing page** for:
+Build the official **MedScience GitHub Pages landing page** for:
 
-`https://github.com/Benjamin-JHou/JunScience`
+`https://github.com/BenjaminDuo/MedScience`
 
 This is **not** a generic AI SaaS marketing page.
 
@@ -12,7 +12,7 @@ The desired result is a serious, documentation-first **AI4S / scientific framewo
 
 `https://omicverse.github.io/omicverse-pages/index.html`
 
-Do not copy OmicVerse branding, source code, text, or assets. Adapt its **framework/documentation portal structure** to JunScience.
+Do not copy OmicVerse branding, source code, text, or assets. Adapt its **framework/documentation portal structure** to MedScience.
 
 Use the supplied visual reference image as the primary visual direction:
 
@@ -22,11 +22,11 @@ Use the supplied visual reference image as the primary visual direction:
 
 ## 1. Product Positioning
 
-JunScience is:
+MedScience is:
 
-> **JunScience — AI for Scientific Discovery**
+> **MedScience — AI for Scientific Discovery**
 
-The current repository describes JunScience as an evidence-traceable scientific/biomedical research Agent, with emphasis on molecular biology, clinical evidence, medical multimodal research, scientific tools, reproducibility, and agent orchestration.
+The current repository describes MedScience as an evidence-traceable scientific/biomedical research Agent, with emphasis on molecular biology, clinical evidence, medical multimodal research, scientific tools, reproducibility, and agent orchestration.
 
 The current README describes capabilities including:
 
@@ -95,7 +95,7 @@ Use a documentation-style left sidebar on desktop.
 Suggested navigation:
 
 ```text
-JunScience
+MedScience
 AI for Scientific Discovery
 
 Home
@@ -156,7 +156,7 @@ Use a documentation-style hero.
 ### Left
 
 ```text
-JunScience
+MedScience
 
 AI for Scientific Discovery
 ```
@@ -184,7 +184,7 @@ GitHub Repo
 
 ### Right
 
-Use the existing JunScience logo / scientific atomic-J visual where possible.
+Use the existing MedScience logo / scientific atomic-J visual where possible.
 
 Prefer existing repository assets rather than generating an unrelated new logo.
 
@@ -233,7 +233,7 @@ Architecture
 Subheading:
 
 ```text
-JunScience is built as a modular scientific Agent runtime.
+MedScience is built as a modular scientific Agent runtime.
 ```
 
 Show a clean horizontal architecture diagram:
@@ -241,7 +241,7 @@ Show a clean horizontal architecture diagram:
 ```text
 User Interface
       ↓
-JunScience Core
+MedScience Core
       ↓
 Agent Harness
       ↓
@@ -427,7 +427,7 @@ Scientific Tools & Agent Skills
 Explain:
 
 ```text
-JunScience combines Agent reasoning with executable scientific tools
+MedScience combines Agent reasoning with executable scientific tools
 and domain-specific skills.
 ```
 
@@ -458,8 +458,8 @@ Include a compact documentation-style Quick Start.
 Example only:
 
 ```bash
-git clone https://github.com/Benjamin-JHou/JunScience.git
-cd JunScience
+git clone https://github.com/BenjaminDuo/MedScience.git
+cd MedScience
 npm install
 npm run dev
 ```
@@ -546,12 +546,12 @@ Use the real repository URL.
 
 # 16. Academic Identity / Citation
 
-Because JunScience is a scientific framework, give it an academic identity.
+Because MedScience is a scientific framework, give it an academic identity.
 
 Use:
 
 ```text
-Cite JunScience
+Cite MedScience
 ```
 
 If an actual paper/citation exists in the repository, use it.
@@ -572,7 +572,7 @@ only if appropriate.
 
 Documentation-style footer.
 
-### JunScience
+### MedScience
 
 ```text
 AI for Scientific Discovery
@@ -609,7 +609,7 @@ Third-party notices
 Bottom:
 
 ```text
-© JunScience
+© MedScience
 Open source under MIT License
 ```
 
@@ -632,7 +632,7 @@ Default:
 Light
 ```
 
-Dark mode should inherit the existing JunScience desktop dark visual language:
+Dark mode should inherit the existing MedScience desktop dark visual language:
 
 - deep navy / black
 - blue / cyan scientific accents
@@ -758,7 +758,7 @@ theme-color
 Suggested title:
 
 ```text
-JunScience — AI for Scientific Discovery
+MedScience — AI for Scientific Discovery
 ```
 
 Suggested description:
@@ -905,7 +905,7 @@ AI / Agent interface
 Community / GitHub
 ```
 
-JunScience should adapt that principle:
+MedScience should adapt that principle:
 
 ```text
 Project identity
@@ -939,7 +939,7 @@ The objective is for GitHub Pages to feel like a **scientific framework portal**
 
 - [ ] Light documentation-first design
 - [ ] Matches the supplied visual reference direction
-- [ ] JunScience branding is consistent
+- [ ] MedScience branding is consistent
 - [ ] Sidebar feels like a scientific documentation site
 - [ ] Hero is restrained and technical
 - [ ] Architecture is visually clear
@@ -975,7 +975,7 @@ The objective is for GitHub Pages to feel like a **scientific framework portal**
 - [ ] Does not look like generic AI SaaS
 - [ ] Does not overuse gradients/glows
 - [ ] Information density resembles a high-quality scientific framework homepage
-- [ ] User immediately understands what JunScience is
+- [ ] User immediately understands what MedScience is
 - [ ] User can immediately find how to start
 - [ ] User can immediately understand the architecture and scientific scope
 

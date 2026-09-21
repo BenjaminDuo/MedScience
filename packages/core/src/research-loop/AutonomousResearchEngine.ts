@@ -144,7 +144,7 @@ export class AutonomousResearchEngine {
     const skillInjectionPrompt = this.skillRegistry.formatPromptForInquiry(userInquiry);
 
     // Initial system prompt
-    const baseSystemPrompt = `You are JunScience, an autonomous empirical research agent.
+    const baseSystemPrompt = `You are MedScience, an autonomous empirical research agent.
 Goal: Investigate the scientific inquiry with real data, empirical calculations, and rigorous verification.
 
 Guidelines:

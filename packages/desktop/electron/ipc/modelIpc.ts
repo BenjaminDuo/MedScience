@@ -4,7 +4,7 @@ import {
   fallbackMockProvider,
   ModelProfile,
   ConnectionTestResult,
-} from '@junscience/core';
+} from '@medscience/core';
 
 function sanitizeProfile(profile: ModelProfile | undefined): ModelProfile | undefined {
   return profile ? { ...profile, apiKey: profile.apiKey ? '••••••••' : '' } : undefined;

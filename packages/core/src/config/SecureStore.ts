@@ -13,7 +13,7 @@ export class SecureStore {
   }
 
   private getConfigDir(): string {
-    return this.customDir || process.env.JUNSCIENCE_HOME || path.join(os.homedir(), '.junscience');
+    return this.customDir || process.env.MEDSCIENCE_HOME || path.join(os.homedir(), '.medscience');
   }
 
   private getCredentialsFile(): string {
@@ -33,7 +33,7 @@ export class SecureStore {
 
   private deriveMachineKey(): Buffer {
     // Salt derived from OS user identity and machine characteristics
-    const machineIdentifier = `${os.hostname()}:${os.userInfo().username}:${os.platform()}:junscience-v1-salt`;
+    const machineIdentifier = `${os.hostname()}:${os.userInfo().username}:${os.platform()}:medscience-v1-salt`;
     return crypto.createHash('sha256').update(machineIdentifier).digest();
   }
 

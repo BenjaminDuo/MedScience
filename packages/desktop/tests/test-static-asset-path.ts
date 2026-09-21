@@ -2,7 +2,7 @@ import path from 'node:path';
 import os from 'node:os';
 import { resolveStaticAssetPath } from '../electron/staticAssetPath.js';
 
-const distDir = path.join(os.tmpdir(), 'junscience-dist');
+const distDir = path.join(os.tmpdir(), 'medscience-dist');
 const indexPath = path.join(distDir, 'index.html');
 
 if (resolveStaticAssetPath(distDir, '/') !== indexPath) {

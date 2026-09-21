@@ -4,7 +4,7 @@ displayName: Bibliometric & Co-Citation Network Analysis
 description: Analyze scientific publication velocity, author collaboration clusters, journal impact factors, and keyword co-occurrence frequencies across PubMed literature records.
 category: literature
 version: 1.0.0
-author: JunScience Core
+author: MedScience Core
 requiredTools:
   - literature_search
   - python_runner

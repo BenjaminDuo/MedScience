@@ -1,9 +1,11 @@
 import React from 'react';
 import { FolderKanban, FlaskConical, ShieldCheck, CheckCircle } from 'lucide-react';
 import { useAgent } from '../../context/AgentContext';
+import { useLanguage } from '../../context/LanguageContext';
 
 export const ResearchStats: React.FC = () => {
   const { sessions } = useAgent();
+  const { t } = useLanguage();
 
   const totalCitations = sessions.reduce((acc, s) => {
     return acc + (s.messages?.reduce((mAcc, m) => mAcc + (m.citations?.length || 0), 0) || 0);
@@ -12,29 +14,29 @@ export const ResearchStats: React.FC = () => {
   const stats = [
     {
       id: 'stat-sessions',
-      label: 'Research Sessions',
+      label: t('Research Sessions', '研究会话'),
       value: sessions.length.toString(),
       icon: FolderKanban,
       color: 'text-accent',
     },
     {
       id: 'stat-skills',
-      label: 'Scientific Skills',
-      value: '19 Loaded',
+      label: t('Scientific Skills', '科研技能'),
+      value: t('19 Loaded', '已加载 19 项'),
       icon: FlaskConical,
       color: 'text-purple-500',
     },
     {
       id: 'stat-evidence',
-      label: 'Verified Evidence',
-      value: `${totalCitations} Records`,
+      label: t('Verified Evidence', '已验证证据'),
+      value: t(`${totalCitations} Records`, `${totalCitations} 条记录`),
       icon: ShieldCheck,
       color: 'text-emerald-500',
     },
     {
       id: 'stat-guardrails',
-      label: 'Guardrail Hooks',
-      value: '4 Enforced',
+      label: t('Guardrail Hooks', '防护钩子'),
+      value: t('4 Enforced', '已启用 4 项'),
       icon: CheckCircle,
       color: 'text-blue-500',
     },

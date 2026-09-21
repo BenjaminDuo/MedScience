@@ -7,7 +7,7 @@ export const ReproducibilityPackagingSkill: SkillDefinition = {
   description: 'Package complete research pipelines into deterministic reproducibility bundles (manifest.json) containing executed script hashes, random seeds, input data SHA-256 digests, runtime environment snapshots, and parameter dictionaries.',
   category: 'reproducibility',
   version: '1.0.0',
-  author: 'JunScience Core',
+  author: 'MedScience Core',
   bundled: true,
   requiredTools: ['python_runner'],
   keywords: ['reproducibility', 'provenance', 'manifest', 'sha256', 'pipeline', 'audit', 'integrity', 'open science'],
@@ -38,7 +38,7 @@ def build_reproducibility_manifest(pipeline_name: str, params: dict, seed: int =
         "created_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
         "random_seed": seed,
         "parameters": params,
-        "framework": "JunScience Scientific Workstation v1.0.0",
+        "framework": "MedScience Scientific Workstation v1.0.0",
         "verification_hash": hashlib.sha256(json.dumps(params, sort_keys=True).encode()).hexdigest()
     }
     return manifest

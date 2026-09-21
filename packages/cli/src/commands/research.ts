@@ -1,7 +1,7 @@
 import {
   globalResearchEngine,
   globalEventBus,
-} from '@junscience/core';
+} from '@medscience/core';
 import { StreamRenderer } from '../ui/streamRenderer.js';
 import { colors } from '../ui/banner.js';
 
@@ -9,7 +9,7 @@ export async function handleResearchCommand(inquiry: string): Promise<void> {
   const c = colors;
   if (!inquiry || !inquiry.trim()) {
     console.log(`${c.red}Error:${c.reset} Please provide a research question or inquiry.`);
-    console.log(`Example: junscience research "Investigate STAT4 phosphorylation in lupus nephritis"\n`);
+    console.log(`Example: medscience research "Investigate STAT4 phosphorylation in lupus nephritis"\n`);
     return;
   }
 

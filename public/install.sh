@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
-# JunScience CLI Quick Installer
+# MedScience CLI Quick Installer
 # Developer-first AI agent installer for scientific discovery
 
 CYAN='\033[0;36m'
@@ -43,17 +43,17 @@ if ! command -v git >/dev/null 2>&1; then
     exit 1
 fi
 
-echo -e "${GREEN}==>${NC} Setting up JunScience CLI Workstation..."
+echo -e "${GREEN}==>${NC} Setting up MedScience CLI Workstation..."
 
-INSTALL_DIR="${HOME}/.junscience-cli-runtime"
+INSTALL_DIR="${HOME}/.medscience-cli-runtime"
 
 if [ -d "${INSTALL_DIR}/.git" ]; then
     echo -e "Updating existing runtime at ${INSTALL_DIR}..."
     (cd "${INSTALL_DIR}" && git fetch --depth=1 origin main && git reset --hard origin/main) || true
 else
-    echo -e "Cloning latest JunScience repository..."
+    echo -e "Cloning latest MedScience repository..."
     rm -rf "${INSTALL_DIR}"
-    git clone --depth=1 https://github.com/Benjamin-JHou/JunScience.git "${INSTALL_DIR}"
+    git clone --depth=1 https://github.com/BenjaminDuo/MedScience.git "${INSTALL_DIR}"
 fi
 
 cd "${INSTALL_DIR}"
@@ -63,15 +63,15 @@ npm install --silent
 npm run build:core --silent
 npm run build:cli --silent
 
-chmod +x "${INSTALL_DIR}/packages/cli/bin/junscience.js"
+chmod +x "${INSTALL_DIR}/packages/cli/bin/medscience.js"
 
 # Setup binary launchers
 mkdir -p "${HOME}/.local/bin"
-ln -sf "${INSTALL_DIR}/packages/cli/bin/junscience.js" "${HOME}/.local/bin/junscience"
+ln -sf "${INSTALL_DIR}/packages/cli/bin/medscience.js" "${HOME}/.local/bin/medscience"
 
 # Attempt linking into /usr/local/bin if writable
 if [ -w "/usr/local/bin" ]; then
-    ln -sf "${INSTALL_DIR}/packages/cli/bin/junscience.js" "/usr/local/bin/junscience" 2>/dev/null || true
+    ln -sf "${INSTALL_DIR}/packages/cli/bin/medscience.js" "/usr/local/bin/medscience" 2>/dev/null || true
 fi
 
 # Also attempt npm link into global npm prefix
@@ -104,11 +104,11 @@ if [ "$PATH_NEEDS_UPDATE" -eq 1 ]; then
 fi
 
 echo -e "To start the interactive research agent, run:"
-echo -e "  ${CYAN}junscience${NC}"
+echo -e "  ${CYAN}medscience${NC}"
 echo ""
 echo -e "To execute a scientific research task directly:"
-echo -e "  ${CYAN}junscience research \"Investigate TYK2 JH2 pseudokinase allosteric binding\"${NC}"
+echo -e "  ${CYAN}medscience research \"Investigate TYK2 JH2 pseudokinase allosteric binding\"${NC}"
 echo ""
 echo -e "To configure models and API keys:"
-echo -e "  ${CYAN}junscience config set --model deepseek-chat --api-key <KEY>${NC}"
+echo -e "  ${CYAN}medscience config set --model deepseek-chat --api-key <KEY>${NC}"
 echo ""

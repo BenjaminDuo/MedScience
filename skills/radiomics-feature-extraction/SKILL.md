@@ -4,7 +4,7 @@ displayName: Medical Imaging Radiomics & Texture Feature Extraction
 description: Extract quantitative radiomics descriptors from medical CT/MRI volumetric Regions of Interest (ROI), including first-order voxel intensity statistics, morphological shape sphericity, and Gray-Level Co-occurrence Matrix (GLCM) texture metrics.
 category: imaging
 version: 1.0.0
-author: JunScience Core
+author: MedScience Core
 requiredTools:
   - medical_imaging_process
   - python_runner

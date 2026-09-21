@@ -4,7 +4,7 @@ displayName: Citation Network Graph & Scientific Hub Analysis
 description: Construct directed citation/co-citation graphs from bibliographic literature data, calculating in-degree centrality, PageRank, and identifying seminal scientific hub publications.
 category: literature
 version: 1.0.0
-author: JunScience Core
+author: MedScience Core
 requiredTools:
   - literature_search
   - python_runner

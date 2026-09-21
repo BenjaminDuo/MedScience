@@ -4,9 +4,9 @@ import path from 'node:path';
 import os from 'node:os';
 
 async function runSessionCrudTests() {
-  console.log('=== Running JunScience Core Session CRUD Test Suite ===\n');
+  console.log('=== Running MedScience Core Session CRUD Test Suite ===\n');
 
-  const testDir = path.join(os.tmpdir(), `junscience-test-sessions-${Date.now()}`);
+  const testDir = path.join(os.tmpdir(), `medscience-test-sessions-${Date.now()}`);
   const sm = new SessionManager(testDir);
 
   // 1. Create Session
@@ -62,7 +62,7 @@ async function runSessionCrudTests() {
   // 4. Export Markdown Report
   console.log('[Test 4/5] Export Markdown Report');
   const mdReport = sm.exportSessionMarkdown(sess1.id);
-  if (!mdReport.includes('JunScience Research Report') || !mdReport.includes('PNPLA3_Volcano_Plot.png')) {
+  if (!mdReport.includes('MedScience Research Report') || !mdReport.includes('PNPLA3_Volcano_Plot.png')) {
     throw new Error('Markdown export missing key details');
   }
   console.log(`  ✔ Exported Markdown report (${mdReport.length} chars)`);

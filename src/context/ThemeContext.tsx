@@ -11,35 +11,35 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
   const [desktopTheme, setDesktopThemeState] = useState<DesktopTheme>(() => {
     if (paramDesktop && ['dark', 'light'].includes(paramDesktop)) return paramDesktop;
-    const saved = localStorage.getItem('junscience_portal_theme');
+    const saved = localStorage.getItem('medscience_portal_theme');
     return saved === 'dark' ? 'dark' : 'light';
   });
 
   const [cliTheme, setCliThemeState] = useState<CliTheme>(() => {
     if (paramCli && ['green', 'blue', 'purple', 'amber'].includes(paramCli)) return paramCli;
-    const saved = localStorage.getItem('junscience_cli_theme') as CliTheme;
+    const saved = localStorage.getItem('medscience_cli_theme') as CliTheme;
     return ['green', 'blue', 'purple', 'amber'].includes(saved) ? saved : 'green';
   });
 
   const [viewMode, setViewModeState] = useState<ViewMode>(() => {
     if (paramView && ['desktop', 'cli', 'showcase'].includes(paramView)) return paramView;
-    const saved = localStorage.getItem('junscience_view_mode') as ViewMode;
+    const saved = localStorage.getItem('medscience_view_mode') as ViewMode;
     return ['desktop', 'cli', 'showcase'].includes(saved) ? saved : 'desktop';
   });
 
   const setDesktopTheme = (theme: DesktopTheme) => {
     setDesktopThemeState(theme);
-    localStorage.setItem('junscience_portal_theme', theme);
+    localStorage.setItem('medscience_portal_theme', theme);
   };
 
   const setCliTheme = (theme: CliTheme) => {
     setCliThemeState(theme);
-    localStorage.setItem('junscience_cli_theme', theme);
+    localStorage.setItem('medscience_cli_theme', theme);
   };
 
   const setViewMode = (mode: ViewMode) => {
     setViewModeState(mode);
-    localStorage.setItem('junscience_view_mode', mode);
+    localStorage.setItem('medscience_view_mode', mode);
   };
 
   useEffect(() => {

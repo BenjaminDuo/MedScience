@@ -167,7 +167,7 @@ export const FunctionalPlaceholders: React.FC<FunctionalViewProps> = ({ section 
           </div>
           <div>
             <h2 className="text-xl font-bold text-text-primary">{config.title}</h2>
-            <p className="text-xs text-text-muted mt-0.5">JunScience Capability Module</p>
+            <p className="text-xs text-text-muted mt-0.5">MedScience Capability Module</p>
           </div>
         </div>
 
@@ -207,7 +207,7 @@ export const FunctionalPlaceholders: React.FC<FunctionalViewProps> = ({ section 
             <span>Launch Agent Workflow</span>
           </button>
           <span className="text-xs text-text-muted">
-            Bound to JunScience Agent Execution Engine
+            Bound to MedScience Agent Execution Engine
           </span>
         </div>
       </div>

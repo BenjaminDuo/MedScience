@@ -7,7 +7,7 @@ import {
   globalEventBus,
   ModelProfile,
   RuntimeSession,
-} from '@junscience/core';
+} from '@medscience/core';
 import { Banner } from './Banner.js';
 import { StatusBar } from './StatusBar.js';
 import { HistoryPane, HistoryTurn } from './HistoryPane.js';

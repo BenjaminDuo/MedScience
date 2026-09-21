@@ -1,13 +1,15 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, useRef } from 'react';
 import { AgentSession, AgentStatus, AgentMessage, ToolExecution, Artifact, Citation } from '../types/agent';
 import { useNav } from './NavContext';
-import type { RuntimeEvent } from '@junscience/core';
+import type { RuntimeEvent, RuntimeApprovalRequest, RuntimeApprovalDecision, ExecutionProfile, Turn, RuntimeSession as CoreRuntimeSession } from '@medscience/core';
 
 export interface PlanTask {
   id: string;
   title: string;
   status: 'pending' | 'in_progress' | 'completed' | 'failed';
   evidenceIds?: string[];
+  category?: string;
+  resultNote?: string;
 }
 
 interface AgentContextType {
@@ -23,6 +25,20 @@ interface AgentContextType {
   deleteSession: (sessionId: string) => Promise<void>;
   exportSession: (sessionId: string) => Promise<string>;
   setActiveView: (view: 'home' | 'workspace') => void;
+  activeRunId?: string;
+  pendingApprovals: RuntimeApprovalRequest[];
+  runtimeError?: string;
+  cancelActiveRun: () => Promise<void>;
+  respondApproval: (approvalId: string, decision: RuntimeApprovalDecision) => Promise<void>;
+  // Prompt-bar "permission" picker: which Execution Profile (API vs local
+  // Codex, and for local Codex which sandbox/approval level) runs the NEXT
+  // submitted prompt. Defaults to whatever is active in Settings; picking
+  // one here overrides it for this session only, without touching Settings.
+  runtimeProfiles: ExecutionProfile[];
+  selectedExecutionProfileId?: string;
+  setSelectedExecutionProfileId: (id: string | undefined) => void;
+  // Prompt-bar "prioritize these databases/tools" picker.
+  availableTools: { name: string; description: string; category: string }[];
 }
 
 const AgentContext = createContext<AgentContextType | undefined>(undefined);
@@ -40,7 +56,7 @@ function createFreshSession(): AgentSession {
   };
 }
 
-const LOCAL_STORAGE_SESSIONS_KEY = 'junscience_desktop_sessions_v1';
+const LOCAL_STORAGE_SESSIONS_KEY = 'medscience_desktop_sessions_v1';
 
 export const AgentProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { registerNewChatCallback } = useNav();
@@ -63,6 +79,38 @@ export const AgentProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   const [activeView, setActiveView] = useState<'home' | 'workspace'>('home');
   const [status, setStatus] = useState<AgentStatus>('idle');
   const [planTasks, setPlanTasks] = useState<PlanTask[]>([]);
+  const [activeRunId, setActiveRunId] = useState<string | undefined>(undefined);
+  const [pendingApprovals, setPendingApprovals] = useState<RuntimeApprovalRequest[]>([]);
+  const [runtimeError, setRuntimeError] = useState<string | undefined>(undefined);
+  const [runtimeProfiles, setRuntimeProfiles] = useState<ExecutionProfile[]>([]);
+  const [selectedExecutionProfileId, setSelectedExecutionProfileId] = useState<string | undefined>(undefined);
+  const [availableTools, setAvailableTools] = useState<{ name: string; description: string; category: string }[]>([]);
+
+  // Accumulates raw text chunks streamed from the active backend (API model
+  // or local Codex CLI -- both push through the same onDelta channel; see
+  // ApiResearchBackend/CodexRuntimeBackend) for the turn currently in
+  // flight. Reset at the start of every submitPrompt call so a new turn
+  // never inherits leftover text from the previous one.
+  const streamingContentRef = useRef<string>('');
+
+  // Load the runtime/permission profiles and tool catalog once for the
+  // prompt bar's pickers. Defaults the selection to whatever is active in
+  // Settings so nothing changes until the user explicitly picks something.
+  useEffect(() => {
+    if (!window.medscience) return;
+    window.medscience.runtime
+      ?.listProfiles()
+      .then((profiles) => setRuntimeProfiles(profiles || []))
+      .catch(() => {});
+    window.medscience.runtime
+      ?.getActiveProfile()
+      .then((active) => setSelectedExecutionProfileId((prev) => prev ?? active?.id))
+      .catch(() => {});
+    window.medscience.agent
+      ?.listTools?.()
+      .then((tools) => setAvailableTools(tools || []))
+      .catch(() => {});
+  }, []);
 
   // Register ⌘N shortcut handler
   useEffect(() => {
@@ -80,8 +128,8 @@ export const AgentProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
   // Load real sessions from Electron IPC on mount if available
   useEffect(() => {
-    if (window.junscience?.session) {
-      window.junscience.session
+    if (window.medscience?.session) {
+      window.medscience.session
         .list()
         .then((list) => {
           if (list && list.length > 0) {
@@ -123,22 +171,65 @@ export const AgentProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
   // Listen to IPC runtime events from Electron Main process
   useEffect(() => {
-    if (window.junscience?.agent) {
-      const unsub = window.junscience.agent.onEvent((event: RuntimeEvent) => {
+    if (window.medscience?.agent) {
+      const unsub = window.medscience.agent.onEvent((event: RuntimeEvent) => {
         handleRuntimeEvent(event);
       });
       return unsub;
     }
   }, []);
 
+  // Live-stream the response text itself as it's generated. This is the
+  // one channel both backends push raw text through uniformly (see
+  // ApiResearchBackend.execute / CodexRuntimeBackend.execute's onDelta
+  // callbacks) -- API turns also get incremental 'agent.thinking' status
+  // labels, but local-runtime (Codex) turns don't emit those at all, so
+  // without this the composing message sat frozen on the initial
+  // "Formulating..." placeholder for the whole turn in that mode.
+  useEffect(() => {
+    if (!window.medscience?.agent?.onDelta) return;
+    const unsub = window.medscience.agent.onDelta((delta: string) => {
+      streamingContentRef.current += delta;
+      const streamed = streamingContentRef.current;
+      setCurrentSession((prev) => {
+        const messages = prev.messages.map((m, idx) =>
+          idx === prev.messages.length - 1 && m.role === 'agent' ? { ...m, content: streamed } : m
+        );
+        return { ...prev, messages };
+      });
+    });
+    return unsub;
+  }, []);
+
   const handleRuntimeEvent = (event: RuntimeEvent) => {
     switch (event.type) {
       case 'agent.started':
+        setStatus('thinking');
+        break;
       case 'agent.thinking':
         setStatus('thinking');
+        // Replace the static "Formulating..." placeholder with the agent's
+        // actual current step, so the message visibly progresses instead of
+        // sitting on the same generic sentence for the whole run.
+        if (event.payload.thought) {
+          const thought = event.payload.thought;
+          setCurrentSession((prev) => {
+            const messages = prev.messages.map((m, idx) =>
+              idx === prev.messages.length - 1 && m.role === 'agent' ? { ...m, content: thought } : m
+            );
+            return { ...prev, messages };
+          });
+        }
         break;
       case 'tool.started':
         setStatus('tool_calling');
+        setCurrentSession((prev) => {
+          const label = `Calling ${event.payload.toolName}...`;
+          const messages = prev.messages.map((m, idx) =>
+            idx === prev.messages.length - 1 && m.role === 'agent' ? { ...m, content: label } : m
+          );
+          return { ...prev, messages };
+        });
         break;
       case 'tool.completed':
         setCurrentSession((prev) => {
@@ -196,6 +287,101 @@ export const AgentProvider: React.FC<{ children: React.ReactNode }> = ({ childre
           return { ...prev, messages };
         });
         break;
+      case 'plan.created':
+        setPlanTasks(
+          (event.payload.tasks || []).map((task: any) => ({
+            id: task.id,
+            title: task.title,
+            status: task.status || 'pending',
+            evidenceIds: task.evidenceIds || [],
+            category: task.category,
+            resultNote: task.resultNote,
+          }))
+        );
+        break;
+      case 'plan.task.updated':
+      case 'plan.task.completed': {
+        const incoming = (event.payload as any).task;
+        setPlanTasks((prev) => {
+          // plan.task.completed only carries evidenceIds/resultNote (no
+          // status/title); merge onto the existing entry instead of
+          // requiring a full task object every time.
+          if (incoming) {
+            return prev.map((t) =>
+              t.id === incoming.id
+                ? { ...t, title: incoming.title ?? t.title, status: incoming.status ?? t.status, evidenceIds: incoming.evidenceIds ?? t.evidenceIds, category: incoming.category ?? t.category, resultNote: incoming.resultNote ?? t.resultNote }
+                : t
+            );
+          }
+          const taskId = (event.payload as any).taskId;
+          const evidenceIds = (event.payload as any).evidenceIds;
+          const resultNote = (event.payload as any).resultNote;
+          return prev.map((t) => (t.id === taskId ? { ...t, evidenceIds: evidenceIds ?? t.evidenceIds, resultNote: resultNote ?? t.resultNote } : t));
+        });
+        break;
+      }
+      case 'runtime.turn.started':
+        setActiveRunId(event.payload.runId);
+        setRuntimeError(undefined);
+        break;
+      case 'runtime.turn.completed':
+        setActiveRunId(undefined);
+        if (event.payload.status === 'cancelled') {
+          setStatus('cancelled');
+        } else if (event.payload.status === 'failed') {
+          setStatus('error');
+          if (event.payload.error) setRuntimeError(event.payload.error);
+        }
+        // 'completed' is left to agent.message.completed (below), which also
+        // handles persisting the session -- runtime.turn.completed for the
+        // local-runtime backend fires alongside it, not instead of it.
+        break;
+      case 'runtime.approval.requested':
+        setStatus('waiting_for_permission');
+        setPendingApprovals((prev) => [...prev.filter((a) => a.id !== event.payload.request.id), event.payload.request]);
+        break;
+      case 'runtime.error':
+        setActiveRunId(undefined);
+        setStatus('error');
+        setRuntimeError(event.payload.message);
+        break;
+      case 'file.change.started':
+        setCurrentSession((prev) => {
+          const messages = prev.messages.map((m, idx) => {
+            if (idx === prev.messages.length - 1 && m.role === 'agent') {
+              const existingTools = m.toolExecutions || [];
+              const exec: ToolExecution = {
+                id: event.payload.itemId,
+                toolName: 'file change',
+                category: 'execution',
+                description: (event.payload.files || []).join(', ') || 'Editing files',
+                status: 'running',
+                logs: [],
+              };
+              return { ...m, toolExecutions: [...existingTools.filter((t) => t.id !== exec.id), exec] };
+            }
+            return m;
+          });
+          return { ...prev, messages };
+        });
+        break;
+      case 'file.change.completed':
+        setCurrentSession((prev) => {
+          const messages = prev.messages.map((m, idx) => {
+            if (idx === prev.messages.length - 1 && m.role === 'agent') {
+              const existingTools = m.toolExecutions || [];
+              const updatedTools = existingTools.map((t) =>
+                t.id === event.payload.itemId
+                  ? { ...t, status: event.payload.status === 'failed' ? ('failed' as const) : ('completed' as const) }
+                  : t
+              );
+              return { ...m, toolExecutions: updatedTools };
+            }
+            return m;
+          });
+          return { ...prev, messages };
+        });
+        break;
       case 'agent.message.completed':
         setStatus('completed');
         setCurrentSession((prev) => {
@@ -234,6 +420,35 @@ export const AgentProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     setStatus('idle');
     setPlanTasks([]);
     setActiveView('home');
+    setActiveRunId(undefined);
+    setPendingApprovals([]);
+    setRuntimeError(undefined);
+  };
+
+  const cancelActiveRun = async () => {
+    if (!activeRunId) return;
+    if (window.medscience?.agent?.cancel) {
+      try {
+        await window.medscience.agent.cancel(activeRunId);
+      } catch (err) {
+        console.error('Failed to cancel the active run:', err);
+      }
+    }
+    // Optimistically clear locally too -- runtime.turn.completed (status
+    // 'cancelled') will confirm this once the backend actually tears the
+    // run down, but the Stop button should feel immediate either way.
+    setActiveRunId(undefined);
+  };
+
+  const respondApproval = async (approvalId: string, decision: RuntimeApprovalDecision) => {
+    setPendingApprovals((prev) => prev.filter((a) => a.id !== approvalId));
+    if (window.medscience?.runtime?.respondApproval) {
+      try {
+        await window.medscience.runtime.respondApproval(currentSession.id, approvalId, decision);
+      } catch (err) {
+        console.error('Failed to respond to approval request:', err);
+      }
+    }
   };
 
   const openSession = (sessionId: string) => {
@@ -249,9 +464,9 @@ export const AgentProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     const trimmed = newTitle.trim();
     if (!trimmed) return;
 
-    if (window.junscience?.session?.rename) {
+    if (window.medscience?.session?.rename) {
       try {
-        await window.junscience.session.rename(sessionId, trimmed);
+        await window.medscience.session.rename(sessionId, trimmed);
       } catch (err) {
         console.error('Failed to rename session over IPC:', err);
       }
@@ -265,9 +480,9 @@ export const AgentProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   };
 
   const deleteSession = async (sessionId: string) => {
-    if (window.junscience?.session?.delete) {
+    if (window.medscience?.session?.delete) {
       try {
-        await window.junscience.session.delete(sessionId);
+        await window.medscience.session.delete(sessionId);
       } catch (err) {
         console.error('Failed to delete session over IPC:', err);
       }
@@ -281,9 +496,9 @@ export const AgentProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   };
 
   const exportSession = async (sessionId: string): Promise<string> => {
-    if (window.junscience?.session) {
+    if (window.medscience?.session) {
       try {
-        const exported = await window.junscience.session.export(sessionId);
+        const exported = await window.medscience.session.export(sessionId);
         if (exported) return exported;
       } catch {}
     }
@@ -292,7 +507,7 @@ export const AgentProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     if (!sess) return '# Session Not Found\n';
 
     const lines: string[] = [
-      `# JunScience Research Report: ${sess.title}`,
+      `# MedScience Research Report: ${sess.title}`,
       `\n**Session ID**: \`${sess.id}\`  `,
       `**Created At**: ${new Date(sess.createdAt).toLocaleString()}  `,
       `**Status**: \`${sess.status.toUpperCase()}\`\n`,
@@ -302,7 +517,7 @@ export const AgentProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
     sess.messages.forEach((msg) => {
       const isAgent = msg.role === 'agent';
-      lines.push(`### ${isAgent ? '🔬 JunScience Agent' : '👤 User Inquiry'} (${msg.timestamp})`);
+      lines.push(`### ${isAgent ? '🔬 MedScience Agent' : '👤 User Inquiry'} (${msg.timestamp})`);
       lines.push(`${msg.content}\n`);
 
       if (msg.toolExecutions && msg.toolExecutions.length > 0) {
@@ -332,8 +547,53 @@ export const AgentProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       }
     });
 
-    lines.push(`\n---\n*Generated by JunScience Autonomous Research Workstation*`);
+    lines.push(`\n---\n*Generated by MedScience Autonomous Research Workstation*`);
     return lines.join('\n');
+  };
+
+  // The resolved value of window.medscience.agent.submitPrompt(...) is the
+  // authoritative outcome of a turn -- {session, turn} exactly as the
+  // backend (API research loop or local Codex) actually finished it.
+  // AutonomousResearchEngine (the API-mode backend, used whenever the
+  // active Execution Profile is "API" rather than local Codex) only ever
+  // emits sparse 'agent.thinking' events over the event bus and NEVER a
+  // completion event ('agent.message.completed', 'plan.created', etc. are
+  // only emitted by the local-runtime/Codex backend) -- so relying on live
+  // events alone left API-mode turns frozen on the initial placeholder
+  // forever even though the backend had already produced a real answer.
+  // Applying the resolved result directly here closes that gap for both
+  // backends, in addition to (not instead of) the live event handling
+  // above.
+  const applyTurnResult = (turn: Turn, session?: CoreRuntimeSession) => {
+    setStatus(turn.status as AgentStatus);
+    setCurrentSession((prev) => {
+      const messages = prev.messages.map((m, idx) => {
+        if (idx === prev.messages.length - 1 && m.role === 'agent') {
+          return {
+            ...m,
+            content: turn.agentResponse,
+            status: turn.status as AgentStatus,
+            toolExecutions: (turn.toolResults || []).map((tr) => tr.execution as any) as ToolExecution[],
+            artifacts: session?.artifacts ? (session.artifacts as any[] as Artifact[]) : m.artifacts,
+            citations: session?.citations ? (session.citations as any[] as Citation[]) : m.citations,
+          };
+        }
+        return m;
+      });
+      const updated = {
+        ...prev,
+        title: session?.title || prev.title,
+        status: turn.status as AgentStatus,
+        updatedAt: new Date().toISOString(),
+        messages,
+      };
+      setSessions((prevList) => {
+        const exists = prevList.some((s) => s.id === updated.id);
+        if (exists) return prevList.map((s) => (s.id === updated.id ? updated : s));
+        return [updated, ...prevList];
+      });
+      return updated;
+    });
   };
 
   const submitPrompt = async (promptText: string) => {
@@ -349,6 +609,11 @@ export const AgentProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       content: trimmed,
       timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
     };
+
+    // Fresh turn -- clear any streamed text left over from a previous one
+    // before the new placeholder message (and any onDelta chunks for this
+    // turn) start arriving.
+    streamingContentRef.current = '';
 
     const agentMessageId = `msg-${Date.now()}-agent`;
     const initialAgentMessage: AgentMessage = {
@@ -370,15 +635,12 @@ export const AgentProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       messages: [...currentSession.messages, userMessage, initialAgentMessage],
     };
 
-    // Initialize 5-stage research milestones
-    const initialPlan: PlanTask[] = [
-      { id: 'task-1', title: 'Target Sequence, Structure & Topology Search', status: 'in_progress', evidenceIds: [] },
-      { id: 'task-2', title: 'Bioactivity & Chemical Target Association', status: 'pending', evidenceIds: [] },
-      { id: 'task-3', title: 'Multi-Database Functional Enrichment & Pathway Mapping', status: 'pending', evidenceIds: [] },
-      { id: 'task-4', title: 'Clinical Trials & Safety Screening', status: 'pending', evidenceIds: [] },
-      { id: 'task-5', title: 'Hypothesis Synthesis & Formal Evidence Verification', status: 'pending', evidenceIds: [] },
-    ];
-    setPlanTasks(initialPlan);
+    // The real plan (with its real titles/categories) arrives moments later
+    // via the 'plan.created' runtime event -- this used to seed a fake,
+    // hardcoded 5-task placeholder here that never reflected what the
+    // backend actually did. Starting empty and letting the real event
+    // populate it keeps the panel honest instead of showing invented steps.
+    setPlanTasks([]);
 
     setCurrentSession(activeSession);
     setSessions((prev) => {
@@ -391,10 +653,15 @@ export const AgentProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
     setStatus('thinking');
     setActiveView('workspace');
+    setPendingApprovals([]);
+    setRuntimeError(undefined);
 
     try {
-      if (window.junscience?.agent) {
-        await window.junscience.agent.submitPrompt(trimmed, currentSession.id);
+      if (window.medscience?.agent) {
+        const result = await window.medscience.agent.submitPrompt(trimmed, currentSession.id, selectedExecutionProfileId);
+        if (result?.turn) {
+          applyTurnResult(result.turn as Turn, result.session as CoreRuntimeSession | undefined);
+        }
       } else {
         // Fallback for browser preview / development environment
         setTimeout(() => {
@@ -435,7 +702,20 @@ export const AgentProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       }
     } catch (err) {
       console.error('Agent execution error:', err);
-      setStatus('idle');
+      const message = err instanceof Error ? err.message : String(err);
+      setStatus('error');
+      setRuntimeError(message);
+      setCurrentSession((prev) => {
+        const messages = prev.messages.map((m, idx) => {
+          if (idx === prev.messages.length - 1 && m.role === 'agent') {
+            return { ...m, status: 'error' as AgentStatus, content: `Request failed: ${message}` };
+          }
+          return m;
+        });
+        const updated = { ...prev, status: 'error' as AgentStatus, updatedAt: new Date().toISOString(), messages };
+        setSessions((prevList) => prevList.map((s) => (s.id === updated.id ? updated : s)));
+        return updated;
+      });
     }
   };
 
@@ -454,6 +734,15 @@ export const AgentProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         deleteSession,
         exportSession,
         setActiveView,
+        activeRunId,
+        pendingApprovals,
+        runtimeError,
+        cancelActiveRun,
+        respondApproval,
+        runtimeProfiles,
+        selectedExecutionProfileId,
+        setSelectedExecutionProfileId,
+        availableTools,
       }}
     >
       {children}

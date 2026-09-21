@@ -33,8 +33,8 @@ with open("stats_summary.json", "w") as f:
 print(f"Calculated Mean: {mean_val:.2f}, Std: {std_dev:.2f}")
 `;
 
-  const originalSandboxPolicy = process.env.JUNSCIENCE_SANDBOX;
-  process.env.JUNSCIENCE_SANDBOX = 'disabled';
+  const originalSandboxPolicy = process.env.MEDSCIENCE_SANDBOX;
+  process.env.MEDSCIENCE_SANDBOX = 'disabled';
   const validRes = await PythonRunnerTool.execute({ scriptContent: validScript, scriptName: 'compute_stats.py' }, dummyContext);
   if (!validRes.success || !validRes.output.stdout.includes('Calculated Mean: 15.42') || validRes.output.isAirGapped) {
     throw new Error(`Explicitly authorized unconfined execution was reported incorrectly: ${JSON.stringify(validRes)}`);
@@ -44,7 +44,7 @@ print(f"Calculated Mean: {mean_val:.2f}, Std: {std_dev:.2f}")
   // Test 2: Missing kernel driver must fail closed
   console.log('\n[Test 2/4] Missing Sandbox Driver Fails Closed');
   const originalPath = process.env.PATH;
-  delete process.env.JUNSCIENCE_SANDBOX;
+  delete process.env.MEDSCIENCE_SANDBOX;
   process.env.PATH = '';
   const unavailableRes = await PythonRunnerTool.execute(
     { scriptContent: 'print("must not run")', scriptName: 'unavailable.py' },
@@ -86,9 +86,9 @@ print(f"Calculated Mean: {mean_val:.2f}, Std: {std_dev:.2f}")
   console.log('  ✔ Path-traversing scriptName rejected before any host file write.');
 
   if (originalSandboxPolicy === undefined) {
-    delete process.env.JUNSCIENCE_SANDBOX;
+    delete process.env.MEDSCIENCE_SANDBOX;
   } else {
-    process.env.JUNSCIENCE_SANDBOX = originalSandboxPolicy;
+    process.env.MEDSCIENCE_SANDBOX = originalSandboxPolicy;
   }
 
   console.log('\n✔ ALL PYTHON SANDBOX SECURITY TESTS PASSED (100% SUCCESS)\n');

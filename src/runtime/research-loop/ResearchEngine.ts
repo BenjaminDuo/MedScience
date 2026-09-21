@@ -63,7 +63,7 @@ export class ResearchEngine {
     const provenance = {
       dataset: 'GEO GSE181283 (14,200 PBMC cells)',
       code: 'analysis/render_volcano.py (Python 3.11, Scanpy 1.10, PyDESeq2 0.4)',
-      environment: 'Isolated JunScience Scientific Sandbox',
+      environment: 'Isolated MedScience Scientific Sandbox',
       duration: `${durationSec}s`,
     };
 

@@ -5,7 +5,7 @@ import fs from 'node:fs';
 import os from 'node:os';
 
 async function testFileEditorSuite() {
-  console.log('=== Running JunScience Confined FileEditorTool Verification Suite ===\n');
+  console.log('=== Running MedScience Confined FileEditorTool Verification Suite ===\n');
 
   const sessionId = `test-editor-${Date.now()}`;
   const context: ToolContext = {
@@ -15,7 +15,7 @@ async function testFileEditorSuite() {
     reportProgress: () => {},
   };
 
-  const workspaceRoot = process.env.JUNSCIENCE_HOME || path.join(os.homedir(), '.junscience');
+  const workspaceRoot = process.env.MEDSCIENCE_HOME || path.join(os.homedir(), '.medscience');
   const sessionWorkspace = path.resolve(workspaceRoot, 'workspace', sessionId);
 
   // [Phase 1: Valid Workspace File Operations]
@@ -25,7 +25,7 @@ async function testFileEditorSuite() {
   console.log('  [1.1] Write new text file: "manuscript_draft.tex"');
   const initialTex = `\\documentclass[11pt]{article}
 \\title{TYK2 Allosteric Inhibition in Autoimmune Diseases}
-\\author{JunScience Consortium}
+\\author{MedScience Consortium}
 \\begin{document}
 \\maketitle
 \\section{Abstract}
@@ -96,7 +96,7 @@ Deucravacitinib demonstrated IC50 = 12.5 nM.
     {
       path: 'manuscript_draft.tex',
       action: 'append',
-      appendContent: `% Data verified by JunScience Evidence Verification Gate`,
+      appendContent: `% Data verified by MedScience Evidence Verification Gate`,
     },
     context
   );

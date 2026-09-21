@@ -1,5 +1,5 @@
 import { colors } from './banner.js';
-import { Citation, Artifact } from '@junscience/core';
+import { Citation, Artifact } from '@medscience/core';
 
 export class StreamRenderer {
   private isThinking: boolean = false;

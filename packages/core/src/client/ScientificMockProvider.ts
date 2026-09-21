@@ -6,14 +6,14 @@ export class ScientificMockProvider implements ModelProvider {
   public readonly isExternal = false;
 
   public async listModels(): Promise<string[]> {
-    return ['JunScience-Research-v1 (Demo Mock)'];
+    return ['MedScience-Research-v1 (Demo Mock)'];
   }
 
   public async testConnection(): Promise<ConnectionTestResult> {
     return {
       success: true,
       latencyMs: 1,
-      model: 'JunScience-Research-v1 (Demo Mock)',
+      model: 'MedScience-Research-v1 (Demo Mock)',
       message: 'Demo mode is active (Offline simulated scientific research).',
     };
   }

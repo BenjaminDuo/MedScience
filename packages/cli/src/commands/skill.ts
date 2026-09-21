@@ -1,4 +1,4 @@
-import { globalSkillRegistry, globalSkillInstaller } from '@junscience/core';
+import { globalSkillRegistry, globalSkillInstaller } from '@medscience/core';
 import { colors } from '../ui/banner.js';
 import readline from 'node:readline';
 
@@ -25,7 +25,7 @@ export async function handleSkillCommand(args: string[]): Promise<void> {
       const bundled = globalSkillRegistry.listBundled();
       const userInstalled = globalSkillRegistry.listUserInstalled();
 
-      console.log(`\n${c.bold}${c.brightCyan}=== JunScience Scientific Skill Registry ===${c.reset}\n`);
+      console.log(`\n${c.bold}${c.brightCyan}=== MedScience Scientific Skill Registry ===${c.reset}\n`);
 
       console.log(`${c.bold}Built-in Bundled Skills (${bundled.length}):${c.reset}`);
       console.log(
@@ -48,8 +48,8 @@ export async function handleSkillCommand(args: string[]): Promise<void> {
 
       console.log(`\n${c.bold}User-Installed Skills (${userInstalled.length}):${c.reset}`);
       if (userInstalled.length === 0) {
-        console.log(`  ${c.gray}(No user-installed skills found in ~/.junscience/skills/)${c.reset}`);
-        console.log(`  ${c.dim}Use "junscience skill install <git-url | local-path>" to securely install third-party skills.${c.reset}\n`);
+        console.log(`  ${c.gray}(No user-installed skills found in ~/.medscience/skills/)${c.reset}`);
+        console.log(`  ${c.dim}Use "medscience skill install <git-url | local-path>" to securely install third-party skills.${c.reset}\n`);
       } else {
         console.log(
           '  ' +
@@ -65,7 +65,7 @@ export async function handleSkillCommand(args: string[]): Promise<void> {
               `${c.bold}${s.id.padEnd(36)}${c.reset}` +
               authorStr.padEnd(31) +
               statusStr.padEnd(23) +
-              `${c.dim}~/.junscience/skills/${s.id}${c.reset}`
+              `${c.dim}~/.medscience/skills/${s.id}${c.reset}`
           );
         }
         console.log();
@@ -77,12 +77,12 @@ export async function handleSkillCommand(args: string[]): Promise<void> {
     case 'add': {
       const source = args[1];
       if (!source) {
-        console.log(`${c.yellow}Usage: junscience skill install <git-url | local-directory-path> [--yes]${c.reset}`);
+        console.log(`${c.yellow}Usage: medscience skill install <git-url | local-directory-path> [--yes]${c.reset}`);
         return;
       }
 
       const autoConfirm = args.includes('--yes') || args.includes('-y');
-      console.log(`\n${c.bold}${c.brightCyan}🛡️ JunScience Skill Security Audit Initiated...${c.reset}`);
+      console.log(`\n${c.bold}${c.brightCyan}🛡️ MedScience Skill Security Audit Initiated...${c.reset}`);
       console.log(`${c.gray}Target Source: ${source}${c.reset}\n`);
 
       const result = await globalSkillInstaller.installSkill(source, autoConfirm);
@@ -123,7 +123,7 @@ export async function handleSkillCommand(args: string[]): Promise<void> {
         return;
       }
 
-      const ans = await askQuestion(`${c.bold}? Authorize and install this skill to ~/.junscience/skills/${cap.skillId}? (y/N): ${c.reset}`);
+      const ans = await askQuestion(`${c.bold}? Authorize and install this skill to ~/.medscience/skills/${cap.skillId}? (y/N): ${c.reset}`);
       if (ans.toLowerCase() === 'y' || ans.toLowerCase() === 'yes') {
         const installRes = await globalSkillInstaller.installSkill(source, true);
         console.log(`\n${c.brightGreen}✔ Skill '${cap.name}' authorized and installed successfully!${c.reset}\n`);
@@ -138,13 +138,13 @@ export async function handleSkillCommand(args: string[]): Promise<void> {
     case 'uninstall': {
       const skillId = args[1];
       if (!skillId) {
-        console.log(`${c.yellow}Usage: junscience skill remove <skill-id>${c.reset}`);
+        console.log(`${c.yellow}Usage: medscience skill remove <skill-id>${c.reset}`);
         return;
       }
 
       const success = globalSkillInstaller.uninstallSkill(skillId);
       if (success) {
-        console.log(`\n${c.brightGreen}✔ User skill '${skillId}' successfully removed from ~/.junscience/skills/${c.reset}\n`);
+        console.log(`\n${c.brightGreen}✔ User skill '${skillId}' successfully removed from ~/.medscience/skills/${c.reset}\n`);
       } else {
         console.log(`\n${c.yellow}Skill '${skillId}' not found in user-installed skills.${c.reset}\n`);
       }

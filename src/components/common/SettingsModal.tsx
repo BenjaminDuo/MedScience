@@ -188,7 +188,7 @@ export const SettingsModal: React.FC = () => {
 
         {/* Footer */}
         <div className="flex items-center justify-between px-6 py-3 bg-bg-elevated border-t border-border text-xs text-text-muted">
-          <span>JunScience Milestone 1 Shell</span>
+          <span>MedScience Milestone 1 Shell</span>
           <button
             onClick={() => setIsSettingsOpen(false)}
             className="px-3 py-1.5 rounded-lg bg-accent hover:brightness-110 text-white font-medium transition-all shadow-sm"

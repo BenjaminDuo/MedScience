@@ -1,4 +1,4 @@
-# JunScience — Hooks 层 + AGENTS.md + 扩充 Skill 库
+# MedScience — Hooks 层 + AGENTS.md + 扩充 Skill 库
 
 ## 背景
 
@@ -47,7 +47,7 @@
 
 - 现有 `EvidenceVerifier`/`ClinicalDataGate` 的校验逻辑本身不用重写,只是
   搬到 Hook 的调用方式下,保持行为不变——这是架构重构,不是能力重做。
-- Hook 清单要能通过一个命令查看(比如 CLI 里加一个 `junscience hooks list`),
+- Hook 清单要能通过一个命令查看(比如 CLI 里加一个 `medscience hooks list`),
   用户能看到"现在有哪些强制关卡在生效",不是只有翻代码才知道。
 - 写一份 `test-hooks-system.ts`,验证每个 Hook 在该触发的事件点确实被
   触发了,而不只是测试 Hook 本身的校验逻辑(这部分逻辑已经在之前的测试
@@ -59,7 +59,7 @@
 
 ### 目标
 
-JunScience 定位是模型无关,不应该采用绑定单一厂商的项目约定文件格式
+MedScience 定位是模型无关,不应该采用绑定单一厂商的项目约定文件格式
 (比如 Claude Code 的 `CLAUDE.md`)。改用 `AGENTS.md` 这个跨工具通用的
 开放约定——这样不管用户配置的是哪个模型/哪个上游 agent 工具,只要支持
 这个约定,都能读到同一份项目上下文。
@@ -67,14 +67,14 @@ JunScience 定位是模型无关,不应该采用绑定单一厂商的项目约�
 ### 内容要求
 
 在仓库根目录新增 `AGENTS.md`,至少包含:
-- JunScience 项目的定位和架构总览(可以从 README 提炼精简版,不要整段
+- MedScience 项目的定位和架构总览(可以从 README 提炼精简版,不要整段
   复制)
 - 关键设计原则(比如"临床数据默认本地处理,发送外部 API 前必须走
   `clinical-data-gate` 这个 Hook"这类硬性规则,让任何读取这份文件的
   agent 都能遵守,不用每次靠人重新交代)
 - Skill/Hook 的目录结构说明,方便以后新增时知道该放在哪
-- 明确写清楚:这份文件是给"操作/开发 JunScience 这个项目本身的 agent"
-  看的(比如 Claude Code 在帮你写代码时),不是给"JunScience 运行时自己
+- 明确写清楚:这份文件是给"操作/开发 MedScience 这个项目本身的 agent"
+  看的(比如 Claude Code 在帮你写代码时),不是给"MedScience 运行时自己
   跑科研任务"用的——这是两个不同的读者,不要混在一起。
 
 ---

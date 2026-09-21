@@ -204,7 +204,7 @@ async function runProtocolVerificationSuite() {
   const openAiRequest: ModelRequest = {
     model: 'gpt-4o',
     messages: [
-      { role: 'system', content: 'You are JunScience research engine.' },
+      { role: 'system', content: 'You are MedScience research engine.' },
       { role: 'user', content: 'Investigate TYK2 allosteric binding and retrieve 3D structures.' },
       // Assistant calls 2 tools in parallel:
       {

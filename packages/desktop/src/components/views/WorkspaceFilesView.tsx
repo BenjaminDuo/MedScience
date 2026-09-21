@@ -12,6 +12,7 @@ import {
 } from 'lucide-react';
 import { useAgent } from '../../context/AgentContext';
 import { useNav } from '../../context/NavContext';
+import { useLanguage } from '../../context/LanguageContext';
 
 interface WorkspaceFileItem {
   id: string;
@@ -26,6 +27,7 @@ interface WorkspaceFileItem {
 export const WorkspaceFilesView: React.FC = () => {
   const { currentSession, sessions, resetSession } = useAgent();
   const { setActiveSection } = useNav();
+  const { t } = useLanguage();
 
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedType, setSelectedType] = useState<string>('All');
@@ -104,16 +106,16 @@ export const WorkspaceFilesView: React.FC = () => {
               <Files size={22} />
             </div>
             <div>
-              <h2 className="text-2xl font-bold tracking-tight text-text-primary">Workspace Files & Artifacts</h2>
+              <h2 className="text-2xl font-bold tracking-tight text-text-primary">{t('Workspace Files & Artifacts', '工作区文件与产出物')}</h2>
               <p className="text-sm text-text-secondary mt-0.5">
-                Generated figures, scientific datasets, reproducible scripts, and manuscript drafts.
+                {t('Generated figures, scientific datasets, reproducible scripts, and manuscript drafts.', '生成的图表、科研数据集、可复现脚本与稿件草稿。')}
               </p>
             </div>
           </div>
         </div>
 
         <span className="text-xs font-mono px-3 py-1.5 rounded-lg bg-bg-surface border border-border text-accent">
-          {filteredFiles.length} {filteredFiles.length === 1 ? 'Artifact' : 'Artifacts'}
+          {filteredFiles.length} {t(filteredFiles.length === 1 ? 'Artifact' : 'Artifacts', '项产出物')}
         </span>
       </div>
 
@@ -130,7 +132,7 @@ export const WorkspaceFilesView: React.FC = () => {
                   : 'bg-bg-surface border border-border text-text-secondary hover:text-text-primary hover:bg-bg-hover'
               }`}
             >
-              {tab === 'All' ? 'All Files' : tab}
+              {tab === 'All' ? t('All Files', '全部文件') : tab}
             </button>
           ))}
         </div>
@@ -139,7 +141,7 @@ export const WorkspaceFilesView: React.FC = () => {
           <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
           <input
             type="text"
-            placeholder="Search file name or topic..."
+            placeholder={t('Search file name or topic...', '搜索文件名或主题...')}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="w-full pl-8 pr-3 py-1.5 rounded-lg bg-bg-surface border border-border focus:border-accent text-xs text-text-primary placeholder:text-text-muted"
@@ -155,12 +157,12 @@ export const WorkspaceFilesView: React.FC = () => {
           </div>
           <div className="max-w-md mx-auto space-y-1.5">
             <h3 className="text-base font-semibold text-text-primary">
-              {searchQuery ? 'No matching artifacts found' : 'No workspace files generated yet'}
+              {searchQuery ? t('No matching artifacts found', '未找到匹配的产出物') : t('No workspace files generated yet', '尚未生成工作区文件')}
             </h3>
             <p className="text-xs text-text-secondary leading-relaxed">
               {searchQuery
-                ? `No files matched "${searchQuery}". Try a different search term.`
-                : 'Files generated during your research sessions (such as volcano plots, DESeq2 matrices, and manuscript drafts) will appear here for one-click download.'}
+                ? t(`No files matched "${searchQuery}". Try a different search term.`, `未找到匹配 "${searchQuery}" 的文件。请尝试其他搜索词。`)
+                : t('Files generated during your research sessions (such as volcano plots, DESeq2 matrices, and manuscript drafts) will appear here for one-click download.', '您研究会话中生成的文件（如火山图、DESeq2 矩阵和稿件草稿）将显示在此处，可一键下载。')}
             </p>
           </div>
           {!searchQuery && (
@@ -169,7 +171,7 @@ export const WorkspaceFilesView: React.FC = () => {
               className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-accent text-white text-xs font-medium hover:bg-accent-hover transition-colors shadow-sm"
             >
               <Sparkles size={14} />
-              <span>Generate Research Files</span>
+              <span>{t('Generate Research Files', '生成科研文件')}</span>
             </button>
           )}
         </div>
@@ -200,7 +202,7 @@ export const WorkspaceFilesView: React.FC = () => {
                   </p>
 
                   <p className="text-[11px] text-text-muted truncate pt-1">
-                    From: {file.sessionTitle}
+                    {t('From: ', '来自：')}{file.sessionTitle}
                   </p>
                 </div>
 
@@ -210,7 +212,7 @@ export const WorkspaceFilesView: React.FC = () => {
                     className="flex-1 flex items-center justify-center gap-1.5 px-2.5 py-1.5 rounded-lg border border-border hover:border-accent/40 bg-bg-elevated hover:bg-bg-hover text-text-secondary hover:text-text-primary text-xs font-medium transition-all"
                   >
                     <Eye size={13} />
-                    <span>Preview</span>
+                    <span>{t('Preview', '预览')}</span>
                   </button>
 
                   <button
@@ -218,7 +220,7 @@ export const WorkspaceFilesView: React.FC = () => {
                     className="flex-1 flex items-center justify-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-accent hover:bg-accent-hover text-white text-xs font-semibold transition-colors"
                   >
                     <Download size={13} />
-                    <span>Download</span>
+                    <span>{t('Download', '下载')}</span>
                   </button>
                 </div>
               </div>
@@ -248,7 +250,7 @@ export const WorkspaceFilesView: React.FC = () => {
                 onClick={() => setPreviewContent(null)}
                 className="px-4 py-2 rounded-xl bg-accent text-white text-xs font-semibold hover:bg-accent-hover transition-colors"
               >
-                Close
+                {t('Close', '关闭')}
               </button>
             </div>
           </div>

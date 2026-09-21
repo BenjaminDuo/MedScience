@@ -18,7 +18,7 @@ export const builtInAgents: AgentConfig[] = [
     description: 'Autonomous scientific research orchestrator: literature review, hypothesis generation, data analysis, and report synthesis.',
     allowedToolCategories: ['literature', 'databases', 'execution', 'artifacts', 'analysis'],
     defaultSkills: ['literature-review', 'database-lookup', 'statistical-analysis', 'scientific-visualization'],
-    systemPrompt: `You are the lead AI Research Agent for JunScience.
+    systemPrompt: `You are the lead AI Research Agent for MedScience.
 You conduct rigorous scientific investigations following the scientific method:
 1. Formulate clear hypotheses and state assumptions explicitly.
 2. Ground all claims in verifiable primary literature and database accessions.
@@ -33,7 +33,7 @@ You conduct rigorous scientific investigations following the scientific method:
     description: 'Specialist for genomics, single-cell transcriptomics (scRNA-seq), proteomics, and sequence analysis.',
     allowedToolCategories: ['databases', 'execution', 'analysis'],
     defaultSkills: ['scanpy', 'biopython', 'statistical-analysis'],
-    systemPrompt: `You are the JunScience Computational Biology Specialist.
+    systemPrompt: `You are the MedScience Computational Biology Specialist.
 You specialize in genomic, transcriptomic, and proteomic data processing.
 Rigorously verify cell quality control metrics, normalization methods, and multiple-testing corrections.`,
   },
@@ -44,7 +44,7 @@ Rigorously verify cell quality control metrics, normalization methods, and multi
     description: 'Specialist for molecular structures, SMILES, Lipinski descriptors, RDKit, and target bioactivities in ChEMBL/PubChem.',
     allowedToolCategories: ['databases', 'execution'],
     defaultSkills: ['rdkit', 'database-lookup'],
-    systemPrompt: `You are the JunScience Cheminformatics Specialist.
+    systemPrompt: `You are the MedScience Cheminformatics Specialist.
 You evaluate small-molecule druggability, binding affinities (IC50, Ki, Kd), and allosteric pocket interactions.`,
   },
   {
@@ -54,7 +54,7 @@ You evaluate small-molecule druggability, binding affinities (IC50, Ki, Kd), and
     description: 'Specialist for scientific machine learning, graph neural networks, and predictive modeling in biology and chemistry.',
     allowedToolCategories: ['execution', 'analysis'],
     defaultSkills: ['statistical-analysis'],
-    systemPrompt: `You are the JunScience Machine Learning Specialist.
+    systemPrompt: `You are the MedScience Machine Learning Specialist.
 You design, train, and evaluate ML models on scientific data with strict train/validation splits and cross-validation.`,
   },
   {
@@ -64,7 +64,7 @@ You design, train, and evaluate ML models on scientific data with strict train/v
     description: 'Specialist for scientific critique: identifies missing controls, statistical weaknesses, unsupported claims, and methodological caveats.',
     allowedToolCategories: ['literature', 'databases'],
     defaultSkills: ['literature-review', 'statistical-analysis'],
-    systemPrompt: `You are the JunScience Scientific Critic.
+    systemPrompt: `You are the MedScience Scientific Critic.
 Your role is to rigorously challenge claims, check for missing experimental controls, evaluate sample sizes, verify whether conclusions overreach the data, and flag unverified sources.`,
   },
   {
@@ -74,7 +74,7 @@ Your role is to rigorously challenge claims, check for missing experimental cont
     description: 'Formulates detailed multi-step research plans, required datasets, assays, and risk assessments without executing destructive operations.',
     allowedToolCategories: ['literature'],
     defaultSkills: ['literature-review'],
-    systemPrompt: `You are the JunScience Research Planner.
+    systemPrompt: `You are the MedScience Research Planner.
 You draft comprehensive scientific study plans with milestones, required controls, statistical power calculations, and potential pitfalls. You do not execute code or modifications directly.`,
   },
   {
@@ -84,7 +84,7 @@ You draft comprehensive scientific study plans with milestones, required control
     description: 'Dedicated paper mining and meta-analysis across PubMed, bioRxiv, Europe PMC, and OpenAlex.',
     allowedToolCategories: ['literature'],
     defaultSkills: ['literature-review'],
-    systemPrompt: `You are the JunScience Literature Reviewer.
+    systemPrompt: `You are the MedScience Literature Reviewer.
 You perform systematic scholarly queries, extract clinical findings, compare conflicting studies, and synthesize evidence tables.`,
   },
 ];

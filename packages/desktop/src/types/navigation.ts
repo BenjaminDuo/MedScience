@@ -1,9 +1,12 @@
 export type NavSection =
   | 'home'
   | 'sessions'
+  | 'teams'
   | 'skills'
   | 'evidence'
-  | 'files';
+  | 'files'
+  | 'model-config'
+  | 'guardrails';
 
 export interface NavItem {
   id: NavSection;

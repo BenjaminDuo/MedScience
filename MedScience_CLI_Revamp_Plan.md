@@ -1,16 +1,16 @@
-# JunScience CLI 终端界面美化改造方案（面向 v1.3.0 → v1.4.0）
+# MedScience CLI 终端界面美化改造方案（面向 v1.3.0 → v1.4.0）
 
-> 本文档给 Claude Code 使用，作为在 `JunScience_Agent` 仓库（`packages/cli`）内执行的改造任务书。已基于 GitHub 上 `Benjamin-JHou/JunScience` 的 `v1.3.0` tag 实际拉取代码核对过现状，下面的问题和文件路径都是真实存在的，不是猜测。
+> 本文档给 Claude Code 使用，作为在 `MedScience_Agent` 仓库（`packages/cli`）内执行的改造任务书。已基于 GitHub 上 `BenjaminDuo/MedScience` 的 `v1.3.0` tag 实际拉取代码核对过现状，下面的问题和文件路径都是真实存在的，不是猜测。
 
 ---
 
 ## 0. 先说结论
 
-`packages/cli` 现在是**纯 `readline` + 手写 ANSI 转义码**实现的，`package.json` 里除了 `@junscience/core` 没有任何 UI 相关依赖。这就是为什么它看起来比 Claude Code CLI / OpenCode 粗糙——那两者都不是"多打几个颜色"这个量级的差距，而是**渲染引擎**不是一个层级的东西。
+`packages/cli` 现在是**纯 `readline` + 手写 ANSI 转义码**实现的，`package.json` 里除了 `@medscience/core` 没有任何 UI 相关依赖。这就是为什么它看起来比 Claude Code CLI / OpenCode 粗糙——那两者都不是"多打几个颜色"这个量级的差距，而是**渲染引擎**不是一个层级的东西。
 
 **最省成本、最贴近 Claude Code 观感的方案：给 `packages/cli` 引入 [Ink](https://github.com/vadimdemedes/ink)（React for CLI）**，因为：
 
-- JunScience 本来就是 TypeScript / Node monorepo，Ink 是纯 npm 包，零额外运行时依赖（不像 OpenCode 那样要引入 Go 工具链）。
+- MedScience 本来就是 TypeScript / Node monorepo，Ink 是纯 npm 包，零额外运行时依赖（不像 OpenCode 那样要引入 Go 工具链）。
 - Ink 的官方 README 明确写着 **Claude Code 就是用 Ink 做的**（"Who's Using Ink? — Claude Code - An agentic coding tool made by Anthropic"）。
 - Google 的 **Gemini CLI**（`google-gemini/gemini-cli`，Apache-2.0，完全开源）也是用 Ink 做的，而且它的源码是**合法公开**的，可以直接当参考实现来看——这比 Claude Code 本体（官方并未开源，网上流传的"源码"是有人从 npm 包里的 sourcemap 反编译出来的，不建议作为参考或抓取对象，避免版权/合规问题）更适合当学习样本。
 
@@ -31,7 +31,7 @@
 
 3. **`/help` 输出是一整段 `console.log` 硬编码文本**（`repl.ts` 里几十行 `console.log`），没有分页、没有根据终端宽度换行，终端窄一点就会错位。改成 Ink 组件后这个问题顺带解决。
 
-4. **无 TTY 环境下会直接卡住 / 报错**：`readline.createInterface` 依赖 stdin 是交互式终端；如果 CI（`windows-latest`/`ubuntu-latest`/`macos-latest` 矩阵）或管道调用 `junscience` 且不带子命令，会进入 REPL 等待输入。这个问题在换成 Ink 后**不会自动消失**，反而要更小心处理（见第 4 节 §4.6），建议一并加上非 TTY 探测和降级。
+4. **无 TTY 环境下会直接卡住 / 报错**：`readline.createInterface` 依赖 stdin 是交互式终端；如果 CI（`windows-latest`/`ubuntu-latest`/`macos-latest` 矩阵）或管道调用 `medscience` 且不带子命令，会进入 REPL 等待输入。这个问题在换成 Ink 后**不会自动消失**，反而要更小心处理（见第 4 节 §4.6），建议一并加上非 TTY 探测和降级。
 
 5. **子命令（`config` / `hooks` / `skill` / `research`）各自直接 `console.log`**，和 REPL 的渲染风格是两套代码（`streamRenderer.ts` 只在 REPL 和 `research.ts` 里用，`config.ts`/`hooks.ts`/`skill.ts` 是完全独立的手写输出）。建议改造时统一到一套渲染层，避免以后各命令风格再次分裂。
 
@@ -44,9 +44,9 @@
 | 语言/运行时 | TypeScript + Bun | TypeScript + Node ≥20 | Go（TUI 部分）+ TypeScript/Bun（server 部分） |
 | 渲染框架 | **Ink**（React for CLI，基于 Yoga 做 flexbox 布局） | **Ink**（`@jrichman/ink`，Ink 的一个 fork） | **Bubble Tea**（Elm 架构：Model/Update/View）+ **Lip Gloss**（声明式样式）+ **Bubbles**（现成组件库），均为 Charm 生态 |
 | 源码是否公开 | 官方不开源；网传"源码"是从 npm 包 sourcemap 反编译得来，**不建议拿来做参考或抓取**（版权风险，且非官方口径） | **Apache-2.0，完全开源**，可放心阅读/参考 | **MIT，完全开源** |
-| 架构特点 | React 组件树 + `<Static>` 组件把"已完成的历史消息"和"正在刷新的实时区域"分开渲染，避免每次 setState 全屏重绘导致的闪烁；约 130+ 组件 | 同上（`<Static>` 用于历史消息列表），另外用了 `ink-gradient` + `tinygradient` 做渐变字、`ink-spinner` 做加载动画；`packages/cli`（UI 层）与 `packages/core`（无头逻辑层）严格分离——**这个分层和 JunScience 现在 `packages/cli` vs `packages/core` 的结构是一模一样的**，可以直接对号入座 | Model/Update/View 循环；client/server 架构（TUI 只是众多客户端之一，同一个 server 还能被移动端连接） |
+| 架构特点 | React 组件树 + `<Static>` 组件把"已完成的历史消息"和"正在刷新的实时区域"分开渲染，避免每次 setState 全屏重绘导致的闪烁；约 130+ 组件 | 同上（`<Static>` 用于历史消息列表），另外用了 `ink-gradient` + `tinygradient` 做渐变字、`ink-spinner` 做加载动画；`packages/cli`（UI 层）与 `packages/core`（无头逻辑层）严格分离——**这个分层和 MedScience 现在 `packages/cli` vs `packages/core` 的结构是一模一样的**，可以直接对号入座 | Model/Update/View 循环；client/server 架构（TUI 只是众多客户端之一，同一个 server 还能被移动端连接） |
 
-**结论**：JunScience 已经是 Node/TS + core-cli 分离的结构，跟 Gemini CLI 的骨架几乎一致，**没有理由绕道去学 Go/Bubble Tea 那一套**（除非以后要重写成 Go，成本完全不对等）。真正值得抄的设计模式来自 Ink 生态（Claude Code 和 Gemini CLI 共享的那套），OpenCode 的价值主要在"交互设计"层面（比如它的 mode 切换、model selector 弹窗、diff 展示这些 UX 细节），可以看截图/文档找灵感，但不要照抄代码（语言都不一样，抄不了）。
+**结论**：MedScience 已经是 Node/TS + core-cli 分离的结构，跟 Gemini CLI 的骨架几乎一致，**没有理由绕道去学 Go/Bubble Tea 那一套**（除非以后要重写成 Go，成本完全不对等）。真正值得抄的设计模式来自 Ink 生态（Claude Code 和 Gemini CLI 共享的那套），OpenCode 的价值主要在"交互设计"层面（比如它的 mode 切换、model selector 弹窗、diff 展示这些 UX 细节），可以看截图/文档找灵感，但不要照抄代码（语言都不一样，抄不了）。
 
 ---
 
@@ -68,7 +68,7 @@
 }
 ```
 
-> 以上均为 MIT 许可，和 JunScience 现有 `LICENSE` 兼容，可以放心引入。版本号写的是当前常见的主版本线，Claude Code 落地时应以 `npm view <pkg> version` 核实一次最新稳定版再定死版本号。
+> 以上均为 MIT 许可，和 MedScience 现有 `LICENSE` 兼容，可以放心引入。版本号写的是当前常见的主版本线，Claude Code 落地时应以 `npm view <pkg> version` 核实一次最新稳定版再定死版本号。
 
 ---
 
@@ -112,7 +112,7 @@ packages/cli/src/
 `/tools`、`/skills`、`/model`（列出 profile 列表）这几个现在是纯文字一行一行 `console.log`，改成 `ink-table` 的表格，字段对齐、加边框，观感会有明显提升，且改动量很小（数据源 `globalToolRegistry.list()` / `globalSkillRegistry.list()` / `globalProfileManager.listProfiles()` 都已经现成可用）。
 
 ### 4.6 【重要】非 TTY / CI 环境降级路径
-Ink 的渲染假设 `process.stdout` 是交互式 TTY。JunScience 的 CI 矩阵（`windows-latest` / `ubuntu-latest` / `macos-latest`）和未来可能的管道调用（比如脚本里 `echo "..." | junscience`）都会跑在非 TTY 环境下。**必须**在 `packages/cli/src/index.ts` 的入口处加判断：
+Ink 的渲染假设 `process.stdout` 是交互式 TTY。MedScience 的 CI 矩阵（`windows-latest` / `ubuntu-latest` / `macos-latest`）和未来可能的管道调用（比如脚本里 `echo "..." | medscience`）都会跑在非 TTY 环境下。**必须**在 `packages/cli/src/index.ts` 的入口处加判断：
 
 ```ts
 const isInteractive = process.stdin.isTTY && process.stdout.isTTY;
@@ -156,4 +156,4 @@ if (!command) {
 
 ## 附：本次审查方式说明
 
-以上第 1 节的问题清单，是直接 `git clone --branch v1.3.0` 拉取 `Benjamin-JHou/JunScience` 仓库、逐文件核对 `packages/cli/src/**`、根/子包 `package.json` 版本号、以及 `docs/screenshots/` 下的截图得出的，不是根据以往对话记忆推断的，可以直接对照仓库当前状态核实。
+以上第 1 节的问题清单，是直接 `git clone --branch v1.3.0` 拉取 `BenjaminDuo/MedScience` 仓库、逐文件核对 `packages/cli/src/**`、根/子包 `package.json` 版本号、以及 `docs/screenshots/` 下的截图得出的，不是根据以往对话记忆推断的，可以直接对照仓库当前状态核实。

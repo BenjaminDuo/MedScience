@@ -1,5 +1,5 @@
 {
-  "name": "@junscience/core",
+  "name": "@medscience/core",
   "version": "1.4.0",
   "private": true,
   "type": "module",
@@ -7,7 +7,7 @@
   "types": "./dist/index.d.ts",
   "scripts": {
     "build": "tsc",
-    "test": "tsx tests/test-core.ts"
+    "test": "tsx tests/test-core.ts && tsx tests/test-jsonl-rpc-client.ts && tsx tests/test-execution-profile-manager.ts && tsx tests/test-runtime-detector.ts && tsx tests/test-execution-router.ts && tsx tests/test-team-profile-manager.ts && tsx tests/test-team-orchestrator.ts"
   },
   "dependencies": {},
   "devDependencies": {

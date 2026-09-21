@@ -1,4 +1,4 @@
-name: Deploy JunScience to GitHub Pages
+name: Deploy MedScience to GitHub Pages
 
 on:
   push:

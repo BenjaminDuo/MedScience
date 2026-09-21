@@ -1,15 +1,15 @@
 # UPSTREAM_ARCHITECTURE.md — Reconnaissance & Architectural Synthesis
 
-> **Phase 0 Deliverable for Milestone 2 of JunScience**  
+> **Phase 0 Deliverable for Milestone 2 of MedScience**  
 > Source-of-truth comparative evaluation of `deepseek-ai/deepseek-harness`, `synthetic-sciences/openscience`, and `K-Dense-AI/scientific-agent-skills`.
 
 ---
 
 ## 1. Executive Summary & Upstream Mapping
 
-To build **JunScience** as an autonomous, production-quality AI for Science (AI4S) research engine, we inspected the complete source trees of three foundational open-source repositories:
+To build **MedScience** as an autonomous, production-quality AI for Science (AI4S) research engine, we inspected the complete source trees of three foundational open-source repositories:
 
-| Repository | Pinned Origin | Primary Role in JunScience | Upstream License |
+| Repository | Pinned Origin | Primary Role in MedScience | Upstream License |
 | :--- | :--- | :--- | :--- |
 | **`deepseek-ai/deepseek-harness`** | `github.com/deepseek-ai/deepseek-harness` | **Agent Runtime & Harness Foundation**: Plugin lifecycle (Cordis), event bus, agent loop, tool registry, session persistence, sandbox/permissions, job supervision. | **MIT** |
 | **`synthetic-sciences/openscience`** | `github.com/synthetic-sciences/openscience` | **Scientific Capability Layer**: Research loop, specialist agent taxonomy (`research`, `critic`, `plan`), scientific database connectors (PubMed, UniProt, ChEMBL, PDB), evidence/citation model, artifact provenance. | **Apache-2.0** |
@@ -19,7 +19,7 @@ To build **JunScience** as an autonomous, production-quality AI for Science (AI4
 
 ## 2. Comparative Architecture Matrix
 
-| Architectural Subsystem | DeepSeek Harness (`dsh`) | OpenScience (`synsci`) | Scientific Agent Skills | JunScience Milestone 2 Strategy |
+| Architectural Subsystem | DeepSeek Harness (`dsh`) | OpenScience (`synsci`) | Scientific Agent Skills | MedScience Milestone 2 Strategy |
 | :--- | :--- | :--- | :--- | :--- |
 | **Core Paradigm** | Cordis plugin microkernel ("Everything is a plugin") | Hono server + Bun CLI + SSE stream | Markdown instruction bundles (`SKILL.md`) | **Modular Event-Driven Core**: Plugin registry, typed event bus, scoped tools. |
 | **Agent Execution Loop** | Multi-turn tool execution loop with waterfall effects | Sequential turn dispatch with subagent explore/execute | N/A (Instructions only) | **Autonomous Multi-Turn Loop**: Iterative tool calling, observation, reasoning, reflection, streaming. |
@@ -44,7 +44,7 @@ To build **JunScience** as an autonomous, production-quality AI for Science (AI4
 5. **Replaceable Model Providers**: Abstract `ModelProvider` contract supporting DeepSeek, OpenAI, Anthropic, Google, and local backends.
 
 #### Rejected:
-- Monolithic monorepo build tools (`oxlint`, `knip`, `lefthook` complex setup) that would complicate the standalone JunScience workstation.
+- Monolithic monorepo build tools (`oxlint`, `knip`, `lefthook` complex setup) that would complicate the standalone MedScience workstation.
 - CJS shims and platform-specific native addons (`node-addon-landlock-run`).
 
 ---
@@ -60,7 +60,7 @@ To build **JunScience** as an autonomous, production-quality AI for Science (AI4
 
 #### Rejected:
 - Proprietary Synthetic Sciences Gateway dependencies (Ace credits, wallet synchronization, `thk_` tokens).
-- SolidJS workspace UI (JunScience's React/Tailwind frontend shell is the visual and functional authority).
+- SolidJS workspace UI (MedScience's React/Tailwind frontend shell is the visual and functional authority).
 
 ---
 
@@ -88,16 +88,16 @@ All adapted code, connectors, prompts, and skills will be properly attributed in
 
 ---
 
-## 5. JunScience Target Architecture (Milestone 2)
+## 5. MedScience Target Architecture (Milestone 2)
 
 ```text
 ┌─────────────────────────────────────────────────────────────────────────────┐
-│                    JunScience Product Shell (Milestone 1)                    │
+│                    MedScience Product Shell (Milestone 1)                    │
 │   Desktop Dark / Light  •  CLI (Green/Blue/Purple/Amber)  •  Agent Workspace │
 └──────────────────────────────────────▲──────────────────────────────────────┘
                                        │ Typed Event Bus (SSE / Local RPC)
 ┌──────────────────────────────────────▼──────────────────────────────────────┐
-│                    JunScience Scientific Agent Runtime                      │
+│                    MedScience Scientific Agent Runtime                      │
 │                                                                             │
 │  ┌───────────────────────────────────────────────────────────────────────┐  │
 │  │                            Core Runtime                               │  │

@@ -1,5 +1,6 @@
 import React from 'react';
 import { ThemeProvider } from './context/ThemeContext';
+import { LanguageProvider } from './context/LanguageContext';
 import { NavProvider } from './context/NavContext';
 import { UserProvider } from './context/UserContext';
 import { ProjectProvider } from './context/ProjectContext';
@@ -9,15 +10,17 @@ import { AppShell } from './components/shell/AppShell';
 export const App: React.FC = () => {
   return (
     <ThemeProvider>
-      <UserProvider>
-        <ProjectProvider>
-          <NavProvider>
-            <AgentProvider>
-              <AppShell />
-            </AgentProvider>
-          </NavProvider>
-        </ProjectProvider>
-      </UserProvider>
+      <LanguageProvider>
+        <UserProvider>
+          <ProjectProvider>
+            <NavProvider>
+              <AgentProvider>
+                <AppShell />
+              </AgentProvider>
+            </NavProvider>
+          </ProjectProvider>
+        </UserProvider>
+      </LanguageProvider>
     </ThemeProvider>
   );
 };

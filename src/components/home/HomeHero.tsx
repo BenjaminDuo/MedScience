@@ -10,7 +10,7 @@ export const HomeHero: React.FC = () => {
       {/* Left Text Block */}
       <div className="flex-1 max-w-[560px]">
         <h1 className="text-[38px] font-bold tracking-tight text-text-primary leading-tight">
-          JunScience
+          MedScience
         </h1>
         <h2 className="text-[22px] font-semibold tracking-tight text-accent mt-1 leading-snug">
           Your AI Research Partner

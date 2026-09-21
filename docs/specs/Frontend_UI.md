@@ -1,10 +1,10 @@
-# Frontend_UI.md — JunScience Frontend Shell (FINAL SPEC)
+# Frontend_UI.md — MedScience Frontend Shell (FINAL SPEC)
 
-> **This file is the authoritative specification for Milestone 1 of JunScience.**
+> **This file is the authoritative specification for Milestone 1 of MedScience.**
 >
-> The goal is to rebuild the existing JunScience frontend shell into a polished, production-quality AI4S application.
+> The goal is to rebuild the existing MedScience frontend shell into a polished, production-quality AI4S application.
 >
-> **The attached JunScience reference image is a visual source of truth.**
+> **The attached MedScience reference image is a visual source of truth.**
 >
 > Do not treat this document as a loose list of suggestions. Where this document says MUST / DO NOT, follow it literally.
 >
@@ -14,7 +14,7 @@
 
 # 0. Codex Mission
 
-You are rebuilding the **frontend shell of JunScience**, not building a generic SaaS dashboard and not building a simple chatbot.
+You are rebuilding the **frontend shell of MedScience**, not building a generic SaaS dashboard and not building a simple chatbot.
 
 The product should feel like:
 
@@ -25,7 +25,7 @@ The central idea is:
 ```text
 Scientist
     ↓
-JunScience
+MedScience
     ↓
 AI Research Agent
     ↓
@@ -65,7 +65,7 @@ It establishes:
 - border treatment
 - color direction
 - CLI appearance
-- overall JunScience identity
+- overall MedScience identity
 
 However:
 
@@ -157,7 +157,7 @@ Use realistic mock events/data and a clean interface boundary for the future Age
 
 ## Product
 
-**JunScience**
+**MedScience**
 
 ## Primary positioning
 
@@ -191,7 +191,7 @@ Avoid:
 
 # 5. LOGO
 
-The provided JunScience logo is the canonical logo.
+The provided MedScience logo is the canonical logo.
 
 It contains:
 
@@ -382,7 +382,7 @@ The sidebar is persistent.
 Top:
 
 ```text
-[JunScience logo] JunScience
+[MedScience logo] MedScience
 ```
 
 Then a prominent:
@@ -442,7 +442,7 @@ It must resemble the provided reference image in composition.
 Central hierarchy:
 
 ```text
-JunScience
+MedScience
 
 Your AI Research Partner
 
@@ -464,7 +464,7 @@ Do NOT make the hero into a marketing landing page.
 Recommended visual composition:
 
 ```text
-                JunScience
+                MedScience
         Your AI Research Partner
 
  Ask anything about science. Discover, analyze, and innovate.
@@ -734,7 +734,7 @@ Agent messages should prioritize readable content.
 
 # 20. TOOL EXECUTION UI
 
-Tool execution is a core JunScience visual pattern.
+Tool execution is a core MedScience visual pattern.
 
 Example:
 
@@ -1236,23 +1236,23 @@ Only tokens change.
 Conceptual:
 
 ```text
-JunScience Agent
+MedScience Agent
 AI Research Assistant
 Type 'help' for available commands
 
-junscience>
+medscience>
 
 [Quick Actions]
 
 [Recent Research]
 
-junscience>
+medscience>
 ```
 
 When running a task:
 
 ```text
-junscience> Analyze the differential expression dataset
+medscience> Analyze the differential expression dataset
 
 ◌ Data Analysis
   Loading dataset...
@@ -1266,7 +1266,7 @@ junscience> Analyze the differential expression dataset
 ✓ Result
   1,247 significant genes identified
 
-junscience>
+medscience>
 ```
 
 The output must feel native to a terminal.
@@ -1774,7 +1774,7 @@ Verify:
 The Home screen should immediately communicate:
 
 ```text
-This is JunScience.
+This is MedScience.
 This is an AI research agent.
 I can ask it a scientific question here.
 I can launch scientific workflows.
@@ -1977,7 +1977,7 @@ This milestone is complete only when:
 
 # 60. FINAL PRODUCT STANDARD
 
-The final JunScience frontend should feel like:
+The final MedScience frontend should feel like:
 
 > **A serious scientist's AI workstation.**
 
@@ -1988,7 +1988,7 @@ Not:
 The visual hierarchy is:
 
 ```text
-JunScience
+MedScience
      ↓
 AI Research Agent
      ↓
@@ -2016,7 +2016,7 @@ Professional
 
 The design should be distinctive enough that a user can recognize:
 
-> **"This is JunScience."**
+> **"This is MedScience."**
 
 ---
 

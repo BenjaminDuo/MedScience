@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, Text, useInput } from 'ink';
-import { globalEvidenceTracker } from '@junscience/core';
+import { globalEvidenceTracker } from '@medscience/core';
 
 interface EvidenceViewProps {
   onClose: () => void;

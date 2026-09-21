@@ -2,14 +2,14 @@ import fs from 'node:fs';
 import path from 'node:path';
 import os from 'node:os';
 import { handleConfigCommand } from '../src/commands/config';
-import { globalProfileManager, globalSecureStore } from '@junscience/core';
+import { globalProfileManager, globalSecureStore } from '@medscience/core';
 
 async function runCliTests() {
-  console.log('\n=== Running @junscience/cli Test Suite ===\n');
+  console.log('\n=== Running @medscience/cli Test Suite ===\n');
 
-  const testDir = path.join(os.tmpdir(), `junscience-cli-test-${Date.now()}`);
+  const testDir = path.join(os.tmpdir(), `medscience-cli-test-${Date.now()}`);
   fs.mkdirSync(testDir, { recursive: true });
-  process.env.JUNSCIENCE_HOME = testDir;
+  process.env.MEDSCIENCE_HOME = testDir;
 
   try {
     console.log('[Test 1/3] CLI config set');
@@ -26,15 +26,15 @@ async function runCliTests() {
     if (!created || created.apiKey !== 'sk-cli-test-key-999') {
       throw new Error(`CLI config set did not persist profile properly: ${JSON.stringify(profiles)}`);
     }
-    console.log('  ✔ "junscience config set" created profile with encrypted key');
+    console.log('  ✔ "medscience config set" created profile with encrypted key');
 
     console.log('\n[Test 2/3] CLI config list');
     await handleConfigCommand(['list']);
-    console.log('  ✔ "junscience config list" executed cleanly');
+    console.log('  ✔ "medscience config list" executed cleanly');
 
     console.log('\n[Test 3/3] CLI config test (Fallback / Live probe)');
     await handleConfigCommand(['test']);
-    console.log('  ✔ "junscience config test" executed cleanly');
+    console.log('  ✔ "medscience config test" executed cleanly');
 
     console.log('\n[Test 4/4] Ink Modern TUI Components Integration');
     const { Banner } = await import('../src/ui/ink/Banner.js');
@@ -140,7 +140,7 @@ async function runCliTests() {
     }
     console.log('  ✔ Ink PlanView rendered 5-stage explicit milestone checklist');
 
-    console.log('\n✔ ALL @junscience/cli TESTS PASSED (100% SUCCESS)\n');
+    console.log('\n✔ ALL @medscience/cli TESTS PASSED (100% SUCCESS)\n');
   } finally {
     try {
       fs.rmSync(testDir, { recursive: true, force: true });

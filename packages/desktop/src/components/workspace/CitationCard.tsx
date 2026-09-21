@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { ExternalLink, ChevronDown, ChevronUp } from 'lucide-react';
 import { Citation } from '../../types/agent';
+import { useLanguage } from '../../context/LanguageContext';
 
 interface CitationCardProps {
   citation: Citation;
@@ -8,6 +9,7 @@ interface CitationCardProps {
 
 export const CitationCard: React.FC<CitationCardProps> = ({ citation }) => {
   const [isExpanded, setIsExpanded] = useState(false);
+  const { t } = useLanguage();
 
   return (
     <div className="rounded-lg bg-bg-surface border border-border-subtle p-3 hover:border-border transition-all my-1.5 text-[12.5px]">
@@ -35,7 +37,7 @@ export const CitationCard: React.FC<CitationCardProps> = ({ citation }) => {
             target="_blank"
             rel="noreferrer"
             className="p-1 rounded text-text-muted hover:text-accent hover:bg-bg-hover transition-colors"
-            title={`Open DOI: ${citation.doi}`}
+            title={t(`Open DOI: ${citation.doi}`, `打开 DOI：${citation.doi}`)}
           >
             <ExternalLink size={13} />
           </a>
@@ -43,7 +45,7 @@ export const CitationCard: React.FC<CitationCardProps> = ({ citation }) => {
             <button
               onClick={() => setIsExpanded((prev) => !prev)}
               className="p-1 rounded text-text-muted hover:text-text-primary hover:bg-bg-hover transition-colors"
-              title={isExpanded ? 'Hide Abstract' : 'View Abstract'}
+              title={isExpanded ? t('Hide Abstract', '收起摘要') : t('View Abstract', '查看摘要')}
             >
               {isExpanded ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
             </button>
@@ -53,7 +55,7 @@ export const CitationCard: React.FC<CitationCardProps> = ({ citation }) => {
 
       {isExpanded && citation.abstractSnippet && (
         <div className="mt-2 pt-2 border-t border-border-subtle text-[11.5px] text-text-muted leading-relaxed bg-bg-elevated p-2 rounded">
-          <span className="font-semibold text-text-secondary">Abstract: </span>
+          <span className="font-semibold text-text-secondary">{t('Abstract: ', '摘要：')}</span>
           {citation.abstractSnippet}
         </div>
       )}

@@ -91,6 +91,13 @@ export class OpenAIProtocol {
           parameters: t.parameters || t.inputSchema || {},
         },
       }));
+
+      if (request.toolChoice === 'required') {
+        payload.tool_choice = 'required';
+      } else if (request.toolChoice && typeof request.toolChoice === 'object') {
+        payload.tool_choice = { type: 'function', function: { name: request.toolChoice.name } };
+      }
+      // 'auto' / unset: omit tool_choice and let the API's own default apply.
     }
 
     return payload;

@@ -16,7 +16,7 @@ export function HelpView({ onClose }: HelpViewProps) {
     <Box flexDirection="column" borderStyle="round" borderColor="yellow" paddingX={1} marginY={1}>
       <Box justifyContent="space-between" marginBottom={1}>
         <Text bold color="yellow">
-          📖 JunScience CLI — Command & Keybinding Reference
+          📖 MedScience CLI — Command & Keybinding Reference
         </Text>
         <Text color="gray">[Press Enter or Esc to Close]</Text>
       </Box>
@@ -26,7 +26,7 @@ export function HelpView({ onClose }: HelpViewProps) {
         <Text>  <Text color="yellow" bold>[Shift+Tab]</Text>      Seamlessly toggle between <Text color="magenta">[PLAN]</Text> and <Text color="green">[ACT]</Text> modes</Text>
         <Text>  <Text color="yellow" bold>[/]</Text>              Open interactive Slash Commands popup menu</Text>
         <Text>  <Text color="yellow" bold>[Esc]</Text>            Dismiss active modal/popup and focus chat prompt</Text>
-        <Text>  <Text color="yellow" bold>[Ctrl+C]</Text>         Exit JunScience CLI</Text>
+        <Text>  <Text color="yellow" bold>[Ctrl+C]</Text>         Exit MedScience CLI</Text>
 
         <Box marginTop={1} flexDirection="column">
           <Text bold color="cyan">Core Commands:</Text>

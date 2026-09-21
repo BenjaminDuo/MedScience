@@ -7,7 +7,7 @@ import {
   globalToolRegistry,
   globalSkillRegistry,
   RuntimeSession,
-} from '@junscience/core';
+} from '@medscience/core';
 import { StreamRenderer } from './streamRenderer.js';
 import { colors, renderBanner } from './banner.js';
 
@@ -49,7 +49,7 @@ export async function startInteractiveRepl(): Promise<void> {
     const modeBadge = activeMode === 'plan'
       ? `${c.brightPurple}${c.bold}[PLAN]${c.reset}`
       : `${c.brightGreen}${c.bold}[ACT]${c.reset}`;
-    return `${modeBadge} ${c.brightCyan}${c.bold}junscience${c.reset} ${c.gray}>${c.reset} `;
+    return `${modeBadge} ${c.brightCyan}${c.bold}medscience${c.reset} ${c.gray}>${c.reset} `;
   };
 
   const rl = readline.createInterface({
@@ -70,13 +70,13 @@ export async function startInteractiveRepl(): Promise<void> {
     }
 
     if (input === '/exit' || input === '/quit' || input === 'exit') {
-      console.log(`\n${c.dim}Exiting JunScience. Goodbye!${c.reset}\n`);
+      console.log(`\n${c.dim}Exiting MedScience. Goodbye!${c.reset}\n`);
       process.exit(0);
     }
 
     // 1. HELP COMMAND
     if (input === '/help') {
-      console.log(`\n${c.bold}${c.brightCyan}JunScience CLI Agent Commands & Slash Shortcuts:${c.reset}`);
+      console.log(`\n${c.bold}${c.brightCyan}MedScience CLI Agent Commands & Slash Shortcuts:${c.reset}`);
       console.log(`\n${c.bold}Model & API Configuration:${c.reset}`);
       console.log(`  ${c.cyan}/model${c.reset}                       - View or switch active LLM provider / model profile`);
       console.log(`  ${c.cyan}/model set --model <name>${c.reset}   - Configure model endpoint & API key`);
@@ -98,7 +98,7 @@ export async function startInteractiveRepl(): Promise<void> {
       console.log(`\n${c.bold}Session Management:${c.reset}`);
       console.log(`  ${c.cyan}/new${c.reset}                        - Start a fresh scientific session`);
       console.log(`  ${c.cyan}/clear${c.reset}                      - Clear terminal viewport`);
-      console.log(`  ${c.cyan}/exit${c.reset}                       - Exit JunScience CLI\n`);
+      console.log(`  ${c.cyan}/exit${c.reset}                       - Exit MedScience CLI\n`);
 
       rl.setPrompt(getPromptString());
       rl.prompt();
@@ -245,9 +245,9 @@ export async function startInteractiveRepl(): Promise<void> {
     // 7. MCP COMMAND
     if (input === '/mcp') {
       console.log(`\n${c.bold}Model Context Protocol (MCP) Bridge:${c.reset}`);
-      console.log(`  JunScience supports bidirectional MCP integration for specialized bioinformatics`);
+      console.log(`  MedScience supports bidirectional MCP integration for specialized bioinformatics`);
       console.log(`  and chemistry servers.`);
-      console.log(`  Config file: ~/.junscience/mcp_servers.json\n`);
+      console.log(`  Config file: ~/.medscience/mcp_servers.json\n`);
       rl.setPrompt(getPromptString());
       rl.prompt();
       continue;

@@ -6,7 +6,7 @@ import {
   globalProfileManager,
   ModelProfile,
   GenericModelClient,
-} from '@junscience/core';
+} from '@medscience/core';
 
 interface ModelConfigWizardProps {
   onClose: () => void;
@@ -160,7 +160,7 @@ export function ModelConfigWizard({ onClose, onProfileChanged }: ModelConfigWiza
     >
       <Box marginBottom={1} justifyContent="space-between">
         <Text bold color="cyan">
-          ⚙ JunScience Model Profile & Configuration Wizard
+          ⚙ MedScience Model Profile & Configuration Wizard
         </Text>
         <Text color="gray">[Esc to Return]</Text>
       </Box>

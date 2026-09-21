@@ -7,7 +7,7 @@ export const ProteinDomainArchitectSkill: SkillDefinition = {
   description: 'Deconstruct multidomain protein topological architectures from Swiss-Prot UniProtKB, map active catalytic and regulatory sites, and align them against experimental RCSB PDB crystal structures and AlphaFold 3D coordinates.',
   category: 'proteomics',
   version: '1.0.0',
-  author: 'JunScience Core',
+  author: 'MedScience Core',
   bundled: true,
   requiredTools: ['uniprot_lookup', 'pdb_lookup'],
   keywords: ['domain', 'kinase', 'structure', 'pdb', 'alphafold', 'active site', 'topology', 'pocket'],

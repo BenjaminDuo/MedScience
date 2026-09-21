@@ -1,4 +1,4 @@
-import { globalSessionManager } from '@junscience/core';
+import { globalSessionManager } from '@medscience/core';
 
 export function registerSessionIpcHandlers(ipcMain: any): void {
   ipcMain.handle('session:list', async () => {

@@ -5,9 +5,9 @@ import fs from 'node:fs';
 import os from 'node:os';
 
 async function testSkillInstallerSuite() {
-  console.log('=== Running JunScience Skill Security Audit & Installer Verification Suite ===\n');
+  console.log('=== Running MedScience Skill Security Audit & Installer Verification Suite ===\n');
 
-  const testHome = path.join(os.tmpdir(), `junscience-test-home-${Date.now()}`);
+  const testHome = path.join(os.tmpdir(), `medscience-test-home-${Date.now()}`);
   const userSkillsDir = path.join(testHome, 'skills');
   fs.mkdirSync(userSkillsDir, { recursive: true, mode: 0o700 });
 

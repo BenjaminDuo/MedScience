@@ -4,7 +4,7 @@ import path from 'node:path';
 import fs from 'node:fs';
 
 async function testSkillSystem() {
-  console.log('=== Running JunScience Scientific Skill System Verification Suite ===\n');
+  console.log('=== Running MedScience Scientific Skill System Verification Suite ===\n');
 
   // Test 1: Bundled Skills Integrity
   console.log('[Test 1/4] Bundled Scientific Skills Verification');
@@ -38,7 +38,7 @@ async function testSkillSystem() {
 
   // Test 4: User-Installed Skill Dynamic Loading
   console.log('\n[Test 4/4] User-Installed Skill (OpenScience-compatible SKILL.md)');
-  const tempUserSkillsDir = path.join(os.tmpdir(), `junscience_test_skills_${Date.now()}`);
+  const tempUserSkillsDir = path.join(os.tmpdir(), `medscience_test_skills_${Date.now()}`);
   const customSkillDir = path.join(tempUserSkillsDir, 'custom-crispr-screen');
   fs.mkdirSync(customSkillDir, { recursive: true });
 

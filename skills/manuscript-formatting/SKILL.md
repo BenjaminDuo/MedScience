@@ -4,7 +4,7 @@ displayName: Academic Scientific Manuscript & Journal Formatting
 description: Format structured scientific research drafts into publication-ready LaTeX / Markdown manuscript frameworks adhering to author guidelines of high-impact medical and biomedical journals (e.g. Nature Medicine, Journal of Hepatology, Hepatology, Frontiers).
 category: writing
 version: 1.0.0
-author: JunScience Core
+author: MedScience Core
 requiredTools:
   - python_runner
 keywords:

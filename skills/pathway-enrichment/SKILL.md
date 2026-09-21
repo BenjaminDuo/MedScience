@@ -4,7 +4,7 @@ displayName: Pathway Enrichment & Cascade Analysis
 description: Map differential target genes onto biological pathways (KEGG, Reactome, GO) and execute hypergeometric overrepresentation statistical testing with Benjamini-Hochberg FDR correction.
 category: pathways
 version: 1.0.0
-author: JunScience Core
+author: MedScience Core
 requiredTools:
   - uniprot_lookup
   - python_runner

@@ -1,4 +1,5 @@
-import { ToolExecution, Artifact, Citation } from './runtime.js';
+import { ToolExecution, Artifact, Citation, ExecutionMode } from './runtime.js';
+import type { RuntimeApprovalRequest } from '../execution/types.js';
 
 export interface BaseEvent<T extends string, P> {
   type: T;
@@ -112,6 +113,66 @@ export type PlanTaskCompletedEvent = BaseEvent<
   { planId: string; taskId: string; evidenceIds: string[]; resultNote?: string }
 >;
 
+export type RuntimeTurnStartedEvent = BaseEvent<
+  'runtime.turn.started',
+  { runId: string; backend: ExecutionMode; runtimeTurnId?: string }
+>;
+
+export type RuntimeTurnCompletedEvent = BaseEvent<
+  'runtime.turn.completed',
+  { runId: string; status: 'completed' | 'failed' | 'cancelled'; error?: string }
+>;
+
+export type RuntimeApprovalRequestedEvent = BaseEvent<
+  'runtime.approval.requested',
+  { request: RuntimeApprovalRequest }
+>;
+
+export type RuntimeErrorEvent = BaseEvent<
+  'runtime.error',
+  { code: string; message: string }
+>;
+
+export type FileChangeStartedEvent = BaseEvent<
+  'file.change.started',
+  { itemId: string; files?: string[] }
+>;
+
+export type FileChangeCompletedEvent = BaseEvent<
+  'file.change.completed',
+  { itemId: string; files?: string[]; status: 'completed' | 'failed' }
+>;
+
+export type TeamRunStartedEvent = BaseEvent<
+  'team.run.started',
+  { teamRunId: string; teamId: string; leaderAgentId: string }
+>;
+
+export type TeamRunStatusEvent = BaseEvent<
+  'team.run.status',
+  { teamRunId: string; status: string }
+>;
+
+export type TeamPlanReadyEvent = BaseEvent<
+  'team.plan.ready',
+  { teamRunId: string; taskIds: string[] }
+>;
+
+export type TeamTaskStatusEvent = BaseEvent<
+  'team.task.status',
+  { teamRunId: string; taskId: string; agentId: string; status: string }
+>;
+
+export type TeamHandoffSubmittedEvent = BaseEvent<
+  'team.handoff.submitted',
+  { teamRunId: string; taskId: string; handoffId: string; agentId: string }
+>;
+
+export type TeamRunCompletedEvent = BaseEvent<
+  'team.run.completed',
+  { teamRunId: string; status: 'completed' | 'failed' | 'cancelled'; error?: { code: string; message: string } }
+>;
+
 export type RuntimeEvent =
   | SessionCreatedEvent
   | SessionResumedEvent
@@ -133,6 +194,18 @@ export type RuntimeEvent =
   | PermissionRequestedEvent
   | PlanCreatedEvent
   | PlanTaskUpdatedEvent
-  | PlanTaskCompletedEvent;
+  | PlanTaskCompletedEvent
+  | RuntimeTurnStartedEvent
+  | RuntimeTurnCompletedEvent
+  | RuntimeApprovalRequestedEvent
+  | RuntimeErrorEvent
+  | FileChangeStartedEvent
+  | FileChangeCompletedEvent
+  | TeamRunStartedEvent
+  | TeamRunStatusEvent
+  | TeamPlanReadyEvent
+  | TeamTaskStatusEvent
+  | TeamHandoffSubmittedEvent
+  | TeamRunCompletedEvent;
 
 export type EventType = RuntimeEvent['type'];

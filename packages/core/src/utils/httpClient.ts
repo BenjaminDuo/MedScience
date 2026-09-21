@@ -64,7 +64,7 @@ export async function resilientFetch(url: string, options: ResilientHttpOptions 
       const res = await fetch(url, {
         ...options,
         headers: {
-          'User-Agent': 'JunScience-Agent/1.0 (Scientific Research Assistant)',
+          'User-Agent': 'MedScience-Agent/1.0 (Scientific Research Assistant)',
           'Accept': 'application/json, text/plain, */*',
           ...(options.headers || {}),
         },

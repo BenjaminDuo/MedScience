@@ -10,7 +10,7 @@ export async function main() {
   const command = args[0];
 
   if (!command) {
-    // Start interactive REPL when invoked with no args (e.g. `junscience`)
+    // Start interactive REPL when invoked with no args (e.g. `medscience`)
     const isInteractive = Boolean(process.stdin.isTTY && process.stdout.isTTY);
     if (isInteractive) {
       await startInkRepl();
@@ -44,15 +44,15 @@ export async function main() {
     case '-h':
     case 'help':
       console.log(`
-JunScience CLI — Scientific AI Workstation & Autonomous Research Engine
+MedScience CLI — Scientific AI Workstation & Autonomous Research Engine
 
 Usage:
-  junscience                          Start interactive scientific REPL (Plan & Act modes)
-  junscience research "<inquiry>"     Execute a one-shot autonomous scientific research inquiry
-  junscience config list              List configured model profiles
-  junscience config set [options]     Configure an OpenAI/Anthropic-compatible endpoint
-  junscience config test              Probe connection and measure latency to active model
-  junscience config delete <id>       Delete a model profile
+  medscience                          Start interactive scientific REPL (Plan & Act modes)
+  medscience research "<inquiry>"     Execute a one-shot autonomous scientific research inquiry
+  medscience config list              List configured model profiles
+  medscience config set [options]     Configure an OpenAI/Anthropic-compatible endpoint
+  medscience config test              Probe connection and measure latency to active model
+  medscience config delete <id>       Delete a model profile
 
 Options for 'config set':
   --base-url <url>      API Base URL (e.g. https://api.deepseek.com/v1)

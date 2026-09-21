@@ -16,7 +16,7 @@ const dummyContext: ToolContext = {
 };
 
 async function testHardenedCore() {
-  console.log('=== Running JunScience Core Hardening & MCP Bridge Verification Suite ===\n');
+  console.log('=== Running MedScience Core Hardening & MCP Bridge Verification Suite ===\n');
 
   // Test 1: MCP Server Bridge
   console.log('[Test 1/6] MCP Server Bridge (tools/list & tools/call)');

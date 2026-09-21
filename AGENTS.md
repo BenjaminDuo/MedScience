@@ -1,20 +1,20 @@
-# AGENTS.md — JunScience Contributor & AI Agent Guidelines
+# AGENTS.md — MedScience Contributor & AI Agent Guidelines
 
 > **IMPORTANT TARGET AUDIENCE NOTICE**
 > 
-> This document is strictly for **AI coding assistants and autonomous agents (such as Claude Code, Antigravity, Codex CLI, Cursor, or peer agents) that are inspecting, developing, testing, or maintaining the JunScience codebase itself**.
+> This document is strictly for **AI coding assistants and autonomous agents (such as Claude Code, Antigravity, Codex CLI, Cursor, or peer agents) that are inspecting, developing, testing, or maintaining the MedScience codebase itself**.
 > 
-> This is **NOT** a runtime prompt for JunScience's internal research loop when executing user scientific queries.
+> This is **NOT** a runtime prompt for MedScience's internal research loop when executing user scientific queries.
 
 ---
 
 ## 1. Project Overview & Architecture
 
-**JunScience** is an autonomous, open-source scientific and biomedical research workstation and multi-agent framework. It integrates hardened molecular databases, clinical connectors, cross-platform kernel-enforced sandboxes, and formal verification gates to conduct hypothesis-driven, evidence-grounded scientific investigations.
+**MedScience** is an autonomous, open-source scientific and biomedical research workstation and multi-agent framework. It integrates hardened molecular databases, clinical connectors, cross-platform kernel-enforced sandboxes, and formal verification gates to conduct hypothesis-driven, evidence-grounded scientific investigations.
 
 ### Monorepo Architecture
 ```text
-JunScience/
+MedScience/
 ├── packages/
 │   ├── core/           # Core runtime, ReAct research loop, hooks, tools, skills, sandboxes
 │   │   ├── src/
@@ -29,7 +29,7 @@ JunScience/
 │   │   │   ├── sandbox/        # Cross-platform sandbox (macOS Seatbelt, Linux bwrap, Windows)
 │   │   │   └── privacy/        # ClinicalDataGate privacy enforcement
 │   │   └── tests/      # Core test suites and integration verification
-│   ├── cli/            # Interactive REPL, subcommands (`junscience research`, `junscience hooks list`)
+│   ├── cli/            # Interactive REPL, subcommands (`medscience research`, `medscience hooks list`)
 │   └── desktop/        # Electron + React + Tailwind desktop application
 ├── skills/             # Standard OpenScience-compatible SKILL.md repositories
 ├── docs/               # Architecture schematics, portal assets, documentation
@@ -67,7 +67,7 @@ All agents contributing to this codebase **MUST** follow these strict rules:
 
 ### A. Scientific Integrity & No Hallucinations
 - **NEVER fabricate scientific facts, citations, PMIDs, NCT IDs, or protein sequences**.
-- Every claim synthesized by JunScience must be anchored in verified `[Evidence: EV-xxx]` tags.
+- Every claim synthesized by MedScience must be anchored in verified `[Evidence: EV-xxx]` tags.
 - Mock providers must use real-world grounded data (e.g. TYK2: P29597, 1187 aa; Deucravacitinib: CID 134821691).
 
 ### B. Clinical Privacy & Sandbox Safety
@@ -76,7 +76,7 @@ All agents contributing to this codebase **MUST** follow these strict rules:
 - **Credential Protection**: Never hardcode, commit, or echo real API keys. All tool invocations must pass the `secret-redaction` Hook.
 
 ### C. Branding and Naming
-- The framework name is strictly **JunScience**.
+- The framework name is strictly **MedScience**.
 - Do **NOT** use Chinese transliterations (such as "君科") anywhere in the user-facing documentation, portal, or code comments.
 
 ### D. Documentation Language Conventions
@@ -118,8 +118,8 @@ npx tsx packages/core/tests/test-plan-tracker.ts
 npx tsx packages/core/tests/test-medical-connectors.ts
 
 # Inspect registered hooks
-junscience hooks list
+medscience hooks list
 
 # Start interactive CLI
-junscience
+medscience
 ```

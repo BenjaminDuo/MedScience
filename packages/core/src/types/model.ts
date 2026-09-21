@@ -13,6 +13,8 @@ export interface ModelProfile {
   streaming?: boolean;
   toolCalling?: boolean;
   headers?: Record<string, string>;
+  /** Overrides the default request/stream-stall timeout (ms) for this profile. Falls back to a 3-minute default when unset. */
+  requestTimeoutMs?: number;
   isDefault?: boolean;
   createdAt?: string;
   updatedAt?: string;
@@ -51,6 +53,14 @@ export interface ModelRequest {
   model: string;
   messages: ModelMessage[];
   tools?: any[];
+  /**
+   * 'auto' (default, omitted): the model may call a tool or answer in plain text.
+   * 'required': the model must call *some* tool this turn (any of `tools`), but may pick which.
+   * { name }: the model must call that specific tool this turn.
+   * Providers that don't support forced tool choice silently ignore this; callers that rely on
+   * a specific tool being called must still handle the "model replied with plain text" case.
+   */
+  toolChoice?: 'auto' | 'required' | { name: string };
   temperature?: number;
   maxTokens?: number;
 }

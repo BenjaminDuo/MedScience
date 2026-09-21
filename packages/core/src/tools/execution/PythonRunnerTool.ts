@@ -51,10 +51,10 @@ function checkCommandAvailable(cmd: string): boolean {
 }
 
 export function resolveWorkspaceRoot(): string {
-  if (process.env.JUNSCIENCE_HOME) {
-    return process.env.JUNSCIENCE_HOME;
+  if (process.env.MEDSCIENCE_HOME) {
+    return process.env.MEDSCIENCE_HOME;
   }
-  const defaultHome = path.join(os.homedir(), '.junscience');
+  const defaultHome = path.join(os.homedir(), '.medscience');
   try {
     if (!fs.existsSync(defaultHome)) {
       fs.mkdirSync(defaultHome, { recursive: true, mode: 0o700 });
@@ -65,14 +65,14 @@ export function resolveWorkspaceRoot(): string {
     fs.unlinkSync(probeFile);
     return defaultHome;
   } catch {
-    const cwdHome = path.join(process.cwd(), '.junscience');
+    const cwdHome = path.join(process.cwd(), '.medscience');
     try {
       if (!fs.existsSync(cwdHome)) {
         fs.mkdirSync(cwdHome, { recursive: true, mode: 0o700 });
       }
       return cwdHome;
     } catch {
-      return path.join(os.tmpdir(), '.junscience');
+      return path.join(os.tmpdir(), '.medscience');
     }
   }
 }
@@ -118,7 +118,7 @@ export const PythonRunnerTool: ToolDefinition<PythonRunnerInput> = {
     try {
       fs.mkdirSync(sessionDir, { recursive: true, mode: 0o700 });
     } catch {
-      sessionDir = path.join(process.cwd(), '.junscience', 'workspace', context.sessionId || 'default', `run-${Date.now()}`);
+      sessionDir = path.join(process.cwd(), '.medscience', 'workspace', context.sessionId || 'default', `run-${Date.now()}`);
       fs.mkdirSync(sessionDir, { recursive: true, mode: 0o700 });
     }
 
@@ -126,7 +126,7 @@ export const PythonRunnerTool: ToolDefinition<PythonRunnerInput> = {
     fs.writeFileSync(scriptPath, input.scriptContent, { mode: 0o600 });
 
     const platform = process.platform;
-    const sandboxExplicitlyDisabled = process.env.JUNSCIENCE_SANDBOX === 'disabled';
+    const sandboxExplicitlyDisabled = process.env.MEDSCIENCE_SANDBOX === 'disabled';
     let sandboxMode = sandboxExplicitlyDisabled
       ? 'Unconfined Subprocess (Explicitly Authorized)'
       : 'Sandbox Unavailable';
@@ -147,7 +147,7 @@ export const PythonRunnerTool: ToolDefinition<PythonRunnerInput> = {
         execCmd = 'sandbox-exec';
         execArgs = ['-p', profile, 'python3', filename, ...(input.arguments || [])];
       } else {
-        const errorMsg = `[SandboxEnforcementError]: macOS kernel sandbox utility 'sandbox-exec' is unavailable. Execution was blocked. Set JUNSCIENCE_SANDBOX=disabled only to explicitly authorize unconfined execution.`;
+        const errorMsg = `[SandboxEnforcementError]: macOS kernel sandbox utility 'sandbox-exec' is unavailable. Execution was blocked. Set MEDSCIENCE_SANDBOX=disabled only to explicitly authorize unconfined execution.`;
         return {
           success: false,
           error: errorMsg,
@@ -173,7 +173,7 @@ export const PythonRunnerTool: ToolDefinition<PythonRunnerInput> = {
           'python3', filename, ...(input.arguments || []),
         ];
       } else {
-        const errorMsg = `[SandboxEnforcementError]: Linux kernel sandbox utility 'bwrap' is unavailable. Execution was blocked. Set JUNSCIENCE_SANDBOX=disabled only to explicitly authorize unconfined execution.`;
+        const errorMsg = `[SandboxEnforcementError]: Linux kernel sandbox utility 'bwrap' is unavailable. Execution was blocked. Set MEDSCIENCE_SANDBOX=disabled only to explicitly authorize unconfined execution.`;
         return {
           success: false,
           error: errorMsg,
@@ -182,7 +182,7 @@ export const PythonRunnerTool: ToolDefinition<PythonRunnerInput> = {
         };
       }
     } else if (platform === 'win32') {
-      const errorMsg = `[SandboxEnforcementError]: A network-isolated Windows execution token is not available. Execution was blocked. Set JUNSCIENCE_SANDBOX=disabled only to explicitly authorize unconfined execution.`;
+      const errorMsg = `[SandboxEnforcementError]: A network-isolated Windows execution token is not available. Execution was blocked. Set MEDSCIENCE_SANDBOX=disabled only to explicitly authorize unconfined execution.`;
       return {
         success: false,
         error: errorMsg,

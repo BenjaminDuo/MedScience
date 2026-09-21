@@ -1,38 +1,49 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import {
-  BookOpen,
-  BarChart3,
-  FlaskConical,
-  Code2,
-  Atom,
   PanelRightClose,
   PanelRight,
   CheckCircle2,
   Clock,
   Circle,
-  AlertCircle,
-  ListTodo,
+  XCircle,
+  Activity,
+  FileImage,
+  Table as TableIcon,
+  Atom,
+  FileText,
+  Code2,
+  Boxes,
 } from 'lucide-react';
-import { mockContextTools } from '../../data/mockTools';
-import { mockContextTips as tipsList } from '../../data/mockStats';
 import { useNav } from '../../context/NavContext';
 import { useAgent } from '../../context/AgentContext';
+import { useLanguage } from '../../context/LanguageContext';
+import type { Artifact, ToolExecution } from '../../types/agent';
 
 interface ContextPanelProps {
   className?: string;
 }
 
-const iconMap: Record<string, React.ElementType> = {
-  BookOpen,
-  BarChart3,
-  FlaskConical,
-  Code2,
-  Atom,
+const artifactIconMap: Record<Artifact['type'], React.ElementType> = {
+  figure: FileImage,
+  dataset: TableIcon,
+  table: TableIcon,
+  protein: Atom,
+  molecule: Atom,
+  code: Code2,
+  report: FileText,
 };
 
+/**
+ * "精简可观测" panel: what is actually happening right now (real plan/task
+ * events + live tool activity from the backend) and what it has produced
+ * (real artifacts from this session) -- no mock tool shortcuts, no canned
+ * tip prompts. Everything rendered here comes from real runtime events, not
+ * placeholder data.
+ */
 export const ContextPanel: React.FC<ContextPanelProps> = ({ className = '' }) => {
   const { isContextPanelOpen, setIsContextPanelOpen } = useNav();
-  const { submitPrompt, planTasks } = useAgent();
+  const { currentSession, planTasks } = useAgent();
+  const { t } = useLanguage();
 
   if (!isContextPanelOpen) {
     return (
@@ -40,7 +51,7 @@ export const ContextPanel: React.FC<ContextPanelProps> = ({ className = '' }) =>
         <button
           onClick={() => setIsContextPanelOpen(true)}
           className="p-2 rounded-md text-text-muted hover:text-text-primary hover:bg-bg-hover transition-colors"
-          title="Open Context Panel"
+          title={t('Open Context Panel', '展开上下文面板')}
         >
           <PanelRight size={16} />
         </button>
@@ -48,46 +59,62 @@ export const ContextPanel: React.FC<ContextPanelProps> = ({ className = '' }) =>
     );
   }
 
+  const lastAgentMessage = [...currentSession.messages].reverse().find((m) => m.role === 'agent');
+  const liveActivity: ToolExecution[] = lastAgentMessage?.toolExecutions || [];
+
+  const allArtifacts: Artifact[] = [];
+  const seenArtifactIds = new Set<string>();
+  for (const m of currentSession.messages) {
+    for (const art of m.artifacts || []) {
+      if (!seenArtifactIds.has(art.id)) {
+        seenArtifactIds.add(art.id);
+        allArtifacts.push(art);
+      }
+    }
+  }
+
   return (
     <aside
       className={`flex flex-col h-full w-[280px] lg:w-[300px] bg-bg-surface border-l border-border select-none overflow-y-auto transition-all ${className}`}
     >
-      {/* Section 1: Explicit Plan & To-Do Tracker (DeepSeek Harness / Codex Style) */}
-      <div className="p-4 border-b border-border-subtle bg-bg-subtle/30">
-        <div className="flex items-center justify-between mb-3">
-          <div className="flex items-center gap-1.5">
-            <ListTodo size={16} className="text-accent" />
-            <h3 className="text-[13.5px] font-semibold text-text-primary">
-              Research Plan & To-Do
-            </h3>
-          </div>
-          <button
-            onClick={() => setIsContextPanelOpen(false)}
-            className="p-1 rounded text-text-muted hover:text-text-primary hover:bg-bg-hover transition-colors"
-            title="Collapse context panel"
-          >
-            <PanelRightClose size={15} />
-          </button>
+      {/* Header */}
+      <div className="flex items-center justify-between p-4 pb-2">
+        <div className="flex items-center gap-1.5">
+          <Activity size={16} className="text-accent" />
+          <h3 className="text-[13.5px] font-semibold text-text-primary">{t('Current Flow', '当前流程')}</h3>
         </div>
+        <button
+          onClick={() => setIsContextPanelOpen(false)}
+          className="p-1 rounded text-text-muted hover:text-text-primary hover:bg-bg-hover transition-colors"
+          title={t('Collapse context panel', '收起上下文面板')}
+        >
+          <PanelRightClose size={15} />
+        </button>
+      </div>
 
+      {/* Section 1: Real plan milestones (from plan.created / plan.task.updated) */}
+      <div className="px-4 pb-3">
         {planTasks.length === 0 ? (
           <div className="p-3.5 rounded-xl border border-dashed border-border text-center bg-bg-elevated/20">
-            <p className="text-xs font-medium text-text-secondary">No Active Research Plan</p>
+            <p className="text-xs font-medium text-text-secondary">{t('No active run', '当前没有在跑的流程')}</p>
             <p className="text-[11px] text-text-muted mt-1 leading-normal">
-              Submit an inquiry to formulate automated 5-stage research milestones.
+              {t('Submit a question to see live progress here.', '提交问题后，这里会显示实时进展。')}
             </p>
           </div>
         ) : (
-          <div className="space-y-2">
+          <div className="space-y-1.5">
             {planTasks.map((task) => {
               const isDone = task.status === 'completed';
               const isProgress = task.status === 'in_progress';
+              const isFailed = task.status === 'failed';
               return (
                 <div
                   key={task.id}
                   className={`p-2 rounded-md border text-[12px] transition-all ${
                     isDone
                       ? 'bg-emerald-500/5 border-emerald-500/20 text-text-primary'
+                      : isFailed
+                      ? 'bg-red-500/5 border-red-500/20 text-text-primary'
                       : isProgress
                       ? 'bg-accent/10 border-accent/30 text-accent font-medium shadow-sm'
                       : 'bg-bg-card/40 border-border-subtle text-text-muted'
@@ -97,6 +124,8 @@ export const ContextPanel: React.FC<ContextPanelProps> = ({ className = '' }) =>
                     <div className="mt-0.5 flex-shrink-0">
                       {isDone ? (
                         <CheckCircle2 size={14} className="text-emerald-500" />
+                      ) : isFailed ? (
+                        <XCircle size={14} className="text-red-500" />
                       ) : isProgress ? (
                         <Clock size={14} className="text-accent animate-spin" />
                       ) : (
@@ -105,6 +134,7 @@ export const ContextPanel: React.FC<ContextPanelProps> = ({ className = '' }) =>
                     </div>
                     <div className="flex-1 min-w-0">
                       <p className="leading-snug">{task.title}</p>
+                      {task.resultNote && <p className="text-[10.5px] text-text-muted mt-0.5 leading-snug">{task.resultNote}</p>}
                       {task.evidenceIds && task.evidenceIds.length > 0 && (
                         <div className="flex flex-wrap gap-1 mt-1">
                           {task.evidenceIds.map((ev) => (
@@ -126,58 +156,60 @@ export const ContextPanel: React.FC<ContextPanelProps> = ({ className = '' }) =>
         )}
       </div>
 
-      {/* Section 2: Scientific Tools */}
-      <div className="p-4 border-b border-border-subtle">
-        <div className="flex items-center justify-between mb-3.5">
-          <h3 className="text-[14px] font-semibold text-text-primary">
-            Scientific Tools
+      {/* Section 2: Live tool activity for the current turn */}
+      {liveActivity.length > 0 && (
+        <div className="px-4 pb-3 border-t border-border-subtle pt-3">
+          <h3 className="text-[12px] font-semibold uppercase tracking-wide text-text-muted mb-2">
+            {t('Live Activity', '实时活动')}
+          </h3>
+          <div className="space-y-1">
+            {liveActivity.map((tool) => (
+              <div key={tool.id} className="flex items-center gap-2 text-[11.5px] py-0.5">
+                {tool.status === 'completed' ? (
+                  <CheckCircle2 size={12} className="text-emerald-500 flex-shrink-0" />
+                ) : tool.status === 'failed' ? (
+                  <XCircle size={12} className="text-red-500 flex-shrink-0" />
+                ) : (
+                  <Clock size={12} className="text-accent animate-spin flex-shrink-0" />
+                )}
+                <span className="truncate text-text-secondary" title={tool.description}>
+                  {tool.toolName}
+                </span>
+                {tool.duration && <span className="text-text-muted font-mono text-[10px] flex-shrink-0">{tool.duration}</span>}
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Section 3: Task artifacts produced so far in this session */}
+      <div className="px-4 pb-4 border-t border-border-subtle pt-3">
+        <div className="flex items-center gap-1.5 mb-2">
+          <Boxes size={14} className="text-accent" />
+          <h3 className="text-[12px] font-semibold uppercase tracking-wide text-text-muted">
+            {t('Task Artifacts', '任务产物')} {allArtifacts.length > 0 && `(${allArtifacts.length})`}
           </h3>
         </div>
-
-        <div className="space-y-3">
-          {mockContextTools.map((tool) => {
-            const Icon = iconMap[tool.iconName] || BookOpen;
-            return (
-              <div
-                key={tool.id}
-                onClick={() => submitPrompt(`Launch ${tool.name} workflow and retrieve current active records.`)}
-                className="group flex items-start gap-3 p-1.5 rounded-lg hover:bg-bg-hover cursor-pointer transition-all"
-              >
-                <div className="flex-shrink-0 mt-0.5 p-2 rounded-lg bg-accent/10 text-accent group-hover:scale-105 transition-transform">
-                  <Icon size={16} />
+        {allArtifacts.length === 0 ? (
+          <p className="text-[11px] text-text-muted leading-normal">{t('None generated yet.', '尚未生成任何产物。')}</p>
+        ) : (
+          <div className="space-y-1.5">
+            {allArtifacts.map((art) => {
+              const Icon = artifactIconMap[art.type] || FileText;
+              return (
+                <div key={art.id} className="flex items-start gap-2 p-2 rounded-lg border border-border-subtle bg-bg-elevated/30">
+                  <div className="mt-0.5 p-1.5 rounded-md bg-accent/10 text-accent flex-shrink-0">
+                    <Icon size={13} />
+                  </div>
+                  <div className="min-w-0">
+                    <p className="text-[12px] font-medium text-text-primary truncate">{art.title}</p>
+                    <p className="text-[10.5px] text-text-muted truncate">{art.description}</p>
+                  </div>
                 </div>
-                <div className="flex flex-col min-w-0">
-                  <span className="text-[13px] font-medium text-text-primary group-hover:text-accent transition-colors leading-snug">
-                    {tool.name}
-                  </span>
-                  <span className="text-[11px] text-text-muted leading-tight mt-0.5">
-                    {tool.description}
-                  </span>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-
-      {/* Section 3: Tips */}
-      <div className="p-4">
-        <h3 className="text-[14px] font-semibold text-text-primary mb-1">
-          Tips & Prompts
-        </h3>
-        <p className="text-[12px] text-text-secondary mb-2.5">Try asking:</p>
-        <div className="space-y-1.5 text-[12.5px]">
-          {tipsList.map((tip) => (
-            <button
-              key={tip.id}
-              onClick={() => submitPrompt(`${tip.prompt} using our current project datasets.`)}
-              className="w-full text-left flex items-center gap-2 px-1.5 py-1 rounded text-text-secondary hover:text-accent transition-colors group"
-            >
-              <span className="text-text-muted group-hover:text-accent">•</span>
-              <span className="truncate">{tip.prompt}</span>
-            </button>
-          ))}
-        </div>
+              );
+            })}
+          </div>
+        )}
       </div>
     </aside>
   );

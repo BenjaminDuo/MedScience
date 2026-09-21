@@ -7,7 +7,7 @@ export const AdmetPredictionSkill: SkillDefinition = {
   description: 'Evaluate small-molecule physicochemical properties (MW, LogP, TPSA, HBD, HBA, RotB), Lipinski Rule of Five compliance, Veber oral bioavailability criteria, and quantitative drug-likeness (QED).',
   category: 'cheminformatics',
   version: '1.0.0',
-  author: 'JunScience Core',
+  author: 'MedScience Core',
   bundled: true,
   requiredTools: ['pubchem_lookup', 'chembl_lookup', 'python_runner'],
   keywords: ['admet', 'lipinski', 'qed', 'druglikeness', 'tpsa', 'logp', 'veber', 'bioavailability', 'smiles'],

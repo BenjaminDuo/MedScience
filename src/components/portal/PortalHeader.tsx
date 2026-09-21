@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Menu, Search, Star, Github, Globe } from 'lucide-react';
 import { useNav } from '../../context/NavContext';
 import { useLanguage } from '../../context/LanguageContext';
-import { JunScienceLogo } from '../common/JunScienceLogo';
+import { MedScienceLogo } from '../common/MedScienceLogo';
 
 export const PortalHeader: React.FC = () => {
   const { setIsMobileSidebarOpen, setIsSearchOpen } = useNav();
@@ -12,7 +12,7 @@ export const PortalHeader: React.FC = () => {
   // Real-time GitHub Star count fetcher
   useEffect(() => {
     let isMounted = true;
-    fetch('https://api.github.com/repos/Benjamin-JHou/JunScience')
+    fetch('https://api.github.com/repos/BenjaminDuo/MedScience')
       .then((res) => {
         if (!res.ok) throw new Error('Rate limited or not found');
         return res.json();
@@ -43,8 +43,8 @@ export const PortalHeader: React.FC = () => {
         </button>
 
         <div className="flex items-center gap-2 lg:hidden">
-          <JunScienceLogo size={26} />
-          <span className="font-bold text-[14px] text-text-primary">JunScience</span>
+          <MedScienceLogo size={26} />
+          <span className="font-bold text-[14px] text-text-primary">MedScience</span>
         </div>
       </div>
 
@@ -68,11 +68,11 @@ export const PortalHeader: React.FC = () => {
       <div className="flex items-center gap-3">
         {/* GitHub Star Badge: Displays real-time count if available, otherwise cleanly shows GitHub button without fake '0' */}
         <a
-          href="https://github.com/Benjamin-JHou/JunScience"
+          href="https://github.com/BenjaminDuo/MedScience"
           target="_blank"
           rel="noreferrer"
           className="flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[12px] font-medium border border-border bg-bg-surface hover:bg-bg-hover hover:border-text-muted/40 transition-all text-text-primary group shadow-2xs"
-          title="JunScience GitHub Repository"
+          title="MedScience GitHub Repository"
         >
           <Github size={14} className="text-text-muted group-hover:text-text-primary transition-colors" />
           <span className="flex items-center gap-1">

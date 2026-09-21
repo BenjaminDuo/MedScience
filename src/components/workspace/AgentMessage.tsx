@@ -4,7 +4,7 @@ import { AgentMessage as AgentMessageType } from '../../types/agent';
 import { ToolExecutionCard } from './ToolExecutionCard';
 import { ArtifactCard } from './ArtifactCard';
 import { CitationCard } from './CitationCard';
-import { JunScienceLogo } from '../common/JunScienceLogo';
+import { MedScienceLogo } from '../common/MedScienceLogo';
 
 interface AgentMessageProps {
   message: AgentMessageType;
@@ -36,14 +36,14 @@ export const AgentMessage: React.FC<AgentMessageProps> = ({ message }) => {
   return (
     <div className="flex items-start gap-3.5 my-6 max-w-[840px] mx-auto">
       <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-accent/20 to-accent-secondary/20 border border-accent/40 flex items-center justify-center flex-shrink-0 mt-0.5 shadow-sm">
-        <JunScienceLogo size={20} />
+        <MedScienceLogo size={20} />
       </div>
 
       <div className="flex-1 min-w-0">
         {/* Agent Name & Header */}
         <div className="flex items-center justify-between text-xs text-text-muted mb-2 select-none">
           <div className="flex items-center gap-2">
-            <span className="font-semibold text-text-primary">JunScience Agent</span>
+            <span className="font-semibold text-text-primary">MedScience Agent</span>
             <span className="font-mono text-[10.5px] px-1.5 py-0.2 rounded bg-accent-soft text-accent border border-accent/20">
               AI Research Partner
             </span>

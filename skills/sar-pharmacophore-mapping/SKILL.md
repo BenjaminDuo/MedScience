@@ -4,7 +4,7 @@ displayName: SAR & Pharmacophore Mapping
 description: Analyze Structure-Activity Relationships (SAR) from ChEMBL bioactivity assays, identify functional pharmacophore elements (H-bond donors/acceptors, aromatic rings), and evaluate R-group activity cliffs.
 category: chemistry
 version: 1.0.0
-author: JunScience Core
+author: MedScience Core
 requiredTools:
   - chembl_lookup
   - pubchem_lookup

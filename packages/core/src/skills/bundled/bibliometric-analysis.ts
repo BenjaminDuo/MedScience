@@ -7,7 +7,7 @@ export const BibliometricAnalysisSkill: SkillDefinition = {
   description: 'Analyze publication trends, journal impact distributions, author collaboration clusters, and keyword co-occurrence frequencies across retrieved PubMed and OpenAlex literature corpora.',
   category: 'literature',
   version: '1.0.0',
-  author: 'JunScience Core',
+  author: 'MedScience Core',
   bundled: true,
   requiredTools: ['literature_search', 'python_runner'],
   keywords: ['bibliometric', 'co-citation', 'trend', 'author', 'journal', 'cluster', 'keyword', 'network'],

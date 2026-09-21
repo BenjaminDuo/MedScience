@@ -4,7 +4,7 @@ import {
   GenericModelClient,
   fallbackMockProvider,
   ProtocolType,
-} from '@junscience/core';
+} from '@medscience/core';
 import { colors } from '../ui/banner.js';
 
 export async function handleConfigCommand(args: string[]): Promise<void> {
@@ -18,7 +18,7 @@ export async function handleConfigCommand(args: string[]): Promise<void> {
       console.log(`\n${c.bold}Configured Model Profiles:${c.reset}`);
       if (profiles.length === 0) {
         console.log(`  ${c.yellow}(No profiles configured. Currently running in Demo Mode (Mock).)${c.reset}`);
-        console.log(`  ${c.dim}Run "junscience config set --base-url <url> --api-key <key> --model <name>" to add a model.${c.reset}\n`);
+        console.log(`  ${c.dim}Run "medscience config set --base-url <url> --api-key <key> --model <name>" to add a model.${c.reset}\n`);
         return;
       }
 
@@ -54,7 +54,7 @@ export async function handleConfigCommand(args: string[]): Promise<void> {
 
       if (!baseUrl && !apiKey && !model && !name) {
         console.log(`${c.red}Error:${c.reset} Missing arguments for config set.`);
-        console.log(`Usage: junscience config set --base-url <url> --api-key <key> --model <name> [--name <label>] [--protocol <openai-compatible|anthropic-compatible>]\n`);
+        console.log(`Usage: medscience config set --base-url <url> --api-key <key> --model <name> [--name <label>] [--protocol <openai-compatible|anthropic-compatible>]\n`);
         return;
       }
 
@@ -85,7 +85,7 @@ export async function handleConfigCommand(args: string[]): Promise<void> {
       console.log(`\n${c.green}✔ Successfully saved model profile:${c.reset} ${c.bold}${res.profile?.name}${c.reset}`);
       console.log(`  ${c.gray}Base URL:${c.reset} ${res.profile?.baseUrl}`);
       console.log(`  ${c.gray}Model:${c.reset} ${res.profile?.model}`);
-      console.log(`  ${c.dim}Encrypted API key stored in ~/.junscience/credentials.enc${c.reset}\n`);
+      console.log(`  ${c.dim}Encrypted API key stored in ~/.medscience/credentials.enc${c.reset}\n`);
       break;
     }
 
@@ -117,7 +117,7 @@ export async function handleConfigCommand(args: string[]): Promise<void> {
     case 'delete': {
       const id = args[1];
       if (!id) {
-        console.log(`${c.red}Usage:${c.reset} junscience config delete <profileId>\n`);
+        console.log(`${c.red}Usage:${c.reset} medscience config delete <profileId>\n`);
         return;
       }
       const deleted = globalProfileManager.deleteProfile(id);

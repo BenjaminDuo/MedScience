@@ -14,6 +14,7 @@ import {
 } from 'lucide-react';
 import { useAgent } from '../../context/AgentContext';
 import { useNav } from '../../context/NavContext';
+import { useLanguage } from '../../context/LanguageContext';
 
 interface SkillItem {
   id: string;
@@ -234,10 +235,21 @@ export const SkillsCatalogView: React.FC = () => {
   const { submitPrompt } = useAgent();
   const { setActiveSection } = useNav();
 
+  const { t, language } = useLanguage();
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [searchQuery, setSearchQuery] = useState('');
 
   const categories = ['All', 'Molecular Biology', 'Cheminformatics', 'Bioinformatics', 'Clinical & Trials', 'Literature Mining', 'Imaging & Multimodal'];
+  const categoryZhMap: Record<string, string> = {
+    'All': '全部',
+    'Molecular Biology': '分子生物学',
+    'Cheminformatics': '化学信息学',
+    'Bioinformatics': '生物信息学',
+    'Clinical & Trials': '临床与试验',
+    'Literature Mining': '文献挖掘',
+    'Imaging & Multimodal': '影像与多模态',
+  };
+  const catLabel = (cat: string) => (language === 'zh' ? categoryZhMap[cat] || cat : cat);
 
   const filteredSkills = skillsCatalog.filter((skill) => {
     const matchesCat = selectedCategory === 'All' || skill.category === selectedCategory;
@@ -263,16 +275,16 @@ export const SkillsCatalogView: React.FC = () => {
               <FlaskConical size={22} />
             </div>
             <div>
-              <h2 className="text-2xl font-bold tracking-tight text-text-primary">Scientific Skills (19 SOPs)</h2>
+              <h2 className="text-2xl font-bold tracking-tight text-text-primary">{t('Scientific Skills (19 SOPs)', '科研技能 (19 项 SOP)')}</h2>
               <p className="text-sm text-text-secondary mt-0.5">
-                Domain-specific computational protocols, molecular databases, and clinical verification pipelines.
+                {t('Domain-specific computational protocols, molecular databases, and clinical verification pipelines.', '面向特定领域的计算流程、分子数据库与临床验证流水线。')}
               </p>
             </div>
           </div>
         </div>
 
         <span className="text-xs font-mono px-3 py-1.5 rounded-lg bg-bg-surface border border-border text-accent">
-          19 Skills Loaded & Verified
+          {t('19 Skills Loaded & Verified', '已加载并验证 19 项技能')}
         </span>
       </div>
 
@@ -291,7 +303,7 @@ export const SkillsCatalogView: React.FC = () => {
                     : 'bg-bg-surface border border-border text-text-secondary hover:text-text-primary hover:bg-bg-hover'
                 }`}
               >
-                {cat}
+                {catLabel(cat)}
               </button>
             );
           })}
@@ -301,7 +313,7 @@ export const SkillsCatalogView: React.FC = () => {
           <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
           <input
             type="text"
-            placeholder="Search skills, databases..."
+            placeholder={t('Search skills, databases...', '搜索技能、数据库…')}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="w-full pl-8 pr-3 py-1.5 rounded-lg bg-bg-surface border border-border focus:border-accent text-xs text-text-primary placeholder:text-text-muted"
@@ -322,7 +334,7 @@ export const SkillsCatalogView: React.FC = () => {
                 <div className="flex items-center justify-between">
                   <span className="inline-flex items-center gap-1.5 text-[11px] font-mono text-accent bg-accent/10 px-2 py-0.5 rounded border border-accent/20">
                     <CatIcon size={12} />
-                    <span>{skill.category}</span>
+                    <span>{catLabel(skill.category)}</span>
                   </span>
                 </div>
 
@@ -337,7 +349,7 @@ export const SkillsCatalogView: React.FC = () => {
                 {/* SOP Steps preview */}
                 <div className="pt-2 space-y-1 border-t border-border-subtle">
                   <span className="text-[10.5px] font-semibold uppercase tracking-wider text-text-muted">
-                    Execution SOP:
+                    {t('Execution SOP:', '执行步骤：')}
                   </span>
                   <div className="space-y-0.5">
                     {skill.sopSteps.map((step, idx) => (
@@ -369,7 +381,7 @@ export const SkillsCatalogView: React.FC = () => {
                   className="w-full flex items-center justify-center gap-2 px-3 py-2 rounded-lg bg-bg-elevated hover:bg-accent hover:text-white border border-border hover:border-transparent text-text-primary text-xs font-semibold transition-all group/btn"
                 >
                   <Play size={13} className="text-accent group-hover/btn:text-white" />
-                  <span>Execute with Agent</span>
+                  <span>{t('Execute with Agent', '交由智能体执行')}</span>
                 </button>
               </div>
             </div>

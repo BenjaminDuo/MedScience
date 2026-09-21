@@ -1,12 +1,12 @@
 import React from 'react';
 
-interface JunScienceLogoProps {
+interface MedScienceLogoProps {
   size?: number;
   variant?: 'desktop' | 'wireframe-cli';
   className?: string;
 }
 
-export const JunScienceLogo: React.FC<JunScienceLogoProps> = ({
+export const MedScienceLogo: React.FC<MedScienceLogoProps> = ({
   size = 32,
   variant = 'desktop',
   className = '',
