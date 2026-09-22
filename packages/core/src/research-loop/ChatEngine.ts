@@ -55,7 +55,12 @@ export class ChatEngine {
   public async run(
     session: RuntimeSession,
     userInquiry: string,
-    onDelta?: (chunk: string) => void
+    onDelta?: (chunk: string) => void,
+    // Unused here (chat mode never renders a plan checklist) -- accepted
+    // only so ResearchEngine.executeInquiry can call chatEngine.run and
+    // autonomousEngine.run through the same call site without a runtime
+    // type check on which engine it resolved to.
+    _language?: 'en' | 'zh'
   ): Promise<Turn> {
     const sessionId = session.id;
     const turnIndex = session.turns.length + 1;

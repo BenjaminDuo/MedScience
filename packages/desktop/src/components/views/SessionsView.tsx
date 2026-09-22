@@ -14,11 +14,13 @@ import {
   Clock,
 } from 'lucide-react';
 import { useAgent } from '../../context/AgentContext';
+import { useWorkspaces, DEFAULT_WORKSPACE_ID } from '../../context/WorkspaceContext';
 import { useNav } from '../../context/NavContext';
 import { useLanguage } from '../../context/LanguageContext';
 
 export const SessionsView: React.FC = () => {
   const { sessions, openSession, renameSession, deleteSession, exportSession, resetSession } = useAgent();
+  const { activeWorkspaceId, workspaces } = useWorkspaces();
   const { setActiveSection } = useNav();
   const { t } = useLanguage();
 
@@ -28,10 +30,18 @@ export const SessionsView: React.FC = () => {
   const [confirmDeleteId, setConfirmDeleteId] = useState<string | null>(null);
   const [copiedId, setCopiedId] = useState<string | null>(null);
 
-  const filteredSessions = sessions.filter((s) =>
+  // Scope the list to the active workspace -- sessions are workspace-owned,
+  // so switching workspaces in the sidebar switches what shows up here.
+  const projectSessions = sessions.filter(
+    (s) => (s.workspaceId || DEFAULT_WORKSPACE_ID) === activeWorkspaceId
+  );
+
+  const filteredSessions = projectSessions.filter((s) =>
     s.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
     s.id.toLowerCase().includes(searchQuery.toLowerCase())
   );
+
+  const activeProjectTitle = workspaces.find((p) => p.id === activeWorkspaceId)?.title;
 
   const handleStartRename = (id: string, currentTitle: string) => {
     setEditingSessionId(id);
@@ -71,7 +81,12 @@ export const SessionsView: React.FC = () => {
   };
 
   const handleStartNew = () => {
-    resetSession();
+    // Unlike the sidebar's own "New Conversation" button (deliberately
+    // workspace-agnostic, see AgentContext.resetSession's doc comment), this
+    // button is reached from inside a specific workspace's 对话 view, so the
+    // new conversation should bind to that workspace automatically rather
+    // than landing in 未分类 and making the user assign it by hand.
+    resetSession('research', activeWorkspaceId);
     setActiveSection('home');
   };
 
@@ -87,7 +102,9 @@ export const SessionsView: React.FC = () => {
             <div>
               <h2 className="text-2xl font-bold tracking-tight text-text-primary">{t('Research Sessions', '研究会话')}</h2>
               <p className="text-sm text-text-secondary mt-0.5">
-                {t('Local, persistent investigation records and verified scientific findings.', '本地持久化的研究记录与已验证的科研发现。')}
+                {activeProjectTitle
+                  ? t(`In workspace "${activeProjectTitle}".`, `属于工作区「${activeProjectTitle}」。`)
+                  : t('Local, persistent investigation records and verified scientific findings.', '本地持久化的研究记录与已验证的科研发现。')}
               </p>
             </div>
           </div>
@@ -99,7 +116,7 @@ export const SessionsView: React.FC = () => {
             className="flex items-center gap-2 px-3.5 py-2 rounded-lg bg-accent hover:bg-accent-hover text-white text-xs font-semibold shadow-xs transition-colors"
           >
             <Sparkles size={14} />
-            <span>{t('New Research', '新建研究')}</span>
+            <span>{t('New Conversation', '新建对话')}</span>
           </button>
         </div>
       </div>

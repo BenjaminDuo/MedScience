@@ -11,6 +11,7 @@ import {
   Sparkles,
 } from 'lucide-react';
 import { useAgent } from '../../context/AgentContext';
+import { useWorkspaces, DEFAULT_WORKSPACE_ID } from '../../context/WorkspaceContext';
 import { useNav } from '../../context/NavContext';
 import { useLanguage } from '../../context/LanguageContext';
 
@@ -28,6 +29,7 @@ interface EvidenceRecord {
 
 export const EvidenceRegistryView: React.FC = () => {
   const { currentSession, sessions, resetSession } = useAgent();
+  const { activeWorkspaceId, workspaces } = useWorkspaces();
   const { setActiveSection } = useNav();
   const { t } = useLanguage();
 
@@ -37,7 +39,16 @@ export const EvidenceRegistryView: React.FC = () => {
   // Extract all citations and evidence from current session and all stored sessions
   const allRecords: EvidenceRecord[] = [];
 
-  const sourceSessions = [currentSession, ...sessions.filter((s) => s.id !== currentSession.id)];
+  // Scope to the active workspace -- evidence/files are workspace-owned,
+  // so switching workspaces in the sidebar switches what shows up here.
+  const projectSessions = sessions.filter(
+    (s) => (s.workspaceId || DEFAULT_WORKSPACE_ID) === activeWorkspaceId
+  );
+  const sourceSessions =
+    (currentSession.workspaceId || DEFAULT_WORKSPACE_ID) === activeWorkspaceId
+      ? [currentSession, ...projectSessions.filter((s) => s.id !== currentSession.id)]
+      : projectSessions;
+  const activeProjectTitle = workspaces.find((p) => p.id === activeWorkspaceId)?.title;
 
   sourceSessions.forEach((sess) => {
     sess.messages?.forEach((msg) => {
@@ -92,7 +103,9 @@ export const EvidenceRegistryView: React.FC = () => {
             <div>
               <h2 className="text-2xl font-bold tracking-tight text-text-primary">{t('Evidence Registry', '证据登记库')}</h2>
               <p className="text-sm text-text-secondary mt-0.5">
-                {t('Immutable, formal evidence tracking gate for citations, bioactivities, and clinical records.', '面向引用、生物活性与临床记录的不可篡改正式证据追踪门禁。')}
+                {activeProjectTitle
+                  ? t(`In workspace "${activeProjectTitle}".`, `属于工作区「${activeProjectTitle}」。`)
+                  : t('Immutable, formal evidence tracking gate for citations, bioactivities, and clinical records.', '面向引用、生物活性与临床记录的不可篡改正式证据追踪门禁。')}
               </p>
             </div>
           </div>

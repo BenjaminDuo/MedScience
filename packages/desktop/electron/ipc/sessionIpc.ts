@@ -9,9 +9,31 @@ export function registerSessionIpcHandlers(ipcMain: any): void {
     return globalSessionManager.getSession(id);
   });
 
-  ipcMain.handle('session:create', async (_event: any, payload: { title: string; agentId?: any; profileId?: string; modelName?: string }) => {
-    return globalSessionManager.createSession(payload.title, 'proj-1', payload.agentId || 'research', payload.profileId, payload.modelName);
-  });
+  ipcMain.handle(
+    'session:create',
+    async (
+      _event: any,
+      payload: {
+        title: string;
+        agentId?: any;
+        profileId?: string;
+        modelName?: string;
+        workspaceId?: string;
+        researchProfileId?: string;
+      }
+    ) => {
+      return globalSessionManager.createSession(
+        payload.title,
+        payload.workspaceId || 'proj-1',
+        payload.agentId || 'research',
+        payload.profileId,
+        payload.modelName,
+        undefined,
+        'research',
+        payload.researchProfileId || 'general'
+      );
+    }
+  );
 
   ipcMain.handle('session:delete', async (_event: any, id: string) => {
     return globalSessionManager.deleteSession(id);

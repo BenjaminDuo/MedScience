@@ -15,6 +15,7 @@ import { HypothesisNode } from './HypothesisTree.js';
 import { HookRegistry, globalHookRegistry } from '../hooks/HookRegistry.js';
 import { HookContext } from '../hooks/types.js';
 import { RuntimeSession, Turn, ToolCall, ToolResult, Artifact, Citation } from '../types/runtime.js';
+import { getResearchProfile, buildPlanTasksForProfile } from './ResearchProfiles.js';
 
 export interface AutonomousResearchEngineOptions {
   maxTurns?: number;
@@ -107,7 +108,11 @@ export class AutonomousResearchEngine {
   public async run(
     session: RuntimeSession,
     userInquiry: string,
-    onDelta?: (chunk: string) => void
+    onDelta?: (chunk: string) => void,
+    /** Frontend UI language at the moment this turn was submitted -- only affects the
+     *  display-facing plan checklist (formatPlanChecklist below), never the model-facing
+     *  system prompt or tool calls, which stay English regardless. */
+    language: 'en' | 'zh' = 'en'
   ): Promise<Turn> {
     const sessionId = session.id;
     const turnIndex = session.turns.length + 1;
@@ -128,10 +133,15 @@ export class AutonomousResearchEngine {
       skillRegistry: this.skillRegistry,
     });
 
-    // 1. Initialize Explicit Research Plan & To-Do Tracker
+    // 1. Initialize Explicit Research Plan & To-Do Tracker -- the plan
+    // template (which five tasks exist, their titles/categories, and
+    // which tool calls route onto each) comes from this session's
+    // ResearchProfile (see ResearchProfiles.ts), fixed at session
+    // creation. 'general' reproduces the original hardcoded template.
+    const researchProfile = getResearchProfile(session.researchProfileId);
     let plan = this.planTracker.getPlan(sessionId);
     if (!plan) {
-      plan = this.planTracker.createPlan(sessionId, userInquiry);
+      plan = this.planTracker.createPlan(sessionId, userInquiry, buildPlanTasksForProfile(session.researchProfileId));
     }
 
     // Set initial session status
@@ -155,7 +165,7 @@ Guidelines for genuine research inquiries:
 2. Execute Python scripts locally for statistical computations, radiomics, or clinical NLP.
 3. Every empirical finding is verified by the Evidence Verification Gate before adoption as [Evidence: EV-xxx].
 4. Ground every conclusion in [Evidence: EV-xxx] tags. Never hallucinate unverified findings.
-${skillInjectionPrompt ? `\n${skillInjectionPrompt}` : ''}`;
+${researchProfile.systemPromptFocus ? `\n${researchProfile.systemPromptFocus}` : ''}${skillInjectionPrompt ? `\n${skillInjectionPrompt}` : ''}`;
 
     let messages: ModelMessage[] = [
       { role: 'system', content: baseSystemPrompt },
@@ -298,15 +308,18 @@ ${skillInjectionPrompt ? `\n${skillInjectionPrompt}` : ''}`;
             arguments: call.arguments,
           });
 
-          // Determine corresponding plan task
-          let activeTaskId = 'task-2';
-          if (call.name.includes('uniprot') || call.name.includes('pdb')) {
-            activeTaskId = 'task-1';
-          } else if (call.name.includes('python') || call.name.includes('imaging') || call.name.includes('nlp')) {
-            activeTaskId = 'task-3';
-          } else if (call.name.includes('clinical') || call.name.includes('openfda') || call.name.includes('rxnorm')) {
-            activeTaskId = 'task-4';
-          }
+          // Determine corresponding plan task -- data-driven from the active
+          // plan's own tasks (set by the session's ResearchProfile) rather
+          // than one engine-wide hardcoded if/else chain, so a different
+          // profile can route the same tool call onto a different task.
+          // Tasks with toolMatchers are checked first, in plan order (the
+          // first match wins); a task's designated catch-all absorbs
+          // everything else.
+          const matchedTask = plan.tasks.find(
+            (t) => t.toolMatchers && t.toolMatchers.length > 0 && t.toolMatchers.some((m) => call.name.includes(m))
+          );
+          const defaultTask = plan.tasks.find((t) => t.isDefaultTask);
+          const activeTaskId = matchedTask?.id || defaultTask?.id || plan.tasks[0]?.id || 'task-2';
           this.planTracker.startTask(sessionId, activeTaskId);
 
           // Execute real tool
@@ -396,7 +409,7 @@ ${skillInjectionPrompt ? `\n${skillInjectionPrompt}` : ''}`;
         });
 
         if (critique.passed) {
-          const planTable = this.planTracker.formatPlanChecklist(sessionId);
+          const planTable = this.planTracker.formatPlanChecklist(sessionId, language);
           const evidenceTable = evidenceTracker.formatTraceabilityTable();
           const candidateFinalContent = `${finalContent}\n\n${planTable}\n\n${evidenceTable}`;
 

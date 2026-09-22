@@ -2,7 +2,6 @@ import React from 'react';
 import { HomeHero } from '../home/HomeHero';
 import { AgentInput } from '../home/AgentInput';
 import { QuickActions } from '../home/QuickActions';
-import { RecentProjects } from '../home/RecentProjects';
 import { ResearchStats } from '../home/ResearchStats';
 
 export const DesktopHomeView: React.FC = () => {
@@ -19,9 +18,6 @@ export const DesktopHomeView: React.FC = () => {
 
         {/* Quick Action Shortcuts */}
         <QuickActions />
-
-        {/* Recent Projects Row */}
-        <RecentProjects />
 
         {/* Secondary Research Metrics Row */}
         <ResearchStats />

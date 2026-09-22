@@ -15,20 +15,18 @@ export const TopBar: React.FC<TopBarProps> = ({ className = '' }) => {
     <header
       className={`flex items-center justify-between px-6 h-[52px] bg-bg-surface border-b border-border select-none z-10 ${className}`}
     >
-      {/* Left: Static workspace badge -- no longer shows the current
-          session's title here (that's already visible in the workspace
-          view itself and in the sidebar's session list). */}
-      <div className="flex items-center gap-2 max-w-[280px] overflow-hidden text-left">
-        <span className="text-[11px] font-mono uppercase tracking-wider text-accent bg-accent/10 px-2 py-0.5 rounded border border-accent/20">
-          {t('Workstation', '工作站')}
-        </span>
+      {/* Left: the "Workstation" badge chip has been removed per the user's
+          request (it duplicated the sidebar's own MedScience branding), but
+          the descriptive subtitle stays -- left-aligned, on its own now. */}
+      <div className="flex items-center max-w-[320px] overflow-hidden text-left">
         <span className="text-[13px] font-medium text-text-secondary truncate">
           {t('MedScience Trusted Research Workstation', 'MedScience 可信科研工作台')}
         </span>
       </div>
 
-      {/* Center: Global Search Bar */}
-      <div className="flex-1 max-w-[420px] mx-4">
+      {/* Right: Global Search Bar -- no longer centered, since there is
+          asymmetric content on the left now. */}
+      <div className="max-w-[420px] w-full ml-4">
         <div
           onClick={() => setIsCommandPaletteOpen(true)}
           className="flex items-center justify-between w-full h-[34px] px-3 rounded-lg bg-bg-elevated hover:bg-bg-hover border border-border hover:border-accent/40 text-text-muted hover:text-text-secondary cursor-pointer transition-all shadow-sm"
@@ -43,11 +41,6 @@ export const TopBar: React.FC<TopBarProps> = ({ className = '' }) => {
           </kbd>
         </div>
       </div>
-
-      {/* Right: intentionally empty -- Settings/Appearance/Language moved
-          into the sidebar's "配置" (Configuration) section and the
-          Model Configuration / Guardrail Hooks pages. */}
-      <div className="flex items-center gap-1.5 min-w-[1px]" />
     </header>
   );
 };

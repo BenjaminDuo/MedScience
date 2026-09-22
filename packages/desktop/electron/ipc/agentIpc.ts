@@ -27,7 +27,15 @@ export function registerAgentIpcHandlers(ipcMain: any, getMainWindow: () => any)
     'agent:submitPrompt',
     async (
       _event: any,
-      payload: { prompt: string; sessionId?: string; executionProfileId?: string; sessionType?: 'chat' | 'research' }
+      payload: {
+        prompt: string;
+        sessionId?: string;
+        executionProfileId?: string;
+        sessionType?: 'chat' | 'research';
+        workspaceId?: string;
+        researchProfileId?: string;
+        language?: 'en' | 'zh';
+      }
     ) => {
       const win = getMainWindow();
       // Routes through ExecutionRouter rather than calling the API research
@@ -42,6 +50,9 @@ export function registerAgentIpcHandlers(ipcMain: any, getMainWindow: () => any)
           sessionId: payload.sessionId,
           executionProfileId: payload.executionProfileId,
           sessionType: payload.sessionType,
+          workspaceId: payload.workspaceId,
+          researchProfileId: payload.researchProfileId,
+          language: payload.language,
         },
         {
           onDelta: (delta: string) => {

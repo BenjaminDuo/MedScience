@@ -6,7 +6,8 @@ export type NavSection =
   | 'evidence'
   | 'files'
   | 'model-config'
-  | 'guardrails';
+  | 'guardrails'
+  | 'team-roster';
 
 export interface NavItem {
   id: NavSection;

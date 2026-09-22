@@ -18,6 +18,7 @@ import {
   FileText,
 } from 'lucide-react';
 import { useLanguage } from '../../context/LanguageContext';
+import { useWorkspaces } from '../../context/WorkspaceContext';
 
 /**
  * Research Teams (科研小队).
@@ -40,6 +41,9 @@ interface AgentDefinitionLike {
   name: string;
   title: string;
   description: string;
+  nameZh?: string;
+  titleZh?: string;
+  descriptionZh?: string;
   capabilityTags: string[];
   allowedToolCategories: string[];
   defaultSkillIds: string[];
@@ -49,6 +53,7 @@ interface AgentDefinitionLike {
 interface TeamMemberLike {
   agentId: string;
   role: string;
+  roleZh?: string;
   required: boolean;
   canLead: boolean;
   executionProfileId?: string;
@@ -58,6 +63,9 @@ interface TeamDefinitionLike {
   id: string;
   name: string;
   description: string;
+  nameZh?: string;
+  descriptionZh?: string;
+  scenarioZh?: string;
   scenario?: string;
   leaderAgentId: string;
   instructions: string;
@@ -145,7 +153,7 @@ const TASK_STATUS_COLOR: Record<string, string> = {
 };
 
 export const ResearchTeamsView: React.FC = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
 
   const [teams, setTeams] = useState<TeamDefinitionLike[]>([]);
   const [agents, setAgents] = useState<AgentDefinitionLike[]>([]);
@@ -188,10 +196,15 @@ export const ResearchTeamsView: React.FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const { activeWorkspaceId } = useWorkspaces();
+
+  // Team runs are workspace-scoped, same as conversations/evidence/output
+  // files -- the 科研小队 entry under a workspace in the sidebar tree only
+  // shows runs started from that workspace, not every run across all of them.
   const loadRecentRuns = async (teamId: string) => {
     if (!window.medscience?.teams) return;
     try {
-      const list = await window.medscience.teams.run.list(teamId);
+      const list = await window.medscience.teams.run.list(teamId, activeWorkspaceId);
       setRecentRuns(list as TeamRunIndexEntryLike[]);
     } catch {
       // best effort; the detail panel still works without run history
@@ -203,7 +216,7 @@ export const ResearchTeamsView: React.FC = () => {
     setInquiry('');
     if (selectedId) void loadRecentRuns(selectedId);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedId]);
+  }, [selectedId, activeWorkspaceId]);
 
   // Poll the active run while it hasn't reached a terminal state.
   useEffect(() => {
@@ -224,6 +237,13 @@ export const ResearchTeamsView: React.FC = () => {
     }, 1500);
     return () => clearInterval(interval);
   }, [activeRun, selectedId]);
+
+  const teamLabel = (team: TeamDefinitionLike) => (language === 'zh' && team.nameZh) || team.name;
+  const teamDesc = (team: TeamDefinitionLike) => (language === 'zh' && team.descriptionZh) || team.description;
+  const teamScenario = (team: TeamDefinitionLike) => (language === 'zh' && team.scenarioZh) || team.scenario;
+  const agentLabel = (agent?: AgentDefinitionLike) => (agent ? (language === 'zh' && agent.nameZh) || agent.name : undefined);
+  const agentDesc = (agent?: AgentDefinitionLike) => (agent ? (language === 'zh' && agent.descriptionZh) || agent.description : undefined);
+  const memberRoleLabel = (member: TeamMemberLike) => (language === 'zh' && member.roleZh) || member.role;
 
   const agentById = useMemo(() => {
     const map = new Map<string, AgentDefinitionLike>();
@@ -272,7 +292,7 @@ export const ResearchTeamsView: React.FC = () => {
     setStarting(true);
     setError(undefined);
     try {
-      const record = await window.medscience.teams.run.start(selected.id, inquiry.trim());
+      const record = await window.medscience.teams.run.start(selected.id, inquiry.trim(), undefined, activeWorkspaceId);
       setActiveRun(record as unknown as TeamRunRecordLike);
     } catch (err) {
       setError(err instanceof Error ? err.message : String(err));
@@ -318,7 +338,7 @@ export const ResearchTeamsView: React.FC = () => {
         }`}
       >
         <div className="flex items-center justify-between gap-2">
-          <h4 className="text-[13.5px] font-semibold text-text-primary truncate">{team.name}</h4>
+          <h4 className="text-[13.5px] font-semibold text-text-primary truncate">{teamLabel(team)}</h4>
           {team.builtIn ? (
             <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-bg-elevated text-text-muted border border-border-subtle shrink-0">
               {t('Template', '模板')}
@@ -329,7 +349,7 @@ export const ResearchTeamsView: React.FC = () => {
             </span>
           )}
         </div>
-        <p className="text-[11.5px] text-text-secondary mt-1 line-clamp-2 leading-relaxed">{team.description}</p>
+        <p className="text-[11.5px] text-text-secondary mt-1 line-clamp-2 leading-relaxed">{teamDesc(team)}</p>
         <div className="flex items-center gap-1.5 mt-2 text-[10.5px] text-text-muted">
           <Users size={11} />
           <span>{t(`${team.members.length} members`, `${team.members.length} 名成员`)}</span>
@@ -416,12 +436,12 @@ export const ResearchTeamsView: React.FC = () => {
               <div className="rounded-2xl bg-bg-surface border border-border p-6 space-y-6">
                 <div className="flex items-start justify-between gap-4">
                   <div>
-                    <h3 className="text-lg font-bold text-text-primary">{selected.name}</h3>
-                    <p className="text-[13px] text-text-secondary mt-1 leading-relaxed">{selected.description}</p>
-                    {selected.scenario && (
+                    <h3 className="text-lg font-bold text-text-primary">{teamLabel(selected)}</h3>
+                    <p className="text-[13px] text-text-secondary mt-1 leading-relaxed">{teamDesc(selected)}</p>
+                    {teamScenario(selected) && (
                       <p className="text-[12px] text-text-muted mt-1.5">
                         <span className="font-medium">{t('Best for: ', '适用场景：')}</span>
-                        {selected.scenario}
+                        {teamScenario(selected)}
                       </p>
                     )}
                   </div>
@@ -504,9 +524,9 @@ export const ResearchTeamsView: React.FC = () => {
                             <div className="flex items-center gap-2 flex-wrap">
                               {isLeader && <Crown size={13} className="text-amber-500 shrink-0" />}
                               <span className="text-[13px] font-semibold text-text-primary">
-                                {agent?.name || member.agentId}
+                                {agentLabel(agent) || member.agentId}
                               </span>
-                              <span className="text-[11px] text-text-muted">· {member.role}</span>
+                              <span className="text-[11px] text-text-muted">· {memberRoleLabel(member)}</span>
                               {!member.required && (
                                 <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-bg-surface text-text-muted border border-border-subtle">
                                   {t('optional', '可选')}
@@ -519,8 +539,8 @@ export const ResearchTeamsView: React.FC = () => {
                                 </span>
                               )}
                             </div>
-                            {agent?.description && (
-                              <p className="text-[11.5px] text-text-secondary mt-1 leading-relaxed">{agent.description}</p>
+                            {agentDesc(agent) && (
+                              <p className="text-[11.5px] text-text-secondary mt-1 leading-relaxed">{agentDesc(agent)}</p>
                             )}
                             {agent && agent.capabilityTags.length > 0 && (
                               <div className="flex flex-wrap gap-1 mt-1.5">
@@ -630,7 +650,7 @@ export const ResearchTeamsView: React.FC = () => {
                           <div key={task.id} className="flex items-center gap-2 text-[12px]">
                             <Clock size={11} className={TASK_STATUS_COLOR[task.status] || 'text-text-muted'} />
                             <span className="text-text-primary truncate">{task.title}</span>
-                            <span className="text-text-muted">· {agentById.get(task.assignedAgentId)?.name || task.assignedAgentId}</span>
+                            <span className="text-text-muted">· {agentLabel(agentById.get(task.assignedAgentId)) || task.assignedAgentId}</span>
                             <span className={`ml-auto font-mono text-[10.5px] ${TASK_STATUS_COLOR[task.status] || 'text-text-muted'}`}>{task.status}</span>
                           </div>
                         ))}

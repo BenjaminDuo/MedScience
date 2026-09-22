@@ -36,9 +36,12 @@ export function registerTeamIpcHandlers(ipcMain: any): void {
     return globalTeamProfileManager.cloneTemplate(templateId, overrides);
   });
 
-  ipcMain.handle('team:run:start', async (_event: any, teamId: string, inquiry: string, sessionId?: string) => {
-    return globalTeamOrchestrator.startRun(teamId, inquiry, sessionId);
-  });
+  ipcMain.handle(
+    'team:run:start',
+    async (_event: any, teamId: string, inquiry: string, sessionId?: string, workspaceId?: string, researchProfileId?: string) => {
+      return globalTeamOrchestrator.startRun(teamId, inquiry, sessionId, workspaceId, researchProfileId);
+    }
+  );
 
   ipcMain.handle('team:run:approvePlan', async (_event: any, runId: string) => {
     return globalTeamOrchestrator.approvePlan(runId);
@@ -60,7 +63,7 @@ export function registerTeamIpcHandlers(ipcMain: any): void {
     return globalTeamOrchestrator.getRun(runId);
   });
 
-  ipcMain.handle('team:run:list', async (_event: any, teamId?: string) => {
-    return globalTeamOrchestrator.listRuns(teamId);
+  ipcMain.handle('team:run:list', async (_event: any, teamId?: string, workspaceId?: string) => {
+    return globalTeamOrchestrator.listRuns(teamId, workspaceId);
   });
 }

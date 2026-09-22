@@ -59,10 +59,10 @@ const webApi: MedScienceDesktopAPI = {
       request('/api/model/test', { method: 'POST', body: JSON.stringify(profile) }),
   },
   agent: {
-    submitPrompt: (prompt, sessionId, executionProfileId, sessionType) =>
+    submitPrompt: (prompt, sessionId, executionProfileId, sessionType, workspaceId, researchProfileId, language) =>
       request('/api/agent/inquiries', {
         method: 'POST',
-        body: JSON.stringify({ prompt, sessionId, executionProfileId, sessionType }),
+        body: JSON.stringify({ prompt, sessionId, executionProfileId, sessionType, workspaceId, researchProfileId, language }),
       }),
     listTools: () => request('/api/agent/tools'),
     cancel: (runId) => request(`/api/agent/runs/${encodeURIComponent(runId)}/cancel`, { method: 'POST' }),
@@ -92,6 +92,11 @@ const webApi: MedScienceDesktopAPI = {
     setActiveProfile: (id) => request('/api/runtime/active', { method: 'POST', body: JSON.stringify({ id }) }),
     detect: (executablePath) =>
       request('/api/runtime/detect', { method: 'POST', body: JSON.stringify({ executablePath }) }),
+    discoverAll: () => request('/api/runtime/discover'),
+    bindTool: (runtime, executablePath) =>
+      request('/api/runtime/bind', { method: 'POST', body: JSON.stringify({ runtime, executablePath }) }),
+    activeSessions: () => request('/api/runtime/active-sessions'),
+    getUsage: () => request('/api/runtime/usage'),
     respondApproval: (sessionId, approvalId, decision) =>
       request(`/api/runtime/approvals/${encodeURIComponent(approvalId)}`, {
         method: 'POST',
@@ -113,23 +118,43 @@ const webApi: MedScienceDesktopAPI = {
         body: JSON.stringify(overrides || {}),
       }),
     run: {
-      start: (teamId, inquiry, sessionId) =>
-        request(`/api/teams/${encodeURIComponent(teamId)}/runs`, { method: 'POST', body: JSON.stringify({ inquiry, sessionId }) }),
+      start: (teamId, inquiry, sessionId, workspaceId, researchProfileId) =>
+        request(`/api/teams/${encodeURIComponent(teamId)}/runs`, {
+          method: 'POST',
+          body: JSON.stringify({ inquiry, sessionId, workspaceId, researchProfileId }),
+        }),
       approvePlan: (runId) => request(`/api/team-runs/${encodeURIComponent(runId)}/approve-plan`, { method: 'POST' }),
       pause: (runId) => request(`/api/team-runs/${encodeURIComponent(runId)}/pause`, { method: 'POST' }),
       resume: (runId) => request(`/api/team-runs/${encodeURIComponent(runId)}/resume`, { method: 'POST' }),
       cancel: (runId) => request(`/api/team-runs/${encodeURIComponent(runId)}/cancel`, { method: 'POST' }),
       get: (runId) => request(`/api/team-runs/${encodeURIComponent(runId)}`),
-      list: (teamId) => request(`/api/team-runs${teamId ? `?teamId=${encodeURIComponent(teamId)}` : ''}`),
+      list: (teamId, workspaceId) => {
+        const params = new URLSearchParams();
+        if (teamId) params.set('teamId', teamId);
+        if (workspaceId) params.set('workspaceId', workspaceId);
+        const qs = params.toString();
+        return request(`/api/team-runs${qs ? `?${qs}` : ''}`);
+      },
     },
+  },
+  workspace: {
+    list: () => request('/api/workspaces'),
+    create: (title, description) =>
+      request('/api/workspaces', { method: 'POST', body: JSON.stringify({ title, description }) }),
+    rename: (id, title) =>
+      request(`/api/workspaces/${encodeURIComponent(id)}/rename`, {
+        method: 'POST',
+        body: JSON.stringify({ title }),
+      }),
+    delete: (id) => request(`/api/workspaces/${encodeURIComponent(id)}`, { method: 'DELETE' }),
   },
   session: {
     list: () => request('/api/sessions'),
     get: (id) => request(`/api/sessions/${encodeURIComponent(id)}`),
-    create: (title, agentId, profileId, modelName) =>
+    create: (title, agentId, profileId, modelName, workspaceId, researchProfileId) =>
       request('/api/sessions', {
         method: 'POST',
-        body: JSON.stringify({ title, agentId, profileId, modelName }),
+        body: JSON.stringify({ title, agentId, profileId, modelName, workspaceId, researchProfileId }),
       }),
     delete: (id) => request(`/api/sessions/${encodeURIComponent(id)}`, { method: 'DELETE' }),
     rename: (id, title) =>

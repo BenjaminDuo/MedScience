@@ -39,6 +39,13 @@ export interface AgentDefinition {
   name: string;
   title: string;
   description: string;
+  /** Chinese display strings for the frontend's language toggle -- optional so a
+   *  user-created custom agent (no Chinese given) just falls back to the English
+   *  fields; systemPrompt is deliberately NOT translated (stays English for the
+   *  model regardless of UI language). */
+  nameZh?: string;
+  titleZh?: string;
+  descriptionZh?: string;
   systemPrompt: string;
   capabilityTags: string[];
   allowedToolCategories: ToolCategory[];
@@ -53,6 +60,8 @@ export interface AgentDefinition {
 export interface ResearchTeamMember {
   agentId: TeamAgentId;
   role: string;
+  /** Chinese display string for `role` -- see AgentDefinition.nameZh for the same optional-fallback rule. */
+  roleZh?: string;
   capabilityOverrides?: string[];
   executionProfileId?: string;
   required: boolean;
@@ -64,6 +73,10 @@ export interface ResearchTeamDefinition {
   name: string;
   description: string;
   scenario: string;
+  /** Chinese display strings -- see AgentDefinition.nameZh for the same optional-fallback rule. */
+  nameZh?: string;
+  descriptionZh?: string;
+  scenarioZh?: string;
   leaderAgentId: TeamAgentId;
   instructions: string;
   members: ResearchTeamMember[];

@@ -143,6 +143,8 @@ export const mockDefaultSession: AgentSession = {
   updatedAt: new Date().toISOString(),
   status: 'completed',
   sessionType: 'research',
+  workspaceId: 'proj-1',
+  researchProfileId: 'general',
   messages: [
     {
       id: 'msg-1',

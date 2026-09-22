@@ -1,11 +1,14 @@
 import React, { createContext, useContext, useState, useEffect, useRef } from 'react';
 import { AgentSession, AgentStatus, AgentMessage, ToolExecution, Artifact, Citation } from '../types/agent';
 import { useNav } from './NavContext';
+import { DEFAULT_WORKSPACE_ID } from './WorkspaceContext';
+import { useLanguage } from './LanguageContext';
 import type { RuntimeEvent, RuntimeApprovalRequest, RuntimeApprovalDecision, ExecutionProfile, Turn, RuntimeSession as CoreRuntimeSession } from '@medscience/core';
 
 export interface PlanTask {
   id: string;
   title: string;
+  titleZh?: string;
   status: 'pending' | 'in_progress' | 'completed' | 'failed';
   evidenceIds?: string[];
   category?: string;
@@ -19,7 +22,20 @@ interface AgentContextType {
   status: AgentStatus;
   planTasks: PlanTask[];
   submitPrompt: (promptText: string) => Promise<void>;
-  resetSession: (sessionType?: 'chat' | 'research') => void;
+  resetSession: (sessionType?: 'chat' | 'research', workspaceId?: string, researchProfileId?: string) => void;
+  /** Flips the not-yet-started current session between chat/research. No-op once it has any turns -- see RuntimeSession.sessionType for why this is locked after creation. */
+  setSessionType: (sessionType: 'chat' | 'research') => void;
+  /** Picks the research workflow (see ResearchProfiles.ts in @medscience/core) for the not-yet-started current session. No-op once it has any turns, same lock as setSessionType. */
+  setResearchProfile: (researchProfileId: string) => void;
+  /** Picks which workspace the not-yet-started current session belongs to (composer picker, research-only). No-op once it has any turns, same lock as setSessionType/setResearchProfile. */
+  setSessionWorkspace: (workspaceId: string) => void;
+  /** QuickActions (home page): atomically starts a brand-new session with a specific sessionType/workspace/researchProfile and submits the first prompt into it in one go. See startQuickSession impl for why this bypasses setSessionType-then-submitPrompt. */
+  startQuickSession: (
+    promptText: string,
+    sessionType?: 'chat' | 'research',
+    researchProfileId?: string,
+    workspaceId?: string
+  ) => Promise<void>;
   openSession: (sessionId: string) => void;
   renameSession: (sessionId: string, newTitle: string) => Promise<void>;
   deleteSession: (sessionId: string) => Promise<void>;
@@ -43,7 +59,11 @@ interface AgentContextType {
 
 const AgentContext = createContext<AgentContextType | undefined>(undefined);
 
-function createFreshSession(sessionType: 'chat' | 'research' = 'research'): AgentSession {
+function createFreshSession(
+  sessionType: 'chat' | 'research' = 'research',
+  workspaceId: string = DEFAULT_WORKSPACE_ID,
+  researchProfileId: string = 'general'
+): AgentSession {
   const id = `sess-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`;
   const now = new Date().toISOString();
   return {
@@ -54,6 +74,8 @@ function createFreshSession(sessionType: 'chat' | 'research' = 'research'): Agen
     status: 'idle',
     messages: [],
     sessionType,
+    workspaceId,
+    researchProfileId,
   };
 }
 
@@ -61,6 +83,7 @@ const LOCAL_STORAGE_SESSIONS_KEY = 'medscience_desktop_sessions_v1';
 
 export const AgentProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { registerNewChatCallback } = useNav();
+  const { language } = useLanguage();
 
   const [sessions, setSessions] = useState<AgentSession[]>(() => {
     try {
@@ -74,7 +97,7 @@ export const AgentProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   });
 
   const [currentSession, setCurrentSession] = useState<AgentSession>(() => {
-    return createFreshSession();
+    return createFreshSession('research', DEFAULT_WORKSPACE_ID);
   });
 
   const [activeView, setActiveView] = useState<'home' | 'workspace'>('home');
@@ -150,6 +173,8 @@ export const AgentProvider: React.FC<{ children: React.ReactNode }> = ({ childre
               updatedAt: rs.updatedAt,
               status: rs.status as AgentStatus,
               sessionType: (rs as { sessionType?: 'chat' | 'research' }).sessionType || 'research',
+              workspaceId: (rs as { workspaceId?: string }).workspaceId || DEFAULT_WORKSPACE_ID,
+              researchProfileId: (rs as { researchProfileId?: string }).researchProfileId || 'general',
               messages:
                 rs.turns?.flatMap((t, idx) => [
                   {
@@ -303,6 +328,7 @@ export const AgentProvider: React.FC<{ children: React.ReactNode }> = ({ childre
           (event.payload.tasks || []).map((task: any) => ({
             id: task.id,
             title: task.title,
+            titleZh: task.titleZh,
             status: task.status || 'pending',
             evidenceIds: task.evidenceIds || [],
             category: task.category,
@@ -320,7 +346,15 @@ export const AgentProvider: React.FC<{ children: React.ReactNode }> = ({ childre
           if (incoming) {
             return prev.map((t) =>
               t.id === incoming.id
-                ? { ...t, title: incoming.title ?? t.title, status: incoming.status ?? t.status, evidenceIds: incoming.evidenceIds ?? t.evidenceIds, category: incoming.category ?? t.category, resultNote: incoming.resultNote ?? t.resultNote }
+                ? {
+                    ...t,
+                    title: incoming.title ?? t.title,
+                    titleZh: incoming.titleZh ?? t.titleZh,
+                    status: incoming.status ?? t.status,
+                    evidenceIds: incoming.evidenceIds ?? t.evidenceIds,
+                    category: incoming.category ?? t.category,
+                    resultNote: incoming.resultNote ?? t.resultNote,
+                  }
                 : t
             );
           }
@@ -425,8 +459,15 @@ export const AgentProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     }
   };
 
-  const resetSession = (sessionType: 'chat' | 'research' = 'research') => {
-    const fresh = createFreshSession(sessionType);
+  const resetSession = (sessionType: 'chat' | 'research' = 'research', workspaceId?: string, researchProfileId?: string) => {
+    // A brand-new conversation is NOT bound to whichever workspace happens
+    // to be expanded in the sidebar tree -- that would make opening a
+    // workspace to browse it silently change where the next "新对话" goes.
+    // It defaults to 未分类 (DEFAULT_WORKSPACE_ID) unless the caller passes
+    // an explicit workspaceId, which is exactly what setSessionWorkspace
+    // (the composer's workspace picker, research-only) does once the user
+    // actually picks one for this not-yet-started session.
+    const fresh = createFreshSession(sessionType, workspaceId || DEFAULT_WORKSPACE_ID, researchProfileId || 'general');
     setCurrentSession(fresh);
     setStatus('idle');
     setPlanTasks([]);
@@ -434,6 +475,35 @@ export const AgentProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     setActiveRunId(undefined);
     setPendingApprovals([]);
     setRuntimeError(undefined);
+  };
+
+  const setSessionType = (sessionType: 'chat' | 'research') => {
+    setCurrentSession((prev) => {
+      if (prev.messages.length > 0) return prev; // locked once the conversation has actually started
+      return {
+        ...prev,
+        sessionType,
+        title: sessionType === 'chat' ? 'New Chat' : 'New Scientific Exploration',
+      };
+    });
+  };
+
+  const setResearchProfile = (researchProfileId: string) => {
+    setCurrentSession((prev) => {
+      if (prev.messages.length > 0) return prev; // locked once the conversation has actually started
+      return { ...prev, researchProfileId };
+    });
+  };
+
+  // Composer's workspace picker (research-only, see WorkspacePicker.tsx):
+  // lets the user explicitly assign this not-yet-started conversation to a
+  // workspace. Left untouched, it stays at 未分类 (DEFAULT_WORKSPACE_ID),
+  // same lock-once-started rule as setSessionType/setResearchProfile.
+  const setSessionWorkspace = (workspaceId: string) => {
+    setCurrentSession((prev) => {
+      if (prev.messages.length > 0) return prev;
+      return { ...prev, workspaceId };
+    });
   };
 
   const cancelActiveRun = async () => {
@@ -607,12 +677,20 @@ export const AgentProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     });
   };
 
-  const submitPrompt = async (promptText: string) => {
+  // Shared by submitPrompt (uses whatever is currently the live session) and
+  // startQuickSession (QuickActions on the home page: builds a brand-new
+  // session with a specific sessionType/workspace/researchProfile and
+  // submits into THAT one, not whatever currentSession happened to close
+  // over at render time -- setSessionType/setResearchProfile/etc followed
+  // immediately by submitPrompt in the same handler would race React's
+  // state update, since submitPrompt's closure still sees the pre-update
+  // currentSession. Taking the base session explicitly sidesteps that.
+  const submitPromptOn = async (baseSession: AgentSession, promptText: string) => {
     if (!promptText.trim()) return;
 
     const trimmed = promptText.trim();
-    const isFirstInquiry = currentSession.messages.length === 0;
-    const sessionTitle = isFirstInquiry ? trimmed.slice(0, 50) : currentSession.title;
+    const isFirstInquiry = baseSession.messages.length === 0;
+    const sessionTitle = isFirstInquiry ? trimmed.slice(0, 50) : baseSession.title;
 
     const userMessage: AgentMessage = {
       id: `msg-${Date.now()}-user`,
@@ -639,11 +717,11 @@ export const AgentProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     };
 
     const activeSession: AgentSession = {
-      ...currentSession,
+      ...baseSession,
       title: sessionTitle,
       status: 'thinking',
       updatedAt: new Date().toISOString(),
-      messages: [...currentSession.messages, userMessage, initialAgentMessage],
+      messages: [...baseSession.messages, userMessage, initialAgentMessage],
     };
 
     // The real plan (with its real titles/categories) arrives moments later
@@ -671,9 +749,12 @@ export const AgentProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       if (window.medscience?.agent) {
         const result = await window.medscience.agent.submitPrompt(
           trimmed,
-          currentSession.id,
+          baseSession.id,
           selectedExecutionProfileId,
-          currentSession.sessionType
+          baseSession.sessionType,
+          baseSession.workspaceId,
+          baseSession.researchProfileId,
+          language
         );
         if (result?.turn) {
           applyTurnResult(result.turn as Turn, result.session as CoreRuntimeSession | undefined);
@@ -735,6 +816,29 @@ export const AgentProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     }
   };
 
+  const submitPrompt = (promptText: string) => submitPromptOn(currentSession, promptText);
+
+  // QuickActions (home page): atomically starts a brand-new session with a
+  // specific sessionType/workspace/researchProfile and submits the first
+  // prompt into it in one go, bypassing the setSessionType-then-submitPrompt
+  // race described on submitPromptOn above.
+  const startQuickSession = async (
+    promptText: string,
+    sessionType: 'chat' | 'research' = 'research',
+    researchProfileId: string = 'general',
+    workspaceId: string = DEFAULT_WORKSPACE_ID
+  ) => {
+    const fresh = createFreshSession(sessionType, workspaceId, researchProfileId);
+    setCurrentSession(fresh);
+    setStatus('idle');
+    setPlanTasks([]);
+    setActiveView('home');
+    setActiveRunId(undefined);
+    setPendingApprovals([]);
+    setRuntimeError(undefined);
+    await submitPromptOn(fresh, promptText);
+  };
+
   return (
     <AgentContext.Provider
       value={{
@@ -745,6 +849,10 @@ export const AgentProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         planTasks,
         submitPrompt,
         resetSession,
+        setSessionType,
+        setResearchProfile,
+        setSessionWorkspace,
+        startQuickSession,
         openSession,
         renameSession,
         deleteSession,

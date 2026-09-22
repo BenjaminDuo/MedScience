@@ -97,7 +97,49 @@ export interface ToolResult {
 }
 
 export type ExecutionMode = 'api' | 'local-runtime';
-export type LocalRuntimeKind = 'codex';
+/**
+ * Which local CLI tool a 'local-runtime' ExecutionProfile drives. Each kind
+ * has its own ExecutionBackend (see execution/local/) and its own isolated
+ * home directory strategy (see execution/local/runtimeIsolation.ts) so a
+ * MedScience-driven conversation never mixes into the user's personal
+ * history for that tool -- see runtimeCatalog.ts for the full picture
+ * (display name, detection spec, isolation confidence) of each one.
+ */
+// The full identity list mirrors Multica's own 26-tool catalog (server/pkg/agent/*.go,
+// server/internal/daemon/agents_probe.go, cloned and read directly from
+// github.com/multica-ai/multica while building this) so MedScience can detect the
+// same breadth of local coding-agent CLIs. 'codex' keeps its own pre-existing
+// detector/backend (RuntimeDetector.ts/CodexRuntimeBackend.ts); every other id here
+// is detected generically via GenericRuntimeDetector.ts + runtimeCatalog.ts, and can
+// be "bound" as a profile, but only Codex can currently execute a research turn --
+// see UnimplementedLocalRuntimeBackend.ts.
+export type LocalRuntimeKind =
+  | 'codex'
+  | 'claude-code'
+  | 'opencode'
+  | 'cursor'
+  | 'copilot'
+  | 'qwen'
+  | 'qwenpaw'
+  | 'grok'
+  | 'kimi'
+  | 'codebuddy'
+  | 'codearts'
+  | 'deveco'
+  | 'openclaw'
+  | 'hermes'
+  | 'pi'
+  | 'omp'
+  | 'reasonix'
+  | 'dsh'
+  | 'kiro'
+  | 'antigravity'
+  | 'qoder'
+  | 'qoderclicn'
+  | 'traecli'
+  | 'dim'
+  | 'mcode'
+  | 'zeroclaw';
 
 export interface Turn {
   index: number;
@@ -119,7 +161,7 @@ export type SessionType = 'chat' | 'research';
 
 export interface RuntimeSession {
   id: string;
-  projectId: string;
+  workspaceId: string;
   title: string;
   createdAt: string;
   updatedAt: string;
@@ -146,6 +188,17 @@ export interface RuntimeSession {
    * 'research' (the prior, only behavior).
    */
   sessionType?: SessionType;
+  /**
+   * Which ResearchProfile (research-loop/ResearchProfiles.ts) this
+   * session's AutonomousResearchEngine runs use -- 'literature-review',
+   * 'molecular-target', 'clinical-evidence', or the default 'general'.
+   * Fixed at creation, same rationale as sessionType: the plan template
+   * and tool-routing a profile selects should not shift mid-conversation.
+   * Irrelevant for 'chat' sessions (ChatEngine ignores it). Optional so
+   * existing on-disk sessions keep loading unchanged; treat a missing
+   * value as 'general'.
+   */
+  researchProfileId?: string;
   /** All fields below are optional so existing on-disk sessions (pre-local-runtime) keep loading unchanged. */
   executionMode?: ExecutionMode;
   executionProfileId?: string;

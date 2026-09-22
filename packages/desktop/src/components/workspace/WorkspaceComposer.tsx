@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { ArrowRight, Paperclip } from 'lucide-react';
+import { ArrowRight, Paperclip, Square } from 'lucide-react';
 import { useAgent } from '../../context/AgentContext';
 import { useLanguage } from '../../context/LanguageContext';
 import { ExecutionProfilePicker } from '../common/ExecutionProfilePicker';
@@ -12,10 +12,12 @@ export const WorkspaceComposer: React.FC = () => {
   const [attachedFiles, setAttachedFiles] = useState<AttachedFile[]>([]);
   const [selectedTools, setSelectedTools] = useState<string[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const { submitPrompt, status } = useAgent();
+  const { submitPrompt, status, cancelActiveRun } = useAgent();
   const { t } = useLanguage();
 
-  const isBusy = status === 'thinking' || status === 'tool_calling' || status === 'generating';
+  // Kept in sync with AgentInput.tsx's isBusy -- see its comment for why
+  // 'waiting_for_permission' is excluded.
+  const isBusy = status === 'thinking' || status === 'planning' || status === 'tool_calling' || status === 'executing' || status === 'generating';
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === 'Enter' && !e.shiftKey) {
@@ -83,14 +85,24 @@ export const WorkspaceComposer: React.FC = () => {
             </div>
 
             <div className="flex items-center gap-2">
-              <button
-                onClick={handleSubmit}
-                disabled={(!input.trim() && attachedFiles.length === 0) || isBusy}
-                className="px-3 py-1.5 rounded-lg bg-accent hover:brightness-110 disabled:opacity-40 disabled:cursor-not-allowed text-white text-xs font-medium flex items-center gap-1.5 transition-all shadow-sm"
-              >
-                <span>{t('Send', '发送')}</span>
-                <ArrowRight size={13} />
-              </button>
+              {isBusy ? (
+                <button
+                  onClick={() => cancelActiveRun()}
+                  className="px-3 py-1.5 rounded-lg bg-red-500/10 hover:bg-red-500/20 text-red-500 border border-red-500/30 text-xs font-medium flex items-center gap-1.5 transition-all"
+                >
+                  <Square size={12} fill="currentColor" />
+                  <span>{t('Stop', '停止')}</span>
+                </button>
+              ) : (
+                <button
+                  onClick={handleSubmit}
+                  disabled={!input.trim() && attachedFiles.length === 0}
+                  className="px-3 py-1.5 rounded-lg bg-accent hover:brightness-110 disabled:opacity-40 disabled:cursor-not-allowed text-white text-xs font-medium flex items-center gap-1.5 transition-all shadow-sm"
+                >
+                  <span>{t('Send', '发送')}</span>
+                  <ArrowRight size={13} />
+                </button>
+              )}
             </div>
           </div>
         </div>

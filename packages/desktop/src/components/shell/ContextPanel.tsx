@@ -43,7 +43,7 @@ const artifactIconMap: Record<Artifact['type'], React.ElementType> = {
 export const ContextPanel: React.FC<ContextPanelProps> = ({ className = '' }) => {
   const { isContextPanelOpen, setIsContextPanelOpen } = useNav();
   const { currentSession, planTasks } = useAgent();
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
 
   if (!isContextPanelOpen) {
     return (
@@ -133,7 +133,7 @@ export const ContextPanel: React.FC<ContextPanelProps> = ({ className = '' }) =>
                       )}
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="leading-snug">{task.title}</p>
+                      <p className="leading-snug">{(language === 'zh' && task.titleZh) || task.title}</p>
                       {task.resultNote && <p className="text-[10.5px] text-text-muted mt-0.5 leading-snug">{task.resultNote}</p>}
                       {task.evidenceIds && task.evidenceIds.length > 0 && (
                         <div className="flex flex-wrap gap-1 mt-1">

@@ -129,12 +129,26 @@ export class TeamOrchestrator {
     return this.active.get(runId)?.record || this.runStore.get(runId);
   }
 
-  public listRuns(teamId?: string) {
-    return this.runStore.list(teamId);
+  public listRuns(teamId?: string, workspaceId?: string) {
+    const runs = this.runStore.list(teamId);
+    if (!workspaceId) return runs;
+    // A run's own index entry has no workspaceId (it's a thin index over
+    // sessionId) -- join through the session it created, same as the
+    // Evidence Registry/Workspace Files scoping in the other views.
+    return runs.filter((r) => {
+      const session = this.sessionManager.getSession(r.sessionId);
+      return (session?.workspaceId || 'proj-1') === workspaceId;
+    });
   }
 
   /** Starts a new Team Run: creates the session + run record, then runs the leader's planning turn. */
-  public async startRun(teamId: string, inquiry: string, sessionId?: string): Promise<TeamRunRecord> {
+  public async startRun(
+    teamId: string,
+    inquiry: string,
+    sessionId?: string,
+    workspaceId: string = 'proj-1',
+    researchProfileId: string = 'general'
+  ): Promise<TeamRunRecord> {
     const team = this.teamProfileManager.getTeam(teamId);
     if (!team) throw new Error(`No team found with id "${teamId}".`);
     if (team.archived) throw new Error(`Team "${team.name}" is archived.`);
@@ -143,9 +157,13 @@ export class TeamOrchestrator {
     if (!leaderAgentDef) throw new Error(`Team leader agent "${team.leaderAgentId}" is not a known agent.`);
 
     const runId = `teamrun-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+    // A team run's session is a workspace member just like any chat/research
+    // session -- it shares that workspace's Evidence Registry and Workspace
+    // Files rather than living in a system unto itself (see Workspace in
+    // ../types/workspace.js).
     const session =
       (sessionId && this.sessionManager.getSession(sessionId)) ||
-      this.sessionManager.createSession(`[Team] ${inquiry.slice(0, 60)}`, 'proj-1', 'research', undefined, undefined, sessionId);
+      this.sessionManager.createSession(`[Team] ${inquiry.slice(0, 60)}`, workspaceId, 'research', undefined, undefined, sessionId, 'research', researchProfileId);
 
     const now = new Date().toISOString();
     const run: TeamRun = {

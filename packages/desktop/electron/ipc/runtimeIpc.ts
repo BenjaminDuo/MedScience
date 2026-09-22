@@ -2,8 +2,12 @@ import {
   globalExecutionProfileManager,
   globalExecutionRouter,
   globalRuntimeDetector,
+  globalRuntimeUsageStore,
+  discoverAllRuntimes,
+  bindLocalRuntime,
   ExecutionProfile,
   RuntimeApprovalDecision,
+  LocalRuntimeKind,
 } from '@medscience/core';
 
 /**
@@ -42,12 +46,36 @@ export function registerRuntimeIpcHandlers(ipcMain: any): void {
     return globalRuntimeDetector.probe(executablePath);
   });
 
+  // Multi-tool discovery ("which local runtimes are on this machine") and
+  // one-click bind (detect + create/save a default LocalRuntimeExecutionProfile)
+  // for the runtimes in runtimeCatalog.ts (Claude Code, OpenCode, ...) plus
+  // Codex -- see runtimeDiscovery.ts for the combined logic shared with the
+  // web/server.ts HTTP route.
+  ipcMain.handle('runtime:discoverAll', async () => {
+    return discoverAllRuntimes();
+  });
+
+  ipcMain.handle('runtime:bindTool', async (_event: any, payload: { runtime: LocalRuntimeKind; executablePath?: string }) => {
+    return bindLocalRuntime(payload.runtime, payload.executablePath);
+  });
+
   ipcMain.handle(
     'runtime:respondApproval',
     async (_event: any, payload: { sessionId: string; approvalId: string; decision: RuntimeApprovalDecision }) => {
       return globalExecutionRouter.respondApproval(payload.sessionId, payload.approvalId, payload.decision);
     }
   );
+
+  ipcMain.handle('runtime:activeSessions', async () => {
+    return globalExecutionRouter.listActiveLocalSessions();
+  });
+
+  // Cumulative per-runtime token usage (see RuntimeUsageStore.ts) -- keyed
+  // by execution profile id, same key ModelConfigView.tsx's localProfiles
+  // are keyed by, so the UI can look up each bound runtime's usage directly.
+  ipcMain.handle('runtime:getUsage', async () => {
+    return globalRuntimeUsageStore.getAllUsage();
+  });
 
   ipcMain.handle('agent:cancel', async (_event: any, runId: string) => {
     return globalExecutionRouter.cancel(runId);

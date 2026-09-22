@@ -62,12 +62,13 @@ export class SessionManager {
 
   public createSession(
     title: string,
-    projectId: string = 'proj-1',
+    workspaceId: string = 'proj-1',
     agentId: AgentId = 'research',
     profileId?: string,
     modelName?: string,
     explicitId?: string,
-    sessionType: SessionType = 'research'
+    sessionType: SessionType = 'research',
+    researchProfileId: string = 'general'
   ): RuntimeSession {
     // Most callers let this mint a fresh id. Execution backends that must
     // track a session by an id they generated *before* the record exists
@@ -81,7 +82,7 @@ export class SessionManager {
 
     const session: RuntimeSession = {
       id,
-      projectId,
+      workspaceId,
       title,
       createdAt: now,
       updatedAt: now,
@@ -94,6 +95,7 @@ export class SessionManager {
       citations: [],
       metadata: {},
       sessionType,
+      researchProfileId,
     };
 
     this.sessions.set(id, session);

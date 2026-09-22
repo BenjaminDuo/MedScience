@@ -74,4 +74,8 @@ export interface AgentSession {
   messages: AgentMessage[];
   /** Fixed at session creation -- see RuntimeSession.sessionType in @medscience/core. Defaults to 'research' for sessions created before this field existed. */
   sessionType: 'chat' | 'research';
+  /** Which Workspace this conversation belongs to -- see Workspace/WorkspaceManager in @medscience/core. Defaults to 'proj-1' (the self-initializing "Uncategorized" workspace) for sessions created before this field existed. */
+  workspaceId: string;
+  /** Which ResearchProfile (workflow) this session's research runs use -- see ResearchProfiles.ts in @medscience/core. Fixed at creation like sessionType. Defaults to 'general' for sessions created before this field existed, and is irrelevant for sessionType 'chat'. */
+  researchProfileId: string;
 }

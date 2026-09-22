@@ -6,12 +6,27 @@ export type TaskStatus = 'pending' | 'in_progress' | 'completed' | 'failed' | 's
 export interface PlanTask {
   id: string; // e.g. 'task-1'
   title: string;
+  /** Chinese display title, shown by formatPlanChecklist() when language is 'zh'. Optional so a caller-supplied customTasks[] without one just falls back to `title`. */
+  titleZh?: string;
   category: TaskCategory;
   status: TaskStatus;
   evidenceIds: string[];
   startTime?: string;
   endTime?: string;
   resultNote?: string;
+  /**
+   * Which tool-call names (substring match, checked in plan/task order --
+   * the first task with a match wins) route a tool execution onto this
+   * task's progress row. Undefined/empty on the plan's designated
+   * catch-all task (see isDefaultTask), which absorbs every tool call no
+   * more specific task claimed. Set by the active ResearchProfile's task
+   * template (see research-loop/ResearchProfiles.ts) -- this is what makes
+   * task routing data-driven per profile instead of one engine-wide
+   * hardcoded if/else chain.
+   */
+  toolMatchers?: string[];
+  /** Exactly one task per plan should set this -- see toolMatchers. */
+  isDefaultTask?: boolean;
 }
 
 export interface ResearchPlan {
@@ -156,30 +171,43 @@ export class PlanTracker {
     }
   }
 
-  public formatPlanChecklist(sessionId: string): string {
+  public formatPlanChecklist(sessionId: string, language: 'en' | 'zh' = 'en'): string {
     const plan = this.plans.get(sessionId);
     if (!plan || plan.tasks.length === 0) {
       return '';
     }
 
-    let out = `### 📋 Explicit Scientific Research Plan & Progress Checklist\n\n`;
-    out += `| Task | Status | Action Item | Verified Evidence Anchors | Duration / Outcome |\n`;
+    const zh = language === 'zh';
+    let out = zh
+      ? `### 📋 明确科研计划与流程进度清单\n\n`
+      : `### 📋 Explicit Scientific Research Plan & Progress Checklist\n\n`;
+    out += zh
+      ? `| 任务 | 状态 | 行动项 | 已验证证据锚点 | 用时/结果 |\n`
+      : `| Task | Status | Action Item | Verified Evidence Anchors | Duration / Outcome |\n`;
     out += `| :--- | :--- | :--- | :--- | :--- |\n`;
 
     for (const t of plan.tasks) {
-      const icon =
-        t.status === 'completed'
-          ? '✔ Completed'
+      const icon = zh
+        ? t.status === 'completed'
+          ? '✔ 已完成'
           : t.status === 'in_progress'
-          ? '⏳ In Progress'
+          ? '⏳ 进行中'
           : t.status === 'failed'
-          ? '✖ Failed'
-          : 'Pending';
+          ? '✖ 失败'
+          : '待处理'
+        : t.status === 'completed'
+        ? '✔ Completed'
+        : t.status === 'in_progress'
+        ? '⏳ In Progress'
+        : t.status === 'failed'
+        ? '✖ Failed'
+        : 'Pending';
 
       const evStr = t.evidenceIds.length > 0 ? t.evidenceIds.join(', ') : '-';
       const noteStr = t.resultNote ? t.resultNote.slice(0, 60) : '-';
+      const title = (zh && t.titleZh) || t.title;
 
-      out += `| **${t.id.toUpperCase()}** | ${icon} | **[${t.category}]** ${t.title} | ${evStr} | ${noteStr} |\n`;
+      out += `| **${t.id.toUpperCase()}** | ${icon} | **[${t.category}]** ${title} | ${evStr} | ${noteStr} |\n`;
     }
 
     return out;
@@ -190,6 +218,7 @@ export class PlanTracker {
       {
         id: 'task-1',
         title: 'Retrieve Canonical Target Sequences, 3D Structures & Domain Topology',
+        titleZh: '检索靶点标准序列、三维结构与结构域拓扑信息',
         category: 'databases',
         status: 'pending',
         evidenceIds: [],
@@ -197,6 +226,7 @@ export class PlanTracker {
       {
         id: 'task-2',
         title: 'Explore Bioactivity (IC50/Ki), Selectivity & Literature Associations',
+        titleZh: '探索生物活性（IC50/Ki）、选择性与文献关联',
         category: 'databases',
         status: 'pending',
         evidenceIds: [],
@@ -204,6 +234,7 @@ export class PlanTracker {
       {
         id: 'task-3',
         title: 'Perform Local Sandbox Statistical Analysis, Radiomics or Clinical NLP',
+        titleZh: '执行本地沙箱统计分析、影像组学或临床自然语言处理',
         category: 'computation',
         status: 'pending',
         evidenceIds: [],
@@ -211,6 +242,7 @@ export class PlanTracker {
       {
         id: 'task-4',
         title: 'Validate Clinical Trial Endpoints, Safety Signals & Critique Gate Check',
+        titleZh: '验证临床试验终点、安全性信号并通过审查关卡检查',
         category: 'clinical',
         status: 'pending',
         evidenceIds: [],
@@ -218,6 +250,7 @@ export class PlanTracker {
       {
         id: 'task-5',
         title: 'Synthesize Evidence-Anchored Scientific Report & Traceability Index',
+        titleZh: '综合撰写基于证据的科研报告与可追溯索引',
         category: 'synthesis',
         status: 'pending',
         evidenceIds: [],

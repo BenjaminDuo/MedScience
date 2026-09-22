@@ -78,8 +78,8 @@ export const CommandPalette: React.FC = () => {
     },
     {
       id: 'cmd-files',
-      label: 'Browse Workspace Files & Artifacts',
-      labelZh: '浏览工作区文件与产物',
+      label: 'Browse Output Files & Artifacts',
+      labelZh: '浏览产出文件与产物',
       category: 'Navigation',
       categoryZh: '导航',
       icon: BarChart2,

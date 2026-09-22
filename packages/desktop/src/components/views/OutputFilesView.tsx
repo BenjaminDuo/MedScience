@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Files,
   FileText,
@@ -11,10 +11,18 @@ import {
   Eye,
 } from 'lucide-react';
 import { useAgent } from '../../context/AgentContext';
+import { useWorkspaces, DEFAULT_WORKSPACE_ID } from '../../context/WorkspaceContext';
 import { useNav } from '../../context/NavContext';
 import { useLanguage } from '../../context/LanguageContext';
+import {
+  isFileSystemAccessSupported,
+  isFolderWriteReady,
+  writeFileToFolder,
+  writeFileToFolderWithPrompt,
+} from '../../utils/localFolder';
+import { FolderCog } from 'lucide-react';
 
-interface WorkspaceFileItem {
+interface OutputFileItem {
   id: string;
   name: string;
   type: 'figure' | 'dataset' | 'manuscript' | 'code';
@@ -24,24 +32,37 @@ interface WorkspaceFileItem {
   downloadData?: string;
 }
 
-export const WorkspaceFilesView: React.FC = () => {
+export const OutputFilesView: React.FC = () => {
   const { currentSession, sessions, resetSession } = useAgent();
+  const { activeWorkspaceId, workspaces } = useWorkspaces();
   const { setActiveSection } = useNav();
   const { t } = useLanguage();
 
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedType, setSelectedType] = useState<string>('All');
   const [previewContent, setPreviewContent] = useState<{ title: string; content: string } | null>(null);
+  const [folderReady, setFolderReady] = useState(false);
+  const [saveStatus, setSaveStatus] = useState<Record<string, 'saving' | 'saved' | 'error'>>({});
+  const autoSavedRef = React.useRef<Set<string>>(new Set());
 
   // Aggregate artifacts across all sessions
-  const allFiles: WorkspaceFileItem[] = [];
+  const allFiles: OutputFileItem[] = [];
 
-  const sourceSessions = [currentSession, ...sessions.filter((s) => s.id !== currentSession.id)];
+  // Scope to the active workspace -- evidence/files are workspace-owned,
+  // so switching workspaces in the sidebar switches what shows up here.
+  const projectSessions = sessions.filter(
+    (s) => (s.workspaceId || DEFAULT_WORKSPACE_ID) === activeWorkspaceId
+  );
+  const sourceSessions =
+    (currentSession.workspaceId || DEFAULT_WORKSPACE_ID) === activeWorkspaceId
+      ? [currentSession, ...projectSessions.filter((s) => s.id !== currentSession.id)]
+      : projectSessions;
+  const activeWorkspaceTitle = workspaces.find((p) => p.id === activeWorkspaceId)?.title;
 
   sourceSessions.forEach((sess) => {
     sess.messages?.forEach((msg) => {
       msg.artifacts?.forEach((art) => {
-        let type: WorkspaceFileItem['type'] = 'manuscript';
+        let type: OutputFileItem['type'] = 'manuscript';
         if (art.type === 'figure' || art.title.endsWith('.png') || art.title.endsWith('.svg')) type = 'figure';
         else if (art.type === 'dataset' || art.type === 'table' || art.title.endsWith('.csv')) type = 'dataset';
         else if (art.type === 'code' || art.title.endsWith('.py') || art.title.endsWith('.r')) type = 'code';
@@ -59,6 +80,51 @@ export const WorkspaceFilesView: React.FC = () => {
     });
   });
 
+  // Folder-binding readiness: re-checked whenever the active workspace
+  // changes (switching workspaces switches which bound folder, if any,
+  // writes go to).
+  useEffect(() => {
+    if (!isFileSystemAccessSupported()) {
+      setFolderReady(false);
+      return;
+    }
+    let cancelled = false;
+    isFolderWriteReady(activeWorkspaceId).then((ready) => {
+      if (!cancelled) setFolderReady(ready);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [activeWorkspaceId]);
+
+  const allFileIds = allFiles.map((f) => f.id).join(',');
+
+  // Best-effort auto-save: once a bound folder already has write permission
+  // granted (no prompt needed), newly-seen artifacts are written straight
+  // to disk as they show up, same idea as "生成的图/报告落盘到这个文件夹".
+  // Never prompts -- a folder that still needs re-authorization after a
+  // reload is only written to via the manual "Save to Folder" button below,
+  // which runs from a real click and so is allowed to prompt.
+  useEffect(() => {
+    if (!folderReady) return;
+    const toSave = allFiles.filter((f) => !autoSavedRef.current.has(f.id));
+    if (toSave.length === 0) return;
+    toSave.forEach((f) => autoSavedRef.current.add(f.id));
+    (async () => {
+      for (const f of toSave) {
+        const result = await writeFileToFolder(activeWorkspaceId, f.name, f.downloadData || f.description);
+        setSaveStatus((prev) => ({ ...prev, [f.id]: result.ok ? 'saved' : 'error' }));
+      }
+    })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [allFileIds, folderReady, activeWorkspaceId]);
+
+  const handleSaveToFolder = async (file: OutputFileItem) => {
+    setSaveStatus((prev) => ({ ...prev, [file.id]: 'saving' }));
+    const result = await writeFileToFolderWithPrompt(activeWorkspaceId, file.name, file.downloadData || file.description);
+    setSaveStatus((prev) => ({ ...prev, [file.id]: result.ok ? 'saved' : 'error' }));
+  };
+
   const filteredFiles = allFiles.filter((file) => {
     const matchesType = selectedType === 'All' || file.type === selectedType;
     const matchesSearch =
@@ -68,7 +134,7 @@ export const WorkspaceFilesView: React.FC = () => {
     return matchesType && matchesSearch;
   });
 
-  const getFileIcon = (type: WorkspaceFileItem['type']) => {
+  const getFileIcon = (type: OutputFileItem['type']) => {
     switch (type) {
       case 'figure':
         return ImageIcon;
@@ -81,7 +147,7 @@ export const WorkspaceFilesView: React.FC = () => {
     }
   };
 
-  const handleDownload = (file: WorkspaceFileItem) => {
+  const handleDownload = (file: OutputFileItem) => {
     const blob = new Blob([file.downloadData || file.description], { type: 'text/plain' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
@@ -106,17 +172,37 @@ export const WorkspaceFilesView: React.FC = () => {
               <Files size={22} />
             </div>
             <div>
-              <h2 className="text-2xl font-bold tracking-tight text-text-primary">{t('Workspace Files & Artifacts', '工作区文件与产出物')}</h2>
+              <h2 className="text-2xl font-bold tracking-tight text-text-primary">{t('Output Files & Artifacts', '产出文件与产出物')}</h2>
               <p className="text-sm text-text-secondary mt-0.5">
-                {t('Generated figures, scientific datasets, reproducible scripts, and manuscript drafts.', '生成的图表、科研数据集、可复现脚本与稿件草稿。')}
+                {activeWorkspaceTitle
+                  ? t(`In workspace "${activeWorkspaceTitle}".`, `属于工作区「${activeWorkspaceTitle}」。`)
+                  : t('Generated figures, scientific datasets, reproducible scripts, and manuscript drafts.', '生成的图表、科研数据集、可复现脚本与稿件草稿。')}
               </p>
             </div>
           </div>
         </div>
 
-        <span className="text-xs font-mono px-3 py-1.5 rounded-lg bg-bg-surface border border-border text-accent">
-          {filteredFiles.length} {t(filteredFiles.length === 1 ? 'Artifact' : 'Artifacts', '项产出物')}
-        </span>
+        <div className="flex items-center gap-2">
+          {isFileSystemAccessSupported() && (
+            <span
+              className={`inline-flex items-center gap-1.5 text-[11px] font-mono px-2.5 py-1.5 rounded-lg border ${
+                folderReady
+                  ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-500'
+                  : 'bg-bg-surface border-border text-text-muted'
+              }`}
+              title={t(
+                'Bind a local folder for this workspace from the sidebar to save output files there automatically.',
+                '在侧边栏为此工作区绑定本地文件夹，即可自动将产出文件保存到该文件夹。'
+              )}
+            >
+              <FolderCog size={12} />
+              {folderReady ? t('Local folder linked', '已链接本地文件夹') : t('No local folder', '未绑定本地文件夹')}
+            </span>
+          )}
+          <span className="text-xs font-mono px-3 py-1.5 rounded-lg bg-bg-surface border border-border text-accent">
+            {filteredFiles.length} {t(filteredFiles.length === 1 ? 'Artifact' : 'Artifacts', '项产出物')}
+          </span>
+        </div>
       </div>
 
       {/* Filter and Search */}
@@ -157,7 +243,7 @@ export const WorkspaceFilesView: React.FC = () => {
           </div>
           <div className="max-w-md mx-auto space-y-1.5">
             <h3 className="text-base font-semibold text-text-primary">
-              {searchQuery ? t('No matching artifacts found', '未找到匹配的产出物') : t('No workspace files generated yet', '尚未生成工作区文件')}
+              {searchQuery ? t('No matching artifacts found', '未找到匹配的产出物') : t('No output files generated yet', '尚未生成产出文件')}
             </h3>
             <p className="text-xs text-text-secondary leading-relaxed">
               {searchQuery
@@ -222,6 +308,23 @@ export const WorkspaceFilesView: React.FC = () => {
                     <Download size={13} />
                     <span>{t('Download', '下载')}</span>
                   </button>
+
+                  {isFileSystemAccessSupported() && (
+                    <button
+                      onClick={() => handleSaveToFolder(file)}
+                      disabled={saveStatus[file.id] === 'saving'}
+                      title={t('Save a copy into this workspace\'s bound local folder', '将副本保存到此工作区绑定的本地文件夹')}
+                      className={`flex items-center justify-center gap-1.5 px-2.5 py-1.5 rounded-lg border text-xs font-medium transition-all shrink-0 ${
+                        saveStatus[file.id] === 'saved'
+                          ? 'border-emerald-500/40 text-emerald-500 bg-emerald-500/10'
+                          : saveStatus[file.id] === 'error'
+                          ? 'border-red-500/40 text-red-500 bg-red-500/10'
+                          : 'border-border hover:border-accent/40 bg-bg-elevated hover:bg-bg-hover text-text-secondary hover:text-text-primary'
+                      }`}
+                    >
+                      <FolderCog size={13} />
+                    </button>
+                  )}
                 </div>
               </div>
             );

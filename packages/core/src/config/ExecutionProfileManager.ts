@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import os from 'node:os';
 import { ExecutionProfile, ApiExecutionProfile, LocalRuntimeExecutionProfile } from '../execution/types.js';
+import { LOCAL_RUNTIME_CATALOG } from '../execution/local/runtimeCatalog.js';
 import { ProfileManager, globalProfileManager } from './ProfileManager.js';
 
 export interface ExecutionConfigFile {
@@ -148,8 +149,9 @@ export class ExecutionProfileManager {
         errors.push('The referenced model profile does not exist.');
       }
     } else if (profile.mode === 'local-runtime') {
-      if (profile.runtime !== 'codex') {
-        errors.push('Only the "codex" local runtime is supported in this release.');
+      const supportedRuntimes = new Set(['codex', ...LOCAL_RUNTIME_CATALOG.map((spec) => spec.runtime)]);
+      if (!supportedRuntimes.has(profile.runtime)) {
+        errors.push(`Unknown local runtime "${profile.runtime}".`);
       }
       if (profile.executablePath) {
         const resolved = path.resolve(profile.executablePath);
@@ -228,11 +230,17 @@ export class ExecutionProfileManager {
 
   public createDefaultLocalRuntimeProfile(overrides?: Partial<LocalRuntimeExecutionProfile>): LocalRuntimeExecutionProfile {
     const now = new Date().toISOString();
+    const runtime = overrides?.runtime || 'codex';
+    const defaultNames: Record<string, string> = {
+      codex: 'Local Codex',
+      'claude-code': 'Local Claude Code',
+      opencode: 'Local OpenCode',
+    };
     return {
-      id: overrides?.id || `exec-codex-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`,
-      name: overrides?.name || 'Local Codex',
+      id: overrides?.id || `exec-${runtime}-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`,
+      name: overrides?.name || defaultNames[runtime] || `Local ${runtime}`,
       mode: 'local-runtime',
-      runtime: 'codex',
+      runtime,
       executablePath: overrides?.executablePath,
       model: overrides?.model,
       workingDirectoryMode: overrides?.workingDirectoryMode || 'project',

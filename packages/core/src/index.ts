@@ -21,6 +21,8 @@ export * from './client/protocols/AnthropicProtocol.js';
 // Core Runtime
 export * from './core/EventBus.js';
 export * from './core/SessionManager.js';
+export * from './core/WorkspaceManager.js';
+export * from './types/workspace.js';
 export * from './core/AgentLoop.js';
 
 // Agents & Skills & Tools
@@ -36,6 +38,7 @@ export * from './research-loop/EvidenceVerifier.js';
 export * from './research-loop/HypothesisTree.js';
 export * from './research-loop/SubagentTreeEngine.js';
 export * from './research-loop/PlanTracker.js';
+export * from './research-loop/ResearchProfiles.js';
 export * from './research-loop/CritiqueEngine.js';
 export * from './research-loop/AutonomousResearchEngine.js';
 export * from './research-loop/ChatEngine.js';
@@ -52,6 +55,13 @@ export * from './execution/local/ChildProcessSupervisor.js';
 export * from './execution/local/JsonlRpcClient.js';
 export * from './execution/local/CodexAppServerClient.js';
 export * from './execution/local/CodexRuntimeBackend.js';
+export * from './execution/local/runtimeCatalog.js';
+export * from './execution/local/GenericRuntimeDetector.js';
+export * from './execution/local/runtimeIsolation.js';
+export * from './execution/local/UnimplementedLocalRuntimeBackend.js';
+export * from './execution/local/runtimeDiscovery.js';
+export * from './execution/local/RuntimeUsageStore.js';
+export * from './execution/local/GenericCliRuntimeBackend.js';
 
 // Research Teams (Phase 1: types + read-only/clonable registries only)
 export * from './teams/types.js';

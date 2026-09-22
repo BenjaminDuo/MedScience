@@ -10,7 +10,11 @@ import {
   globalExecutionRouter,
   globalProfileManager,
   globalRuntimeDetector,
+  globalRuntimeUsageStore,
+  discoverAllRuntimes,
+  bindLocalRuntime,
   globalSessionManager,
+  globalWorkspaceManager,
   globalToolRegistry,
   globalTeamProfileManager,
   globalTeamAgentRegistry,
@@ -19,6 +23,7 @@ import {
   type ExecutionProfile,
   type ModelProfile,
   type RuntimeApprovalDecision,
+  type LocalRuntimeKind,
   type ResearchTeamDefinition,
 } from '@medscience/core';
 
@@ -149,19 +154,54 @@ async function handleApi(req: IncomingMessage, res: ServerResponse, url: URL): P
     sendJson(res, 200, globalSessionManager.listSessions());
     return true;
   }
+  if (req.method === 'GET' && url.pathname === '/api/workspaces') {
+    sendJson(res, 200, globalWorkspaceManager.listWorkspaces());
+    return true;
+  }
+  if (req.method === 'POST' && url.pathname === '/api/workspaces') {
+    const body = await readJson<{ title?: string; description?: string }>(req);
+    const title = body.title?.trim();
+    if (!title) {
+      sendJson(res, 400, { error: 'A non-empty title is required' });
+      return true;
+    }
+    sendJson(res, 201, globalWorkspaceManager.createWorkspace(title, undefined, body.description));
+    return true;
+  }
+  const projectRenameMatch = url.pathname.match(/^\/api\/workspaces\/([^/]+)\/rename$/);
+  if (req.method === 'POST' && projectRenameMatch) {
+    const { title } = await readJson<{ title?: string }>(req);
+    sendJson(
+      res,
+      200,
+      Boolean(title && globalWorkspaceManager.renameWorkspace(decodeURIComponent(projectRenameMatch[1]), title)),
+    );
+    return true;
+  }
+  const projectMatch = url.pathname.match(/^\/api\/workspaces\/([^/]+)$/);
+  if (req.method === 'DELETE' && projectMatch) {
+    sendJson(res, 200, globalWorkspaceManager.deleteWorkspace(decodeURIComponent(projectMatch[1])));
+    return true;
+  }
+
   if (req.method === 'POST' && url.pathname === '/api/sessions') {
     const body = await readJson<{
       title?: string;
       agentId?: AgentId;
       profileId?: string;
       modelName?: string;
+      workspaceId?: string;
+      researchProfileId?: string;
     }>(req);
     const session = globalSessionManager.createSession(
       body.title?.trim() || 'New Scientific Exploration',
-      'proj-1',
+      body.workspaceId || 'proj-1',
       body.agentId || 'research',
       body.profileId,
       body.modelName,
+      undefined,
+      'research',
+      body.researchProfileId || 'general',
     );
     sendJson(res, 201, session);
     return true;
@@ -198,6 +238,9 @@ async function handleApi(req: IncomingMessage, res: ServerResponse, url: URL): P
       sessionId?: string;
       executionProfileId?: string;
       sessionType?: 'chat' | 'research';
+      workspaceId?: string;
+      researchProfileId?: string;
+      language?: 'en' | 'zh';
     }>(req);
     const prompt = body.prompt?.trim();
     if (!prompt) {
@@ -217,6 +260,9 @@ async function handleApi(req: IncomingMessage, res: ServerResponse, url: URL): P
         sessionId: body.sessionId,
         executionProfileId: body.executionProfileId,
         sessionType: body.sessionType,
+        workspaceId: body.workspaceId,
+        researchProfileId: body.researchProfileId,
+        language: body.language,
       },
       { onDelta: (delta) => broadcast('delta', delta) }
     );
@@ -263,6 +309,27 @@ async function handleApi(req: IncomingMessage, res: ServerResponse, url: URL): P
   if (req.method === 'POST' && url.pathname === '/api/runtime/detect') {
     const { executablePath } = await readJson<{ executablePath?: string }>(req);
     sendJson(res, 200, await globalRuntimeDetector.probe(executablePath));
+    return true;
+  }
+  if (req.method === 'GET' && url.pathname === '/api/runtime/active-sessions') {
+    sendJson(res, 200, globalExecutionRouter.listActiveLocalSessions());
+    return true;
+  }
+  if (req.method === 'GET' && url.pathname === '/api/runtime/usage') {
+    sendJson(res, 200, globalRuntimeUsageStore.getAllUsage());
+    return true;
+  }
+  if (req.method === 'GET' && url.pathname === '/api/runtime/discover') {
+    sendJson(res, 200, await discoverAllRuntimes());
+    return true;
+  }
+  if (req.method === 'POST' && url.pathname === '/api/runtime/bind') {
+    const { runtime, executablePath } = await readJson<{ runtime?: LocalRuntimeKind; executablePath?: string }>(req);
+    if (!runtime) {
+      sendJson(res, 400, { error: 'runtime is required' });
+      return true;
+    }
+    sendJson(res, 200, await bindLocalRuntime(runtime, executablePath));
     return true;
   }
   const approvalMatch = url.pathname.match(/^\/api\/runtime\/approvals\/([^/]+)$/);
@@ -314,13 +381,24 @@ async function handleApi(req: IncomingMessage, res: ServerResponse, url: URL): P
 
   const teamRunsForTeamMatch = url.pathname.match(/^\/api\/teams\/([^/]+)\/runs$/);
   if (req.method === 'POST' && teamRunsForTeamMatch) {
-    const { inquiry, sessionId } = await readJson<{ inquiry?: string; sessionId?: string }>(req);
+    const { inquiry, sessionId, workspaceId, researchProfileId } = await readJson<{
+      inquiry?: string;
+      sessionId?: string;
+      workspaceId?: string;
+      researchProfileId?: string;
+    }>(req);
     if (!inquiry?.trim()) {
       sendJson(res, 400, { error: 'A non-empty inquiry is required' });
       return true;
     }
     try {
-      const record = await globalTeamOrchestrator.startRun(decodeURIComponent(teamRunsForTeamMatch[1]), inquiry, sessionId);
+      const record = await globalTeamOrchestrator.startRun(
+        decodeURIComponent(teamRunsForTeamMatch[1]),
+        inquiry,
+        sessionId,
+        workspaceId,
+        researchProfileId
+      );
       sendJson(res, 200, record);
     } catch (err: any) {
       sendJson(res, 400, { error: err?.message || String(err) });
@@ -329,7 +407,8 @@ async function handleApi(req: IncomingMessage, res: ServerResponse, url: URL): P
   }
   if (req.method === 'GET' && url.pathname === '/api/team-runs') {
     const teamId = url.searchParams.get('teamId') || undefined;
-    sendJson(res, 200, globalTeamOrchestrator.listRuns(teamId));
+    const workspaceId = url.searchParams.get('workspaceId') || undefined;
+    sendJson(res, 200, globalTeamOrchestrator.listRuns(teamId, workspaceId));
     return true;
   }
   const teamRunApprovePlanMatch = url.pathname.match(/^\/api\/team-runs\/([^/]+)\/approve-plan$/);

@@ -6,6 +6,7 @@ import { fileURLToPath } from 'node:url';
 import { registerModelIpcHandlers } from './ipc/modelIpc.js';
 import { registerAgentIpcHandlers } from './ipc/agentIpc.js';
 import { registerSessionIpcHandlers } from './ipc/sessionIpc.js';
+import { registerWorkspaceIpcHandlers } from './ipc/workspaceIpc.js';
 import { registerRuntimeIpcHandlers } from './ipc/runtimeIpc.js';
 import { registerTeamIpcHandlers } from './ipc/teamIpc.js';
 import { resolveStaticAssetPath } from './staticAssetPath.js';
@@ -101,6 +102,7 @@ async function createWindow(): Promise<void> {
 registerModelIpcHandlers(ipcMain);
 registerAgentIpcHandlers(ipcMain, () => mainWindow);
 registerSessionIpcHandlers(ipcMain);
+registerWorkspaceIpcHandlers(ipcMain);
 registerRuntimeIpcHandlers(ipcMain);
 registerTeamIpcHandlers(ipcMain);
 

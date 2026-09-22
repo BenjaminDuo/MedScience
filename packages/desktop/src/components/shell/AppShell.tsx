@@ -8,7 +8,8 @@ import { SessionsView } from '../views/SessionsView';
 import { ResearchTeamsView } from '../views/ResearchTeamsView';
 import { SkillsCatalogView } from '../views/SkillsCatalogView';
 import { EvidenceRegistryView } from '../views/EvidenceRegistryView';
-import { WorkspaceFilesView } from '../views/WorkspaceFilesView';
+import { OutputFilesView } from '../views/OutputFilesView';
+import { TeamRosterView } from '../views/TeamRosterView';
 import { ModelConfigView } from '../views/ModelConfigView';
 import { GuardrailHooksView } from '../views/GuardrailHooksView';
 import { CommandPalette } from '../common/CommandPalette';
@@ -39,9 +40,10 @@ export const AppShell: React.FC = () => {
           {activeSection === 'teams' && <ResearchTeamsView />}
           {activeSection === 'skills' && <SkillsCatalogView />}
           {activeSection === 'evidence' && <EvidenceRegistryView />}
-          {activeSection === 'files' && <WorkspaceFilesView />}
+          {activeSection === 'files' && <OutputFilesView />}
           {activeSection === 'model-config' && <ModelConfigView />}
           {activeSection === 'guardrails' && <GuardrailHooksView />}
+          {activeSection === 'team-roster' && <TeamRosterView />}
         </main>
 
         {/* Right Context Panel (Only in active Workspace conversation, never on blank Home) */}

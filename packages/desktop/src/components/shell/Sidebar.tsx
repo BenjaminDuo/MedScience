@@ -1,21 +1,17 @@
 import React from 'react';
 import {
-  Sparkles,
-  FolderKanban,
-  Users,
   FlaskConical,
-  ShieldCheck,
-  Files,
   Plus,
-  MessageCirclePlus,
   PanelLeftClose,
   PanelLeft,
   Settings,
   ChevronRight,
   Cpu,
   Shield,
+  Users,
 } from 'lucide-react';
 import { MedScienceLogo } from '../common/MedScienceLogo';
+import { WorkspaceTree } from './WorkspaceTree';
 import { useNav } from '../../context/NavContext';
 import { useAgent } from '../../context/AgentContext';
 import { useUser } from '../../context/UserContext';
@@ -33,20 +29,22 @@ interface NavItemConfig {
   icon: React.ElementType;
 }
 
-const navItems: NavItemConfig[] = [
-  { id: 'home', labelEn: 'Research Agent', labelZh: '研究智能体', icon: Sparkles },
-  { id: 'sessions', labelEn: 'Research Sessions', labelZh: '研究会话', icon: FolderKanban },
-  { id: 'teams', labelEn: 'Research Teams', labelZh: '科研小队', icon: Users },
-  { id: 'skills', labelEn: 'Scientific Skills (19)', labelZh: '科研技能 (19)', icon: FlaskConical },
-  { id: 'evidence', labelEn: 'Evidence Registry', labelZh: '证据库', icon: ShieldCheck },
-  { id: 'files', labelEn: 'Workspace Files', labelZh: '工作区文件', icon: Files },
-];
+// Top-level nav items are now just the pages that AREN'T scoped to a single
+// workspace. Conversations/Evidence Registry/Output Files/Research Team
+// used to live here as flat, unscoped lists -- they now live inside
+// WorkspaceTree, one set per workspace (see its sub-item entries), so a
+// user opens a workspace to see its own conversations/evidence/output
+// files/team runs instead of everything ever created flattened together.
+const navItems: NavItemConfig[] = [];
 
-// "配置" group -- Model Configuration (merged Model API + Execution
-// Runtime) and Guardrail Hooks used to be Settings-modal tabs; moved into
-// the sidebar as their own navigable pages, under a light divider.
+// "配置" group -- Model Configuration, Guardrail Hooks, and Scientific
+// Skills (moved here from the old flat nav list -- it's account-wide
+// tooling, not scoped to any one workspace) live here as their own
+// navigable pages, under a light divider.
 const configItems: NavItemConfig[] = [
-  { id: 'model-config', labelEn: 'Model Configuration', labelZh: '模型配置', icon: Cpu },
+  { id: 'model-config', labelEn: 'Runtime (Model Configuration)', labelZh: '运行时（模型配置）', icon: Cpu },
+  { id: 'skills', labelEn: 'Scientific Skills', labelZh: '科研技能', icon: FlaskConical },
+  { id: 'team-roster', labelEn: 'Team Roster Management', labelZh: '科研小队队员管理', icon: Users },
   { id: 'guardrails', labelEn: 'Guardrail Hooks', labelZh: '防护钩子', icon: Shield },
 ];
 
@@ -63,12 +61,10 @@ export const Sidebar: React.FC<SidebarProps> = ({ className = '' }) => {
   const { user } = useUser();
   const { t, language } = useLanguage();
 
-  const handleNewChat = () => {
-    resetSession('chat');
-    setActiveSection('home');
-  };
-
-  const handleNewResearch = () => {
+  const handleNewConversation = () => {
+    // Mode (chat vs. research) is now chosen in the composer via
+    // SessionModeToggle, not by which sidebar button was clicked --
+    // default to 'research' since that is the app's primary purpose.
     resetSession('research');
     setActiveSection('home');
   };
@@ -108,39 +104,45 @@ export const Sidebar: React.FC<SidebarProps> = ({ className = '' }) => {
         </button>
       </div>
 
-      {/* New Chat / New Research -- two distinct session types, fixed at
-          creation (see RuntimeSession.sessionType): a plain chat never
-          forces tool calls or the evidence-verification pipeline, a
-          research session always does. Not a per-message guess. */}
-      <div className={`p-3 flex gap-2 ${isSidebarCollapsed ? 'flex-col' : ''}`}>
+      {/* New Conversation -- sits ABOVE the workspace tree on purpose: it
+          always starts unbound (未分类), never bound to whichever workspace
+          happens to be expanded below, so opening a workspace to browse it
+          never silently changes where the next new conversation goes. For a
+          research session, WorkspacePicker in the composer is the one place
+          to explicitly assign it to a workspace instead. */}
+      <div className={`px-3 pt-5 pb-3 flex gap-2 ${isSidebarCollapsed ? 'flex-col' : ''}`}>
         <button
-          onClick={handleNewChat}
+          onClick={handleNewConversation}
           className={`flex-1 flex items-center justify-center gap-1.5 px-2.5 py-2 rounded-lg border border-border hover:border-accent/40 bg-bg-elevated hover:bg-bg-hover text-text-primary transition-all group ${
             isSidebarCollapsed ? 'px-0' : ''
           }`}
-          title={t('New Chat', '新建对话')}
-        >
-          <MessageCirclePlus size={15} className="text-accent group-hover:scale-110 transition-transform shrink-0" />
-          {!isSidebarCollapsed && (
-            <span className="text-[13px] font-medium tracking-tight">{t('New Chat', '新建对话')}</span>
-          )}
-        </button>
-        <button
-          onClick={handleNewResearch}
-          className={`flex-1 flex items-center justify-center gap-1.5 px-2.5 py-2 rounded-lg border border-border hover:border-accent/40 bg-bg-elevated hover:bg-bg-hover text-text-primary transition-all group ${
-            isSidebarCollapsed ? 'px-0' : ''
-          }`}
-          title={t('New Research (⌘N)', '新建研究 (⌘N)')}
+          title={t('New Conversation (⌘N)', '新建对话 (⌘N)')}
         >
           <Plus size={15} className="text-accent group-hover:scale-110 transition-transform shrink-0" />
           {!isSidebarCollapsed && (
-            <span className="text-[13px] font-medium tracking-tight">{t('New Research', '新建研究')}</span>
+            <span className="text-[13px] font-medium tracking-tight">{t('New Conversation', '新建对话')}</span>
           )}
         </button>
       </div>
 
-      {/* Navigation List */}
-      <nav className="flex-1 px-2.5 py-1 space-y-1 overflow-y-auto">
+      {/* Workspace tree -- accordion of workspaces, each expanding to its
+          own 对话/科研小队/证据库/产出文件. Mode (chat vs. research) is
+          chosen per-session in the composer (SessionModeToggle), not here.
+          It is the flex-1/min-h-0 element in this column (see its own
+          internal layout), so IT is what absorbs/fills leftover vertical
+          space -- not the (currently empty) nav below -- which is what
+          keeps the Configuration group and account footer always fully
+          visible and pinned to the bottom, on any window height. */}
+      <WorkspaceTree collapsed={isSidebarCollapsed} />
+
+      {/* Navigation List -- currently empty (see navItems above); kept as
+          a real, zero-item section rather than deleted outright, so a
+          future account-wide, non-workspace-scoped page has somewhere to
+          land. Deliberately NOT flex-1 (WorkspaceTree above is now the
+          sidebar's one growing/scrolling spacer) -- two flex-1 siblings
+          would each fight for half the leftover space instead of giving
+          it all to the workspace list. */}
+      <nav className="shrink-0 px-2.5 py-1 space-y-1 overflow-y-auto">
         {navItems.map((item) => {
           const Icon = item.icon;
           const isActive = activeSection === item.id;

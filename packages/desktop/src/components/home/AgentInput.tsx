@@ -1,8 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { ChevronRight, Paperclip } from 'lucide-react';
+import { ChevronRight, Paperclip, Square } from 'lucide-react';
 import { useAgent } from '../../context/AgentContext';
 import { useLanguage } from '../../context/LanguageContext';
 import { ExecutionProfilePicker } from '../common/ExecutionProfilePicker';
+import { SessionModeToggle } from '../common/SessionModeToggle';
+import { ResearchProfilePicker } from '../common/ResearchProfilePicker';
+import { WorkspacePicker } from '../common/WorkspacePicker';
 import { ToolsPicker } from '../common/ToolsPicker';
 import { AttachmentChips } from '../common/AttachmentChips';
 import { readAttachedFiles, buildAttachmentContext, type AttachedFile } from '../../lib/attachFiles';
@@ -18,10 +21,14 @@ export const AgentInput: React.FC<AgentInputProps> = ({ className = '', autoFocu
   const [selectedTools, setSelectedTools] = useState<string[]>([]);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const { submitPrompt, status } = useAgent();
+  const { submitPrompt, status, cancelActiveRun } = useAgent();
   const { t } = useLanguage();
 
-  const isBusy = status === 'thinking' || status === 'tool_calling' || status === 'generating';
+  // Anything the agent is actively working through -- 'waiting_for_permission'
+  // is deliberately excluded: that pause already has its own approve/deny
+  // affordance (RuntimeApprovalCard), and cancelActiveRun() still works if
+  // the user wants out of that too, just not via this Stop button.
+  const isBusy = status === 'thinking' || status === 'planning' || status === 'tool_calling' || status === 'executing' || status === 'generating';
 
   useEffect(() => {
     if (autoFocus && textareaRef.current) {
@@ -76,15 +83,25 @@ export const AgentInput: React.FC<AgentInputProps> = ({ className = '', autoFocu
 
         <input ref={fileInputRef} type="file" multiple className="hidden" onChange={(e) => handleFilesPicked(e.target.files)} />
 
-        {/* Action Button: Sleek rounded blue button with chevron right */}
-        <button
-          onClick={handleSubmit}
-          disabled={(!prompt.trim() && attachedFiles.length === 0) || isBusy}
-          className="flex-shrink-0 w-8 h-8 rounded-lg bg-accent hover:brightness-110 active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed text-white flex items-center justify-center transition-all shadow-sm"
-          title={t('Send query (Enter)', '发送 (Enter)')}
-        >
-          <ChevronRight size={18} strokeWidth={2.5} />
-        </button>
+        {/* Action Button: send when idle, Stop when a run is in flight */}
+        {isBusy ? (
+          <button
+            onClick={() => cancelActiveRun()}
+            className="flex-shrink-0 w-8 h-8 rounded-lg bg-red-500/10 hover:bg-red-500/20 active:scale-95 text-red-500 border border-red-500/30 flex items-center justify-center transition-all shadow-sm"
+            title={t('Stop', '停止')}
+          >
+            <Square size={14} fill="currentColor" />
+          </button>
+        ) : (
+          <button
+            onClick={handleSubmit}
+            disabled={!prompt.trim() && attachedFiles.length === 0}
+            className="flex-shrink-0 w-8 h-8 rounded-lg bg-accent hover:brightness-110 active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed text-white flex items-center justify-center transition-all shadow-sm"
+            title={t('Send query (Enter)', '发送 (Enter)')}
+          >
+            <ChevronRight size={18} strokeWidth={2.5} />
+          </button>
+        )}
       </div>
 
       <div className="flex items-center gap-2 pt-1.5 mt-1.5 border-t border-border-subtle text-text-muted">
@@ -98,6 +115,10 @@ export const AgentInput: React.FC<AgentInputProps> = ({ className = '', autoFocu
         </button>
         <ToolsPicker selected={selectedTools} onChange={setSelectedTools} />
         <ExecutionProfilePicker />
+        <div className="flex-1" />
+        <WorkspacePicker />
+        <ResearchProfilePicker />
+        <SessionModeToggle />
       </div>
     </div>
   );

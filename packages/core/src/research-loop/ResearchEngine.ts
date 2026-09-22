@@ -92,19 +92,23 @@ export class ResearchEngine {
     inquiry: string,
     sessionId?: string,
     onDelta?: (chunk: string) => void,
-    sessionType: SessionType = 'research'
+    sessionType: SessionType = 'research',
+    workspaceId: string = 'proj-1',
+    researchProfileId: string = 'general',
+    language: 'en' | 'zh' = 'en'
   ): Promise<{ session: RuntimeSession; turn: Turn }> {
     let session = sessionId ? this.sessionManager.getSession(sessionId) : undefined;
     if (!session) {
       const activeProfile = this.profileManager.getActiveProfile();
       session = this.sessionManager.createSession(
         inquiry.slice(0, 60),
-        'proj-1',
+        workspaceId,
         'research',
         activeProfile?.id,
         activeProfile?.model,
         undefined,
-        sessionType
+        sessionType,
+        researchProfileId
       );
     } else {
       const activeProfile = this.profileManager.getActiveProfile();
@@ -120,7 +124,7 @@ export class ResearchEngine {
     // an existing session always keeps routing through the engine it
     // started with, regardless of what this call was passed.
     const engine = session.sessionType === 'chat' ? this.chatEngine : this.autonomousEngine;
-    const turn = await engine.run(session, inquiry, onDelta);
+    const turn = await engine.run(session, inquiry, onDelta, language);
     return { session, turn };
   }
 }

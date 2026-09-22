@@ -21,7 +21,10 @@ export class ApiResearchBackend implements ExecutionBackend {
       (delta) => {
         callbacks?.onDelta?.(delta);
       },
-      request.sessionType || 'research'
+      request.sessionType || 'research',
+      request.workspaceId || 'proj-1',
+      request.researchProfileId || 'general',
+      request.language || 'en'
     );
     return { session, turn, backend: 'api' };
   }

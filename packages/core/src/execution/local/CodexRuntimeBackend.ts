@@ -3,6 +3,7 @@ import path from 'node:path';
 import os from 'node:os';
 import { ExecutionBackend } from '../ExecutionBackend.js';
 import {
+  ActiveLocalRuntimeSession,
   ExecutionCallbacks,
   ExecutionMode,
   ExecutionRequest,
@@ -17,6 +18,7 @@ import { ChildProcessSupervisor } from './ChildProcessSupervisor.js';
 import { JsonlRpcClient } from './JsonlRpcClient.js';
 import { CodexAppServerClient } from './CodexAppServerClient.js';
 import { SessionManager, globalSessionManager } from '../../core/SessionManager.js';
+import { globalRuntimeUsageStore } from './RuntimeUsageStore.js';
 import { EventBus, globalEventBus } from '../../core/EventBus.js';
 import { Turn, ToolExecution } from '../../types/runtime.js';
 
@@ -26,6 +28,10 @@ interface SessionRuntimeHandle {
   client: CodexAppServerClient;
   threadId?: string;
   cwd: string;
+  /** The bound execution profile this session is running under -- lets listActiveSessions() report a per-profile count instead of one process-wide total. */
+  profileId: string;
+  /** This session's isolated CODEX_HOME -- see deriveCodexHome(). */
+  codexHome: string;
   activeRunId?: string;
   activeTurnId?: string;
   // Storing the timer alongside the resolver lets respondApproval() clear
@@ -42,6 +48,46 @@ function isThreadMissingError(message: string): boolean {
 
 function isAuthError(message: string): boolean {
   return /not (logged|authenticated)|please (log|sign) in|unauthorized|authentication required/i.test(message);
+}
+
+/**
+ * A dedicated, per-session CODEX_HOME so MedScience's local-runtime turns
+ * never mix with the user's own everyday `codex` CLI usage. Without this,
+ * the child process inherits `process.env` as-is and Codex's own Rollout
+ * persistence (the mechanism behind `codex resume` / cross-surface session
+ * sync) is transport-agnostic -- it writes to the same CODEX_HOME (default
+ * `~/.codex`) whether driven by an interactive terminal or by this
+ * app-server JSON-RPC client, so every MedScience conversation would show
+ * up in the user's real Codex app / `codex resume` list right alongside
+ * their personal sessions.
+ *
+ * Keyed by MedScience sessionId (not a shared/reused slot) deliberately --
+ * Multica hit exactly this as a real bug (multica-ai/multica#3130): reusing
+ * one CODEX_HOME across unrelated tasks let stale memories/instructions
+ * from one task leak into the next. Deriving from a stable per-session id
+ * instead means each MedScience session's Codex state is isolated from
+ * every other one too, not just from the user's personal ~/.codex.
+ *
+ * Path is kept short and shallow (base + one segment) -- Multica also hit
+ * a real bug (multica-ai/multica#4041) where an over-nested CODEX_HOME made
+ * the app-server's control socket path exceed macOS's SUN_LEN limit.
+ */
+function deriveCodexHome(sessionId: string): string {
+  const base = process.env.MEDSCIENCE_HOME || path.join(os.homedir(), '.medscience');
+  // sessionId is already a short, filesystem-safe id (see
+  // `sess-${Date.now()}-${random}` in SessionManager.ts/AgentContext.tsx),
+  // but sanitize defensively rather than trust that format never changes.
+  const safeId = sessionId.replace(/[^a-zA-Z0-9_-]/g, '_').slice(0, 64);
+  return path.join(base, 'codex-runtime-home', safeId);
+}
+
+function ensureCodexHomeDir(codexHome: string): void {
+  try {
+    fs.mkdirSync(codexHome, { recursive: true, mode: 0o700 });
+  } catch {
+    // Best effort -- if this fails, Codex will fall back to creating
+    // CODEX_HOME itself on first write, same as it does for ~/.codex today.
+  }
 }
 
 export class CodexRuntimeBackend implements ExecutionBackend {
@@ -114,9 +160,15 @@ export class CodexRuntimeBackend implements ExecutionBackend {
       throw err;
     }
 
+    const codexHome = deriveCodexHome(sessionId);
+    ensureCodexHomeDir(codexHome);
     const supervisor = new ChildProcessSupervisor(resolved.path, ['app-server', '--listen', 'stdio://'], {
       cwd,
-      env: process.env,
+      // CODEX_HOME override is the whole point of deriveCodexHome() -- see
+      // its doc comment. Everything else in process.env (PATH, auth tokens
+      // Codex itself manages, etc.) still needs to reach the child process
+      // as normal, so this is an override on top of it, not a replacement.
+      env: { ...process.env, CODEX_HOME: codexHome },
     });
     const child = supervisor.start();
     if (!child.stdout || !child.stdin) {
@@ -128,7 +180,7 @@ export class CodexRuntimeBackend implements ExecutionBackend {
     const runId = `run-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
     const client = new CodexAppServerClient(rpc, { runId, sessionId });
 
-    const handle: SessionRuntimeHandle = { supervisor, rpc, client, cwd, pendingApprovals: new Map() };
+    const handle: SessionRuntimeHandle = { supervisor, rpc, client, cwd, codexHome, profileId: profile.id, pendingApprovals: new Map() };
     this.handles.set(sessionId, handle);
 
     // The whole handshake -- initialize, then resume-or-start a thread -- is
@@ -342,6 +394,16 @@ export class CodexRuntimeBackend implements ExecutionBackend {
             callbacks
           );
         },
+        onTokenUsageUpdated: (usage) => {
+          // Best-effort telemetry only -- see RuntimeUsageStore's own doc
+          // comment. Never let a usage-store write failure affect the run
+          // itself (the store already swallows its own I/O errors).
+          try {
+            globalRuntimeUsageStore.recordUsage(profile.id, 'codex', usage);
+          } catch (err) {
+            console.error('[CodexRuntimeBackend] Failed to record token usage:', err);
+          }
+        },
         onTurnCompleted: (turn) => {
           const startedAt = new Date().toISOString();
           const status = turn.status === 'interrupted' ? 'cancelled' : turn.status === 'failed' ? 'error' : 'completed';
@@ -454,6 +516,26 @@ export class CodexRuntimeBackend implements ExecutionBackend {
           finish(error);
         });
     });
+  }
+
+  /**
+   * Read-only status surface for the Settings "Runtime" status card (see
+   * ModelConfigView.tsx) -- lists every session this backend currently has
+   * a live Codex app-server child process for. This is process-local state
+   * (the `handles` map lives only inside whichever Node process is running
+   * `npm run web`/Electron main), so it reflects "sessions alive in THIS
+   * process" rather than anything persisted to disk.
+   */
+  public listActiveSessions(): ActiveLocalRuntimeSession[] {
+    return Array.from(this.handles.entries()).map(([sessionId, handle]) => ({
+      sessionId,
+      cwd: handle.cwd,
+      codexHome: handle.codexHome,
+      threadId: handle.threadId,
+      activeRunId: handle.activeRunId,
+      pendingApprovalCount: handle.pendingApprovals.size,
+      profileId: handle.profileId,
+    }));
   }
 
   public respondApproval(sessionId: string, approvalId: string, decision: RuntimeApprovalDecision): boolean {
