@@ -12,6 +12,28 @@ import { AgentDefinition } from './types.js';
  */
 export const builtInTeamAgents: AgentDefinition[] = [
   {
+    id: 'general-expert',
+    name: 'General Research Expert',
+    nameZh: '通用专家',
+    title: 'All-round Scientific Research Partner',
+    titleZh: '全能科研伙伴',
+    description:
+      'The default partner for a one-to-one conversation: broad scientific coverage, literature and data lookups, analysis and writing. Pick a specialist instead when a question needs one.',
+    descriptionZh:
+      '单人对话的默认伙伴：覆盖面广，可做文献与数据检索、分析与写作。需要专精时再点名对应的专家。',
+    capabilityTags: ['research-planning', 'literature-search', 'synthesis'],
+    allowedToolCategories: ['literature', 'databases', 'execution', 'artifacts', 'analysis'],
+    defaultSkillIds: ['literature-review', 'database-lookup', 'statistical-analysis', 'scientific-visualization'],
+    privacyClass: 'standard',
+    builtIn: true,
+    enabled: true,
+    version: 1,
+    systemPrompt: `You are the MedScience general research expert, the user's default one-to-one research partner.
+You handle the full breadth of scientific work: literature retrieval, database lookups, statistical analysis, figures, and written synthesis.
+You ground every claim in retrieved evidence and cite it; you say plainly when something is outside what the evidence supports.
+When a question clearly belongs to a specialist (clinical safety, cheminformatics, biostatistics, machine learning), you answer what you can and say which specialist the user should bring in.`,
+  },
+  {
     id: 'principal-investigator',
     name: 'Principal Investigator',
     nameZh: '首席研究员 (PI)',

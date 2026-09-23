@@ -1,8 +1,9 @@
-import type { MedScienceDesktopAPI } from '../../electron/preload';
+import type { MedScienceApi } from '../runtime/apiClient';
 
 declare global {
   interface Window {
-    medscience?: MedScienceDesktopAPI;
+    /** Installed by runtime/apiClient.ts at startup (Electron IPC or the loopback web bridge). */
+    medscience?: MedScienceApi;
   }
 }
 

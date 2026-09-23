@@ -3,12 +3,7 @@ import path from 'node:path';
 import fs from 'node:fs';
 import http from 'node:http';
 import { fileURLToPath } from 'node:url';
-import { registerModelIpcHandlers } from './ipc/modelIpc.js';
-import { registerAgentIpcHandlers } from './ipc/agentIpc.js';
-import { registerSessionIpcHandlers } from './ipc/sessionIpc.js';
-import { registerWorkspaceIpcHandlers } from './ipc/workspaceIpc.js';
-import { registerRuntimeIpcHandlers } from './ipc/runtimeIpc.js';
-import { registerTeamIpcHandlers } from './ipc/teamIpc.js';
+import { registerApiChannels } from './ipc/registerChannels.js';
 import { resolveStaticAssetPath } from './staticAssetPath.js';
 import { globalExecutionRouter } from '@medscience/core';
 
@@ -98,13 +93,9 @@ async function createWindow(): Promise<void> {
   });
 }
 
-// Register IPC handlers
-registerModelIpcHandlers(ipcMain);
-registerAgentIpcHandlers(ipcMain, () => mainWindow);
-registerSessionIpcHandlers(ipcMain);
-registerWorkspaceIpcHandlers(ipcMain);
-registerRuntimeIpcHandlers(ipcMain);
-registerTeamIpcHandlers(ipcMain);
+// Every app API channel comes from @medscience/core's shared registry --
+// the local web server registers the exact same handlers.
+registerApiChannels(ipcMain, () => mainWindow);
 
 app.whenReady().then(() => {
   createWindow();

@@ -24,9 +24,11 @@ async function runTests() {
       assertTrue(result.valid, `Template "${template.name}" should validate cleanly, got errors: ${JSON.stringify(result.errors)}`);
     }
 
-    console.log('[Test 2/7] Exactly 4 built-in templates and 11 built-in agents exist (MVP bounds from the design doc)');
+    console.log('[Test 2/7] Exactly 4 built-in templates and 12 built-in agents exist (11 specialists + the general expert)');
     assertTrue(builtInTeamTemplates.length === 4, `Expected 4 built-in templates, got ${builtInTeamTemplates.length}`);
-    assertTrue(builtInTeamAgents.length === 11, `Expected 11 built-in agents, got ${builtInTeamAgents.length}`);
+    // 11 team specialists plus 'general-expert', the default partner for a
+    // 1:1 conversation -- one roster now serves both chats and teams.
+    assertTrue(builtInTeamAgents.length === 12, `Expected 12 built-in agents, got ${builtInTeamAgents.length}`);
     assertTrue(
       builtInTeamTemplates.some((t) => t.id === DEFAULT_TEAM_TEMPLATE_ID),
       'DEFAULT_TEAM_TEMPLATE_ID should reference a real built-in template'

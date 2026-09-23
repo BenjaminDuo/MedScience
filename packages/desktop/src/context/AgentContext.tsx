@@ -1,19 +1,17 @@
-import React, { createContext, useContext, useState, useEffect, useRef } from 'react';
+import React, { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react';
 import { AgentSession, AgentStatus, AgentMessage, ToolExecution, Artifact, Citation } from '../types/agent';
 import { useNav } from './NavContext';
 import { DEFAULT_WORKSPACE_ID } from './WorkspaceContext';
 import { useLanguage } from './LanguageContext';
 import type { RuntimeEvent, RuntimeApprovalRequest, RuntimeApprovalDecision, ExecutionProfile, Turn, RuntimeSession as CoreRuntimeSession } from '@medscience/core';
 
-export interface PlanTask {
-  id: string;
-  title: string;
-  titleZh?: string;
-  status: 'pending' | 'in_progress' | 'completed' | 'failed';
-  evidenceIds?: string[];
-  category?: string;
-  resultNote?: string;
-}
+import { createRuntimeEventHandler, PlanTask } from '../lib/runtimeEventHandler';
+import { toAgentSessions } from '../lib/sessionAdapter';
+
+/** Keep in sync with DEFAULT_AGENT_ID in @medscience/core (agents/agentPersona.ts). */
+export const DEFAULT_AGENT_ID = 'general-expert';
+
+export type { PlanTask };
 
 interface AgentContextType {
   sessions: AgentSession[];
@@ -22,7 +20,15 @@ interface AgentContextType {
   status: AgentStatus;
   planTasks: PlanTask[];
   submitPrompt: (promptText: string) => Promise<void>;
-  resetSession: (sessionType?: 'chat' | 'research', workspaceId?: string, researchProfileId?: string) => void;
+  resetSession: (
+    sessionType?: 'chat' | 'research',
+    workspaceId?: string,
+    researchProfileId?: string,
+    /** Who the new conversation is with; defaults to the general expert. */
+    agentId?: string
+  ) => void;
+  /** Re-reads the session list from core (after a rename/delete, or when a team run creates one). */
+  refreshSessions: () => Promise<void>;
   /** Flips the not-yet-started current session between chat/research. No-op once it has any turns -- see RuntimeSession.sessionType for why this is locked after creation. */
   setSessionType: (sessionType: 'chat' | 'research') => void;
   /** Picks the research workflow (see ResearchProfiles.ts in @medscience/core) for the not-yet-started current session. No-op once it has any turns, same lock as setSessionType. */
@@ -62,7 +68,8 @@ const AgentContext = createContext<AgentContextType | undefined>(undefined);
 function createFreshSession(
   sessionType: 'chat' | 'research' = 'research',
   workspaceId: string = DEFAULT_WORKSPACE_ID,
-  researchProfileId: string = 'general'
+  researchProfileId: string = 'general',
+  agentId: string = DEFAULT_AGENT_ID
 ): AgentSession {
   const id = `sess-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`;
   const now = new Date().toISOString();
@@ -76,6 +83,8 @@ function createFreshSession(
     sessionType,
     workspaceId,
     researchProfileId,
+    agentId,
+    origin: 'user',
   };
 }
 
@@ -107,7 +116,24 @@ export const AgentProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   const [pendingApprovals, setPendingApprovals] = useState<RuntimeApprovalRequest[]>([]);
   const [runtimeError, setRuntimeError] = useState<string | undefined>(undefined);
   const [runtimeProfiles, setRuntimeProfiles] = useState<ExecutionProfile[]>([]);
-  const [selectedExecutionProfileId, setSelectedExecutionProfileId] = useState<string | undefined>(undefined);
+  const [selectedExecutionProfileId, setSelectedExecutionProfileIdState] = useState<string | undefined>(undefined);
+
+  /**
+   * Picking a runtime (API vs local CLI) applies everywhere, not just to
+   * the next message: it writes through to the globally active Execution
+   * Profile. Before this, the choice lived only in this React state, so it
+   * silently reverted for every other conversation and after a restart --
+   * while the sandbox/approval level it implies is exactly the kind of
+   * setting a user expects to stay put.
+   */
+  const setSelectedExecutionProfileId = useCallback((id: string | undefined) => {
+    setSelectedExecutionProfileIdState(id);
+    if (id) {
+      window.medscience?.runtime
+        ?.setActiveProfile(id)
+        .catch((err) => console.error('[MedScience] runtime.setActiveProfile() failed:', err));
+    }
+  }, []);
   const [availableTools, setAvailableTools] = useState<{ name: string; description: string; category: string }[]>([]);
 
   // Accumulates raw text chunks streamed from the active backend (API model
@@ -137,7 +163,7 @@ export const AgentProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       .catch((err) => console.error('[MedScience] runtime.listProfiles() failed:', err));
     window.medscience.runtime
       ?.getActiveProfile()
-      .then((active) => setSelectedExecutionProfileId((prev) => prev ?? active?.id))
+      .then((active) => setSelectedExecutionProfileIdState((prev) => prev ?? active?.id))
       .catch((err) => console.error('[MedScience] runtime.getActiveProfile() failed:', err));
     window.medscience.agent
       ?.listTools?.()
@@ -159,51 +185,23 @@ export const AgentProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     } catch {}
   }, [sessions]);
 
-  // Load real sessions from Electron IPC on mount if available
-  useEffect(() => {
-    if (window.medscience?.session) {
-      window.medscience.session
-        .list()
-        .then((list) => {
-          if (list && list.length > 0) {
-            const converted: AgentSession[] = list.map((rs) => ({
-              id: rs.id,
-              title: rs.title,
-              createdAt: rs.createdAt,
-              updatedAt: rs.updatedAt,
-              status: rs.status as AgentStatus,
-              sessionType: (rs as { sessionType?: 'chat' | 'research' }).sessionType || 'research',
-              workspaceId: (rs as { workspaceId?: string }).workspaceId || DEFAULT_WORKSPACE_ID,
-              researchProfileId: (rs as { researchProfileId?: string }).researchProfileId || 'general',
-              messages:
-                rs.turns?.flatMap((t, idx) => [
-                  {
-                    id: `msg-${rs.id}-${idx}-user`,
-                    role: 'user' as const,
-                    content: t.userInput,
-                    timestamp: new Date(t.startedAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-                  },
-                  {
-                    id: `msg-${rs.id}-${idx}-agent`,
-                    role: 'agent' as const,
-                    status: t.status as AgentStatus,
-                    content: t.agentResponse,
-                    timestamp: new Date(t.completedAt || t.startedAt).toLocaleTimeString([], {
-                      hour: '2-digit',
-                      minute: '2-digit',
-                    }),
-                    toolExecutions: (t.toolResults?.map((tr) => tr.execution as any) || []) as ToolExecution[],
-                    artifacts: (rs.artifacts as any[] || []) as Artifact[],
-                    citations: (rs.citations as any[] || []) as Citation[],
-                  },
-                ]) || [],
-            }));
-            setSessions(converted);
-          }
-        })
-        .catch(() => {});
+  // Core (~/.medscience/sessions) is the source of truth for the session
+  // list; the localStorage copy above is just what paints before this
+  // returns. Team-run sessions come back here too, tagged origin: 'team',
+  // so the conversation list can keep them in their team's thread.
+  const refreshSessions = useCallback(async () => {
+    if (!window.medscience?.session) return;
+    try {
+      const list = await window.medscience.session.list();
+      setSessions(toAgentSessions(list || []));
+    } catch {
+      // Offline/bridge missing: keep whatever the cache gave us.
     }
   }, []);
+
+  useEffect(() => {
+    void refreshSessions();
+  }, [refreshSessions]);
 
   // Listen to IPC runtime events from Electron Main process
   useEffect(() => {
@@ -237,229 +235,22 @@ export const AgentProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     return unsub;
   }, []);
 
-  const handleRuntimeEvent = (event: RuntimeEvent) => {
-    switch (event.type) {
-      case 'agent.started':
-        setStatus('thinking');
-        break;
-      case 'agent.thinking':
-        setStatus('thinking');
-        // Replace the static "Formulating..." placeholder with the agent's
-        // actual current step, so the message visibly progresses instead of
-        // sitting on the same generic sentence for the whole run.
-        if (event.payload.thought) {
-          const thought = event.payload.thought;
-          setCurrentSession((prev) => {
-            const messages = prev.messages.map((m, idx) =>
-              idx === prev.messages.length - 1 && m.role === 'agent' ? { ...m, content: thought } : m
-            );
-            return { ...prev, messages };
-          });
-        }
-        break;
-      case 'tool.started':
-        setStatus('tool_calling');
-        setCurrentSession((prev) => {
-          const label = `Calling ${event.payload.toolName}...`;
-          const messages = prev.messages.map((m, idx) =>
-            idx === prev.messages.length - 1 && m.role === 'agent' ? { ...m, content: label } : m
-          );
-          return { ...prev, messages };
-        });
-        break;
-      case 'tool.completed':
-        setCurrentSession((prev) => {
-          const exec = event.payload.execution;
-          const messages = prev.messages.map((m, idx) => {
-            if (idx === prev.messages.length - 1 && m.role === 'agent') {
-              const existingTools = m.toolExecutions || [];
-              const updatedTools: ToolExecution[] = [
-                ...existingTools.filter((t) => t.id !== exec.id && t.toolName !== exec.toolName),
-                {
-                  id: exec.id,
-                  toolName: exec.toolName,
-                  category: exec.category as any,
-                  description: exec.description,
-                  status: 'completed',
-                  duration: exec.duration,
-                  resultSummary: exec.resultSummary,
-                  logs: exec.logs,
-                },
-              ];
-              return { ...m, toolExecutions: updatedTools };
-            }
-            return m;
-          });
-          return { ...prev, messages };
-        });
-        break;
-      case 'artifact.created':
-        setCurrentSession((prev) => {
-          const art = event.payload.artifact as Artifact;
-          const messages = prev.messages.map((m, idx) => {
-            if (idx === prev.messages.length - 1 && m.role === 'agent') {
-              return {
-                ...m,
-                artifacts: [...(m.artifacts || []).filter((a) => a.id !== art.id), art],
-              };
-            }
-            return m;
-          });
-          return { ...prev, messages };
-        });
-        break;
-      case 'citation.created':
-        setCurrentSession((prev) => {
-          const cit = event.payload.citation as Citation;
-          const messages = prev.messages.map((m, idx) => {
-            if (idx === prev.messages.length - 1 && m.role === 'agent') {
-              return {
-                ...m,
-                citations: [...(m.citations || []).filter((c) => c.id !== cit.id), cit],
-              };
-            }
-            return m;
-          });
-          return { ...prev, messages };
-        });
-        break;
-      case 'plan.created':
-        setPlanTasks(
-          (event.payload.tasks || []).map((task: any) => ({
-            id: task.id,
-            title: task.title,
-            titleZh: task.titleZh,
-            status: task.status || 'pending',
-            evidenceIds: task.evidenceIds || [],
-            category: task.category,
-            resultNote: task.resultNote,
-          }))
-        );
-        break;
-      case 'plan.task.updated':
-      case 'plan.task.completed': {
-        const incoming = (event.payload as any).task;
-        setPlanTasks((prev) => {
-          // plan.task.completed only carries evidenceIds/resultNote (no
-          // status/title); merge onto the existing entry instead of
-          // requiring a full task object every time.
-          if (incoming) {
-            return prev.map((t) =>
-              t.id === incoming.id
-                ? {
-                    ...t,
-                    title: incoming.title ?? t.title,
-                    titleZh: incoming.titleZh ?? t.titleZh,
-                    status: incoming.status ?? t.status,
-                    evidenceIds: incoming.evidenceIds ?? t.evidenceIds,
-                    category: incoming.category ?? t.category,
-                    resultNote: incoming.resultNote ?? t.resultNote,
-                  }
-                : t
-            );
-          }
-          const taskId = (event.payload as any).taskId;
-          const evidenceIds = (event.payload as any).evidenceIds;
-          const resultNote = (event.payload as any).resultNote;
-          return prev.map((t) => (t.id === taskId ? { ...t, evidenceIds: evidenceIds ?? t.evidenceIds, resultNote: resultNote ?? t.resultNote } : t));
-        });
-        break;
-      }
-      case 'runtime.turn.started':
-        setActiveRunId(event.payload.runId);
-        setRuntimeError(undefined);
-        break;
-      case 'runtime.turn.completed':
-        setActiveRunId(undefined);
-        if (event.payload.status === 'cancelled') {
-          setStatus('cancelled');
-        } else if (event.payload.status === 'failed') {
-          setStatus('error');
-          if (event.payload.error) setRuntimeError(event.payload.error);
-        }
-        // 'completed' is left to agent.message.completed (below), which also
-        // handles persisting the session -- runtime.turn.completed for the
-        // local-runtime backend fires alongside it, not instead of it.
-        break;
-      case 'runtime.approval.requested':
-        setStatus('waiting_for_permission');
-        setPendingApprovals((prev) => [...prev.filter((a) => a.id !== event.payload.request.id), event.payload.request]);
-        break;
-      case 'runtime.error':
-        setActiveRunId(undefined);
-        setStatus('error');
-        setRuntimeError(event.payload.message);
-        break;
-      case 'file.change.started':
-        setCurrentSession((prev) => {
-          const messages = prev.messages.map((m, idx) => {
-            if (idx === prev.messages.length - 1 && m.role === 'agent') {
-              const existingTools = m.toolExecutions || [];
-              const exec: ToolExecution = {
-                id: event.payload.itemId,
-                toolName: 'file change',
-                category: 'execution',
-                description: (event.payload.files || []).join(', ') || 'Editing files',
-                status: 'running',
-                logs: [],
-              };
-              return { ...m, toolExecutions: [...existingTools.filter((t) => t.id !== exec.id), exec] };
-            }
-            return m;
-          });
-          return { ...prev, messages };
-        });
-        break;
-      case 'file.change.completed':
-        setCurrentSession((prev) => {
-          const messages = prev.messages.map((m, idx) => {
-            if (idx === prev.messages.length - 1 && m.role === 'agent') {
-              const existingTools = m.toolExecutions || [];
-              const updatedTools = existingTools.map((t) =>
-                t.id === event.payload.itemId
-                  ? { ...t, status: event.payload.status === 'failed' ? ('failed' as const) : ('completed' as const) }
-                  : t
-              );
-              return { ...m, toolExecutions: updatedTools };
-            }
-            return m;
-          });
-          return { ...prev, messages };
-        });
-        break;
-      case 'agent.message.completed':
-        setStatus('completed');
-        setCurrentSession((prev) => {
-          const messages = prev.messages.map((m, idx) => {
-            if (idx === prev.messages.length - 1 && m.role === 'agent') {
-              return {
-                ...m,
-                content: event.payload.fullContent,
-                status: 'completed' as AgentStatus,
-              };
-            }
-            return m;
-          });
-          const updated = {
-            ...prev,
-            status: 'completed' as AgentStatus,
-            updatedAt: new Date().toISOString(),
-            messages,
-          };
-          setSessions((prevList) => {
-            const exists = prevList.some((s) => s.id === updated.id);
-            if (exists) {
-              return prevList.map((s) => (s.id === updated.id ? updated : s));
-            }
-            return [updated, ...prevList];
-          });
-          return updated;
-        });
-        break;
-    }
-  };
+  const handleRuntimeEvent = createRuntimeEventHandler({
+    setStatus,
+    setCurrentSession,
+    setSessions,
+    setPlanTasks,
+    setPendingApprovals,
+    setRuntimeError,
+    setActiveRunId,
+  });
 
-  const resetSession = (sessionType: 'chat' | 'research' = 'research', workspaceId?: string, researchProfileId?: string) => {
+  const resetSession = (
+    sessionType: 'chat' | 'research' = 'research',
+    workspaceId?: string,
+    researchProfileId?: string,
+    agentId?: string
+  ) => {
     // A brand-new conversation is NOT bound to whichever workspace happens
     // to be expanded in the sidebar tree -- that would make opening a
     // workspace to browse it silently change where the next "新对话" goes.
@@ -467,7 +258,12 @@ export const AgentProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     // an explicit workspaceId, which is exactly what setSessionWorkspace
     // (the composer's workspace picker, research-only) does once the user
     // actually picks one for this not-yet-started session.
-    const fresh = createFreshSession(sessionType, workspaceId || DEFAULT_WORKSPACE_ID, researchProfileId || 'general');
+    const fresh = createFreshSession(
+      sessionType,
+      workspaceId || DEFAULT_WORKSPACE_ID,
+      researchProfileId || 'general',
+      agentId || DEFAULT_AGENT_ID
+    );
     setCurrentSession(fresh);
     setStatus('idle');
     setPlanTasks([]);
@@ -754,7 +550,8 @@ export const AgentProvider: React.FC<{ children: React.ReactNode }> = ({ childre
           baseSession.sessionType,
           baseSession.workspaceId,
           baseSession.researchProfileId,
-          language
+          language,
+          baseSession.agentId
         );
         if (result?.turn) {
           applyTurnResult(result.turn as Turn, result.session as CoreRuntimeSession | undefined);
@@ -849,6 +646,7 @@ export const AgentProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         planTasks,
         submitPrompt,
         resetSession,
+        refreshSessions,
         setSessionType,
         setResearchProfile,
         setSessionWorkspace,

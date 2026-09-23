@@ -47,6 +47,15 @@ export interface AgentDefinition {
   titleZh?: string;
   descriptionZh?: string;
   systemPrompt: string;
+  /**
+   * The user's standing instructions for this member: appended after
+   * systemPrompt everywhere the member works -- 1:1 conversations and every
+   * team it belongs to. This is the account-wide layer;
+   * ResearchTeamMember.memberInstructions adds a team-only layer on top.
+   * systemPrompt itself stays read-only, because allowedToolCategories and
+   * privacyClass are enforced against it.
+   */
+  userInstructions?: string;
   capabilityTags: string[];
   allowedToolCategories: ToolCategory[];
   defaultSkillIds: string[];
@@ -66,6 +75,15 @@ export interface ResearchTeamMember {
   executionProfileId?: string;
   required: boolean;
   canLead: boolean;
+  /**
+   * Per-team extra instructions for this member, appended AFTER the agent's
+   * own systemPrompt (never replacing it). This is the only prompt surface a
+   * user can edit for a member: `AgentDefinition.systemPrompt` stays
+   * read-only precisely because `allowedToolCategories`/`privacyClass` are
+   * enforced against it -- letting a user rewrite it wholesale would make
+   * the sensitive-clinical privacy class unenforceable.
+   */
+  memberInstructions?: string;
 }
 
 export interface ResearchTeamDefinition {
@@ -73,6 +91,15 @@ export interface ResearchTeamDefinition {
   name: string;
   description: string;
   scenario: string;
+  /**
+   * The Workspace this team belongs to. Undefined means "not scoped to any
+   * workspace": that is true of every built-in template, and of every team
+   * created before teams became workspace-scoped -- those legacy teams are
+   * surfaced by the UI in an "unscoped" group rather than being silently
+   * assigned to whichever workspace happened to be open (see
+   * TeamProfileManager.listAll).
+   */
+  workspaceId?: string;
   /** Chinese display strings -- see AgentDefinition.nameZh for the same optional-fallback rule. */
   nameZh?: string;
   descriptionZh?: string;

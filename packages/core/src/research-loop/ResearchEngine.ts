@@ -1,4 +1,5 @@
 import { AutonomousResearchEngine } from './AutonomousResearchEngine.js';
+import { DEFAULT_AGENT_ID } from '../agents/agentPersona.js';
 import { ChatEngine } from './ChatEngine.js';
 import { SessionManager, globalSessionManager } from '../core/SessionManager.js';
 import { EventBus, globalEventBus } from '../core/EventBus.js';
@@ -95,7 +96,8 @@ export class ResearchEngine {
     sessionType: SessionType = 'research',
     workspaceId: string = 'proj-1',
     researchProfileId: string = 'general',
-    language: 'en' | 'zh' = 'en'
+    language: 'en' | 'zh' = 'en',
+    agentId: string = DEFAULT_AGENT_ID
   ): Promise<{ session: RuntimeSession; turn: Turn }> {
     let session = sessionId ? this.sessionManager.getSession(sessionId) : undefined;
     if (!session) {
@@ -103,7 +105,7 @@ export class ResearchEngine {
       session = this.sessionManager.createSession(
         inquiry.slice(0, 60),
         workspaceId,
-        'research',
+        agentId,
         activeProfile?.id,
         activeProfile?.model,
         undefined,

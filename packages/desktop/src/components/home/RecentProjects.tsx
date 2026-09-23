@@ -49,7 +49,7 @@ export const RecentProjects: React.FC = () => {
           {t('Recent Research Sessions', '最近的研究会话')}
         </h3>
         <button
-          onClick={() => setActiveSection('sessions')}
+          onClick={() => setActiveSection('teams')}
           className="text-[12px] font-medium text-accent hover:underline transition-colors"
         >
           {t(`View All (${sessions.length})`, `查看全部 (${sessions.length})`)}

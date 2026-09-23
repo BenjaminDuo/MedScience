@@ -63,12 +63,14 @@ export class SessionManager {
   public createSession(
     title: string,
     workspaceId: string = 'proj-1',
-    agentId: AgentId = 'research',
+    agentId: string = 'research',
     profileId?: string,
     modelName?: string,
     explicitId?: string,
     sessionType: SessionType = 'research',
-    researchProfileId: string = 'general'
+    researchProfileId: string = 'general',
+    /** Provenance, for callers that are not the user typing in a chat box (today: team runs). */
+    extras?: { origin?: 'user' | 'team'; teamRunId?: string }
   ): RuntimeSession {
     // Most callers let this mint a fresh id. Execution backends that must
     // track a session by an id they generated *before* the record exists
@@ -96,6 +98,8 @@ export class SessionManager {
       metadata: {},
       sessionType,
       researchProfileId,
+      origin: extras?.origin || 'user',
+      teamRunId: extras?.teamRunId,
     };
 
     this.sessions.set(id, session);

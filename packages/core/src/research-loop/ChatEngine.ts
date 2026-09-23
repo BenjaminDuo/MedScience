@@ -1,4 +1,5 @@
 import { ModelProvider } from '../client/ModelProvider.js';
+import { personaPromptBlock } from '../agents/agentPersona.js';
 import { ModelMessage, ModelRequest } from '../types/model.js';
 import { SessionManager, globalSessionManager } from '../core/SessionManager.js';
 import { EventBus, globalEventBus } from '../core/EventBus.js';
@@ -89,7 +90,7 @@ Reply naturally and concisely to the user's message. This is a plain conversatio
 do not fabricate citations, evidence tags, or a research plan, and do not claim to have run tools, queries, or
 computations you did not actually run. If the user's question turns out to need real data, verified literature,
 or computation to answer responsibly, say so plainly and suggest they start a new Research session for it,
-rather than inventing an answer.`;
+rather than inventing an answer.${personaPromptBlock(session.activeAgent)}`;
 
     const history: ModelMessage[] = session.turns.slice(-this.historyTurns).flatMap((t) => {
       const pair: ModelMessage[] = [{ role: 'user', content: t.userInput }];

@@ -6,6 +6,7 @@ import { ToolRegistry, globalToolRegistry } from '../tools/ToolRegistry.js';
 import { AgentRegistry, globalAgentRegistry } from '../agents/AgentRegistry.js';
 import { EvidenceTracker } from './EvidenceTracker.js';
 import { CritiqueEngine, globalCritiqueEngine } from './CritiqueEngine.js';
+import { personaPromptBlock, resolveAgentPersona } from '../agents/agentPersona.js';
 import { MemoryCompactor, globalMemoryCompactor } from './MemoryCompactor.js';
 import { SkillRegistry, globalSkillRegistry } from '../skills/SkillRegistry.js';
 import { EvidenceVerifier, globalEvidenceVerifier } from './EvidenceVerifier.js';
@@ -147,8 +148,14 @@ export class AutonomousResearchEngine {
     // Set initial session status
     this.sessionManager.updateSessionStatus(sessionId, 'thinking');
 
-    // Fetch tool definitions
-    const toolDefinitions = this.toolRegistry.list();
+    // Tools this conversation's member is allowed to use. A session is held
+    // with a specific member (general expert by default), and a member's
+    // allowedToolCategories is part of what makes it that member -- handing
+    // every session the full catalogue would make the choice cosmetic.
+    const persona = resolveAgentPersona(session.activeAgent);
+    const toolDefinitions = persona
+      ? this.toolRegistry.list().filter((tool) => persona.allowedToolCategories.includes(tool.category))
+      : this.toolRegistry.list();
 
     // Match skills
     const skillInjectionPrompt = this.skillRegistry.formatPromptForInquiry(userInquiry);
@@ -165,7 +172,7 @@ Guidelines for genuine research inquiries:
 2. Execute Python scripts locally for statistical computations, radiomics, or clinical NLP.
 3. Every empirical finding is verified by the Evidence Verification Gate before adoption as [Evidence: EV-xxx].
 4. Ground every conclusion in [Evidence: EV-xxx] tags. Never hallucinate unverified findings.
-${researchProfile.systemPromptFocus ? `\n${researchProfile.systemPromptFocus}` : ''}${skillInjectionPrompt ? `\n${skillInjectionPrompt}` : ''}`;
+${researchProfile.systemPromptFocus ? `\n${researchProfile.systemPromptFocus}` : ''}${skillInjectionPrompt ? `\n${skillInjectionPrompt}` : ''}${personaPromptBlock(session.activeAgent)}`;
 
     let messages: ModelMessage[] = [
       { role: 'system', content: baseSystemPrompt },

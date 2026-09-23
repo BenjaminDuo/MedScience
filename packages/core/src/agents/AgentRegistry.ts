@@ -1,5 +1,6 @@
 import { AgentId } from '../types/runtime.js';
 import { AgentConfig, builtInAgents } from './BaseAgent.js';
+import { resolveAgentPersona } from './agentPersona.js';
 import { globalSkillRegistry } from '../skills/SkillRegistry.js';
 import { globalToolRegistry } from '../tools/ToolRegistry.js';
 import { ToolDefinition } from '../types/tools.js';
@@ -19,20 +20,23 @@ export class AgentRegistry {
     return Array.from(this.agents.values());
   }
 
-  public getScopedTools(agentId: AgentId): ToolDefinition[] {
-    const agent = this.get(agentId) || this.get('research')!;
-    return globalToolRegistry.list().filter((tool) =>
-      agent.allowedToolCategories.includes(tool.category)
-    );
+  /**
+   * Tools this agent may use. `agentId` is a plain string because a session
+   * can be held with any member of the team roster, not just the legacy
+   * AgentId union -- resolveAgentPersona covers both.
+   */
+  public getScopedTools(agentId: string): ToolDefinition[] {
+    const persona = resolveAgentPersona(agentId) || resolveAgentPersona('research')!;
+    return globalToolRegistry.list().filter((tool) => persona.allowedToolCategories.includes(tool.category));
   }
 
-  public assembleSystemPrompt(agentId: AgentId, userQuery: string): string {
-    const agent = this.get(agentId) || this.get('research')!;
-    
+  public assembleSystemPrompt(agentId: string, userQuery: string): string {
+    const persona = resolveAgentPersona(agentId) || resolveAgentPersona('research')!;
+
     // Discover relevant skills for query
     const relevantSkills = globalSkillRegistry.discover(userQuery, 3);
 
-    let prompt = `${agent.systemPrompt}\n\n`;
+    let prompt = `${persona.systemPrompt}\n\n`;
 
     if (relevantSkills.length > 0) {
       prompt += `### Active Scientific Skills:\n`;

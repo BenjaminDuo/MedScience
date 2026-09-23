@@ -27,7 +27,11 @@ export class UnimplementedLocalRuntimeBackend implements ExecutionBackend {
     const existingSession = this.sessionManager.getSession(sessionId);
     const session =
       existingSession ||
-      this.sessionManager.createSession(request.prompt.slice(0, 60), request.workspaceId || 'proj-1', 'research');
+      this.sessionManager.createSession(
+        request.prompt.slice(0, 60),
+        request.workspaceId || 'proj-1',
+        request.agentId || 'general-expert'
+      );
 
     const now = new Date().toISOString();
     const turn: Turn = {

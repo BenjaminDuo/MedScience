@@ -4,12 +4,10 @@ import { TopBar } from './TopBar';
 import { ContextPanel } from './ContextPanel';
 import { DesktopHomeView } from '../views/DesktopHomeView';
 import { DesktopWorkspaceView } from '../views/DesktopWorkspaceView';
-import { SessionsView } from '../views/SessionsView';
-import { ResearchTeamsView } from '../views/ResearchTeamsView';
+import { ConversationsView } from '../views/ConversationsView';
 import { SkillsCatalogView } from '../views/SkillsCatalogView';
 import { EvidenceRegistryView } from '../views/EvidenceRegistryView';
 import { OutputFilesView } from '../views/OutputFilesView';
-import { TeamRosterView } from '../views/TeamRosterView';
 import { ModelConfigView } from '../views/ModelConfigView';
 import { GuardrailHooksView } from '../views/GuardrailHooksView';
 import { CommandPalette } from '../common/CommandPalette';
@@ -36,14 +34,12 @@ export const AppShell: React.FC = () => {
           {activeSection === 'home' && (
             activeView === 'home' ? <DesktopHomeView /> : <DesktopWorkspaceView />
           )}
-          {activeSection === 'sessions' && <SessionsView />}
-          {activeSection === 'teams' && <ResearchTeamsView />}
+          {activeSection === 'teams' && <ConversationsView />}
           {activeSection === 'skills' && <SkillsCatalogView />}
           {activeSection === 'evidence' && <EvidenceRegistryView />}
           {activeSection === 'files' && <OutputFilesView />}
           {activeSection === 'model-config' && <ModelConfigView />}
           {activeSection === 'guardrails' && <GuardrailHooksView />}
-          {activeSection === 'team-roster' && <TeamRosterView />}
         </main>
 
         {/* Right Context Panel (Only in active Workspace conversation, never on blank Home) */}

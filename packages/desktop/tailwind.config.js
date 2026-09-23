@@ -1,8 +1,20 @@
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+// Tailwind resolves relative content globs against the CURRENT WORKING
+// DIRECTORY, not against this config file. `npm run web` starts the local
+// server from the repo root, so "./src/**" used to resolve to the marketing
+// portal's src/ -- the desktop renderer was styled with whatever classes
+// the portal happened to share, and any class only this app used (e.g.
+// w-[318px]) was silently missing. Anchoring the globs to this file makes
+// the result the same from any working directory.
+const packageDir = path.dirname(fileURLToPath(import.meta.url));
+
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
+    path.join(packageDir, 'index.html'),
+    path.join(packageDir, 'src/**/*.{js,ts,jsx,tsx}'),
   ],
   darkMode: 'class',
   theme: {

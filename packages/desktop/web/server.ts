@@ -3,28 +3,9 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import {
-  fallbackMockProvider,
-  GenericModelClient,
+  createApiChannels,
   globalEventBus,
-  globalExecutionProfileManager,
   globalExecutionRouter,
-  globalProfileManager,
-  globalRuntimeDetector,
-  globalRuntimeUsageStore,
-  discoverAllRuntimes,
-  bindLocalRuntime,
-  globalSessionManager,
-  globalWorkspaceManager,
-  globalToolRegistry,
-  globalTeamProfileManager,
-  globalTeamAgentRegistry,
-  globalTeamOrchestrator,
-  type AgentId,
-  type ExecutionProfile,
-  type ModelProfile,
-  type RuntimeApprovalDecision,
-  type LocalRuntimeKind,
-  type ResearchTeamDefinition,
 } from '@medscience/core';
 
 const packageRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -74,22 +55,26 @@ function isTrustedRequest(req: IncomingMessage): boolean {
   }
 }
 
-function sanitizeProfile(profile: ModelProfile | undefined): ModelProfile | undefined {
-  return profile ? { ...profile, apiKey: '' } : undefined;
-}
-
-function profileWithStoredSecret(profile: ModelProfile): ModelProfile {
-  if (profile.apiKey) return profile;
-  const stored = profile.id ? globalProfileManager.getProfile(profile.id) : undefined;
-  return stored?.apiKey ? { ...profile, apiKey: stored.apiKey } : profile;
-}
-
 function broadcast(event: 'runtime' | 'delta', payload: unknown): void {
   const message = `event: ${event}\ndata: ${JSON.stringify(payload)}\n\n`;
   eventClients.forEach((client) => client.write(message));
 }
 
 globalEventBus.onAll((event) => broadcast('runtime', event));
+
+/**
+ * Every app API call arrives on one endpoint and is dispatched through the
+ * shared channel registry in @medscience/core -- the same registry the
+ * Electron main process registers with ipcMain. This replaced ~350 lines of
+ * hand-written REST routes that had to be kept in sync, by hand, with the
+ * Electron IPC handlers and the renderer's fetch wrappers.
+ *
+ * The endpoint stays loopback-and-same-origin only (isTrustedRequest), which
+ * is what the old routes relied on too.
+ */
+const channels: Record<string, (...args: any[]) => any> = createApiChannels({
+  onDelta: (delta) => broadcast('delta', delta),
+});
 
 async function handleApi(req: IncomingMessage, res: ServerResponse, url: URL): Promise<boolean> {
   if (!url.pathname.startsWith('/api/')) return false;
@@ -116,328 +101,19 @@ async function handleApi(req: IncomingMessage, res: ServerResponse, url: URL): P
     return true;
   }
 
-  if (req.method === 'GET' && url.pathname === '/api/model/profiles') {
-    sendJson(res, 200, globalProfileManager.listProfiles().map(sanitizeProfile));
-    return true;
-  }
-  if (req.method === 'GET' && url.pathname === '/api/model/active') {
-    sendJson(res, 200, sanitizeProfile(globalProfileManager.getActiveProfile()));
-    return true;
-  }
-  if (req.method === 'POST' && url.pathname === '/api/model/profiles') {
-    const incoming = await readJson<ModelProfile>(req);
-    const result = globalProfileManager.saveProfile(profileWithStoredSecret(incoming));
-    sendJson(res, result.success ? 200 : 400, {
-      ...result,
-      profile: sanitizeProfile(result.profile),
-    });
-    return true;
-  }
-  const profileMatch = url.pathname.match(/^\/api\/model\/profiles\/([^/]+)$/);
-  if (req.method === 'DELETE' && profileMatch) {
-    sendJson(res, 200, globalProfileManager.deleteProfile(decodeURIComponent(profileMatch[1])));
-    return true;
-  }
-  if (req.method === 'POST' && url.pathname === '/api/model/active') {
-    const { id } = await readJson<{ id?: string }>(req);
-    sendJson(res, 200, Boolean(id && globalProfileManager.setActiveProfile(id)));
-    return true;
-  }
-  if (req.method === 'POST' && url.pathname === '/api/model/test') {
-    const incoming = profileWithStoredSecret(await readJson<ModelProfile>(req));
-    const provider = incoming.baseUrl && incoming.model ? new GenericModelClient(incoming) : fallbackMockProvider;
-    sendJson(res, 200, await provider.testConnection());
-    return true;
-  }
-
-  if (req.method === 'GET' && url.pathname === '/api/sessions') {
-    sendJson(res, 200, globalSessionManager.listSessions());
-    return true;
-  }
-  if (req.method === 'GET' && url.pathname === '/api/workspaces') {
-    sendJson(res, 200, globalWorkspaceManager.listWorkspaces());
-    return true;
-  }
-  if (req.method === 'POST' && url.pathname === '/api/workspaces') {
-    const body = await readJson<{ title?: string; description?: string }>(req);
-    const title = body.title?.trim();
-    if (!title) {
-      sendJson(res, 400, { error: 'A non-empty title is required' });
-      return true;
-    }
-    sendJson(res, 201, globalWorkspaceManager.createWorkspace(title, undefined, body.description));
-    return true;
-  }
-  const projectRenameMatch = url.pathname.match(/^\/api\/workspaces\/([^/]+)\/rename$/);
-  if (req.method === 'POST' && projectRenameMatch) {
-    const { title } = await readJson<{ title?: string }>(req);
-    sendJson(
-      res,
-      200,
-      Boolean(title && globalWorkspaceManager.renameWorkspace(decodeURIComponent(projectRenameMatch[1]), title)),
-    );
-    return true;
-  }
-  const projectMatch = url.pathname.match(/^\/api\/workspaces\/([^/]+)$/);
-  if (req.method === 'DELETE' && projectMatch) {
-    sendJson(res, 200, globalWorkspaceManager.deleteWorkspace(decodeURIComponent(projectMatch[1])));
-    return true;
-  }
-
-  if (req.method === 'POST' && url.pathname === '/api/sessions') {
-    const body = await readJson<{
-      title?: string;
-      agentId?: AgentId;
-      profileId?: string;
-      modelName?: string;
-      workspaceId?: string;
-      researchProfileId?: string;
-    }>(req);
-    const session = globalSessionManager.createSession(
-      body.title?.trim() || 'New Scientific Exploration',
-      body.workspaceId || 'proj-1',
-      body.agentId || 'research',
-      body.profileId,
-      body.modelName,
-      undefined,
-      'research',
-      body.researchProfileId || 'general',
-    );
-    sendJson(res, 201, session);
-    return true;
-  }
-  const sessionMatch = url.pathname.match(/^\/api\/sessions\/([^/]+)$/);
-  if (req.method === 'GET' && sessionMatch) {
-    const session = globalSessionManager.getSession(decodeURIComponent(sessionMatch[1]));
-    sendJson(res, session ? 200 : 404, session || { error: 'Session not found' });
-    return true;
-  }
-  if (req.method === 'DELETE' && sessionMatch) {
-    sendJson(res, 200, globalSessionManager.deleteSession(decodeURIComponent(sessionMatch[1])));
-    return true;
-  }
-  const renameMatch = url.pathname.match(/^\/api\/sessions\/([^/]+)\/rename$/);
-  if (req.method === 'POST' && renameMatch) {
-    const { title } = await readJson<{ title?: string }>(req);
-    sendJson(
-      res,
-      200,
-      Boolean(title && globalSessionManager.renameSession(decodeURIComponent(renameMatch[1]), title)),
-    );
-    return true;
-  }
-  const exportMatch = url.pathname.match(/^\/api\/sessions\/([^/]+)\/export$/);
-  if (req.method === 'GET' && exportMatch) {
-    sendJson(res, 200, globalSessionManager.exportSessionMarkdown(decodeURIComponent(exportMatch[1])));
-    return true;
-  }
-
-  if (req.method === 'POST' && url.pathname === '/api/agent/inquiries') {
-    const body = await readJson<{
-      prompt?: string;
-      sessionId?: string;
-      executionProfileId?: string;
-      sessionType?: 'chat' | 'research';
-      workspaceId?: string;
-      researchProfileId?: string;
-      language?: 'en' | 'zh';
-    }>(req);
-    const prompt = body.prompt?.trim();
-    if (!prompt) {
-      sendJson(res, 400, { error: 'A non-empty prompt is required' });
-      return true;
-    }
-    // Routes through ExecutionRouter (same as Electron's agentIpc.ts) rather
-    // than calling the API research engine directly, so the active
-    // ExecutionProfile (API vs local Codex, set in Settings) decides which
-    // backend actually runs this turn -- keeping the Web bridge and the
-    // Electron app symmetric rather than the Web build being permanently
-    // API-only. executionProfileId (from the prompt bar's permission
-    // selector) overrides the active profile for this one request only.
-    const result = await globalExecutionRouter.execute(
-      {
-        prompt,
-        sessionId: body.sessionId,
-        executionProfileId: body.executionProfileId,
-        sessionType: body.sessionType,
-        workspaceId: body.workspaceId,
-        researchProfileId: body.researchProfileId,
-        language: body.language,
-      },
-      { onDelta: (delta) => broadcast('delta', delta) }
-    );
-    sendJson(res, 200, result);
-    return true;
-  }
-  if (req.method === 'GET' && url.pathname === '/api/agent/tools') {
-    sendJson(
-      res,
-      200,
-      globalToolRegistry.list().map((t) => ({ name: t.name, description: t.description, category: t.category }))
-    );
-    return true;
-  }
-  const cancelMatch = url.pathname.match(/^\/api\/agent\/runs\/([^/]+)\/cancel$/);
-  if (req.method === 'POST' && cancelMatch) {
-    sendJson(res, 200, await globalExecutionRouter.cancel(decodeURIComponent(cancelMatch[1])));
-    return true;
-  }
-
-  if (req.method === 'GET' && url.pathname === '/api/runtime/profiles') {
-    sendJson(res, 200, globalExecutionProfileManager.listProfiles());
-    return true;
-  }
-  if (req.method === 'POST' && url.pathname === '/api/runtime/profiles') {
-    const incoming = await readJson<ExecutionProfile>(req);
-    sendJson(res, 200, globalExecutionProfileManager.saveProfile(incoming));
-    return true;
-  }
-  const runtimeProfileMatch = url.pathname.match(/^\/api\/runtime\/profiles\/([^/]+)$/);
-  if (req.method === 'DELETE' && runtimeProfileMatch) {
-    sendJson(res, 200, globalExecutionProfileManager.deleteProfile(decodeURIComponent(runtimeProfileMatch[1])));
-    return true;
-  }
-  if (req.method === 'GET' && url.pathname === '/api/runtime/active') {
-    sendJson(res, 200, globalExecutionProfileManager.getActiveProfile());
-    return true;
-  }
-  if (req.method === 'POST' && url.pathname === '/api/runtime/active') {
-    const { id } = await readJson<{ id?: string }>(req);
-    sendJson(res, 200, Boolean(id && globalExecutionProfileManager.setActiveProfile(id)));
-    return true;
-  }
-  if (req.method === 'POST' && url.pathname === '/api/runtime/detect') {
-    const { executablePath } = await readJson<{ executablePath?: string }>(req);
-    sendJson(res, 200, await globalRuntimeDetector.probe(executablePath));
-    return true;
-  }
-  if (req.method === 'GET' && url.pathname === '/api/runtime/active-sessions') {
-    sendJson(res, 200, globalExecutionRouter.listActiveLocalSessions());
-    return true;
-  }
-  if (req.method === 'GET' && url.pathname === '/api/runtime/usage') {
-    sendJson(res, 200, globalRuntimeUsageStore.getAllUsage());
-    return true;
-  }
-  if (req.method === 'GET' && url.pathname === '/api/runtime/discover') {
-    sendJson(res, 200, await discoverAllRuntimes());
-    return true;
-  }
-  if (req.method === 'POST' && url.pathname === '/api/runtime/bind') {
-    const { runtime, executablePath } = await readJson<{ runtime?: LocalRuntimeKind; executablePath?: string }>(req);
-    if (!runtime) {
-      sendJson(res, 400, { error: 'runtime is required' });
-      return true;
-    }
-    sendJson(res, 200, await bindLocalRuntime(runtime, executablePath));
-    return true;
-  }
-  const approvalMatch = url.pathname.match(/^\/api\/runtime\/approvals\/([^/]+)$/);
-  if (req.method === 'POST' && approvalMatch) {
-    const { sessionId, decision } = await readJson<{ sessionId?: string; decision?: RuntimeApprovalDecision }>(req);
-    if (!sessionId || !decision) {
-      sendJson(res, 400, { error: 'sessionId and decision are required' });
-      return true;
-    }
-    sendJson(res, 200, globalExecutionRouter.respondApproval(sessionId, decodeURIComponent(approvalMatch[1]), decision));
-    return true;
-  }
-
-  if (req.method === 'GET' && url.pathname === '/api/teams/agents') {
-    sendJson(res, 200, globalTeamAgentRegistry.list());
-    return true;
-  }
-  if (req.method === 'GET' && url.pathname === '/api/teams') {
-    const includeArchived = url.searchParams.get('includeArchived') === '1';
-    sendJson(res, 200, globalTeamProfileManager.listAll(includeArchived));
-    return true;
-  }
-  if (req.method === 'POST' && url.pathname === '/api/teams') {
-    const incoming = await readJson<ResearchTeamDefinition>(req);
-    sendJson(res, 200, globalTeamProfileManager.saveTeam({ ...incoming, id: undefined as any }));
-    return true;
-  }
-  const teamCloneMatch = url.pathname.match(/^\/api\/teams\/([^/]+)\/clone$/);
-  if (req.method === 'POST' && teamCloneMatch) {
-    const overrides = await readJson<{ name?: string; description?: string }>(req);
-    sendJson(res, 200, globalTeamProfileManager.cloneTemplate(decodeURIComponent(teamCloneMatch[1]), overrides));
-    return true;
-  }
-  const teamArchiveMatch = url.pathname.match(/^\/api\/teams\/([^/]+)\/archive$/);
-  if (req.method === 'POST' && teamArchiveMatch) {
-    sendJson(res, 200, globalTeamProfileManager.archiveTeam(decodeURIComponent(teamArchiveMatch[1])));
-    return true;
-  }
-  const teamMatch = url.pathname.match(/^\/api\/teams\/([^/]+)$/);
-  if (req.method === 'GET' && teamMatch) {
-    sendJson(res, 200, globalTeamProfileManager.getTeam(decodeURIComponent(teamMatch[1])));
-    return true;
-  }
-  if (req.method === 'PUT' && teamMatch) {
-    const incoming = await readJson<ResearchTeamDefinition>(req);
-    sendJson(res, 200, globalTeamProfileManager.saveTeam({ ...incoming, id: decodeURIComponent(teamMatch[1]) }));
-    return true;
-  }
-
-  const teamRunsForTeamMatch = url.pathname.match(/^\/api\/teams\/([^/]+)\/runs$/);
-  if (req.method === 'POST' && teamRunsForTeamMatch) {
-    const { inquiry, sessionId, workspaceId, researchProfileId } = await readJson<{
-      inquiry?: string;
-      sessionId?: string;
-      workspaceId?: string;
-      researchProfileId?: string;
-    }>(req);
-    if (!inquiry?.trim()) {
-      sendJson(res, 400, { error: 'A non-empty inquiry is required' });
+  if (req.method === 'POST' && url.pathname === '/api/rpc') {
+    const body = await readJson<{ channel?: string; args?: unknown[] }>(req);
+    const handler = body.channel ? channels[body.channel] : undefined;
+    if (!handler) {
+      sendJson(res, 404, { error: `Unknown API channel: ${body.channel}` });
       return true;
     }
     try {
-      const record = await globalTeamOrchestrator.startRun(
-        decodeURIComponent(teamRunsForTeamMatch[1]),
-        inquiry,
-        sessionId,
-        workspaceId,
-        researchProfileId
-      );
-      sendJson(res, 200, record);
-    } catch (err: any) {
-      sendJson(res, 400, { error: err?.message || String(err) });
+      const result = await handler(...(Array.isArray(body.args) ? body.args : []));
+      sendJson(res, 200, { result });
+    } catch (error) {
+      sendJson(res, 400, { error: error instanceof Error ? error.message : String(error) });
     }
-    return true;
-  }
-  if (req.method === 'GET' && url.pathname === '/api/team-runs') {
-    const teamId = url.searchParams.get('teamId') || undefined;
-    const workspaceId = url.searchParams.get('workspaceId') || undefined;
-    sendJson(res, 200, globalTeamOrchestrator.listRuns(teamId, workspaceId));
-    return true;
-  }
-  const teamRunApprovePlanMatch = url.pathname.match(/^\/api\/team-runs\/([^/]+)\/approve-plan$/);
-  if (req.method === 'POST' && teamRunApprovePlanMatch) {
-    try {
-      sendJson(res, 200, await globalTeamOrchestrator.approvePlan(decodeURIComponent(teamRunApprovePlanMatch[1])));
-    } catch (err: any) {
-      sendJson(res, 400, { error: err?.message || String(err) });
-    }
-    return true;
-  }
-  const teamRunPauseMatch = url.pathname.match(/^\/api\/team-runs\/([^/]+)\/pause$/);
-  if (req.method === 'POST' && teamRunPauseMatch) {
-    sendJson(res, 200, globalTeamOrchestrator.pauseRun(decodeURIComponent(teamRunPauseMatch[1])));
-    return true;
-  }
-  const teamRunResumeMatch = url.pathname.match(/^\/api\/team-runs\/([^/]+)\/resume$/);
-  if (req.method === 'POST' && teamRunResumeMatch) {
-    sendJson(res, 200, globalTeamOrchestrator.resumeRun(decodeURIComponent(teamRunResumeMatch[1])));
-    return true;
-  }
-  const teamRunCancelMatch = url.pathname.match(/^\/api\/team-runs\/([^/]+)\/cancel$/);
-  if (req.method === 'POST' && teamRunCancelMatch) {
-    sendJson(res, 200, globalTeamOrchestrator.cancelRun(decodeURIComponent(teamRunCancelMatch[1])));
-    return true;
-  }
-  const teamRunMatch = url.pathname.match(/^\/api\/team-runs\/([^/]+)$/);
-  if (req.method === 'GET' && teamRunMatch) {
-    sendJson(res, 200, globalTeamOrchestrator.getRun(decodeURIComponent(teamRunMatch[1])));
     return true;
   }
 
@@ -481,8 +157,13 @@ async function start(): Promise<void> {
   let viteMiddleware: ((req: IncomingMessage, res: ServerResponse, next: (error?: unknown) => void) => void) | undefined;
   if (isDevelopment) {
     const { createServer: createViteServer } = await import('vite');
+    // configFile is explicit: this server is started from the repo root
+    // (npm run web), and without it Vite -- and through it PostCSS/Tailwind
+    // -- can pick up the marketing portal's config that sits there instead
+    // of this package's.
     const vite = await createViteServer({
       root: packageRoot,
+      configFile: path.join(packageRoot, 'vite.config.ts'),
       appType: 'spa',
       server: { middlewareMode: true },
     });

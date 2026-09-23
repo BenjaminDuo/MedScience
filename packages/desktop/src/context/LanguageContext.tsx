@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 
 export type Language = 'en' | 'zh';
 
@@ -24,21 +24,26 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     return 'zh';
   });
 
-  const setLanguage = (lang: Language) => {
+  const setLanguage = useCallback((lang: Language) => {
     setLanguageState(lang);
     if (typeof window !== 'undefined') {
       localStorage.setItem(STORAGE_KEY, lang);
       document.documentElement.lang = lang;
     }
-  };
+  }, []);
 
-  const toggleLanguage = () => {
+  const toggleLanguage = useCallback(() => {
     setLanguage(language === 'en' ? 'zh' : 'en');
-  };
+  }, [language, setLanguage]);
 
-  const t = (enText: string, zhText: string): string => {
-    return language === 'zh' ? zhText : enText;
-  };
+  // Stable identity per language. `t` used to be recreated on every render,
+  // so any hook or memo that (correctly) listed it as a dependency re-ran on
+  // every render -- for a hook that fetches on mount, that is an endless
+  // fetch loop, which is exactly what the group-chat page hit.
+  const t = useCallback(
+    (enText: string, zhText: string): string => (language === 'zh' ? zhText : enText),
+    [language]
+  );
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -46,8 +51,13 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     }
   }, [language]);
 
+  const value = useMemo(
+    () => ({ language, setLanguage, toggleLanguage, t }),
+    [language, setLanguage, toggleLanguage, t]
+  );
+
   return (
-    <LanguageContext.Provider value={{ language, setLanguage, toggleLanguage, t }}>
+    <LanguageContext.Provider value={value}>
       {children}
     </LanguageContext.Provider>
   );

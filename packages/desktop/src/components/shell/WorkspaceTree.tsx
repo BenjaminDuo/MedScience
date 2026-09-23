@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import {
   FolderKanban,
+  Users,
   FolderOpen,
   ChevronRight,
   Plus,
@@ -8,7 +9,6 @@ import {
   MessageSquare,
   ShieldCheck,
   Files,
-  Users,
   MoreHorizontal,
   FolderCog,
   FolderX,
@@ -33,12 +33,12 @@ interface SubItemConfig {
   labelZh: string;
 }
 
-// 科研小队 sits right after 对话 (per the user's explicit ordering request) --
-// the team you're working with belongs next to the conversations you have
-// with it, ahead of the more reference-like Evidence/Files entries.
+// One entry per workspace covers everything you talk to there -- members
+// 1:1 and research teams -- so there is no separate 对话 entry any more: a
+// 1:1 conversation is a row in the same list as a team. See
+// components/views/ConversationsView.tsx.
 const SUB_ITEMS: SubItemConfig[] = [
-  { id: 'sessions', icon: MessageSquare, labelEn: 'Conversations', labelZh: '对话' },
-  { id: 'teams', icon: Users, labelEn: 'Research Team', labelZh: '科研小队' },
+  { id: 'teams', icon: Users, labelEn: 'Research Teams', labelZh: '科研小队' },
   { id: 'evidence', icon: ShieldCheck, labelEn: 'Evidence Registry', labelZh: '证据库' },
   { id: 'files', icon: Files, labelEn: 'Output Files', labelZh: '产出文件' },
 ];
@@ -47,9 +47,9 @@ const SUB_ITEMS: SubItemConfig[] = [
  * The sidebar's project tree (手风琴式项目树): replaces the old
  * ProjectSwitcher dropdown. Every workspace is a row that expands
  * (accordion -- only one open at a time) to reveal exactly one entry per
- * scoped view (对话/科研小队/证据库/产出文件); there is deliberately no
- * per-conversation listing here (that stays in SessionsView, reached via
- * the 对话 entry), matching the "只放一个'对话'入口" choice. Clicking a
+ * scoped view (对话/证据库/产出文件); there is deliberately no
+ * per-conversation listing here -- conversations are topics inside a
+ * member's thread on the 对话 page, which is what keeps this tree short. Clicking a
  * workspace row also makes it the active workspace, since the whole point
  * of the tree is that "open" and "scope everything else to this one" are
  * the same action.
@@ -161,7 +161,7 @@ export const WorkspaceTree: React.FC<{ collapsed?: boolean }> = ({ collapsed = f
       <div className="px-3 pt-2 pb-2 flex justify-center">
         <button
           type="button"
-          onClick={() => setActiveSection('sessions')}
+          onClick={() => setActiveSection('teams')}
           className="p-2 rounded-lg border border-border hover:border-accent/40 bg-bg-elevated hover:bg-bg-hover text-accent transition-all"
           title={active?.title || t('Workspaces', '工作区')}
         >

@@ -1,4 +1,5 @@
 import fs from 'node:fs';
+import { DEFAULT_AGENT_ID } from '../../agents/agentPersona.js';
 import path from 'node:path';
 import os from 'node:os';
 import { ExecutionBackend } from '../ExecutionBackend.js';
@@ -259,7 +260,20 @@ export class CodexRuntimeBackend implements ExecutionBackend {
     // call keyed on sessionId would silently find nothing.
     const session =
       existingSession ||
-      this.sessionManager.createSession(request.prompt.slice(0, 60), 'proj-1', 'research', profile.id, profile.model, sessionId);
+      this.sessionManager.createSession(
+        request.prompt.slice(0, 60),
+        // These used to be hardcoded 'proj-1'/'research': a conversation
+        // started inside a workspace, with a specific member, was filed
+        // under Uncategorized and attributed to the legacy default agent
+        // as soon as it ran on the local runtime instead of the API.
+        request.workspaceId || 'proj-1',
+        request.agentId || DEFAULT_AGENT_ID,
+        profile.id,
+        profile.model,
+        sessionId,
+        request.sessionType || 'research',
+        request.researchProfileId || 'general'
+      );
 
     const handle = await this.ensureSessionHandle(sessionId, profile, cwd, existingSession?.runtimeThreadId);
     if (handle.activeRunId) {

@@ -44,7 +44,6 @@ const navItems: NavItemConfig[] = [];
 const configItems: NavItemConfig[] = [
   { id: 'model-config', labelEn: 'Runtime (Model Configuration)', labelZh: '运行时（模型配置）', icon: Cpu },
   { id: 'skills', labelEn: 'Scientific Skills', labelZh: '科研技能', icon: FlaskConical },
-  { id: 'team-roster', labelEn: 'Team Roster Management', labelZh: '科研小队队员管理', icon: Users },
   { id: 'guardrails', labelEn: 'Guardrail Hooks', labelZh: '防护钩子', icon: Shield },
 ];
 
@@ -62,11 +61,11 @@ export const Sidebar: React.FC<SidebarProps> = ({ className = '' }) => {
   const { t, language } = useLanguage();
 
   const handleNewConversation = () => {
-    // Mode (chat vs. research) is now chosen in the composer via
-    // SessionModeToggle, not by which sidebar button was clicked --
-    // default to 'research' since that is the app's primary purpose.
+    // "New conversation" is now "start a new topic with the general
+    // expert": conversations belong to a member's thread on the 对话 page,
+    // so this opens a fresh topic there rather than a standalone session.
     resetSession('research');
-    setActiveSection('home');
+    setActiveSection('teams');
   };
 
   const handleNavClick = (sectionId: NavSection) => {
@@ -146,7 +145,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ className = '' }) => {
         {navItems.map((item) => {
           const Icon = item.icon;
           const isActive = activeSection === item.id;
-          const badgeCount = item.id === 'sessions' && sessions.length > 0 ? sessions.length : null;
+          const badgeCount = item.id === 'teams' && sessions.length > 0 ? sessions.length : null;
           const label = language === 'zh' ? item.labelZh : item.labelEn;
 
           return (

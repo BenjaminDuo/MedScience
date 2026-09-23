@@ -9,12 +9,14 @@ import {
   Terminal,
   Settings,
   FolderKanban,
+  MessageSquare,
   X,
 } from 'lucide-react';
 import { useNav } from '../../context/NavContext';
 import { useTheme } from '../../context/ThemeContext';
 import { useAgent } from '../../context/AgentContext';
 import { useLanguage } from '../../context/LanguageContext';
+import { useWorkspaces } from '../../context/WorkspaceContext';
 
 interface CommandItem {
   id: string;
@@ -30,7 +32,8 @@ interface CommandItem {
 export const CommandPalette: React.FC = () => {
   const { isCommandPaletteOpen, setIsCommandPaletteOpen, setActiveSection, setIsSettingsOpen } = useNav();
   const { setDesktopTheme } = useTheme();
-  const { resetSession, openSession } = useAgent();
+  const { resetSession, openSession, sessions } = useAgent();
+  const { activeWorkspaceId } = useWorkspaces();
   const { t, language } = useLanguage();
   const [query, setQuery] = useState('');
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -65,7 +68,7 @@ export const CommandPalette: React.FC = () => {
       category: 'Navigation',
       categoryZh: '导航',
       icon: FolderKanban,
-      action: () => setActiveSection('sessions'),
+      action: () => setActiveSection('teams'),
     },
     {
       id: 'cmd-evidence',
@@ -115,12 +118,52 @@ export const CommandPalette: React.FC = () => {
     },
   ];
 
-  const filtered = commands.filter((c) =>
-    c.label.toLowerCase().includes(query.toLowerCase()) ||
-    c.labelZh.includes(query) ||
-    c.category.toLowerCase().includes(query.toLowerCase()) ||
-    c.categoryZh.includes(query)
-  );
+  /**
+   * Typing in the palette also searches this workspace's conversations, by
+   * title and by message body, and jumping to one opens it in 对话. Without
+   * this the palette could only reach pages, which is the thing you least
+   * often need to find.
+   */
+  const conversationCommands: CommandItem[] = query.trim()
+    ? sessions
+        .filter(
+          (session) =>
+            (session.origin || 'user') !== 'team' &&
+            session.workspaceId === activeWorkspaceId &&
+            session.messages.length > 0
+        )
+        .filter((session) => {
+          const needle = query.trim().toLowerCase();
+          return (
+            session.title.toLowerCase().includes(needle) ||
+            session.messages.some((message) => message.content?.toLowerCase().includes(needle))
+          );
+        })
+        .slice(0, 8)
+        .map((session) => ({
+          id: `cmd-session-${session.id}`,
+          label: session.title,
+          labelZh: session.title,
+          category: 'Conversations',
+          categoryZh: '会话',
+          icon: MessageSquare,
+          action: () => {
+            openSession(session.id);
+            setActiveSection('teams');
+          },
+        }))
+    : [];
+
+  const filtered = [
+    ...commands.filter(
+      (c) =>
+        c.label.toLowerCase().includes(query.toLowerCase()) ||
+        c.labelZh.includes(query) ||
+        c.category.toLowerCase().includes(query.toLowerCase()) ||
+        c.categoryZh.includes(query)
+    ),
+    ...conversationCommands,
+  ];
 
   useEffect(() => {
     setSelectedIndex(0);

@@ -78,4 +78,14 @@ export interface AgentSession {
   workspaceId: string;
   /** Which ResearchProfile (workflow) this session's research runs use -- see ResearchProfiles.ts in @medscience/core. Fixed at creation like sessionType. Defaults to 'general' for sessions created before this field existed, and is irrelevant for sessionType 'chat'. */
   researchProfileId: string;
+  /**
+   * Which member this conversation is with (teams/BuiltInAgents.ts). A 1:1
+   * conversation IS "talk to a member", so this is what groups conversations
+   * into one thread per member in the conversation list. Defaults to the
+   * general expert.
+   */
+  agentId: string;
+  /** 'team' for the sessions a Research Team run creates; those live in the team's thread, not the user's list. */
+  origin?: 'user' | 'team';
+  teamRunId?: string;
 }

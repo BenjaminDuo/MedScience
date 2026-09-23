@@ -348,23 +348,66 @@ async function testHooksSystem() {
   console.log(`  ✔ Dangling citation successfully detected: ${danglingStopRes.message}`);
   console.log(`    Issue: ${danglingStopRes.issues[0]}\n`);
 
+  // A RESEARCH turn (one that actually attempted tool calls) which ends in a
+  // conclusion with no evidence behind it must fail closed.
+  //
+  // The tool call here deliberately names a tool that does not exist: it
+  // fails, so the turn has attempted research but recorded zero evidence,
+  // which is exactly the state the critique gate exists to catch.
+  let ungroundedCallCount = 0;
+  const ungroundedResponse = (): any => {
+    ungroundedCallCount += 1;
+    if (ungroundedCallCount === 1) {
+      return {
+        content: '',
+        finishReason: 'tool_calls' as const,
+        toolCalls: [{ id: 'call-1', name: 'nonexistent_research_tool', arguments: { query: 'TYK2' } }],
+      };
+    }
+    return { content: 'Unsupported conclusion without evidence.', finishReason: 'stop' as const };
+  };
   const ungroundedProvider = {
     name: 'Ungrounded Local Provider',
     isExternal: false,
     listModels: async () => ['ungrounded-model'],
-    generate: async () => ({ content: 'Unsupported conclusion without evidence.', finishReason: 'stop' as const }),
-    stream: async () => ({ content: 'Unsupported conclusion without evidence.', finishReason: 'stop' as const }),
+    generate: async () => ungroundedResponse(),
+    stream: async () => ungroundedResponse(),
   };
   const ungroundedSession = globalSessionManager.createSession('Critique Fail-Closed Test', 'demo-user');
   const ungroundedEngine = new AutonomousResearchEngine({
     modelProvider: ungroundedProvider,
-    maxTurns: 1,
+    maxTurns: 2,
   });
   const ungroundedTurn = await ungroundedEngine.run(ungroundedSession, 'Make an unsupported scientific claim');
   if (ungroundedTurn.status !== 'error' || !ungroundedTurn.agentResponse.includes('[Integrity Gate Failed]')) {
-    throw new Error('AutonomousResearchEngine marked a critique-rejected report as completed');
+    throw new Error('AutonomousResearchEngine marked a critique-rejected research report as completed');
   }
-  console.log('  ✔ Critique rejection remains fail-closed when the turn budget is exhausted.\n');
+  console.log('  ✔ An evidence-free research synthesis stays fail-closed at the turn budget.');
+
+  // The other half of the same contract: a reply that never attempted any
+  // research (a greeting) is deliberately EXEMPT from the evidence gate --
+  // see the requireEvidence option in CritiqueEngine.evaluate. Without this
+  // assertion, "tighten the gate" could quietly reintroduce the bug where a
+  // plain "hello" was pushed into a full multi-step research run.
+  const smallTalkProvider = {
+    name: 'Small Talk Local Provider',
+    isExternal: false,
+    listModels: async () => ['small-talk-model'],
+    generate: async () => ({ content: 'Hello! Ask me a research question whenever you are ready.', finishReason: 'stop' as const }),
+    stream: async () => ({ content: 'Hello! Ask me a research question whenever you are ready.', finishReason: 'stop' as const }),
+  };
+  const smallTalkSession = globalSessionManager.createSession('Small Talk Exemption Test', 'demo-user');
+  const smallTalkEngine = new AutonomousResearchEngine({
+    modelProvider: smallTalkProvider,
+    maxTurns: 1,
+  });
+  const smallTalkTurn = await smallTalkEngine.run(smallTalkSession, 'hello');
+  if (smallTalkTurn.status !== 'completed') {
+    throw new Error(
+      `A reply that attempted no tool calls must not be forced through the evidence gate, got status "${smallTalkTurn.status}"`
+    );
+  }
+  console.log('  ✔ A no-research reply is exempt from the evidence gate, as designed.\n');
 
   console.log('✔ ALL 5 HOOKS SYSTEM TESTS PASSED (100% SUCCESS)\n');
 }

@@ -32,7 +32,27 @@ export class ToolRegistry {
   ): Promise<ToolExecutionResult> {
     const tool = this.tools.get(name);
     if (!tool) {
-      throw new Error(`[ToolRegistry] Tool '${name}' not found.`);
+      // A model naming a tool that does not exist is an ordinary, expected
+      // failure -- it hallucinates a name, gets told so, and picks a real
+      // tool on the next turn. This used to THROW, and no caller catches it
+      // (AgentLoop, AutonomousResearchEngine and the team ApiAgentRunner all
+      // just read the returned result), so one bad tool name aborted the
+      // whole research turn or team task instead of being fed back to the
+      // model. Every other failure here already returns this shape.
+      const errorMsg = `[ToolRegistry] Tool '${name}' not found.`;
+      return {
+        success: false,
+        output: null,
+        error: errorMsg,
+        execution: {
+          id: `tool-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`,
+          toolName: name,
+          category: 'execution',
+          description: `Unknown tool "${name}"`,
+          status: 'failed',
+          logs: [errorMsg],
+        },
+      };
     }
 
     const toolId = `tool-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`;

@@ -2,7 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import os from 'node:os';
 import { ResearchTeamDefinition } from './types.js';
-import { builtInTeamTemplates } from './BuiltInTeamTemplates.js';
+import { builtInTeamTemplates, DEFAULT_TEAM_TEMPLATE_ID } from './BuiltInTeamTemplates.js';
 import { globalTeamAgentRegistry, TeamAgentRegistry } from './TeamRegistry.js';
 
 export interface TeamsConfigFile {
@@ -103,15 +103,51 @@ export class TeamProfileManager {
     return builtInTeamTemplates.find((t) => t.id === id);
   }
 
-  /** User-owned teams only (persisted to teams.json), excluding archived ones unless requested. */
-  public listUserTeams(includeArchived = false): ResearchTeamDefinition[] {
+  /**
+   * User-owned teams only (persisted to teams.json), excluding archived ones
+   * unless requested.
+   *
+   * With a `workspaceId`, returns that workspace's teams PLUS every team
+   * that has no workspaceId at all. The unscoped ones are teams created
+   * before teams became workspace-scoped: dropping them would make a user's
+   * existing teams look deleted, and auto-assigning them to the current
+   * workspace would silently rewrite their data, so they are returned as-is
+   * and the UI groups them under "unscoped" until the user picks a home for
+   * them.
+   */
+  public listUserTeams(includeArchived = false, workspaceId?: string): ResearchTeamDefinition[] {
     const teams = this.readConfigFile().teams;
-    return includeArchived ? teams : teams.filter((t) => !t.archived);
+    const visible = includeArchived ? teams : teams.filter((t) => !t.archived);
+    if (!workspaceId) return visible;
+    return visible.filter((t) => !t.workspaceId || t.workspaceId === workspaceId);
   }
 
   /** Built-in templates + user-owned teams, for a unified "browse everything" view. */
-  public listAll(includeArchived = false): ResearchTeamDefinition[] {
-    return [...this.listTemplates(), ...this.listUserTeams(includeArchived)];
+  public listAll(includeArchived = false, workspaceId?: string): ResearchTeamDefinition[] {
+    return [...this.listTemplates(), ...this.listUserTeams(includeArchived, workspaceId)];
+  }
+
+  /**
+   * Every workspace starts with a research team, so 科研小队 is never an
+   * empty page: the first time a workspace is listed, the default template
+   * is cloned into it.
+   *
+   * "Has none" counts archived teams too -- otherwise archiving the last
+   * team in a workspace would silently resurrect a fresh one, which is the
+   * opposite of what archiving means.
+   */
+  public ensureDefaultTeam(workspaceId: string): ResearchTeamDefinition | undefined {
+    if (!workspaceId) return undefined;
+    const existing = this.readConfigFile().teams.filter((team) => team.workspaceId === workspaceId);
+    if (existing.length > 0) return undefined;
+    const template = this.getTemplate(DEFAULT_TEAM_TEMPLATE_ID);
+    const result = this.cloneTemplate(DEFAULT_TEAM_TEMPLATE_ID, {
+      // Keep the template's own name rather than "... (Copy)": to the user
+      // this is simply the team their workspace came with.
+      name: template?.name,
+      workspaceId,
+    });
+    return result.team;
   }
 
   public getTeam(id: string): ResearchTeamDefinition | undefined {
@@ -199,7 +235,7 @@ export class TeamProfileManager {
    */
   public cloneTemplate(
     templateId: string,
-    overrides?: { name?: string; description?: string }
+    overrides?: { name?: string; description?: string; workspaceId?: string }
   ): { success: boolean; team?: ResearchTeamDefinition; errors?: string[] } {
     const template = this.getTeam(templateId);
     if (!template) {
@@ -211,6 +247,10 @@ export class TeamProfileManager {
       id: `team-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
       name: overrides?.name || `${template.name} (Copy)`,
       description: overrides?.description || template.description,
+      // A clone belongs to the workspace it was created from; without this a
+      // team cloned inside a workspace would come back unscoped and show up
+      // in every workspace's list.
+      workspaceId: overrides?.workspaceId ?? template.workspaceId,
       builtIn: false,
       archived: false,
       version: 1,

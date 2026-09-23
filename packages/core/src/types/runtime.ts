@@ -54,6 +54,13 @@ export interface Citation {
   url?: string;
 }
 
+/**
+ * The legacy fixed agent ids (see agents/BaseAgent.ts). A session's
+ * activeAgent is a plain string now, not this union: a conversation can be
+ * held with any member of the team agent registry (teams/BuiltInAgents.ts),
+ * which is the single roster the UI offers. This union stays for the legacy
+ * registry's own lookups and for existing call sites.
+ */
 export type AgentId =
   | 'research'
   | 'biology'
@@ -165,7 +172,13 @@ export interface RuntimeSession {
   title: string;
   createdAt: string;
   updatedAt: string;
-  activeAgent: AgentId;
+  /**
+   * Who this conversation is with: any agent id known to the team agent
+   * registry (teams/BuiltInAgents.ts), or one of the legacy AgentIds for
+   * sessions created before the two rosters were unified. Widened from the
+   * AgentId union so a single chat can be held with any member.
+   */
+  activeAgent: string;
   activeProfileId?: string;
   activeModel: string;
   status: AgentStatus;
@@ -188,6 +201,14 @@ export interface RuntimeSession {
    * 'research' (the prior, only behavior).
    */
   sessionType?: SessionType;
+  /**
+   * Who created this session. 'team' means a Research Team run created it
+   * (TeamOrchestrator.startRun); those belong to the team's chat thread,
+   * not to the user's own 1:1 conversation list. Absent means 'user'.
+   */
+  origin?: 'user' | 'team';
+  /** Set together with origin: 'team' -- the run this session was created for. */
+  teamRunId?: string;
   /**
    * Which ResearchProfile (research-loop/ResearchProfiles.ts) this
    * session's AutonomousResearchEngine runs use -- 'literature-review',

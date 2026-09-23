@@ -24,7 +24,8 @@ export class ApiResearchBackend implements ExecutionBackend {
       request.sessionType || 'research',
       request.workspaceId || 'proj-1',
       request.researchProfileId || 'general',
-      request.language || 'en'
+      request.language || 'en',
+      request.agentId
     );
     return { session, turn, backend: 'api' };
   }

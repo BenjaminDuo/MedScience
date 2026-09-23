@@ -152,6 +152,13 @@ export interface ExecutionRequest {
    */
   researchProfileId?: string;
   /**
+   * Which member this conversation is with (see teams/BuiltInAgents.ts and
+   * agents/agentPersona.ts). Like sessionType/workspaceId, only consulted
+   * when this request starts a brand-new session -- an existing session
+   * keeps the member it was started with. Defaults to the general expert.
+   */
+  agentId?: string;
+  /**
    * The frontend's current UI language at submission time. Per-turn, unlike
    * sessionType/workspaceId/researchProfileId above -- it's read fresh on
    * every request rather than fixed at session creation, since a user can

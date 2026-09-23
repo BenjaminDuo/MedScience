@@ -28,6 +28,7 @@ export * from './core/AgentLoop.js';
 // Agents & Skills & Tools
 export * from './agents/BaseAgent.js';
 export * from './agents/AgentRegistry.js';
+export * from './agents/agentPersona.js';
 export * from './skills/SkillRegistry.js';
 export * from './skills/SkillInstaller.js';
 export * from './tools/ToolRegistry.js';
@@ -80,3 +81,7 @@ export * from './mcp/McpClientManager.js';
 export * from './privacy/ClinicalDataGate.js';
 export * from './hooks/index.js';
 export * from './utils/httpClient.js';
+
+// App API channel registry (one definition shared by the Electron host, the
+// local web server, and the renderer's typed client).
+export * from './api/channels.js';

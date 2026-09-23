@@ -1,4 +1,5 @@
 import fs from 'node:fs';
+import { DEFAULT_AGENT_ID } from '../../agents/agentPersona.js';
 import path from 'node:path';
 import os from 'node:os';
 import { ExecutionBackend } from '../ExecutionBackend.js';
@@ -112,11 +113,12 @@ export class GenericCliRuntimeBackend implements ExecutionBackend {
       this.sessionManager.createSession(
         request.prompt.slice(0, 60),
         request.workspaceId || 'proj-1',
-        'research',
+        request.agentId || DEFAULT_AGENT_ID,
         profile.id,
         profile.model,
         sessionId,
-        request.sessionType || 'research'
+        request.sessionType || 'research',
+        request.researchProfileId || 'general'
       );
 
     const resolved = await this.detector.resolveExecutablePath(spec, profile.executablePath);

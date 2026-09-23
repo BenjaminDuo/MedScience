@@ -5,6 +5,7 @@ import { ProfileManager, globalProfileManager } from '../config/ProfileManager.j
 import { ExecutionProfileManager, globalExecutionProfileManager } from '../config/ExecutionProfileManager.js';
 import { SessionManager, globalSessionManager } from '../core/SessionManager.js';
 import { EventBus, globalEventBus } from '../core/EventBus.js';
+import { EventType, RuntimeEvent } from '../types/events.js';
 import { EvidenceTracker } from '../research-loop/EvidenceTracker.js';
 import { globalCritiqueEngine } from '../research-loop/CritiqueEngine.js';
 import {
@@ -27,6 +28,9 @@ import { TeamRunStore, TeamRunRecord, globalTeamRunStore } from './TeamRunStore.
 import { validatePlanSubmission } from './TeamPlanner.js';
 import { computeReadyTasks, isTaskGraphSettled, hasDeadlockedTasks } from './TeamScheduler.js';
 import { runLeaderPlanning, runMemberTask, runReviewTask, runSynthesis } from './ApiAgentRunner.js';
+
+/** Run statuses that mean "this run will not progress any further on its own". */
+const SETTLED_RUN_STATUSES = new Set(['completed', 'failed', 'cancelled']);
 
 const QUALITY_GATE_SEVERITY: Record<TeamQualityGateVerdict, number> = {
   passed: 0,
@@ -94,8 +98,19 @@ export class TeamOrchestrator {
     this.modelProviderOverride = options?.modelProviderOverride;
   }
 
-  private emit(sessionId: string, type: any, payload: any): void {
-    this.eventBus.emit({ type, sessionId, timestamp: new Date().toISOString(), payload });
+  /**
+   * Typed emit: `type` must be a real EventType and `payload` must match that
+   * event's payload shape (it used to be `any`/`any`, which let a typo in an
+   * event name or payload key reach the renderer silently -- the group-chat
+   * UI now renders these events directly, so a wrong key is a missing chat
+   * message rather than just a missing status field).
+   */
+  private emit<T extends EventType>(
+    sessionId: string,
+    type: T,
+    payload: Extract<RuntimeEvent, { type: T }>['payload']
+  ): void {
+    this.eventBus.emit({ type, sessionId, timestamp: new Date().toISOString(), payload } as RuntimeEvent);
   }
 
   private resolveModelProviderForAgent(
@@ -129,6 +144,36 @@ export class TeamOrchestrator {
     return this.active.get(runId)?.record || this.runStore.get(runId);
   }
 
+  /**
+   * Full run records (run + tasks + handoffs + conflicts) for a team, newest
+   * first. The group-chat UI needs whole records, not index entries, to
+   * rebuild its message history; without this it would have to call
+   * getRun() once per run in the index.
+   */
+  public listRunRecords(teamId: string, workspaceId?: string, limit = 5): TeamRunRecord[] {
+    return this.listRuns(teamId, workspaceId)
+      .slice(0, Math.max(1, limit))
+      .map((entry) => this.getRun(entry.id))
+      .filter((record): record is TeamRunRecord => !!record);
+  }
+
+  /**
+   * The run this team currently has in flight IN THIS PROCESS, if any.
+   *
+   * Deliberately scoped to `this.active` rather than the persisted index: a
+   * run that was left mid-flight by a crash/quit has no dispatch loop behind
+   * it any more, and treating its stale 'running' status as "in flight"
+   * would lock the team out of ever starting another run.
+   */
+  public getActiveRunForTeam(teamId: string): TeamRunRecord | undefined {
+    for (const state of this.active.values()) {
+      if (state.record.run.teamId !== teamId) continue;
+      if (SETTLED_RUN_STATUSES.has(state.record.run.status)) continue;
+      return state.record;
+    }
+    return undefined;
+  }
+
   public listRuns(teamId?: string, workspaceId?: string) {
     const runs = this.runStore.list(teamId);
     if (!workspaceId) return runs;
@@ -153,6 +198,18 @@ export class TeamOrchestrator {
     if (!team) throw new Error(`No team found with id "${teamId}".`);
     if (team.archived) throw new Error(`Team "${team.name}" is archived.`);
 
+    // One in-flight run per team. The team's concurrency/task budget is
+    // enforced per run, so two concurrent runs would silently double the
+    // limits the user set on the team (a team capped at 3 concurrent agents
+    // would really be running 6).
+    const inFlight = this.getActiveRunForTeam(team.id);
+    if (inFlight) {
+      throw new Error(
+        `Team "${team.name}" already has a run in progress (${inFlight.run.id}, status: ${inFlight.run.status}). ` +
+          'Cancel or finish it before starting another.'
+      );
+    }
+
     const leaderAgentDef = this.agentRegistry.get(team.leaderAgentId);
     if (!leaderAgentDef) throw new Error(`Team leader agent "${team.leaderAgentId}" is not a known agent.`);
 
@@ -163,7 +220,20 @@ export class TeamOrchestrator {
     // ../types/workspace.js).
     const session =
       (sessionId && this.sessionManager.getSession(sessionId)) ||
-      this.sessionManager.createSession(`[Team] ${inquiry.slice(0, 60)}`, workspaceId, 'research', undefined, undefined, sessionId, 'research', researchProfileId);
+      this.sessionManager.createSession(
+        `[Team] ${inquiry.slice(0, 60)}`,
+        workspaceId,
+        team.leaderAgentId,
+        undefined,
+        undefined,
+        sessionId,
+        'research',
+        researchProfileId,
+        // Tagged so the conversation list can keep team runs inside the
+        // team's own thread instead of listing them next to the user's 1:1
+        // chats.
+        { origin: 'team', teamRunId: runId }
+      );
 
     const now = new Date().toISOString();
     const run: TeamRun = {
