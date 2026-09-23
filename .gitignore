@@ -13,6 +13,9 @@ packages/*/src/**/*.js
 packages/*/src/**/*.js.map
 packages/*/src/**/*.d.ts
 packages/*/src/**/*.d.ts.map
+# ...but not hand-written ambient declarations, which live beside the
+# source they describe and are not build output.
+!packages/*/src/vite-env.d.ts
 
 # Upstream Reference Repositories
 upstream/
