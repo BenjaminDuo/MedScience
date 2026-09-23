@@ -29,12 +29,28 @@ MedScience/
 │   │   │   ├── sandbox/        # Cross-platform sandbox (macOS Seatbelt, Linux bwrap, Windows)
 │   │   │   └── privacy/        # ClinicalDataGate privacy enforcement
 │   │   └── tests/      # Core test suites and integration verification
-│   ├── cli/            # Interactive REPL, subcommands (`medscience research`, `medscience hooks list`)
-│   └── desktop/        # Electron + React + Tailwind desktop application
+│   ├── cli/            # Interactive REPL and subcommands (`medscience research`, `medscience hooks list`)
+│   ├── web/            # Loopback-only server that serves the desktop renderer as a
+│   │                   # local web app (`npm run web`)
+│   ├── desktop/        # Electron + React + Tailwind desktop app (ships via GitHub Releases)
+│   └── portal/         # Marketing site + docs, deployed to GitHub Pages
 ├── skills/             # Standard OpenScience-compatible SKILL.md repositories
-├── docs/               # Architecture schematics, portal assets, documentation
-└── public/             # Static web assets for GitHub Pages portal
+└── docs/               # Architecture schematics, specs, figures (authored files only --
+                        # no build output; the Pages site is built in CI from packages/portal)
 ```
+
+### What each package ships as
+
+| Package | Name | Ships as |
+|---|---|---|
+| `packages/core` | `@medscience/core` | Internal library -- the engine every other package builds on |
+| `packages/cli` | `@medscience/cli` | The `medscience` command (`npm run cli`) |
+| `packages/web` | `@medscience/web` | The `medscience-web` local server (`npm run web`) |
+| `packages/desktop` | `@medscience/desktop` | GitHub Releases, via electron-builder |
+| `packages/portal` | `@medscience/portal` | GitHub Pages, built in CI by `pages.yml` |
+
+Every workspace is `private: true`; nothing is published to npm. The desktop app ships through
+`v*` tags (see `release.yml`) and the site deploys on every push to `main`.
 
 ---
 

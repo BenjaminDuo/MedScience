@@ -8,7 +8,6 @@
     "type": "git",
     "url": "https://github.com/BenjaminDuo/MedScience.git"
   },
-  "main": "packages/desktop/dist-electron/main.js",
   "type": "module",
   "workspaces": [
     "packages/*"
@@ -17,20 +16,21 @@
     "build:core": "npm --workspace=@medscience/core run build",
     "build:desktop": "npm --workspace=@medscience/desktop run build",
     "build:cli": "npm --workspace=@medscience/cli run build",
-    "build": "npm run build:core && npm run build:cli && npm run build:desktop",
+    "build:web": "npm --workspace=@medscience/web run build",
+    "build": "npm run build:core && npm run build:cli && npm run build:desktop && npm run build:web",
     "test:core": "npm --workspace=@medscience/core test",
     "test:cli": "npm --workspace=@medscience/cli test",
     "test": "npm run test:core && npm run test:cli",
     "cli": "node packages/cli/bin/medscience.js",
     "desktop": "npx electron packages/desktop/dist-electron/main.js",
     "desktop:dev": "npm --workspace=@medscience/desktop run dev",
-    "web": "npm run build:core && npm --workspace=@medscience/desktop run build:renderer && npm --workspace=@medscience/desktop run typecheck:web && tsx packages/desktop/web/server.ts",
-    "web:dev": "npm run build:core && npm --workspace=@medscience/desktop run typecheck:web && tsx packages/desktop/web/server.ts --dev",
+    "web": "npm run build:core && npm --workspace=@medscience/desktop run build:renderer && npm run build:web && node packages/web/bin/medscience-web.js",
+    "web:dev": "npm run build:core && npm run build:web && node packages/web/bin/medscience-web.js --dev",
     "dist:mac": "node node_modules/electron-builder/cli.js --mac --project packages/desktop -c electron-builder.json --publish never",
     "dist:win": "node node_modules/electron-builder/cli.js --win --project packages/desktop -c electron-builder.json --publish never",
-    "portal:dev": "vite",
-    "portal:preview": "vite preview",
-    "portal:build": "vite build && cp dist/index.html dist/404.html && cp -R dist/* docs/ && cp dist/index.html docs/404.html && cp dist/index.html public/404.html && touch docs/.nojekyll dist/.nojekyll"
+    "portal:dev": "npm --workspace=@medscience/portal run dev",
+    "portal:preview": "npm --workspace=@medscience/portal run preview",
+    "portal:build": "npm --workspace=@medscience/portal run build"
   },
   "devDependencies": {
     "@types/node": "^22.13.4",

@@ -2,7 +2,6 @@
 ROOT="$(cd "$(dirname "$0")" && pwd)"
 NODE="$HOME/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/bin/node"
 TSC="$ROOT/node_modules/typescript/bin/tsc"
-TSX="$ROOT/node_modules/tsx/dist/cli.mjs"
 
 fetch_esbuild() {
   local VERSION="$1" DEST="$2"
@@ -32,9 +31,9 @@ fi
 echo "[1/4] 构建 core ..."
 (cd "$ROOT/packages/core" && "$NODE" "$TSC") || { echo "core 构建失败"; exit 1; }
 
-echo "[2/4] Web 类型检查 ..."
-(cd "$ROOT/packages/desktop" && "$NODE" "$TSC" -p tsconfig.web.json) || { echo "类型检查失败"; exit 1; }
+echo "[2/4] 构建本地 web 服务器 (medscience-web) ..."
+(cd "$ROOT/packages/web" && "$NODE" "$TSC") || { echo "web 服务器构建失败"; exit 1; }
 
 echo "[3/4] 启动开发服务器 ..."
 cd "$ROOT"
-"$NODE" "$TSX" packages/desktop/web/server.ts --dev
+"$NODE" packages/web/bin/medscience-web.js --dev

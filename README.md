@@ -62,12 +62,10 @@ When provided with a complex research inquiry (e.g., *"Evaluate the allosteric s
 
 ### 🚀 Quick Start
 
-#### 1. Download Native Desktop Application (v1.1.0)
+#### 1. Download Native Desktop Application
 
-Download pre-built installers directly from [GitHub Releases](https://github.com/BenjaminDuo/MedScience/releases/tag/v1.1.0):
-- **macOS Apple Silicon (M1/M2/M3/M4)**: [`MedScience-1.1.0-arm64.dmg`](https://github.com/BenjaminDuo/MedScience/releases/download/v1.1.0/MedScience-1.1.0-arm64.dmg) (93.2 MB)
-- **macOS Intel (x86_64)**: [`MedScience-1.1.0.dmg`](https://github.com/BenjaminDuo/MedScience/releases/download/v1.1.0/MedScience-1.1.0.dmg) (98.0 MB)
-- **Windows x64**: [`MedScience.Setup.1.1.0.exe`](https://github.com/BenjaminDuo/MedScience/releases/download/v1.1.0/MedScience.Setup.1.1.0.exe) (NSIS Installer, 73.9 MB) / [`MedScience.1.1.0.exe`](https://github.com/BenjaminDuo/MedScience/releases/download/v1.1.0/MedScience.1.1.0.exe) (Portable, 73.7 MB)
+Download pre-built installers for macOS and Windows from the
+[latest GitHub Release](https://github.com/BenjaminDuo/MedScience/releases/latest).
 
 > [!NOTE]
 > **First-Launch Security Notice (macOS Gatekeeper & Windows SmartScreen):**  
@@ -75,7 +73,7 @@ Download pre-built installers directly from [GitHub Releases](https://github.com
 > - **macOS**: If you see *"MedScience cannot be opened because Apple cannot check it for malicious software"*, simply **Right-Click (or Control-Click) the application in `/Applications` and select "Open"**, then click **"Open"** in the confirmation dialog. Alternatively, navigate to *System Settings → Privacy & Security* and click *"Open Anyway"*.
 > - **Windows**: If Windows SmartScreen displays *"Windows protected your PC"*, click **"More info"** and then select **"Run anyway"**.
 
-#### 2. CLI Execution via Monorepo
+#### 2. Run from source
 
 ```bash
 # Clone the repository

@@ -14,7 +14,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [macos-latest, windows-latest]
+        os: [ubuntu-latest, macos-latest, windows-latest]
         node-version: [22.x]
 
     steps:
@@ -35,44 +35,24 @@ jobs:
       - name: Install Monorepo Dependencies
         run: npm ci || npm install
 
-      - name: Build All Monorepo Workspaces (Core, CLI, Desktop)
+      - name: Build All Monorepo Workspaces
         run: npm run build
 
-      - name: Run Core Verification Suite
-        run: npx tsx packages/core/tests/test-hardened-core.ts
-
-      - name: Run Medical & Clinical Research Suite
-        run: npx tsx packages/core/tests/test-medical-connectors.ts
-
-      - name: Run Codex-Style Evidence Verification Gate Suite
-        run: npx tsx packages/core/tests/test-evidence-verifier.ts
-
-      - name: Run DeepSeek Harness Subagent Tree Suite
-        run: npx tsx packages/core/tests/test-subagent-tree.ts
-
-      - name: Run Explicit Plan & To-Do Task Tracker Suite
-        run: npx tsx packages/core/tests/test-plan-tracker.ts
-
-      - name: Run Medical AI & Multimodal Suite
-        run: npx tsx packages/core/tests/test-medical-ai-multimodal.ts
-
-      - name: Run Pure Clinical Research Loop Suite
-        run: npx tsx packages/core/tests/test-clinical-research-loop.ts
-
-      - name: Run Memory Compactor Verification Suite
-        run: npx tsx packages/core/tests/test-memory-compactor.ts
-
-      - name: Run Scientific Skill System Suite
-        run: npx tsx packages/core/tests/test-skill-system.ts
-
-      - name: Run Mid-Run Steering Suite
-        run: npx tsx packages/core/tests/test-steering.ts
-
-      - name: Run Real OS Python Sandbox Security Suite (Kernel Isolation)
-        run: npx tsx packages/core/tests/test-python-sandbox.ts
+      # One step, not a hand-kept list of 11 test files. tests/run-all.ts
+      # discovers every suite in packages/core/tests, gives each run a
+      # throwaway MEDSCIENCE_HOME so CI never writes to a real profile, and
+      # skips the suites that need network access or a personal API key --
+      # which the enumerated list used to run and depend on.
+      - name: Run Test Suites (core + cli)
+        run: npm test
 
       - name: Verify CLI Command Execution
         run: node packages/cli/bin/medscience.js --help || npm --workspace=@medscience/cli test
 
       - name: Verify Electron Desktop Native Compilation
         run: npm --workspace=@medscience/desktop run build
+
+      - name: Verify Portal Builds and Typechecks
+        run: |
+          npm --workspace=@medscience/portal run typecheck
+          npm run portal:build

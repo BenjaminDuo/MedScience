@@ -1,0 +1,26 @@
+{
+  "name": "@medscience/web",
+  "version": "1.4.0",
+  "description": "Loopback-only HTTP server that serves the MedScience workstation UI as a local web app.",
+  "license": "MIT",
+  "private": true,
+  "type": "module",
+  "bin": {
+    "medscience-web": "./bin/medscience-web.js"
+  },
+  "engines": {
+    "node": ">=20.19.0"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "node bin/medscience-web.js"
+  },
+  "dependencies": {
+    "@medscience/core": "*"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.4",
+    "typescript": "^5.7.3",
+    "vite": "^6.1.0"
+  }
+}
