@@ -29,11 +29,10 @@ export function renderBanner(version: string = '1.4.0', activeModel?: string, mo
     : `${c.brightGreen}${c.bold}[ACT MODE]${c.reset}`;
 
   console.log(`
-${c.brightCyan}${c.bold}    __                  _____                             
-   / /_  ______        / ___/_____(_)__  ____  ________  
-  / / / / / __ \\______ \\__ \\/ ___/ / _ \\/ __ \\/ ___/ _ \\ 
- / / /_/ / / / /_____/___/ / /__/ /  __/ / / / /__/  __/ 
-/_/\\__,_/_/ /_/      /____/\\___/_/\\___/_/ /_/\\___/\\___/  ${c.reset}
+${c.brightCyan}${c.bold}█▄ ▄█ ███ ███▄ ███  ███ █ ███ █▄ █ ███ ███
+█ ▀ █ █▄▄ █  █ █▄▄ █    █ █▄▄ █ ▀█ █   █▄▄
+█   █ █   █  █   █ █    █ █   █  █ █   █  
+▀   ▀ ███ ███▀ ███  ███ ▀ ███ ▀  ▀ ███ ███${c.reset}
 ${c.gray}── Scientific AI Workstation & Autonomous Research Engine ──${c.reset}
 ${c.dim}Version: v${version}  •  Model: ${activeModel || 'Demo Mode (Mock)'}  •  Mode: ${modeTag}${c.reset}
 ${c.gray}Shortcuts: /model (switch model)  •  /plan | /act (switch modes)  •  /help (all commands)${c.reset}

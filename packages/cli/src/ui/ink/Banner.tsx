@@ -46,7 +46,7 @@ export function Banner({
           <Text color="cyan">      ╷ ╭─╮ ╷      </Text>
           <Text color="cyan">    ╭─┴─╯ │ ╰─┴─╮  </Text>
           <Text color="cyan">   ╭╯  ╲  │  ╱  ╰╮ </Text>
-          <Text color="cyan">  ──<Text color="yellow">●</Text>───<Text color="white">[ </Text><Text color="cyanBright" bold>J</Text><Text color="white"> ]</Text>───<Text color="yellow">●</Text>──</Text>
+          <Text color="cyan">  ──<Text color="yellow">●</Text>───<Text color="white">[ </Text><Text color="cyanBright" bold>M</Text><Text color="white"> ]</Text>───<Text color="yellow">●</Text>──</Text>
           <Text color="cyan">   ╰╮  ╱  │  ╲  ╭╯ </Text>
           <Text color="cyan">    ╰─┬─╮ │ ╭─┬─╯  </Text>
           <Text color="cyan">      ╵ ╰─╯ ╵      </Text>
@@ -55,16 +55,16 @@ export function Banner({
         {/* Crisp Unambiguous Typography */}
         <Box flexDirection="column">
           <Text color="cyanBright" bold>
-            {'  █ █ █ █▄ █  ███  ███ █ ███ █▄ █ ███ ███'}
+            {'█▄ ▄█ ███ ███▄ ███  ███ █ ███ █▄ █ ███ ███'}
           </Text>
           <Text color="cyanBright" bold>
-            {'  █ █ █ █ ▀█  █▄▄ █    █ █▄▄ █ ▀█ █   █▄▄'}
+            {'█ ▀ █ █▄▄ █  █ █▄▄ █    █ █▄▄ █ ▀█ █   █▄▄'}
           </Text>
           <Text color="cyanBright" bold>
-            {'█ █ █ █ █  █    █ █    █ █   █  █ █   █  '}
+            {'█   █ █   █  █   █ █    █ █   █  █ █   █  '}
           </Text>
           <Text color="cyanBright" bold>
-            {'▀█▀ ▀█▀ ▀  ▀  ███  ███ ▀ ███ ▀  ▀ ███ ███'}
+            {'▀   ▀ ███ ███▀ ███  ███ ▀ ███ ▀  ▀ ███ ███'}
           </Text>
           <Box marginTop={1}>
             <Text color="white" bold>
