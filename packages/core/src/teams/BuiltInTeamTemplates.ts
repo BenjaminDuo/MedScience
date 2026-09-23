@@ -1,18 +1,27 @@
 import { ResearchTeamDefinition } from './types.js';
 
 /**
- * 4 built-in team templates (design doc section 8, scoped to the MVP's "4
- * built-in templates" bound in section 18 -- the doc's 5th template,
- * Computational Biology Team, is intentionally omitted from this first
- * pass). Templates are read-only baselines: a user clicks "Customize" to
- * clone one into their own ResearchTeamDefinition (see TeamProfileManager's
- * cloneTemplate), so an app upgrade that changes a template never silently
- * rewrites a team the user is already using.
+ * The built-in team templates (design doc section 8, extended).
+ *
+ * Templates are read-only baselines: a user clones one into their own
+ * ResearchTeamDefinition (see TeamProfileManager's cloneTemplate), so an app
+ * upgrade that changes a template never silently rewrites a team the user is
+ * already using. In the UI they are shown as suggestions -- visibly not
+ * teams that exist yet -- next to the workspace's real teams.
+ *
+ * The first four were the MVP set. The rest exist because a biomedical
+ * project is not one shape: a trial protocol, a single-cell dataset, an EHR
+ * cohort and an IND package each need a different set of people in the room,
+ * and a template whose roster is "PI + four generalists" gives the user
+ * nothing they could not have assembled by hand. Each roster below staffs
+ * the roles that particular kind of study actually fails without, and its
+ * `instructions` encode the failure mode that kind of study most often has
+ * (leakage at the wrong unit, a cut-off fixed after validation, an in vitro
+ * potency read as in vivo efficacy).
  *
  * Timestamps are fixed rather than Date.now()-generated so these built-in
  * records stay byte-for-byte stable across app restarts and versions.
- */
-const BUILT_IN_TEMPLATE_TIMESTAMP = '2026-01-01T00:00:00.000Z';
+ */const BUILT_IN_TEMPLATE_TIMESTAMP = '2026-01-01T00:00:00.000Z';
 
 export const builtInTeamTemplates: ResearchTeamDefinition[] = [
   {
@@ -118,7 +127,7 @@ export const builtInTeamTemplates: ResearchTeamDefinition[] = [
     members: [
       { agentId: 'principal-investigator', role: 'Team Leader', roleZh: '队长', required: true, canLead: true },
       { agentId: 'literature-reviewer', role: 'Search & Screening', roleZh: '检索与筛选', required: true, canLead: false },
-      { agentId: 'biostatistician', role: 'Meta-Analysis', required: true, canLead: false },
+      { agentId: 'biostatistician', role: 'Meta-Analysis', roleZh: '荟萃分析', required: true, canLead: false },
       { agentId: 'clinical-specialist', role: 'Clinical Relevance Review', roleZh: '临床相关性审查', required: true, canLead: false },
       { agentId: 'scientific-critic', role: 'Quality Gate', roleZh: '质量把关', required: true, canLead: false },
       { agentId: 'scientific-writer', role: 'Final Report', roleZh: '最终报告', required: true, canLead: false },
@@ -133,6 +142,349 @@ export const builtInTeamTemplates: ResearchTeamDefinition[] = [
     createdAt: BUILT_IN_TEMPLATE_TIMESTAMP,
     updatedAt: BUILT_IN_TEMPLATE_TIMESTAMP,
   },
+  {
+    id: 'team-clinical-trial-design',
+    name: 'Clinical Trial Design Team',
+    nameZh: '临床试验设计团队',
+    description:
+      'Designs a trial before it is run: population and estimand, endpoints, randomization, sample size, interim rules, plus the ethics and regulatory review the protocol has to survive.',
+    descriptionZh: '在试验开始前完成设计：研究人群与估计目标、终点指标、随机化、样本量、期中分析规则，并同步完成方案必须通过的伦理与法规审查。',
+    scenario: 'Protocol drafting, endpoint and estimand selection, sample-size justification, IRB and regulatory readiness.',
+    scenarioZh: '方案撰写、终点与估计目标选择、样本量论证、伦理审查与法规准备。',
+    leaderAgentId: 'clinical-trial-designer',
+    instructions:
+      'The primary endpoint and its estimand must be written precisely enough for the Biostatistician to implement without interpretation. Sample size is not accepted without its assumptions stated. The Ethics Officer reviews consent and data handling, and the Regulatory Specialist names the pathway, before the protocol is considered ready.',
+    members: [
+      { agentId: 'clinical-trial-designer', role: 'Team Leader / Protocol', roleZh: '队长 / 方案设计', required: true, canLead: true },
+      { agentId: 'biostatistician', role: 'Sample Size & Analysis Plan', roleZh: '样本量与统计分析计划', required: true, canLead: false },
+      { agentId: 'clinical-specialist', role: 'Clinical Feasibility & Safety', roleZh: '临床可行性与安全性', required: true, canLead: false },
+      { agentId: 'bioethics-officer', role: 'Ethics & Consent', roleZh: '伦理与知情同意', required: true, canLead: false },
+      { agentId: 'regulatory-specialist', role: 'Regulatory Pathway', roleZh: '法规路径', required: true, canLead: false },
+      { agentId: 'scientific-critic', role: 'Quality Gate', roleZh: '质量把关', required: true, canLead: false },
+    ],
+    maxConcurrency: 3,
+    maxTasks: 10,
+    maxRevisionsPerTask: 2,
+    planningMode: 'review-first',
+    builtIn: true,
+    archived: false,
+    version: 1,
+    createdAt: BUILT_IN_TEMPLATE_TIMESTAMP,
+    updatedAt: BUILT_IN_TEMPLATE_TIMESTAMP,
+  },
+  {
+    id: 'team-multi-omics',
+    name: 'Multi-Omics & Bioinformatics Team',
+    nameZh: '多组学与生物信息团队',
+    description:
+      'Takes a sequencing study from raw reads to interpreted biology: pipeline and QC, differential and pathway analysis, statistical control, and a re-runnable record of the whole thing.',
+    descriptionZh: '把一项测序研究从原始数据一路做到生物学解读：上游流程与质控、差异与通路分析、统计学控制，并留下可重跑的完整记录。',
+    scenario: 'Bulk RNA-seq, WES/WGS, proteomics, and integrative multi-omics analyses.',
+    scenarioZh: 'Bulk RNA-seq、全外显子/全基因组测序、蛋白组学，以及多组学整合分析。',
+    leaderAgentId: 'principal-investigator',
+    instructions:
+      'No downstream interpretation begins until the Bioinformatics Engineer has reported QC metrics for every sample. Batch and covariate structure must be shown before differential results are accepted. The Biostatistician owns multiple-testing correction; a pathway result without it does not pass.',
+    members: [
+      { agentId: 'principal-investigator', role: 'Team Leader', roleZh: '队长', required: true, canLead: true },
+      { agentId: 'bioinformatics-engineer', role: 'Pipeline & QC', roleZh: '流程与质控', required: true, canLead: false },
+      { agentId: 'biology-specialist', role: 'Biological Interpretation', roleZh: '生物学解读', required: true, canLead: false },
+      { agentId: 'biostatistician', role: 'Statistical Control', roleZh: '统计学把控', required: true, canLead: false },
+      { agentId: 'literature-reviewer', role: 'Evidence Synthesis', roleZh: '证据综合', required: false, canLead: false },
+      { agentId: 'reproducibility-engineer', role: 'Reproducibility', roleZh: '可复现性', required: true, canLead: false },
+      { agentId: 'scientific-critic', role: 'Quality Gate', roleZh: '质量把关', required: true, canLead: false },
+    ],
+    maxConcurrency: 3,
+    maxTasks: 12,
+    maxRevisionsPerTask: 2,
+    planningMode: 'review-first',
+    builtIn: true,
+    archived: false,
+    version: 1,
+    createdAt: BUILT_IN_TEMPLATE_TIMESTAMP,
+    updatedAt: BUILT_IN_TEMPLATE_TIMESTAMP,
+  },
+  {
+    id: 'team-single-cell-spatial',
+    name: 'Single-Cell & Spatial Omics Team',
+    nameZh: '单细胞与空间组学团队',
+    description:
+      'For single-cell and spatial datasets, where the hard part is telling a real cell population from a batch artifact: integration, annotation, and the statistics that survive pseudo-replication.',
+    descriptionZh: '面向单细胞与空间数据——真正的难点是区分真实细胞群体与批次假象：数据整合、细胞注释，以及能经受伪重复检验的统计方法。',
+    scenario: 'scRNA-seq, snRNA-seq, CITE-seq, and spatial transcriptomics studies.',
+    scenarioZh: 'scRNA-seq、snRNA-seq、CITE-seq 与空间转录组研究。',
+    leaderAgentId: 'principal-investigator',
+    instructions:
+      'Cell counts surviving each filter must be reported. A cluster is not a cell type until marker evidence supports it. Any differential-abundance or differential-expression claim across conditions must be analysed at the sample level, not the cell level, and the Biostatistician confirms this before synthesis.',
+    members: [
+      { agentId: 'principal-investigator', role: 'Team Leader', roleZh: '队长', required: true, canLead: true },
+      { agentId: 'single-cell-specialist', role: 'Single-Cell / Spatial Analysis', roleZh: '单细胞 / 空间分析', required: true, canLead: false },
+      { agentId: 'bioinformatics-engineer', role: 'Upstream Processing', roleZh: '上游处理', required: true, canLead: false },
+      { agentId: 'biology-specialist', role: 'Biological Interpretation', roleZh: '生物学解读', required: true, canLead: false },
+      { agentId: 'biostatistician', role: 'Statistical Control', roleZh: '统计学把控', required: true, canLead: false },
+      { agentId: 'scientific-critic', role: 'Quality Gate', roleZh: '质量把关', required: true, canLead: false },
+    ],
+    maxConcurrency: 3,
+    maxTasks: 10,
+    maxRevisionsPerTask: 2,
+    planningMode: 'review-first',
+    builtIn: true,
+    archived: false,
+    version: 1,
+    createdAt: BUILT_IN_TEMPLATE_TIMESTAMP,
+    updatedAt: BUILT_IN_TEMPLATE_TIMESTAMP,
+  },
+  {
+    id: 'team-medical-imaging',
+    name: 'Medical Imaging & Radiomics Team',
+    nameZh: '医学影像与影像组学团队',
+    description:
+      'For imaging-based studies and imaging AI: annotation quality, feature stability across scanners, patient-level validation, and a performance claim that survives a site split.',
+    descriptionZh: '面向基于影像的研究与影像人工智能：标注质量、跨设备特征稳定性、患者层面验证，以及能经受跨中心划分检验的性能结论。',
+    scenario: 'Radiomics, segmentation, diagnostic imaging models, and imaging-endpoint studies.',
+    scenarioZh: '影像组学、图像分割、影像诊断模型，以及以影像为终点的研究。',
+    leaderAgentId: 'principal-investigator',
+    instructions:
+      'Splits are made at the patient level and, where possible, at the site level -- a slice-level split is treated as leakage. Scanner and protocol must be checked as confounders before any performance claim. The Pathologist or Clinical Specialist confirms the reference standard the labels came from.',
+    members: [
+      { agentId: 'principal-investigator', role: 'Team Leader', roleZh: '队长', required: true, canLead: true },
+      { agentId: 'medical-imaging-specialist', role: 'Imaging Analysis', roleZh: '影像分析', required: true, canLead: false },
+      { agentId: 'ml-specialist', role: 'Model Development', roleZh: '模型研发', required: true, canLead: false },
+      { agentId: 'biostatistician', role: 'Quantitative Analysis', roleZh: '定量分析', required: true, canLead: false },
+      { agentId: 'clinical-specialist', role: 'Reference Standard & Clinical Use', roleZh: '金标准与临床应用', required: true, canLead: false },
+      { agentId: 'reproducibility-engineer', role: 'Reproducibility', roleZh: '可复现性', required: false, canLead: false },
+      { agentId: 'scientific-critic', role: 'Quality Gate', roleZh: '质量把关', required: true, canLead: false },
+    ],
+    maxConcurrency: 3,
+    maxTasks: 10,
+    maxRevisionsPerTask: 2,
+    planningMode: 'review-first',
+    builtIn: true,
+    archived: false,
+    version: 1,
+    createdAt: BUILT_IN_TEMPLATE_TIMESTAMP,
+    updatedAt: BUILT_IN_TEMPLATE_TIMESTAMP,
+  },
+  {
+    id: 'team-real-world-evidence',
+    name: 'Real-World Evidence & Epidemiology Team',
+    nameZh: '真实世界证据与流行病学团队',
+    description:
+      'For questions answered from EHR, claims or registry data, where design and confounding decide the answer long before the model does.',
+    descriptionZh: '面向使用电子病历、医保理赔或登记数据回答的问题——研究设计与混杂控制早在建模之前就决定了结论。',
+    scenario: 'Observational cohorts, EHR/claims studies, registry analyses, post-marketing safety and effectiveness.',
+    scenarioZh: '观察性队列、电子病历/理赔数据研究、登记数据分析、上市后安全性与有效性研究。',
+    leaderAgentId: 'epidemiologist',
+    instructions:
+      'The causal structure and adjustment set are fixed before any model is fit. The Data Curator must publish the cohort-assembly trace and missingness profile first. Findings are reported in associational language unless the design explicitly supports a causal claim, and the Ethics Officer confirms the data use is covered.',
+    members: [
+      { agentId: 'epidemiologist', role: 'Team Leader / Study Design', roleZh: '队长 / 研究设计', required: true, canLead: true },
+      { agentId: 'data-curator', role: 'Cohort Assembly & Harmonization', roleZh: '队列构建与数据协调', required: true, canLead: false },
+      { agentId: 'biostatistician', role: 'Analysis & Confounding Control', roleZh: '分析与混杂控制', required: true, canLead: false },
+      { agentId: 'clinical-specialist', role: 'Clinical Interpretation', roleZh: '临床解读', required: true, canLead: false },
+      { agentId: 'bioethics-officer', role: 'Data Governance', roleZh: '数据合规', required: false, canLead: false },
+      { agentId: 'scientific-critic', role: 'Quality Gate', roleZh: '质量把关', required: true, canLead: false },
+    ],
+    maxConcurrency: 3,
+    maxTasks: 10,
+    maxRevisionsPerTask: 2,
+    planningMode: 'review-first',
+    builtIn: true,
+    archived: false,
+    version: 1,
+    createdAt: BUILT_IN_TEMPLATE_TIMESTAMP,
+    updatedAt: BUILT_IN_TEMPLATE_TIMESTAMP,
+  },
+  {
+    id: 'team-target-discovery',
+    name: 'Target Discovery & Structural Biology Team',
+    nameZh: '靶点发现与结构生物学团队',
+    description:
+      'Works the early end of drug discovery: is the target real, is it druggable, and does the structural evidence actually support the proposed binding mode?',
+    descriptionZh: '聚焦药物发现的最前端：靶点是否成立、是否具备成药性，以及结构证据是否真正支持所提出的结合模式。',
+    scenario: 'Target validation, druggability assessment, binding-site and docking analysis, hit triage.',
+    scenarioZh: '靶点验证、成药性评估、结合位点与分子对接分析、苗头化合物初筛。',
+    leaderAgentId: 'principal-investigator',
+    instructions:
+      'Target validation evidence must be separated into genetic, pharmacological and clinical lines, and weighed separately. The Structural Biologist states the confidence of every structure used (resolution, or pLDDT/PAE for a predicted model). A docking score is reported as a ranking hypothesis, never as an affinity.',
+    members: [
+      { agentId: 'principal-investigator', role: 'Team Leader', roleZh: '队长', required: true, canLead: true },
+      { agentId: 'biology-specialist', role: 'Target Biology', roleZh: '靶点生物学', required: true, canLead: false },
+      { agentId: 'structural-biologist', role: 'Structure & Binding', roleZh: '结构与结合模式', required: true, canLead: false },
+      { agentId: 'chemistry-specialist', role: 'Cheminformatics', roleZh: '化学信息学', required: true, canLead: false },
+      { agentId: 'literature-reviewer', role: 'Evidence Synthesis', roleZh: '证据综合', required: true, canLead: false },
+      { agentId: 'scientific-critic', role: 'Quality Gate', roleZh: '质量把关', required: true, canLead: false },
+    ],
+    maxConcurrency: 3,
+    maxTasks: 10,
+    maxRevisionsPerTask: 2,
+    planningMode: 'review-first',
+    builtIn: true,
+    archived: false,
+    version: 1,
+    createdAt: BUILT_IN_TEMPLATE_TIMESTAMP,
+    updatedAt: BUILT_IN_TEMPLATE_TIMESTAMP,
+  },
+  {
+    id: 'team-preclinical-safety',
+    name: 'Preclinical Pharmacology & Safety Team',
+    nameZh: '临床前药理与安全评价团队',
+    description:
+      'Asks whether a compound can work at a dose a patient could tolerate: exposure, safety margin, organ liabilities, and the evidence a first-in-human dose would rest on.',
+    descriptionZh: '回答一个化合物能否在患者可耐受的剂量下起效：暴露水平、安全窗、器官毒性风险，以及首次人体试验剂量所依据的证据。',
+    scenario: 'PK/PD assessment, dose and exposure reasoning, safety margin and liability review, IND-enabling readiness.',
+    scenarioZh: 'PK/PD 评估、剂量与暴露推算、安全窗与毒性风险审查、IND 申报前准备。',
+    leaderAgentId: 'principal-investigator',
+    instructions:
+      'Every potency value must be paired with the free exposure needed to reach it; the Pharmacologist states whether that exposure is achievable. The Toxicologist reports NOAEL and the resulting safety margin for any compound proposed for advancement, and an absent study is recorded as missing evidence, never as a clean result.',
+    members: [
+      { agentId: 'principal-investigator', role: 'Team Leader', roleZh: '队长', required: true, canLead: true },
+      { agentId: 'pharmacologist', role: 'PK / PD', roleZh: '药代与药效', required: true, canLead: false },
+      { agentId: 'toxicologist', role: 'Safety & Liabilities', roleZh: '安全性与毒性风险', required: true, canLead: false },
+      { agentId: 'chemistry-specialist', role: 'Medicinal Chemistry', roleZh: '药物化学', required: true, canLead: false },
+      { agentId: 'biology-specialist', role: 'Mechanism', roleZh: '作用机制', required: false, canLead: false },
+      { agentId: 'scientific-critic', role: 'Quality Gate', roleZh: '质量把关', required: true, canLead: false },
+    ],
+    maxConcurrency: 3,
+    maxTasks: 10,
+    maxRevisionsPerTask: 2,
+    planningMode: 'review-first',
+    builtIn: true,
+    archived: false,
+    version: 1,
+    createdAt: BUILT_IN_TEMPLATE_TIMESTAMP,
+    updatedAt: BUILT_IN_TEMPLATE_TIMESTAMP,
+  },
+  {
+    id: 'team-immuno-oncology',
+    name: 'Immuno-Oncology Team',
+    nameZh: '免疫肿瘤研究团队',
+    description:
+      'For tumour-immune questions: microenvironment composition, response and resistance mechanisms, and keeping an infiltration association from being written up as a mechanism.',
+    descriptionZh: '面向肿瘤免疫问题：微环境组成、应答与耐药机制，并防止把"免疫浸润相关性"写成已证实的机制。',
+    scenario: 'Tumour immune microenvironment, checkpoint-inhibitor response, immune biomarkers, resistance mechanisms.',
+    scenarioZh: '肿瘤免疫微环境、免疫检查点抑制剂应答、免疫标志物、耐药机制。',
+    leaderAgentId: 'principal-investigator',
+    instructions:
+      'Any population-frequency claim requires the gating or deconvolution strategy to be stated. The Pathologist confirms that the tissue picture supports the molecular claim. An association with immune infiltration must not be described as a demonstrated mechanism.',
+    members: [
+      { agentId: 'principal-investigator', role: 'Team Leader', roleZh: '队长', required: true, canLead: true },
+      { agentId: 'immunologist', role: 'Immune Biology', roleZh: '免疫生物学', required: true, canLead: false },
+      { agentId: 'pathologist', role: 'Tissue & IHC Review', roleZh: '组织与免疫组化审查', required: true, canLead: false },
+      { agentId: 'single-cell-specialist', role: 'Microenvironment Profiling', roleZh: '微环境图谱分析', required: true, canLead: false },
+      { agentId: 'biostatistician', role: 'Quantitative Analysis', roleZh: '定量分析', required: true, canLead: false },
+      { agentId: 'clinical-specialist', role: 'Clinical Translation', roleZh: '临床转化', required: false, canLead: false },
+      { agentId: 'scientific-critic', role: 'Quality Gate', roleZh: '质量把关', required: true, canLead: false },
+    ],
+    maxConcurrency: 3,
+    maxTasks: 12,
+    maxRevisionsPerTask: 2,
+    planningMode: 'review-first',
+    builtIn: true,
+    archived: false,
+    version: 1,
+    createdAt: BUILT_IN_TEMPLATE_TIMESTAMP,
+    updatedAt: BUILT_IN_TEMPLATE_TIMESTAMP,
+  },
+  {
+    id: 'team-biomarker-validation',
+    name: 'Biomarker Discovery & Validation Team',
+    nameZh: '生物标志物发现与验证团队',
+    description:
+      'Separates a biomarker that generalizes from one that fits the discovery cohort: analytical validity, independent validation, and incremental value over what clinicians already have.',
+    descriptionZh: '把真正可泛化的标志物与只拟合了发现队列的标志物区分开：分析有效性、独立验证，以及相对现有临床指标的增量价值。',
+    scenario: 'Diagnostic/prognostic/predictive biomarker discovery, validation cohorts, and clinical utility assessment.',
+    scenarioZh: '诊断/预后/预测性标志物的发现、验证队列分析与临床效用评估。',
+    leaderAgentId: 'principal-investigator',
+    instructions:
+      'Discovery and validation cohorts must be kept strictly separate, and the cut-off must be fixed on the discovery set before validation. Any performance claim is reported against the current clinical standard, not against chance alone. The Biostatistician evaluates incremental value; a biomarker that adds nothing over existing variables is reported as such.',
+    members: [
+      { agentId: 'principal-investigator', role: 'Team Leader', roleZh: '队长', required: true, canLead: true },
+      { agentId: 'biology-specialist', role: 'Candidate Biology', roleZh: '候选标志物生物学', required: true, canLead: false },
+      { agentId: 'biostatistician', role: 'Validation Statistics', roleZh: '验证统计', required: true, canLead: false },
+      { agentId: 'ml-specialist', role: 'Modelling', roleZh: '建模', required: false, canLead: false },
+      { agentId: 'pathologist', role: 'Assay & Tissue Validity', roleZh: '检测与组织有效性', required: false, canLead: false },
+      { agentId: 'clinical-specialist', role: 'Clinical Utility', roleZh: '临床效用', required: true, canLead: false },
+      { agentId: 'scientific-critic', role: 'Quality Gate', roleZh: '质量把关', required: true, canLead: false },
+    ],
+    maxConcurrency: 3,
+    maxTasks: 10,
+    maxRevisionsPerTask: 2,
+    planningMode: 'review-first',
+    builtIn: true,
+    archived: false,
+    version: 1,
+    createdAt: BUILT_IN_TEMPLATE_TIMESTAMP,
+    updatedAt: BUILT_IN_TEMPLATE_TIMESTAMP,
+  },
+  {
+    id: 'team-translational-regulatory',
+    name: 'Translation & Regulatory Readiness Team',
+    nameZh: '转化与法规申报团队',
+    description:
+      'For work that has to leave the lab: which regulatory pathway applies, what evidence it demands, what it will cost to adopt, and what is still missing today.',
+    descriptionZh: '面向需要走出实验室的成果：适用哪条注册路径、需要哪些证据、采纳成本如何，以及目前还缺什么。',
+    scenario: 'Regulatory pathway mapping, IND/device (SaMD) readiness, health-technology assessment, adoption case.',
+    scenarioZh: '注册路径梳理、IND/器械（SaMD）申报准备、卫生技术评估、采纳论证。',
+    leaderAgentId: 'principal-investigator',
+    instructions:
+      'The Regulatory Specialist names the pathway and cites the specific guidance and its date; differences between regions are stated rather than generalized. The Health Economist reports sensitivity analysis alongside any cost-effectiveness estimate. The gap list -- evidence not yet generated -- is part of the deliverable, not an appendix.',
+    members: [
+      { agentId: 'principal-investigator', role: 'Team Leader', roleZh: '队长', required: true, canLead: true },
+      { agentId: 'regulatory-specialist', role: 'Regulatory Strategy', roleZh: '法规策略', required: true, canLead: false },
+      { agentId: 'clinical-specialist', role: 'Clinical Evidence', roleZh: '临床证据', required: true, canLead: false },
+      { agentId: 'health-economist', role: 'Cost-Effectiveness', roleZh: '成本效果', required: true, canLead: false },
+      { agentId: 'bioethics-officer', role: 'Ethics & Compliance', roleZh: '伦理与合规', required: false, canLead: false },
+      { agentId: 'scientific-writer', role: 'Submission Narrative', roleZh: '申报材料撰写', required: false, canLead: false },
+      { agentId: 'scientific-critic', role: 'Quality Gate', roleZh: '质量把关', required: true, canLead: false },
+    ],
+    maxConcurrency: 3,
+    maxTasks: 10,
+    maxRevisionsPerTask: 2,
+    planningMode: 'review-first',
+    builtIn: true,
+    archived: false,
+    version: 1,
+    createdAt: BUILT_IN_TEMPLATE_TIMESTAMP,
+    updatedAt: BUILT_IN_TEMPLATE_TIMESTAMP,
+  },
+  {
+    id: 'team-manuscript-grant',
+    name: 'Manuscript & Grant Writing Team',
+    nameZh: '论文与基金写作团队',
+    description:
+      'Turns finished work into a submission: the framing and gap statement, the evidence trail behind every claim, statistical reporting that a reviewer will accept, and an honest limitations section.',
+    descriptionZh: '把已完成的工作变成一份可投稿的材料：选题定位与空白陈述、每条结论背后的证据链、审稿人能接受的统计报告，以及诚实的局限性说明。',
+    scenario: 'Manuscript drafting, grant proposals, rebuttal preparation, and pre-submission self-review.',
+    scenarioZh: '论文撰写、基金申请书、审稿意见回复准备，以及投稿前自审。',
+    leaderAgentId: 'principal-investigator',
+    instructions:
+      'Every claim in the draft must map to an entry in the shared evidence ledger; the Scientific Writer may not introduce a conclusion that is not already there. The Biostatistician checks that reported statistics match what was actually run. The limitations section is written before the abstract, not after.',
+    members: [
+      { agentId: 'principal-investigator', role: 'Team Leader', roleZh: '队长', required: true, canLead: true },
+      { agentId: 'literature-reviewer', role: 'Framing & Citations', roleZh: '选题定位与引用', required: true, canLead: false },
+      { agentId: 'scientific-writer', role: 'Drafting', roleZh: '撰写', required: true, canLead: false },
+      { agentId: 'biostatistician', role: 'Statistical Reporting', roleZh: '统计报告核对', required: true, canLead: false },
+      { agentId: 'scientific-critic', role: 'Reviewer Simulation', roleZh: '模拟审稿', required: true, canLead: false },
+    ],
+    maxConcurrency: 3,
+    maxTasks: 8,
+    maxRevisionsPerTask: 2,
+    planningMode: 'review-first',
+    builtIn: true,
+    archived: false,
+    version: 1,
+    createdAt: BUILT_IN_TEMPLATE_TIMESTAMP,
+    updatedAt: BUILT_IN_TEMPLATE_TIMESTAMP,
+  },
 ];
 
-export const DEFAULT_TEAM_TEMPLATE_ID = 'team-medical-ai-research';
+/**
+ * The template every workspace is seeded with.
+ *
+ * Deliberately the general one, not the medical-AI one: a workspace is
+ * created before anyone knows what it is for, and seeding it with a
+ * specialist roster means most workspaces open with a team that does not fit
+ * their topic. The specialised rosters are offered as suggestions instead,
+ * where picking one is a decision the user makes about this project.
+ */
+export const DEFAULT_TEAM_TEMPLATE_ID = 'team-general-scientific-research';

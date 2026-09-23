@@ -10,29 +10,54 @@ import { MemberAvatar } from './GroupAvatar';
  * info panel; this tab is the account-wide list of who exists to add.
  *
  * Groups follow capability tags rather than a hand-kept list, so a custom
- * agent lands in the right section on its own.
+ * agent lands in the right section on its own. First match wins, so the
+ * order below is the order a member is thought about: what they lead, then
+ * what they produce, then what they specialise in. Anything unmatched falls
+ * into 学科专家 at the end rather than disappearing.
  */
-const SECTIONS: { en: string; zh: string; match: (agent: AgentDefinition) => boolean }[] = [
+const SECTIONS: { en: string; zh: string; tags: string[] }[] = [
   {
     en: 'Leadership & planning',
     zh: '统筹与规划',
-    match: (agent) => agent.capabilityTags.some((tag) => tag === 'leadership' || tag === 'research-planning'),
+    tags: ['leadership', 'research-planning'],
   },
   {
     en: 'Evidence & writing',
     zh: '证据与写作',
-    match: (agent) =>
-      agent.capabilityTags.some((tag) =>
-        ['literature-search', 'evidence-synthesis', 'scientific-writing', 'scientific-review', 'integrity-check'].includes(tag)
-      ),
+    tags: ['literature-search', 'evidence-synthesis', 'scientific-writing', 'scientific-review', 'integrity-check'],
   },
   {
     en: 'Quantitative & engineering',
     zh: '定量与工程',
-    match: (agent) =>
-      agent.capabilityTags.some((tag) =>
-        ['biostatistics', 'machine-learning', 'model-evaluation', 'reproducibility', 'environment-tracking'].includes(tag)
-      ),
+    tags: [
+      'biostatistics',
+      'machine-learning',
+      'model-evaluation',
+      'reproducibility',
+      'environment-tracking',
+      'bioinformatics',
+      'data-processing',
+    ],
+  },
+  {
+    en: 'Omics & structure',
+    zh: '组学与结构',
+    tags: ['genomics', 'proteomics', 'transcriptomics', 'single-cell', 'spatial-omics', 'structural-biology', 'molecular-modeling'],
+  },
+  {
+    en: 'Clinical, imaging & pathology',
+    zh: '临床、影像与病理',
+    tags: ['clinical-study-design', 'clinical-safety', 'medical-imaging', 'radiomics', 'pathology', 'digital-pathology', 'immunology', 'immunotherapy'],
+  },
+  {
+    en: 'Drugs & safety',
+    zh: '药物与安全',
+    tags: ['cheminformatics', 'drug-discovery', 'pharmacology', 'pk-pd', 'toxicology', 'preclinical-safety'],
+  },
+  {
+    en: 'Governance & translation',
+    zh: '合规与转化',
+    tags: ['regulatory-affairs', 'research-ethics', 'data-governance', 'data-harmonization', 'health-economics', 'outcomes-research', 'translation'],
   },
 ];
 
@@ -45,7 +70,9 @@ export const ContactsList: React.FC<{
   const grouped = useMemo(() => {
     const used = new Set<string>();
     const sections = SECTIONS.map((section) => {
-      const members = agents.filter((agent) => !used.has(agent.id) && section.match(agent));
+      const members = agents.filter(
+        (agent) => !used.has(agent.id) && agent.capabilityTags.some((tag) => section.tags.includes(tag))
+      );
       members.forEach((agent) => used.add(agent.id));
       return { label: t(section.en, section.zh), members };
     });

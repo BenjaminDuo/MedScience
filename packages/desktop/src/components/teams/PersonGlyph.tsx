@@ -55,7 +55,9 @@ const HAIR_PATHS = [
 
 const BUILT_IN_LOOKS: Record<string, PersonLook> = {
   // Deliberately spread across hair shape, colour, glasses and wear so a
-  // team's composite avatar never shows the same face twice.
+  // team's composite avatar never shows the same face twice. Hand-assigned
+  // rather than hashed: with 26 members, a hash produces near-collisions
+  // (same hair and wear, one tone apart) often enough to matter at 20px.
   'general-expert': { hair: 0, hairColor: 0, facialHair: 'none', glasses: 'none', wear: 'coat', tone: 0 },
   'principal-investigator': { hair: 1, hairColor: 4, facialHair: 'beard', glasses: 'square', wear: 'coat', tone: 2 },
   'research-planner': { hair: 8, hairColor: 1, facialHair: 'none', glasses: 'none', wear: 'plain', tone: 1 },
@@ -68,6 +70,20 @@ const BUILT_IN_LOOKS: Record<string, PersonLook> = {
   'reproducibility-engineer': { hair: 6, hairColor: 1, facialHair: 'beard', glasses: 'none', wear: 'cap', tone: 3 },
   'scientific-critic': { hair: 1, hairColor: 0, facialHair: 'stubble', glasses: 'round', wear: 'plain', tone: 5 },
   'scientific-writer': { hair: 5, hairColor: 3, facialHair: 'none', glasses: 'none', wear: 'plain', tone: 4 },
+  'bioinformatics-engineer': { hair: 2, hairColor: 0, facialHair: 'none', glasses: 'square', wear: 'headset', tone: 4 },
+  'single-cell-specialist': { hair: 3, hairColor: 4, facialHair: 'none', glasses: 'round', wear: 'coat', tone: 1 },
+  'structural-biologist': { hair: 4, hairColor: 1, facialHair: 'beard', glasses: 'none', wear: 'plain', tone: 0 },
+  'medical-imaging-specialist': { hair: 9, hairColor: 0, facialHair: 'none', glasses: 'square', wear: 'stethoscope', tone: 2 },
+  epidemiologist: { hair: 5, hairColor: 2, facialHair: 'none', glasses: 'round', wear: 'plain', tone: 3 },
+  pharmacologist: { hair: 7, hairColor: 3, facialHair: 'none', glasses: 'none', wear: 'coat', tone: 5 },
+  toxicologist: { hair: 6, hairColor: 2, facialHair: 'beard', glasses: 'square', wear: 'coat', tone: 1 },
+  immunologist: { hair: 8, hairColor: 0, facialHair: 'none', glasses: 'round', wear: 'coat', tone: 4 },
+  pathologist: { hair: 0, hairColor: 3, facialHair: 'moustache', glasses: 'square', wear: 'coat', tone: 2 },
+  'clinical-trial-designer': { hair: 3, hairColor: 0, facialHair: 'none', glasses: 'none', wear: 'plain', tone: 3 },
+  'regulatory-specialist': { hair: 1, hairColor: 2, facialHair: 'stubble', glasses: 'square', wear: 'plain', tone: 0 },
+  'bioethics-officer': { hair: 9, hairColor: 4, facialHair: 'none', glasses: 'round', wear: 'plain', tone: 5 },
+  'data-curator': { hair: 2, hairColor: 1, facialHair: 'none', glasses: 'none', wear: 'headset', tone: 3 },
+  'health-economist': { hair: 6, hairColor: 3, facialHair: 'stubble', glasses: 'round', wear: 'cap', tone: 2 },
 };
 
 function hashOf(value: string): number {

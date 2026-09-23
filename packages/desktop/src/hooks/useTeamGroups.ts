@@ -107,7 +107,18 @@ export function useTeamGroups() {
 
   /** Own groups only -- built-in templates are offered when creating a group, not chatted with. */
   const ownGroups = useMemo(() => teams.filter((team) => !team.builtIn), [teams]);
-  const templates = useMemo(() => teams.filter((team) => team.builtIn), [teams]);
+  /**
+   * Suggestions, minus the ones this workspace has already acted on: a
+   * roster you have already built a team from is not a suggestion any more,
+   * and leaving it in the list is what made suggestions and real teams look
+   * like the same thing.
+   */
+  const templates = useMemo(() => {
+    const used = new Set(
+      teams.filter((team) => !team.builtIn).map((team) => team.clonedFromTemplateId).filter(Boolean) as string[]
+    );
+    return teams.filter((team) => team.builtIn && !used.has(team.id));
+  }, [teams]);
 
   // Opening the page lands on the group with the newest activity, which is
   // the first row of the list (see `summaries` below for the ordering).

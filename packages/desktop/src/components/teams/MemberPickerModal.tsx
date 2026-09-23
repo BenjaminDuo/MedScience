@@ -48,12 +48,25 @@ export const MemberPickerModal: React.FC<MemberPickerModalProps> = ({
   const [name, setName] = useState('');
   const [templateId, setTemplateId] = useState<string | undefined>();
   const [warning, setWarning] = useState<string | undefined>();
+  // 26 members is past the point where scrolling is how you find someone.
+  const [memberQuery, setMemberQuery] = useState('');
 
   const agentById = useMemo(() => {
     const map = new Map<string, AgentDefinition>();
     agents.forEach((agent) => map.set(agent.id, agent));
     return map;
   }, [agents]);
+
+  /** Name, title and description all match, so "imaging", "影像" and "radiomics" all find the same person. */
+  const matchingAgents = useMemo(() => {
+    const query = memberQuery.trim().toLowerCase();
+    if (!query) return agents;
+    return agents.filter((agent) =>
+      [agent.name, agent.nameZh, agent.title, agent.titleZh, agent.description, agent.descriptionZh, agent.id]
+        .filter(Boolean)
+        .some((field) => (field as string).toLowerCase().includes(query))
+    );
+  }, [agents, memberQuery]);
 
   useEffect(() => {
     if (mode !== 'create' || selected.length > 0) return;
@@ -153,7 +166,7 @@ export const MemberPickerModal: React.FC<MemberPickerModalProps> = ({
                 className="w-full bg-bg-elevated border border-border-subtle rounded-lg px-2.5 py-2 text-[13px] text-text-primary outline-none focus:border-accent placeholder:text-text-muted"
               />
             </div>
-            <div className="flex items-center gap-1.5 flex-wrap px-4 py-2.5 border-b border-border-subtle">
+            <div className="flex items-center gap-1.5 flex-wrap px-4 py-2.5 border-b border-border-subtle max-h-[84px] overflow-y-auto">
               <span className="text-[11px] text-text-muted mr-0.5">{t('Suggested rosters:', '推荐组合：')}</span>
               {templates.map((template) => (
                 <button
@@ -174,16 +187,24 @@ export const MemberPickerModal: React.FC<MemberPickerModalProps> = ({
 
         <div className="flex-1 flex min-h-0">
           <div className="flex-1 flex flex-col border-r border-border-subtle min-w-0">
-            <div className="px-3.5 py-2.5 text-[11px] text-text-muted border-b border-border-subtle">
-              {t(`All members · ${agents.length}`, `全部队员 · ${agents.length} 位`)}
+            <div className="px-3.5 py-2.5 border-b border-border-subtle">
+              <input
+                value={memberQuery}
+                onChange={(event) => setMemberQuery(event.target.value)}
+                placeholder={t(
+                  `Search ${agents.length} members by name or expertise`,
+                  `在 ${agents.length} 位队员中搜索姓名或专长`
+                )}
+                className="w-full bg-bg-elevated border border-border-subtle rounded-lg px-2.5 py-1.5 text-[12px] text-text-primary outline-none focus:border-accent placeholder:text-text-muted"
+              />
             </div>
             <div className="flex-1 overflow-y-auto px-2.5 py-1.5">
               {/* Leaders first: a team is defined by who leads it, so the
                   people who can take that role are what you choose first. */}
               {(
                 [
-                  { label: t('Can lead the team', '可任队长'), list: agents.filter((agent) => canLeadAgent(agent)) },
-                  { label: t('Members', '队员'), list: agents.filter((agent) => !canLeadAgent(agent)) },
+                  { label: t('Can lead the team', '可任队长'), list: matchingAgents.filter((agent) => canLeadAgent(agent)) },
+                  { label: t('Members', '队员'), list: matchingAgents.filter((agent) => !canLeadAgent(agent)) },
                 ] as const
               ).map((section) =>
                 section.list.length === 0 ? null : (

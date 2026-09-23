@@ -8,6 +8,10 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   const paramDesktop = urlParams.get('theme') as DesktopTheme | null;
 
   const [desktopTheme, setDesktopThemeState] = useState<DesktopTheme>(() => {
+    // index.html resolved this before the first paint; adopting what it
+    // decided is what keeps the two from disagreeing for one frame.
+    const prePaint = document.documentElement.getAttribute('data-theme');
+    if (prePaint === 'dark' || prePaint === 'light') return prePaint;
     if (paramDesktop && ['dark', 'light'].includes(paramDesktop)) return paramDesktop;
     const saved = localStorage.getItem('medscience_desktop_theme');
     // Default appearance is light; a user who has explicitly picked dark keeps it via localStorage.

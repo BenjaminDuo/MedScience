@@ -41,7 +41,7 @@ interface ConversationListProps {
   onDeleteSession: (sessionId: string) => void;
   onExportSession: (sessionId: string) => void;
   onCreateTeam: () => void;
-  /** The built-in rosters, offered at the bottom of the list. */
+  /** The built-in rosters, offered at the bottom of the list as suggestions. */
   templates: ResearchTeamDefinition[];
   onUseTemplate: (templateId: string) => void;
   agentById: Map<string, AgentDefinition>;
@@ -54,6 +54,9 @@ export function rowKey(row: ConversationRow): string {
 }
 
 const COLLAPSED_LIMIT = 8;
+
+/** Suggested rosters shown before "show all" -- enough to browse, not a catalogue. */
+const TEMPLATE_PREVIEW_LIMIT = 4;
 
 function relativeTime(at: string | undefined, isZh: boolean): string {
   if (!at) return '';
@@ -119,6 +122,8 @@ export const ConversationList: React.FC<ConversationListProps> = ({
   const [renamingId, setRenamingId] = useState<string | undefined>();
   const [renameDraft, setRenameDraft] = useState('');
   const [confirmDeleteId, setConfirmDeleteId] = useState<string | undefined>();
+  const [showAllTemplates, setShowAllTemplates] = useState(false);
+  const visibleTemplates = showAllTemplates ? templates : templates.slice(0, TEMPLATE_PREVIEW_LIMIT);
 
   const renderSessionRow = (agentId: string, session: AgentSession) => {
     const isActive = session.id === activeSessionId;
@@ -433,32 +438,52 @@ export const ConversationList: React.FC<ConversationListProps> = ({
               rows.map(renderRow)
             )}
 
-            {/* The built-in rosters. They are not chats -- a template is a
-                fixed record -- so they sit here as starting points: tapping
-                one opens the picker with that roster already filled in. */}
+            {/* Suggested rosters. These are NOT teams -- nothing here exists
+                yet, and the styling has to say so on its own, because the
+                previous version rendered them exactly like the workspace's
+                real teams and read as "you already have 14 teams". Dashed
+                outline, desaturated faces and an explicit create affordance
+                are the difference between a thing and a suggestion. */}
             {templates.length > 0 && (
               <>
-                <div className="px-2 pt-4 pb-1 text-[10px] text-text-muted tracking-wide">
-                  {t('Suggested team rosters', '推荐小队配置')}
+                <div className="px-2 pt-5 pb-1 flex items-baseline gap-1.5">
+                  <span className="text-[10px] text-text-muted tracking-wide">
+                    {t('Suggested team rosters', '推荐小队配置')}
+                  </span>
+                  <span className="text-[9.5px] text-text-muted/60">
+                    {t('· not created yet', '· 尚未创建')}
+                  </span>
                 </div>
-                {templates.map((template) => {
+                <p className="px-2 pb-2 text-[10px] text-text-muted/80 leading-relaxed">
+                  {t(
+                    'Starting points, not teams. Pick one to assemble a team with that roster.',
+                    '这些只是配置模板，不是已有小队。点一个即可按该阵容拉起一支新小队。'
+                  )}
+                </p>
+                {visibleTemplates.map((template) => {
                   const leader = agentById.get(template.leaderAgentId);
                   const others = template.members.filter((member) => member.agentId !== template.leaderAgentId);
                   return (
                     <button
                       key={template.id}
                       onClick={() => onUseTemplate(template.id)}
-                      className="w-full flex gap-2.5 p-2 rounded-xl text-left hover:bg-bg-hover transition-colors"
+                      className="group w-full flex gap-2.5 p-2 mb-1.5 rounded-xl text-left border border-dashed border-border-color hover:border-accent-color/70 hover:bg-accent-soft/50 transition-colors"
                       title={(language === 'zh' && template.scenarioZh) || template.scenario}
                     >
-                      <GroupAvatar agentIds={template.members.map((member) => member.agentId)} size={38} />
+                      <div className="shrink-0 opacity-60 grayscale group-hover:opacity-100 group-hover:grayscale-0 transition">
+                        <GroupAvatar agentIds={template.members.map((member) => member.agentId)} size={38} />
+                      </div>
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-1.5">
-                          <span className="text-[12.5px] font-medium text-text-primary truncate">
+                          <span className="text-[12.5px] font-medium text-text-secondary group-hover:text-text-primary truncate transition-colors">
                             {(language === 'zh' && template.nameZh) || template.name}
                           </span>
-                          <span className="text-[9.5px] px-1 rounded border border-border-subtle text-text-muted shrink-0">
+                          <span className="text-[9.5px] px-1 rounded border border-dashed border-border-color text-text-muted shrink-0">
                             {t(`${template.members.length} members`, `${template.members.length} 人`)}
+                          </span>
+                          <span className="ml-auto shrink-0 flex items-center gap-0.5 text-[10px] text-text-muted group-hover:text-accent-color transition-colors">
+                            <Plus className="w-3 h-3" />
+                            {t('Create', '创建')}
                           </span>
                         </div>
                         <div className="text-[10.5px] text-text-muted mt-0.5 leading-snug line-clamp-2">
@@ -478,6 +503,16 @@ export const ConversationList: React.FC<ConversationListProps> = ({
                     </button>
                   );
                 })}
+                {templates.length > TEMPLATE_PREVIEW_LIMIT && (
+                  <button
+                    onClick={() => setShowAllTemplates((value) => !value)}
+                    className="w-full py-1.5 mb-2 text-[10.5px] text-text-muted hover:text-accent-color transition-colors"
+                  >
+                    {showAllTemplates
+                      ? t('Show fewer', '收起')
+                      : t(`Show all ${templates.length} rosters`, `查看全部 ${templates.length} 个配置`)}
+                  </button>
+                )}
               </>
             )}
           </>

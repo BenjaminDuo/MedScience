@@ -16,6 +16,12 @@ const STORAGE_KEY = 'medscience_desktop_lang';
 export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [language, setLanguageState] = useState<Language>(() => {
     if (typeof window !== 'undefined') {
+      // ?lang= wins over the stored choice, mirroring ?theme= in ThemeContext:
+      // it makes a link open in a known language regardless of what this
+      // browser last used, which is what documentation links and scripted
+      // screenshot captures need.
+      const param = new URLSearchParams(window.location.search).get('lang');
+      if (param === 'en' || param === 'zh') return param;
       const saved = localStorage.getItem(STORAGE_KEY) as Language;
       if (saved === 'en' || saved === 'zh') {
         return saved;

@@ -24,11 +24,32 @@ async function runTests() {
       assertTrue(result.valid, `Template "${template.name}" should validate cleanly, got errors: ${JSON.stringify(result.errors)}`);
     }
 
-    console.log('[Test 2/7] Exactly 4 built-in templates and 12 built-in agents exist (11 specialists + the general expert)');
-    assertTrue(builtInTeamTemplates.length === 4, `Expected 4 built-in templates, got ${builtInTeamTemplates.length}`);
-    // 11 team specialists plus 'general-expert', the default partner for a
-    // 1:1 conversation -- one roster now serves both chats and teams.
-    assertTrue(builtInTeamAgents.length === 12, `Expected 12 built-in agents, got ${builtInTeamAgents.length}`);
+    console.log('[Test 2/7] The built-in roster is complete, unique, and large enough to staff a biomedical project');
+    // Exact counts used to be asserted here; they only recorded how many
+    // records happened to exist and had to be edited every time one was
+    // added. What actually has to hold is that the catalogue is big enough
+    // to be worth browsing, and that no id is duplicated -- a duplicate id
+    // silently shadows a role everywhere it is looked up by id.
+    assertTrue(
+      builtInTeamTemplates.length >= 10,
+      `A biomedical project has more than a handful of shapes; expected at least 10 templates, got ${builtInTeamTemplates.length}`
+    );
+    assertTrue(
+      builtInTeamAgents.length >= 20,
+      `Expected at least 20 built-in agents, got ${builtInTeamAgents.length}`
+    );
+    assertTrue(
+      new Set(builtInTeamTemplates.map((t) => t.id)).size === builtInTeamTemplates.length,
+      'Template ids must be unique'
+    );
+    assertTrue(
+      new Set(builtInTeamAgents.map((a) => a.id)).size === builtInTeamAgents.length,
+      'Agent ids must be unique'
+    );
+    assertTrue(
+      builtInTeamAgents.some((a) => a.id === 'general-expert'),
+      "'general-expert', the default partner for a 1:1 conversation, must be in the same roster as the team specialists"
+    );
     assertTrue(
       builtInTeamTemplates.some((t) => t.id === DEFAULT_TEAM_TEMPLATE_ID),
       'DEFAULT_TEAM_TEMPLATE_ID should reference a real built-in template'
@@ -45,7 +66,10 @@ async function runTests() {
 
     console.log('[Test 4/7] listAll() returns built-in templates plus (initially empty) user teams');
     const initialAll = manager.listAll();
-    assertTrue(initialAll.length === 4, `Expected 4 teams before any clone, got ${initialAll.length}`);
+    assertTrue(
+      initialAll.length === builtInTeamTemplates.length,
+      `Before any clone, listAll() is exactly the templates; expected ${builtInTeamTemplates.length}, got ${initialAll.length}`
+    );
     assertTrue(manager.listUserTeams().length === 0, 'No user teams should exist yet');
 
     console.log('[Test 5/7] Cloning a template creates an independent, persisted user-owned team');

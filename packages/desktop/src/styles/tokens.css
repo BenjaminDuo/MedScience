@@ -1,49 +1,14 @@
 /* MedScience Design Token System */
 
 :root {
-  /* Default Desktop Dark */
-  --bg-primary: #090D16;
-  --bg-surface: #0E1524;
-  --bg-elevated: #141D30;
-  --bg-hover: #18233A;
-  
-  --border-color: #1A263D;
-  --border-subtle: #141E30;
-  --border-focus: #38BDF8;
-  
-  --text-primary: #F8FAFC;
-  --text-secondary: #94A3B8;
-  --text-muted: #64748B;
-  
-  --accent-color: #38BDF8;
-  --accent-hover: #0EA5E9;
-  --accent-soft: rgba(56, 189, 248, 0.12);
-  --accent-secondary: #818CF8;
-  --accent-glow: rgba(56, 189, 248, 0.35);
-  
-  --status-success: #10B981;
-  --status-warning: #F59E0B;
-  --status-error: #EF4444;
-  
-  --code-bg: #070A10;
-  
-  /* Shared CLI Tokens default (Green) */
-  --term-bg: #020603;
-  --term-window-bar: #0B140D;
-  --term-surface: #050E07;
-  --term-border: #14532D;
-  --term-border-box: #166534;
-  --term-text: #4ADE80;
-  --term-text-dim: #22C55E;
-  --term-muted: #15803D;
-  --term-accent: #22C55E;
-  --term-accent-bright: #86EFAC;
-  --term-cursor: #22C55E;
-  --term-glow: rgba(34, 197, 94, 0.25);
-}
+  /* Default appearance is LIGHT.
 
-/* Desktop Light Theme */
-[data-theme="light"] {
+     These used to be the dark values, with light applied only by
+     [data-theme="light"] -- which meant every reload painted one dark frame
+     before index.html's pre-paint script (or, worse, React) set the
+     attribute. Light-by-default makes the stylesheet agree with the app's
+     actual default, so a missed attribute degrades to the right theme
+     instead of a flash. */
   --bg-primary: #F8FAFC;
   --bg-surface: #FFFFFF;
   --bg-elevated: #F1F5F9;
@@ -68,6 +33,49 @@
   --status-error: #DC2626;
   
   --code-bg: #F8FAFC;
+
+  /* Shared CLI Tokens default (Green) */
+
+  --term-bg: #020603;
+  --term-window-bar: #0B140D;
+  --term-surface: #050E07;
+  --term-border: #14532D;
+  --term-border-box: #166534;
+  --term-text: #4ADE80;
+  --term-text-dim: #22C55E;
+  --term-muted: #15803D;
+  --term-accent: #22C55E;
+  --term-accent-bright: #86EFAC;
+  --term-cursor: #22C55E;
+  --term-glow: rgba(34, 197, 94, 0.25);
+}
+
+/* Desktop Dark Theme */
+[data-theme="dark"] {
+  --bg-primary: #090D16;
+  --bg-surface: #0E1524;
+  --bg-elevated: #141D30;
+  --bg-hover: #18233A;
+  
+  --border-color: #1A263D;
+  --border-subtle: #141E30;
+  --border-focus: #38BDF8;
+  
+  --text-primary: #F8FAFC;
+  --text-secondary: #94A3B8;
+  --text-muted: #64748B;
+  
+  --accent-color: #38BDF8;
+  --accent-hover: #0EA5E9;
+  --accent-soft: rgba(56, 189, 248, 0.12);
+  --accent-secondary: #818CF8;
+  --accent-glow: rgba(56, 189, 248, 0.35);
+  
+  --status-success: #10B981;
+  --status-warning: #F59E0B;
+  --status-error: #EF4444;
+  
+  --code-bg: #070A10;
 }
 
 /* CLI Theme 1: Green (Matrix / Classic Science) */

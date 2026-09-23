@@ -4,6 +4,7 @@ import os from 'node:os';
 import { ResearchTeamDefinition } from './types.js';
 import { builtInTeamTemplates, DEFAULT_TEAM_TEMPLATE_ID } from './BuiltInTeamTemplates.js';
 import { globalTeamAgentRegistry, TeamAgentRegistry } from './TeamRegistry.js';
+import { DEFAULT_WORKSPACE_ID } from '../core/WorkspaceManager.js';
 
 export interface TeamsConfigFile {
   version: string;
@@ -94,7 +95,7 @@ export class TeamProfileManager {
     }
   }
 
-  /** The 4 read-only built-in templates (design doc section 8, MVP-scoped to 4 in section 18). */
+  /** The read-only built-in templates (design doc section 8). */
   public listTemplates(): ResearchTeamDefinition[] {
     return builtInTeamTemplates;
   }
@@ -104,22 +105,48 @@ export class TeamProfileManager {
   }
 
   /**
+   * One-time migration for teams created before teams were workspace-scoped.
+   *
+   * Those records have no workspaceId, and listUserTeams used to return them
+   * for EVERY workspace so they would not look deleted. The cost of that was
+   * worse than the problem it solved: one legacy team appeared in every
+   * workspace the user opened, indistinguishable from a team they had
+   * actually created there. They were made when there was only one
+   * workspace, so that is where they belong -- the default workspace adopts
+   * them once, and they stop following the user around.
+   *
+   * Idempotent by construction: after the write there are no unscoped teams
+   * left, so every later call returns on the first line.
+   */
+  private adoptLegacyTeams(config: TeamsConfigFile): ResearchTeamDefinition[] {
+    if (!config.teams.some((team) => !team.workspaceId)) return config.teams;
+    const adopted = config.teams.map((team) =>
+      team.workspaceId ? team : { ...team, workspaceId: DEFAULT_WORKSPACE_ID }
+    );
+    try {
+      this.writeConfigFile({ ...config, teams: adopted });
+    } catch {
+      // A read-only config dir must not break listing; the teams are still
+      // returned under the default workspace for this process's lifetime.
+    }
+    return adopted;
+  }
+
+  /**
    * User-owned teams only (persisted to teams.json), excluding archived ones
    * unless requested.
    *
-   * With a `workspaceId`, returns that workspace's teams PLUS every team
-   * that has no workspaceId at all. The unscoped ones are teams created
-   * before teams became workspace-scoped: dropping them would make a user's
-   * existing teams look deleted, and auto-assigning them to the current
-   * workspace would silently rewrite their data, so they are returned as-is
-   * and the UI groups them under "unscoped" until the user picks a home for
-   * them.
+   * With a `workspaceId`, returns that workspace's teams and nothing else.
+   * Teams belong to a workspace the way its sessions and evidence do: a team
+   * assembled for an imaging project has no business appearing in a
+   * pharmacology one.
    */
   public listUserTeams(includeArchived = false, workspaceId?: string): ResearchTeamDefinition[] {
-    const teams = this.readConfigFile().teams;
+    const config = this.readConfigFile();
+    const teams = workspaceId ? this.adoptLegacyTeams(config) : config.teams;
     const visible = includeArchived ? teams : teams.filter((t) => !t.archived);
     if (!workspaceId) return visible;
-    return visible.filter((t) => !t.workspaceId || t.workspaceId === workspaceId);
+    return visible.filter((t) => t.workspaceId === workspaceId);
   }
 
   /** Built-in templates + user-owned teams, for a unified "browse everything" view. */
@@ -138,7 +165,10 @@ export class TeamProfileManager {
    */
   public ensureDefaultTeam(workspaceId: string): ResearchTeamDefinition | undefined {
     if (!workspaceId) return undefined;
-    const existing = this.readConfigFile().teams.filter((team) => team.workspaceId === workspaceId);
+    // Adoption first, so a workspace that already owns a legacy team is not
+    // handed a second, redundant default on top of it.
+    const teams = this.adoptLegacyTeams(this.readConfigFile());
+    const existing = teams.filter((team) => team.workspaceId === workspaceId);
     if (existing.length > 0) return undefined;
     const template = this.getTemplate(DEFAULT_TEAM_TEMPLATE_ID);
     const result = this.cloneTemplate(DEFAULT_TEAM_TEMPLATE_ID, {

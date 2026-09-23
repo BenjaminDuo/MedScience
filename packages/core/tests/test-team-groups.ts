@@ -7,7 +7,8 @@ import { TeamOrchestrator } from '../src/teams/TeamOrchestrator';
 import { TeamRunStore } from '../src/teams/TeamRunStore';
 import { SessionManager } from '../src/core/SessionManager';
 import { EventBus } from '../src/core/EventBus';
-import { DEFAULT_TEAM_TEMPLATE_ID } from '../src/teams/BuiltInTeamTemplates';
+import { builtInTeamTemplates, DEFAULT_TEAM_TEMPLATE_ID } from '../src/teams/BuiltInTeamTemplates';
+import { DEFAULT_WORKSPACE_ID } from '../src/core/WorkspaceManager';
 import { ModelProvider } from '../src/client/ModelProvider';
 import { ModelRequest, ModelResponse, ConnectionTestResult } from '../src/types/model';
 import { createApiChannels, apiChannelNames } from '../src/api/channels';
@@ -54,25 +55,33 @@ async function runTests() {
     assertTrue(inWorkspace.success, `Clone should succeed: ${JSON.stringify(inWorkspace.errors)}`);
     assertTrue(inWorkspace.team?.workspaceId === 'ws-a', 'Clone should carry the workspaceId it was created with');
 
-    console.log('[Test 2/6] Listing a workspace returns its own teams plus unscoped legacy teams, never another workspace’s');
+    console.log('[Test 2/6] A workspace sees only its own teams, and pre-workspace legacy teams are adopted by the default workspace');
     const otherWorkspace = manager.cloneTemplate(DEFAULT_TEAM_TEMPLATE_ID, { name: 'WS-B Team', workspaceId: 'ws-b' });
     const legacy = manager.cloneTemplate(DEFAULT_TEAM_TEMPLATE_ID, { name: 'Legacy Team' });
     assertTrue(otherWorkspace.success && legacy.success, 'Both extra clones should be created');
-    assertTrue(!legacy.team?.workspaceId, 'A clone made with no workspace stays unscoped');
+    assertTrue(!legacy.team?.workspaceId, 'A clone made with no workspace starts unscoped');
 
     const wsATeams = manager.listUserTeams(false, 'ws-a');
     const names = wsATeams.map((team) => team.name).sort();
     assertTrue(
-      names.length === 2 && names[0] === 'Legacy Team' && names[1] === 'WS-A Team',
-      `ws-a should see its own team and the unscoped one only, got ${JSON.stringify(names)}`
+      names.length === 1 && names[0] === 'WS-A Team',
+      `ws-a should see only its own team -- an unscoped legacy team must not follow the user into every workspace, got ${JSON.stringify(names)}`
+    );
+    assertTrue(
+      manager.listUserTeams(false, DEFAULT_WORKSPACE_ID).map((team) => team.name).includes('Legacy Team'),
+      'The legacy team is adopted by the default workspace, where it was created back when that was the only one'
+    );
+    assertTrue(
+      manager.getTeam(legacy.team!.id)?.workspaceId === DEFAULT_WORKSPACE_ID,
+      'Adoption is persisted, not just applied to the returned copy'
     );
     assertTrue(
       manager.listUserTeams(false).length === 3,
       'An unfiltered listing still returns every user team'
     );
     assertTrue(
-      manager.listAll(false, 'ws-a').filter((team) => team.builtIn).length === 4,
-      'Built-in templates are returned for every workspace'
+      manager.listAll(false, 'ws-a').filter((team) => team.builtIn).length === builtInTeamTemplates.length,
+      'Every built-in template is offered in every workspace'
     );
 
     console.log('[Test 2.5/6] A workspace with no team of its own gets the default one, and archiving it does not bring it back');

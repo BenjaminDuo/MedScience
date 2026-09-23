@@ -10,15 +10,16 @@ import { ToolCategory } from '../types/runtime.js';
  * single-agent system is untouched. If/when the two are unified, that is a
  * deliberate later migration, not a byproduct of adding this feature.
  *
- * See JunScience_RESEARCH_TEAMS_DESIGN.md sections 5-9 for the full design
+ * See docs/specs/MedScience_Research_Team_Groups_Redesign.md sections 5-9 for the full design
  * this file implements. Phase 1 (this file + BuiltInAgents.ts +
  * BuiltInTeamTemplates.ts + TeamProfileManager.ts) only covers definitions
  * and a read-only/clonable registry -- no TeamOrchestrator, TeamPlanner,
  * TeamScheduler, or AgentRunner exist yet, and nothing here executes a team.
  */
 
-/** The 11 built-in team-scoped agent roles (design doc section 7). */
+/** The built-in team-scoped agent roles -- see BuiltInAgents.ts for the definitions. */
 export type BuiltInAgentId =
+  | 'general-expert'
   | 'principal-investigator'
   | 'research-planner'
   | 'literature-reviewer'
@@ -29,7 +30,21 @@ export type BuiltInAgentId =
   | 'ml-specialist'
   | 'reproducibility-engineer'
   | 'scientific-critic'
-  | 'scientific-writer';
+  | 'scientific-writer'
+  | 'bioinformatics-engineer'
+  | 'single-cell-specialist'
+  | 'structural-biologist'
+  | 'medical-imaging-specialist'
+  | 'epidemiologist'
+  | 'pharmacologist'
+  | 'toxicologist'
+  | 'immunologist'
+  | 'pathologist'
+  | 'clinical-trial-designer'
+  | 'regulatory-specialist'
+  | 'bioethics-officer'
+  | 'data-curator'
+  | 'health-economist';
 
 /** Team-scoped agent ids are plain strings so custom agents can be added later without a type change. */
 export type TeamAgentId = string;

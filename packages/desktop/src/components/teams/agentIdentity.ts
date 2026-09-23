@@ -12,6 +12,7 @@ import type { Language } from '../../context/LanguageContext';
  * fall back to a hash of the id, which is stable across restarts.
  */
 const BUILT_IN_COLORS: Record<string, string> = {
+  'general-expert': '#0EA5E9',
   'principal-investigator': '#F59E0B',
   'research-planner': '#A78BFA',
   'literature-reviewer': '#38BDF8',
@@ -23,12 +24,27 @@ const BUILT_IN_COLORS: Record<string, string> = {
   'reproducibility-engineer': '#2DD4BF',
   'scientific-critic': '#FBBF24',
   'scientific-writer': '#C084FC',
+  'bioinformatics-engineer': '#22C55E',
+  'single-cell-specialist': '#84CC16',
+  'structural-biologist': '#0D9488',
+  'medical-imaging-specialist': '#06B6D4',
+  epidemiologist: '#F97316',
+  pharmacologist: '#DB2777',
+  toxicologist: '#EF4444',
+  immunologist: '#8B5CF6',
+  pathologist: '#D946EF',
+  'clinical-trial-designer': '#3B82F6',
+  'regulatory-specialist': '#64748B',
+  'bioethics-officer': '#B45309',
+  'data-curator': '#0369A1',
+  'health-economist': '#65A30D',
 };
 
 const FALLBACK_COLORS = ['#38BDF8', '#818CF8', '#34D399', '#F472B6', '#FBBF24', '#2DD4BF', '#FB7185', '#A78BFA'];
 
 /** Short avatar labels for the built-ins, in both languages. */
 const BUILT_IN_SHORT: Record<string, [string, string]> = {
+  'general-expert': ['GEN', '通用'],
   'principal-investigator': ['PI', 'PI'],
   'research-planner': ['PL', '规划'],
   'literature-reviewer': ['LR', '文献'],
@@ -40,6 +56,20 @@ const BUILT_IN_SHORT: Record<string, [string, string]> = {
   'reproducibility-engineer': ['REP', '复现'],
   'scientific-critic': ['CRI', '审查'],
   'scientific-writer': ['WRT', '写作'],
+  'bioinformatics-engineer': ['BIF', '生信'],
+  'single-cell-specialist': ['SC', '单细'],
+  'structural-biologist': ['STR', '结构'],
+  'medical-imaging-specialist': ['IMG', '影像'],
+  epidemiologist: ['EPI', '流病'],
+  pharmacologist: ['PK', '药理'],
+  toxicologist: ['TOX', '毒理'],
+  immunologist: ['IMM', '免疫'],
+  pathologist: ['PTH', '病理'],
+  'clinical-trial-designer': ['CTD', '试验'],
+  'regulatory-specialist': ['REG', '法规'],
+  'bioethics-officer': ['ETH', '伦理'],
+  'data-curator': ['DAT', '数据'],
+  'health-economist': ['HE', '卫经'],
 };
 
 export function agentColor(agentId: string): string {
