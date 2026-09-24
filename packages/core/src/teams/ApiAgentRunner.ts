@@ -240,13 +240,54 @@ export interface RunLeaderPlanningParams {
   maxTurns?: number;
 }
 
+/**
+ * A member's effective system prompt for a team run.
+ *
+ * Three layers, innermost first: the agent's own read-only systemPrompt, the
+ * account-wide standing instructions the user wrote on its member card
+ * (AgentDefinition.userInstructions), and the brief for this particular team
+ * (ResearchTeamMember.memberInstructions). Both instruction layers were
+ * editable in the UI and persisted, and the runner read neither -- every
+ * team task ran against the stock prompt, so a user who told a member
+ * "always report 95% CIs" saw that honoured in a 1:1 conversation and
+ * silently ignored by the same member on a team.
+ *
+ * Order matters: later layers are meant to qualify earlier ones, and the
+ * agent's own prompt stays first because allowedToolCategories is enforced
+ * against it.
+ */
+function memberSystemPrompt(
+  agentDef: AgentDefinition,
+  member: ResearchTeamMember | undefined,
+  team: ResearchTeamDefinition,
+  roleInThisRun: string
+): string {
+  const layers = [agentDef.systemPrompt];
+
+  const standing = agentDef.userInstructions?.trim();
+  if (standing) layers.push(`Standing instructions from the user (always apply):\n${standing}`);
+
+  const brief = member?.memberInstructions?.trim();
+  if (brief) layers.push(`Your brief on this team (applies to this team only):\n${brief}`);
+
+  layers.push(`Team instructions: ${team.instructions || '(none)'}`);
+  layers.push(roleInThisRun);
+  return layers.join('\n\n');
+}
+
 export async function runLeaderPlanning(params: RunLeaderPlanningParams): Promise<{ plan?: RawPlanSubmission; error?: StructuredRunError }> {
   const { team, leaderAgentDef, inquiry, modelProvider, model, sessionId, maxTurns = 4 } = params;
   const roster = team.members
     .map((m) => `- ${m.agentId} (${m.role}${m.required ? '' : ', optional'})`)
     .join('\n');
 
-  const systemPrompt = `${leaderAgentDef.systemPrompt}\n\nTeam instructions: ${team.instructions || '(none)'}\n\nBudget: at most ${team.maxTasks} tasks, at most ${team.maxConcurrency} running concurrently, at most ${team.maxRevisionsPerTask} revisions per task.`;
+  const leaderMember = team.members.find((m) => m.agentId === leaderAgentDef.id);
+  const systemPrompt = memberSystemPrompt(
+    leaderAgentDef,
+    leaderMember,
+    team,
+    `Budget: at most ${team.maxTasks} tasks, at most ${team.maxConcurrency} running concurrently, at most ${team.maxRevisionsPerTask} revisions per task.`
+  );
   const userPrompt = `Research inquiry: "${inquiry}"\n\nTeam roster (assign tasks only to these agent ids):\n${roster}\n\nPlan a task graph that answers this inquiry. Keep it as small as the inquiry actually needs. Call ${'team_plan_submit'} with your plan.`;
 
   const forcedTool = buildPlanSubmitToolSpec(team);
@@ -296,7 +337,12 @@ export async function runMemberTask(
         .join('\n')
     : '(no dependency handoffs)';
 
-  const systemPrompt = `${agentDef.systemPrompt}\n\nTeam instructions: ${team.instructions || '(none)'}\n\nYou are working on ONE task within a larger team research run. You only see what this task needs -- not the full team conversation.`;
+  const systemPrompt = memberSystemPrompt(
+    agentDef,
+    member,
+    team,
+    'You are working on ONE task within a larger team research run. You only see what this task needs -- not the full team conversation.'
+  );
   const userPrompt = `Original research inquiry (context only): "${inquiry}"\n\nYour task: ${task.title}\nObjective: ${task.objective}\nAcceptance criteria:\n${task.acceptanceCriteria.map((c) => `- ${c}`).join('\n')}\n\nDependency handoffs:\n${dependencyContext}\n\nUse your tools to gather real evidence, then call "${HANDOFF_SUBMIT_TOOL_NAME}" with your structured handoff. Every finding except a hypothesis must cite a real evidence id from a tool call you actually made.`;
 
   const result = await runScopedLoop({
@@ -339,7 +385,12 @@ export async function runReviewTask(params: RunReviewTaskParams): Promise<{ raw?
     .map((h) => `- From ${h.agentId} (task ${h.taskId}): ${h.summary}\n  Findings: ${h.findings.map((f) => `[${f.kind}, evidence=${f.evidenceIds.join(',') || 'none'}] ${f.statement}`).join('; ')}\n  Limitations: ${h.limitations.join('; ') || '(none stated)'}`)
     .join('\n');
 
-  const systemPrompt = `${agentDef.systemPrompt}\n\nTeam instructions: ${team.instructions || '(none)'}\n\nYou are the mandatory quality gate for this team run. By default you cannot modify the original results -- only raise issues, request more evidence, or request a revision.`;
+  const systemPrompt = memberSystemPrompt(
+    agentDef,
+    member,
+    team,
+    'You are the mandatory quality gate for this team run. By default you cannot modify the original results -- only raise issues, request more evidence, or request a revision.'
+  );
   const userPrompt = `Original research inquiry: "${inquiry}"\n\nAll member handoffs so far:\n${handoffContext}\n\nReview this work. Check evidence support, statistical soundness, citation validity, fair presentation of positive/negative evidence, and whether any tool/network/permission failure was mislabeled as a negative result. Call "${REVIEW_SUBMIT_TOOL_NAME}" with your verdict.`;
 
   const result = await runScopedLoop({
@@ -383,7 +434,12 @@ export async function runSynthesis(params: RunSynthesisParams): Promise<{ narrat
     messages: [
       {
         role: 'system',
-        content: `${agentDef.systemPrompt}\n\nTeam instructions: ${team.instructions || '(none)'}\n\nWrite the final synthesized report for this team run. Only use findings and evidence already present below -- never introduce a new scientific conclusion.`,
+        content: memberSystemPrompt(
+          agentDef,
+          team.members.find((m) => m.agentId === agentDef.id),
+          team,
+          'Write the final synthesized report for this team run. Only use findings and evidence already present below -- never introduce a new scientific conclusion.'
+        ),
       },
       {
         role: 'user',

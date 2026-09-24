@@ -11,7 +11,7 @@ import { useLanguage } from '../../context/LanguageContext';
  * whichever workspace happens to be expanded in the sidebar tree. This is
  * the one place a user explicitly assigns it to a real workspace instead --
  * left untouched, it stays 未分类. Same lock-once-started rule as
- * SessionModeToggle/ResearchProfilePicker: renders nothing once the
+ * the other composer pickers: renders nothing once the
  * conversation has any turns, and only for sessionType 'research' (chat
  * sessions aren't workspace-scoped).
  */

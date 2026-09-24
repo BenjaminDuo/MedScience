@@ -126,7 +126,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ className = '' }) => {
 
       {/* Workspace tree -- accordion of workspaces, each expanding to its
           own 对话/科研小队/证据库/产出文件. Mode (chat vs. research) is
-          chosen per-session in the composer (SessionModeToggle), not here.
+          decided per message by whether it names a member (see lib/memberRouting.ts), not here.
           It is the flex-1/min-h-0 element in this column (see its own
           internal layout), so IT is what absorbs/fills leftover vertical
           space -- not the (currently empty) nav below -- which is what

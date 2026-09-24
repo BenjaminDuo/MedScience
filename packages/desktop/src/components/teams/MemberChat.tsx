@@ -7,8 +7,6 @@ import { AgentSession } from '../../types/agent';
 import { AgentMessage } from '../workspace/AgentMessage';
 import { RuntimeApprovalCard } from '../workspace/RuntimeApprovalCard';
 import { WorkspaceComposer } from '../workspace/WorkspaceComposer';
-import { SessionModeToggle } from '../common/SessionModeToggle';
-import { ResearchProfilePicker } from '../common/ResearchProfilePicker';
 import { agentName, agentTitle } from './agentIdentity';
 import { MemberAvatar } from './GroupAvatar';
 
@@ -71,7 +69,6 @@ export const MemberChat: React.FC<MemberChatProps> = ({
     thread.findIndex((session) => session.id === currentSession.id)
   );
   const active = thread[activeIndex];
-  const isDraft = Boolean(active && active.messages.length === 0);
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ block: 'end' });
@@ -263,17 +260,6 @@ export const MemberChat: React.FC<MemberChatProps> = ({
 
         <div ref={bottomRef} />
       </div>
-
-      {/* A conversation's mode and research workflow are fixed once it
-          starts, so they are offered here, on the unsent one, rather than on
-          every message. */}
-      {isDraft && !continuous && (
-        <div className="shrink-0 px-4 pt-2 flex items-center gap-2 flex-wrap border-t border-border-subtle bg-bg-surface">
-          <span className="text-[11px] text-text-muted">{t('This conversation:', '本次会话：')}</span>
-          <SessionModeToggle />
-          <ResearchProfilePicker />
-        </div>
-      )}
 
       {continuous ? (
         <div className="shrink-0 px-4 py-3 border-t border-border bg-bg-surface text-center text-[11.5px] text-text-muted">

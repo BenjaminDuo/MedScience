@@ -12,6 +12,9 @@ import { DEFAULT_WORKSPACE_ID } from '../src/core/WorkspaceManager';
 import { ModelProvider } from '../src/client/ModelProvider';
 import { ModelRequest, ModelResponse, ConnectionTestResult } from '../src/types/model';
 import { createApiChannels, apiChannelNames } from '../src/api/channels';
+import { runMemberTask } from '../src/teams/ApiAgentRunner';
+import { EvidenceTracker } from '../src/research-loop/EvidenceTracker';
+import { builtInTeamAgents } from '../src/teams/BuiltInAgents';
 
 /**
  * Covers what the group-chat UI depends on and the older suites do not:
@@ -169,6 +172,69 @@ async function runTests() {
     console.log('[Test 5/6] A settled run never blocks the next inquiry');
     activeRecord.run.status = 'completed' as any;
     assertTrue(!orchestrator.getActiveRunForTeam(teamId), 'A completed run is not in flight');
+
+    console.log('[Test 5.5/6] A team task prompt carries BOTH instruction layers the UI lets the user write');
+    // Regression: memberInstructions (per-team) and userInstructions
+    // (account-wide) were editable in the member card, persisted, and then
+    // dropped -- every team task ran against the stock agent prompt.
+    let capturedSystemPrompt = '';
+    class CapturingProvider implements ModelProvider {
+      public name = 'capturing';
+      public readonly isExternal = false;
+      public async listModels(): Promise<string[]> { return []; }
+      public async testConnection(): Promise<ConnectionTestResult> { return { success: true, latencyMs: 0, model: 'capturing' }; }
+      public async generate(request: ModelRequest): Promise<ModelResponse> {
+        capturedSystemPrompt = String(request.messages[0]?.content || '');
+        // Answer with the forced handoff tool so the loop settles on turn one.
+        const forced = request.tools?.[request.tools.length - 1];
+        return {
+          content: '',
+          finishReason: 'tool_calls',
+          toolCalls: [{ id: 'call-1', name: forced!.name, arguments: { summary: 's', methods: [], findings: [], limitations: [] } }],
+        } as ModelResponse;
+      }
+      public async stream(request: ModelRequest): Promise<ModelResponse> { return this.generate(request); }
+    }
+
+    const promptTeam = {
+      ...inWorkspace.team!,
+      instructions: 'Team-level rule: state the unit of analysis.',
+      members: inWorkspace.team!.members.map((m) =>
+        m.agentId === 'biostatistician' ? { ...m, memberInstructions: 'Always report 95% CIs.' } : m
+      ),
+    };
+    const statsMember = promptTeam.members.find((m) => m.agentId === 'biostatistician')!;
+    const statsAgent = { ...builtInTeamAgents.find((a) => a.id === 'biostatistician')!, userInstructions: 'Prefer non-parametric tests.' };
+
+    await runMemberTask({
+      team: promptTeam,
+      member: statsMember,
+      agentDef: statsAgent,
+      task: { id: 't1', title: 'T', objective: 'O', acceptanceCriteria: ['C'], dependencyTaskIds: [] } as any,
+      inquiry: 'does it hold',
+      dependencyHandoffs: [],
+      modelProvider: new CapturingProvider(),
+      model: 'capturing',
+      sessionId: 'sess-prompt',
+      evidenceTracker: new EvidenceTracker(),
+    });
+
+    assertTrue(
+      capturedSystemPrompt.includes('Always report 95% CIs.'),
+      'The member\'s per-team brief must reach the model'
+    );
+    assertTrue(
+      capturedSystemPrompt.includes('Prefer non-parametric tests.'),
+      "The member's account-wide standing instructions must reach the model on a team run too"
+    );
+    assertTrue(
+      capturedSystemPrompt.includes('Team-level rule: state the unit of analysis.'),
+      'Team instructions must still be present'
+    );
+    assertTrue(
+      capturedSystemPrompt.indexOf(statsAgent.systemPrompt) === 0,
+      "The agent's own prompt stays first -- tool scoping and privacy class are enforced against it"
+    );
 
     console.log('[Test 6/6] The shared API channel registry exposes every channel both hosts need');
     const channels = createApiChannels({ onDelta: () => undefined });

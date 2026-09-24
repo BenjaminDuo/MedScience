@@ -26,9 +26,15 @@ const EMPTY_CONFIG: AgentsConfigFile = { version: '1.0.0', overrides: {}, custom
  * This registry was read-only in Phase 1. It now persists two user-editable
  * things, because the member card is the one place a member is configured:
  * standing instructions on a built-in member, and fully custom members. A
- * built-in's systemPrompt/tool categories stay untouchable -- privacyClass
- * and allowedToolCategories are enforced against that prompt, so a
- * rewritable prompt would make 'sensitive-clinical' meaningless.
+ * built-in's systemPrompt/tool categories stay untouchable, because
+ * allowedToolCategories is enforced against that prompt (see
+ * resolveScopedTools in ApiAgentRunner) and a rewritable prompt could talk
+ * its way around the roles those categories describe.
+ *
+ * Note that `privacyClass` is currently descriptive only -- nothing reads it.
+ * Patient data is protected by ClinicalDataGateHook, which scans tool
+ * payloads for PHI on every agent regardless of its class, so marking a
+ * member 'sensitive-clinical' documents intent but grants no extra gate.
  */
 export class TeamAgentRegistry {
   private customDir?: string;

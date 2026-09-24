@@ -3,8 +3,6 @@ import { ChevronRight, Paperclip, Square } from 'lucide-react';
 import { useAgent } from '../../context/AgentContext';
 import { useLanguage } from '../../context/LanguageContext';
 import { ExecutionProfilePicker } from '../common/ExecutionProfilePicker';
-import { SessionModeToggle } from '../common/SessionModeToggle';
-import { ResearchProfilePicker } from '../common/ResearchProfilePicker';
 import { WorkspacePicker } from '../common/WorkspacePicker';
 import { ToolsPicker } from '../common/ToolsPicker';
 import { AttachmentChips } from '../common/AttachmentChips';
@@ -117,8 +115,6 @@ export const AgentInput: React.FC<AgentInputProps> = ({ className = '', autoFocu
         <ExecutionProfilePicker />
         <div className="flex-1" />
         <WorkspacePicker />
-        <ResearchProfilePicker />
-        <SessionModeToggle />
       </div>
     </div>
   );

@@ -19,7 +19,17 @@ interface AgentContextType {
   activeView: 'home' | 'workspace';
   status: AgentStatus;
   planTasks: PlanTask[];
-  submitPrompt: (promptText: string) => Promise<void>;
+  /**
+   * Sends a message on the current conversation.
+   *
+   * `routing` is how an @mention takes effect: the composer resolves the
+   * mention and says who should answer and in which mode, for this message
+   * only. Without it the conversation's own agent and mode apply.
+   */
+  submitPrompt: (
+    promptText: string,
+    routing?: { agentId?: string; sessionType?: 'chat' | 'research' }
+  ) => Promise<void>;
   resetSession: (
     sessionType?: 'chat' | 'research',
     workspaceId?: string,
@@ -481,8 +491,18 @@ export const AgentProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   // immediately by submitPrompt in the same handler would race React's
   // state update, since submitPrompt's closure still sees the pre-update
   // currentSession. Taking the base session explicitly sidesteps that.
-  const submitPromptOn = async (baseSession: AgentSession, promptText: string) => {
+  const submitPromptOn = async (
+    baseSession: AgentSession,
+    promptText: string,
+    routing?: { agentId?: string; sessionType?: 'chat' | 'research' }
+  ) => {
     if (!promptText.trim()) return;
+
+    // A mention retargets this message without rewriting the conversation:
+    // the thread still belongs to whoever it belongs to, and the next
+    // message with no mention goes back to them.
+    const routedAgentId = routing?.agentId || baseSession.agentId;
+    const routedSessionType = routing?.sessionType || baseSession.sessionType;
 
     const trimmed = promptText.trim();
     const isFirstInquiry = baseSession.messages.length === 0;
@@ -547,11 +567,11 @@ export const AgentProvider: React.FC<{ children: React.ReactNode }> = ({ childre
           trimmed,
           baseSession.id,
           selectedExecutionProfileId,
-          baseSession.sessionType,
+          routedSessionType,
           baseSession.workspaceId,
           baseSession.researchProfileId,
           language,
-          baseSession.agentId
+          routedAgentId
         );
         if (result?.turn) {
           applyTurnResult(result.turn as Turn, result.session as CoreRuntimeSession | undefined);
@@ -613,7 +633,10 @@ export const AgentProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     }
   };
 
-  const submitPrompt = (promptText: string) => submitPromptOn(currentSession, promptText);
+  const submitPrompt = (
+    promptText: string,
+    routing?: { agentId?: string; sessionType?: 'chat' | 'research' }
+  ) => submitPromptOn(currentSession, promptText, routing);
 
   // QuickActions (home page): atomically starts a brand-new session with a
   // specific sessionType/workspace/researchProfile and submits the first
