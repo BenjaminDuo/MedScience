@@ -6,7 +6,6 @@ export type PortalSection =
   | 'userguide'
   | 'apireference'
   | 'examples'
-  | 'cli'
   | 'architecture'
   | 'skills'
   | 'contributing'

@@ -143,7 +143,6 @@ flowchart LR
 | Module | Primary responsibility | Key dependencies |
 |---|---|---|
 | `packages/core` | Runtime, policies, scientific integrations, persistence, MCP | Node.js standard library |
-| `packages/cli` | One-shot commands and interactive Ink/line REPL | Core, React, Ink |
 | `packages/desktop/src` | Shared React renderer and application state | React, Vite, Core types |
 | `packages/desktop/electron` | Native process, preload contract, IPC handlers | Electron, Core |
 | `packages/desktop/web` | Loopback Web server, REST API, SSE event transport | Node HTTP, Vite, Core |
@@ -542,7 +541,6 @@ validation, retention rules, audit persistence, incident response, and applicabl
 |---|---|
 | `npm run build` | Build Core, CLI, renderer, Web type checks, and Electron process |
 | `npm test` | Run the package-level Core and CLI test entry points |
-| `npm run cli` | Start MedScience CLI |
 | `npm run desktop` | Start a previously built Electron desktop application |
 | `npm run web` | Build and start the production-style loopback Web application |
 | `npm run web:dev` | Start the loopback Web application with Vite middleware |

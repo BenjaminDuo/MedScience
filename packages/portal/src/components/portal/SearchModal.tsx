@@ -77,16 +77,6 @@ const searchEntries: SearchEntry[] = [
     keywords: ['skills', 'sop', 'alignment', 'admet', 'kegg', 'prisma', '技能', '化学', '统计'],
   },
   {
-    titleEn: 'CLI Terminal Agent Manual',
-    titleZh: 'CLI 终端智能体操作手册',
-    categoryEn: 'Terminal',
-    categoryZh: '终端',
-    section: 'cli',
-    descriptionEn: 'Interactive REPL slash commands (/model, /plan, /act, /cost) and one-shot execution.',
-    descriptionZh: '交互式 REPL 斜杠指令（/model, /plan, /act, /cost）与一键直接执行模式。',
-    keywords: ['cli', 'terminal', 'repl', 'commands', 'slash', '终端', '命令行'],
-  },
-  {
     titleEn: 'EvidenceVerifier Gate API',
     titleZh: 'EvidenceVerifier 证据验证网关',
     categoryEn: 'Core API',

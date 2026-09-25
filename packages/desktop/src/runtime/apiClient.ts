@@ -7,6 +7,7 @@ import type {
   LocalRuntimeKind,
   ModelProfile,
   ResearchTeamDefinition,
+  SkillInstallResult,
   RuntimeApprovalDecision,
   RuntimeEvent,
   RuntimeSession,
@@ -99,6 +100,14 @@ export function createApiClient(invoke: Transport, subscribe: EventSubscriber) {
       getUsage: (): Promise<Record<string, any>> => invoke('runtime:getUsage'),
       respondApproval: (sessionId: string, approvalId: string, decision: RuntimeApprovalDecision): Promise<boolean> =>
         invoke('runtime:respondApproval', sessionId, approvalId, decision),
+    },
+    skills: {
+      /** Stages, audits, and (only if the audit passes) installs a skill from a URL or local path. */
+      install: (sourceUrlOrPath: string): Promise<SkillInstallResult> =>
+        invoke('skill:install', sourceUrlOrPath),
+      listInstalled: (): Promise<{ skillId: string; name: string; path: string }[]> =>
+        invoke('skill:listInstalled'),
+      uninstall: (skillId: string): Promise<boolean> => invoke('skill:uninstall', skillId),
     },
     teams: {
       list: (includeArchived?: boolean, workspaceId?: string): Promise<ResearchTeamDefinition[]> =>

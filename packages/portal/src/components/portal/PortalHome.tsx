@@ -7,12 +7,10 @@ import {
   Wrench,
   Layers,
   Users,
-  Code2,
   Terminal,
   Copy,
   Check,
   Sparkles,
-  Sliders,
 } from 'lucide-react';
 import { PortalHeroVisual } from './PortalHeroVisual';
 import { useNav } from '../../context/NavContext';
@@ -21,17 +19,11 @@ import { useLanguage } from '../../context/LanguageContext';
 export const PortalHome: React.FC = () => {
   const { setActiveSection } = useNav();
   const { language } = useLanguage();
-  const [activeGalleryTab, setActiveGalleryTab] = useState<'desktop-light' | 'desktop-dark' | 'workspace' | 'cli'>('desktop-light');
-  const [activeCodeTab, setActiveCodeTab] = useState<'cli-curl' | 'git' | 'web' | 'desktop' | 'sdk'>('cli-curl');
+  const [activeGalleryTab, setActiveGalleryTab] = useState<'desktop-light' | 'desktop-dark' | 'workspace'>('desktop-light');
+  const [activeCodeTab, setActiveCodeTab] = useState<'git' | 'web' | 'desktop' | 'sdk'>('git');
   const [copiedCode, setCopiedCode] = useState(false);
-  const [activeModeDemo, setActiveModeDemo] = useState<'plan' | 'act'>('plan');
 
   const codeSnippets = {
-    'cli-curl': `# Install MedScience CLI via one-line installer (macOS & Linux)
-curl -fsSL https://benjaminduo.github.io/MedScience/install.sh | bash
-
-# Launch interactive scientific agent
-medscience`,
     git: `# 1. Clone MedScience repository
 git clone https://github.com/BenjaminDuo/MedScience.git
 cd MedScience
@@ -39,8 +31,8 @@ cd MedScience
 # 2. Install workspace dependencies
 npm install
 
-# 3. Launch autonomous research inquiry in CLI
-npm run cli`,
+# 3. Launch the workstation in your browser
+npm run web`,
     web: `# Run the full workstation as a local web app
 npm run web
 
@@ -108,11 +100,11 @@ console.log(turn.agentResponse);`,
             <div className="flex items-center justify-between text-[11px] font-mono text-slate-400">
               <span className="flex items-center gap-1.5 text-accent font-semibold">
                 <Terminal size={13} />
-                <span>{isZh ? '快速安装 (CLI 终端智能体)' : 'QUICK INSTALL (CLI AGENT)'}</span>
+                <span>{isZh ? '快速开始 (本地 Web 工作站)' : 'QUICK START (LOCAL WEB WORKSTATION)'}</span>
               </span>
               <button
                 onClick={() => {
-                  navigator.clipboard.writeText('curl -fsSL https://benjaminduo.github.io/MedScience/install.sh | bash');
+                  navigator.clipboard.writeText('git clone https://github.com/BenjaminDuo/MedScience.git && cd MedScience && npm install && npm run web');
                   setCopiedCode(true);
                   setTimeout(() => setCopiedCode(false), 2000);
                 }}
@@ -124,7 +116,7 @@ console.log(turn.agentResponse);`,
             </div>
             <div className="flex items-center gap-2 font-mono text-[13px] text-emerald-400 select-all overflow-x-auto py-0.5">
               <span className="text-slate-500 select-none">$</span>
-              <span>curl -fsSL https://benjaminduo.github.io/MedScience/install.sh | bash</span>
+              <span>git clone …/MedScience.git &amp;&amp; cd MedScience &amp;&amp; npm install &amp;&amp; npm run web</span>
             </div>
           </div>
 
@@ -138,11 +130,11 @@ console.log(turn.agentResponse);`,
               <span>{isZh ? '下载桌面客户端' : 'Download Desktop App'}</span>
             </button>
             <button
-              onClick={() => setActiveSection('cli')}
+              onClick={() => setActiveSection('installation')}
               className="flex items-center gap-2 px-5 py-2.5 rounded-lg border border-border bg-bg-surface hover:bg-bg-hover text-text-primary font-semibold text-[13.5px] shadow-2xs transition-all active:scale-98"
             >
               <Terminal size={16} />
-              <span>{isZh ? '查看终端智能体' : 'Explore CLI Agent'}</span>
+              <span>{isZh ? '在本地运行' : 'Run It Locally'}</span>
               <ArrowRight size={15} />
             </button>
             <a
@@ -230,203 +222,20 @@ console.log(turn.agentResponse);`,
         </div>
       </section>
 
-      {/* 3. CLI AGENT WORKFLOW & COMMANDS SHOWCASE */}
-      <section className="space-y-6">
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3">
-          <div className="text-left space-y-1">
-            <div className="inline-flex items-center gap-1.5 text-[12px] font-bold uppercase tracking-wider text-accent">
-              <Terminal size={14} />
-              <span>{isZh ? '终端交互式智能体' : 'Interactive CLI Agent'}</span>
-            </div>
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-text-primary tracking-tight">
-              {isZh ? '高效极速的终端智能体：双模式驱动科学发现' : 'Powerful Terminal Agent. Fast, Hypothesis-Driven Discovery.'}
-            </h2>
-            <p className="text-[14px] text-text-secondary">
-              {isZh
-                ? '自由切换审慎规划的 Plan Mode 与自主执行的 Act Mode，使用 /model 动态管理模型，通过 /cost 洞悉Token开销。'
-                : 'Seamlessly switch between deliberative Plan Mode and autonomous Act Mode, inspect guardrails with medscience hooks list, manage skills, and track evidence.'}
-            </p>
-          </div>
-
-          <button
-            onClick={() => setActiveSection('cli')}
-            className="self-start sm:self-auto inline-flex items-center gap-1.5 text-[13px] font-semibold text-accent hover:underline"
-          >
-            <span>{isZh ? '查看完整终端手册' : 'View Full CLI Manual'}</span>
-            <ArrowRight size={14} />
-          </button>
-        </div>
-
-        {/* Dual Mode Switcher & Terminal Simulator */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-          {/* Left Column: Command & Mode Highlights */}
-          <div className="lg:col-span-5 space-y-4">
-            {/* Plan vs Act Mode Card */}
-            <div className="p-4 rounded-xl border border-border bg-bg-surface space-y-3">
-              <h3 className="font-bold text-[14px] text-text-primary flex items-center gap-2">
-                <Sliders size={16} className="text-accent" />
-                <span>{isZh ? '智能体运行模式' : 'Agent Execution Modes'}</span>
-              </h3>
-              
-              <div className="grid grid-cols-2 gap-2">
-                <button
-                  onClick={() => setActiveModeDemo('plan')}
-                  className={`p-3 rounded-lg text-left border transition-all ${
-                    activeModeDemo === 'plan'
-                      ? 'border-purple-500/50 bg-purple-500/10 text-purple-600 dark:text-purple-400 font-semibold'
-                      : 'border-border bg-bg-elevated/40 text-text-muted hover:text-text-primary'
-                  }`}
-                >
-                  <div className="text-[13px] font-mono font-bold flex items-center gap-1.5">
-                    <span className="w-2 h-2 rounded-full bg-purple-500"></span>
-                    /plan Mode
-                  </div>
-                  <p className="text-[11px] text-text-secondary mt-1">
-                    {isZh
-                      ? '结构化五阶段里程碑规划、文献综合与假说树构建，不触发改变环境的沙箱代码。'
-                      : 'Structured 5-stage planning, literature synthesis, and hypothesis tree formulation.'}
-                  </p>
-                </button>
-
-                <button
-                  onClick={() => setActiveModeDemo('act')}
-                  className={`p-3 rounded-lg text-left border transition-all ${
-                    activeModeDemo === 'act'
-                      ? 'border-emerald-500/50 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-semibold'
-                      : 'border-border bg-bg-elevated/40 text-text-muted hover:text-text-primary'
-                  }`}
-                >
-                  <div className="text-[13px] font-mono font-bold flex items-center gap-1.5">
-                    <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
-                    /act Mode
-                  </div>
-                  <p className="text-[11px] text-text-secondary mt-1">
-                    {isZh
-                      ? '自主调用 PubMed、UniProt、ChEMBL 工具，在内核沙箱中执行计算并生成研究报告。'
-                      : 'Autonomous tool execution (PubMed, UniProt, ChEMBL, FileEditor) & artifact generation.'}
-                  </p>
-                </button>
-              </div>
-            </div>
-
-            {/* Essential Commands Cheat Sheet */}
-            <div className="p-4 rounded-xl border border-border bg-bg-surface space-y-2.5 text-[12.5px]">
-              <h3 className="font-bold text-[14px] text-text-primary flex items-center gap-2">
-                <Code2 size={16} className="text-accent" />
-                <span>{isZh ? '常用 CLI 指令速查' : 'Essential CLI & REPL Commands'}</span>
-              </h3>
-              <div className="space-y-2">
-                <div className="flex items-center justify-between p-2 rounded-lg bg-bg-elevated/50 font-mono text-[12px]">
-                  <span className="text-accent font-bold">medscience hooks list</span>
-                  <span className="text-text-secondary">{isZh ? '审查所有活跃的生命周期Hook' : 'Inspect active guardrail hooks'}</span>
-                </div>
-                <div className="flex items-center justify-between p-2 rounded-lg bg-bg-elevated/50 font-mono text-[12px]">
-                  <span className="text-emerald-500 font-bold">medscience skill install</span>
-                  <span className="text-text-secondary">{isZh ? '通过静态安全审查安装三方技能' : 'Securely install third-party skill'}</span>
-                </div>
-                <div className="flex items-center justify-between p-2 rounded-lg bg-bg-elevated/50 font-mono text-[12px]">
-                  <span className="text-purple-500 font-bold">/plan | /act</span>
-                  <span className="text-text-secondary">{isZh ? '即时切换规划与执行工作模式' : 'Toggle Planning vs Execution mode'}</span>
-                </div>
-                <div className="flex items-center justify-between p-2 rounded-lg bg-bg-elevated/50 font-mono text-[12px]">
-                  <span className="text-amber-500 font-bold">/model</span>
-                  <span className="text-text-secondary">{isZh ? '切换大模型基座或配置API密钥' : 'Switch LLM or configure API key'}</span>
-                </div>
-                <div className="flex items-center justify-between p-2 rounded-lg bg-bg-elevated/50 font-mono text-[12px]">
-                  <span className="text-cyan-500 font-bold">/compact</span>
-                  <span className="text-text-secondary">{isZh ? '无损保留EV证据压缩上下文' : 'Compress context with EV anchors'}</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Right Column: Simulated Terminal View */}
-          <div className="lg:col-span-7 rounded-2xl border border-border bg-[#070A10] text-[#E2E8F0] overflow-hidden shadow-lg flex flex-col">
-            {/* Terminal Header */}
-            <div className="flex items-center justify-between px-4 py-2.5 bg-white/5 border-b border-white/10 text-[11px] font-mono text-slate-400">
-              <div className="flex items-center gap-2">
-                <div className="flex items-center gap-1.5">
-                  <span className="w-2.5 h-2.5 rounded-full bg-red-500/80"></span>
-                  <span className="w-2.5 h-2.5 rounded-full bg-amber-500/80"></span>
-                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/80"></span>
-                </div>
-                <span className="text-slate-300 ml-2 font-semibold">medscience — interactive scientific repl</span>
-              </div>
-              <span className="text-slate-500 font-mono">v1.4.0</span>
-            </div>
-
-            {/* Terminal Body */}
-            <div className="p-4 sm:p-5 font-mono text-[12.5px] leading-relaxed space-y-3 overflow-x-auto text-left flex-1 min-h-[340px]">
-              <div className="text-slate-400">
-                <span className="text-emerald-400 font-bold">MedScience v1.4.0</span> — Autonomous Scientific Workstation
-                <br />
-                Type <span className="text-accent font-bold">/help</span> for commands,{' '}
-                <span className="text-purple-400 font-bold">/plan</span> for hypothesis mode,{' '}
-                <span className="text-emerald-400 font-bold">/act</span> for autonomous execution.
-              </div>
-
-              {activeModeDemo === 'plan' ? (
-                <div className="space-y-2 text-slate-300 pt-1">
-                  <div className="flex items-center gap-2 text-purple-400 font-bold">
-                    <span>medscience [PLAN] &gt;</span>
-                    <span className="text-slate-100">
-                      Investigate TYK2 JH2 allosteric pseudokinase binding vs JAK1 catalytic domain
-                    </span>
-                  </div>
-                  <div className="text-slate-400 text-[12px] space-y-1">
-                    <div>[TASK-1] Formulate competing hypothesis tree (H1: JH2 Allosteric, H2: ATP Orthosteric)... <span className="text-emerald-400">DONE</span></div>
-                    <div>[TASK-2] Retrieve Swiss-Prot topological domains for TYK2 (P29597) &amp; JAK1 (P23458)... <span className="text-emerald-400">DONE</span></div>
-                    <div>[TASK-3] Design ChEMBL bioactivity assay filter protocol (IC50 &lt; 50nM, Ki comparison)... <span className="text-amber-400">PLANNED</span></div>
-                    <div>[TASK-4] Verify mathematical boundaries via EvidenceVerifier Gate... <span className="text-slate-500">PENDING ACT</span></div>
-                  </div>
-                  <div className="p-2.5 rounded-lg bg-purple-950/30 border border-purple-800/40 text-purple-200 text-[11.5px]">
-                    Plan Tracker: 2/4 milestones formulated. Evidence verification checklist initialized. Switch to <span className="text-emerald-400 font-bold">/act</span> to execute tools autonomously.
-                  </div>
-                </div>
-              ) : (
-                <div className="space-y-2 text-slate-300 pt-1">
-                  <div className="flex items-center gap-2 text-emerald-400 font-bold">
-                    <span>medscience [ACT] &gt;</span>
-                    <span className="text-slate-100">Executing verification plan and bioactivity extraction...</span>
-                  </div>
-                  <div className="text-slate-400 text-[12px] space-y-1">
-                    <div>[TOOL] <span className="text-cyan-400">uniprot_fetch</span>(id: &quot;P29597&quot;) -&gt; 1187 aa sequence [EV-001]</div>
-                    <div>[TOOL] <span className="text-cyan-400">chembl_query</span>(target: &quot;TYK2&quot;, molecule: &quot;Deucravacitinib&quot;) -&gt; IC50 = 12.8 nM [EV-002]</div>
-                    <div>[SANDBOX] Running Python fold selectivity script in isolated macOS Seatbelt...</div>
-                    <div className="text-emerald-400 font-semibold">[VERIFIER] Pre-adoption gate passed: IC50 &gt; 0, p &lt; 0.001. Digest: sha256:7f4a...</div>
-                  </div>
-                  <div className="p-2.5 rounded-lg bg-emerald-950/30 border border-emerald-800/40 text-emerald-200 text-[11.5px]">
-                    Finding: Deucravacitinib demonstrates &gt;10,000-fold functional selectivity for TYK2 JH2 domain over JAK1/2/3 ATP active sites. All claims anchored in [EV-001, EV-002].
-                  </div>
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 4. QUICK START CODE SNIPPETS (Multi-Tab Installer) */}
+      {/* 3. QUICK START CODE SNIPPETS (Multi-Tab Installer) */}
       <section className="space-y-4">
         <div className="text-left space-y-1">
           <h2 className="text-2xl sm:text-3xl font-extrabold text-text-primary tracking-tight">
             {isZh ? '快速安装与运行' : 'Installation & Quick Start'}
           </h2>
           <p className="text-[14px] text-text-secondary">
-            {isZh ? '数秒内即可配置并运行 MedScience 终端智能体或桌面工作站。' : 'Get started with MedScience CLI or Desktop in seconds.'}
+            {isZh ? '数秒内即可运行 MedScience 桌面客户端或本地 Web 工作站。' : 'Get the MedScience desktop app or the local web workstation running in seconds.'}
           </p>
         </div>
 
         <div className="rounded-xl border border-border bg-bg-surface overflow-hidden shadow-xs">
           <div className="flex flex-wrap items-center justify-between px-4 py-2.5 border-b border-border bg-bg-elevated/50 gap-2">
             <div className="flex flex-wrap items-center gap-1 text-[12px]">
-              <button
-                onClick={() => setActiveCodeTab('cli-curl')}
-                className={`px-3 py-1 rounded-md font-medium transition-all ${
-                  activeCodeTab === 'cli-curl' ? 'bg-bg-surface text-accent shadow-xs' : 'text-text-muted hover:text-text-primary'
-                }`}
-              >
-                curl (macOS/Linux)
-              </button>
               <button
                 onClick={() => setActiveCodeTab('git')}
                 className={`px-3 py-1 rounded-md font-medium transition-all ${
@@ -476,7 +285,7 @@ console.log(turn.agentResponse);`,
         </div>
       </section>
 
-      {/* 5. REAL INTERFACE SHOWCASE (Real Screenshots Gallery) */}
+      {/* 4. REAL INTERFACE SHOWCASE (Real Screenshots Gallery) */}
       <section className="space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2">
           <div className="text-left space-y-1">
@@ -515,14 +324,6 @@ console.log(turn.agentResponse);`,
               }`}
             >
               {isZh ? '工作区视图' : 'Workspace View'}
-            </button>
-            <button
-              onClick={() => setActiveGalleryTab('cli')}
-              className={`px-2.5 py-1 rounded-md font-medium transition-all ${
-                activeGalleryTab === 'cli' ? 'bg-bg-surface text-accent shadow-xs' : 'text-text-muted hover:text-text-primary'
-              }`}
-            >
-              {isZh ? '终端命令行' : 'CLI Terminal'}
             </button>
           </div>
         </div>
@@ -574,20 +375,6 @@ console.log(turn.agentResponse);`,
             </div>
           )}
 
-          {activeGalleryTab === 'cli' && (
-            <div className="space-y-4">
-              <img
-                src={`${import.meta.env.BASE_URL}screenshots/screenshot_cli.png`}
-                alt="MedScience CLI command palette"
-                className="w-full max-w-3xl mx-auto rounded-xl border border-border/80 shadow-sm"
-              />
-              <p className="text-[12px] text-text-muted text-center">
-                {isZh
-                  ? 'MedScience CLI 终端智能体 (v1.4.0) — 基于 Ink 架构，支持三向模式切换（Act/Plan/Hypothesis）、⌃P 命令面板、实时任务清单与多假说思考流。'
-                  : 'MedScience CLI Agent (v1.4.0) — Built with the Ink engine: tri-mode execution, a ⌃P command palette, a live To-Do checklist, and verified scientific synthesis.'}
-              </p>
-            </div>
-          )}
         </div>
       </section>
     </div>

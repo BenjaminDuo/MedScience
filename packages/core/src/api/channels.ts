@@ -7,6 +7,7 @@ import { discoverAllRuntimes, bindLocalRuntime } from '../execution/local/runtim
 import { globalSessionManager } from '../core/SessionManager.js';
 import { globalWorkspaceManager } from '../core/WorkspaceManager.js';
 import { globalToolRegistry } from '../tools/ToolRegistry.js';
+import { globalSkillInstaller } from '../skills/SkillInstaller.js';
 import { globalTeamProfileManager } from '../teams/TeamProfileManager.js';
 import { globalTeamAgentRegistry } from '../teams/TeamRegistry.js';
 import { globalTeamOrchestrator } from '../teams/TeamOrchestrator.js';
@@ -218,6 +219,16 @@ export function createApiChannels(host: ApiChannelHost) {
     /** Full records for the group chat's message history (see TeamOrchestrator.listRunRecords). */
     'team:run:history': async (teamId: string, workspaceId?: string, limit?: number) =>
       globalTeamOrchestrator.listRunRecords(teamId, workspaceId, limit ?? 5),
+
+    // ----- scientific skills -----
+    // installSkill stages the source, runs the static security audit, and
+    // only commits if the audit passes -- the audit report comes back either
+    // way so the caller can show WHY an install was refused. This used to be
+    // reachable only from the CLI; the desktop skills page is where a user
+    // actually looks for skills, so it belongs here.
+    'skill:install': async (sourceUrlOrPath: string) => globalSkillInstaller.installSkill(sourceUrlOrPath, true),
+    'skill:listInstalled': async () => globalSkillInstaller.listInstalledSkills(),
+    'skill:uninstall': async (skillId: string): Promise<boolean> => globalSkillInstaller.uninstallSkill(skillId),
 
     // ----- workspaces -----
     'workspace:list': async () => globalWorkspaceManager.listWorkspaces(),

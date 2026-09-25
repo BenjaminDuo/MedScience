@@ -15,6 +15,7 @@ import {
 import { useAgent } from '../../context/AgentContext';
 import { useNav } from '../../context/NavContext';
 import { useLanguage } from '../../context/LanguageContext';
+import { SkillInstallPanel } from './SkillInstallPanel';
 
 interface SkillItem {
   id: string;
@@ -371,6 +372,8 @@ export const SkillsCatalogView: React.FC = () => {
           {t('19 Skills Loaded & Verified', '已加载并验证 19 项技能')}
         </span>
       </div>
+
+      <SkillInstallPanel />
 
       {/* Category Pills & Search */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 my-6">

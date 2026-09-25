@@ -43,11 +43,8 @@ jobs:
       # throwaway MEDSCIENCE_HOME so CI never writes to a real profile, and
       # skips the suites that need network access or a personal API key --
       # which the enumerated list used to run and depend on.
-      - name: Run Test Suites (core + cli)
+      - name: Run Test Suites (core + desktop)
         run: npm test
-
-      - name: Verify CLI Command Execution
-        run: node packages/cli/bin/medscience.js --help || npm --workspace=@medscience/cli test
 
       - name: Verify Electron Desktop Native Compilation
         run: npm --workspace=@medscience/desktop run build

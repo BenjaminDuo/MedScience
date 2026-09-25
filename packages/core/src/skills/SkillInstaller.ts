@@ -41,6 +41,21 @@ export interface SkillInstallResult {
   installedPath?: string;
 }
 
+/**
+ * Reading a provider credential out of the environment, in the forms a
+ * script actually uses: bracket indexing, .get(), and os.getenv().
+ */
+const CREDENTIAL_READ =
+  /(?:process\.env\s*\[\s*['"`]|process\.env\.|os\.environ\s*\[\s*['"`]|os\.environ\.get\s*\(\s*['"`]|os\.getenv\s*\(\s*['"`])\s*(?:[A-Z0-9_]*(?:OPENAI|ANTHROPIC|DEEPSEEK|AWS|AZURE|GOOGLE|HF|HUGGINGFACE|GITHUB|MEDSCIENCE)[A-Z0-9_]*(?:KEY|TOKEN|SECRET|PASSWORD)|API_KEY|SECRET_KEY|ACCESS_TOKEN)/i;
+
+/**
+ * Sending data off the machine. Covers the HTTP client libraries and the
+ * shell-out forms (curl/wget through subprocess), which the library-only
+ * pattern missed entirely.
+ */
+const OUTBOUND_SEND =
+  /(?:requests\.(?:post|put|patch|get)|httpx\.(?:post|put|get)|urllib\.request\.urlopen|aiohttp|fetch\s*\(|axios\.(?:post|put|get)|http\.request|socket\.(?:connect|create_connection)|\bcurl\b|\bwget\b)/i;
+
 export class SkillInstaller {
   private userSkillsDir: string;
 
@@ -96,6 +111,8 @@ export class SkillInstaller {
       const relPath = path.relative(stagingDir, filePath);
       const content = fs.readFileSync(filePath, 'utf-8');
       const lines = content.split('\n');
+      const credentialReads: { line: number; snippet: string }[] = [];
+      const outboundSends: { line: number; snippet: string }[] = [];
 
       for (let i = 0; i < lines.length; i++) {
         const lineContent = lines[i];
@@ -188,21 +205,36 @@ export class SkillInstaller {
           });
         }
 
-        // Rule SEC-NET-01: Credential Exfiltration / Token Snooping
-        if (
-          /(?:process\.env|os\.environ)\s*\[\s*['"](?:OPENAI|ANTHROPIC|DEEPSEEK|AWS)_.*KEY['"]\s*\]/i.test(lineContent) &&
-          /(?:requests\.post|fetch|axios\.post|http\.request)/i.test(lineContent)
-        ) {
-          violations.push({
-            ruleId: 'SEC-NET-01',
-            ruleCategory: 'Credential Snooping & Exfiltration',
-            severity: 'CRITICAL',
-            file: relPath,
-            line: lineNum,
-            message: 'Detected pattern reading API credentials from environment combined with remote outbound POST transmission.',
-            matchedSnippet: lineContent.trim(),
-          });
+        // Rule SEC-NET-01 part 1: remember where credentials are read.
+        // This used to require the read and the send on the SAME line, which
+        // any two-line rewrite walked straight past, and it only matched
+        // bracket indexing (os.environ['K']) -- not os.environ.get('K') or
+        // os.getenv('K'). Both are recorded here and paired below.
+        if (CREDENTIAL_READ.test(lineContent)) {
+          credentialReads.push({ line: lineNum, snippet: lineContent.trim() });
         }
+        if (OUTBOUND_SEND.test(lineContent)) {
+          outboundSends.push({ line: lineNum, snippet: lineContent.trim() });
+        }
+      }
+
+      // Rule SEC-NET-01: a file that both reads a credential and makes an
+      // outbound call is flagged for a human, per file rather than per line.
+      // A skill that legitimately calls an API it holds a key for will trip
+      // this -- that is the intended trade for code you are about to install
+      // from a URL, and the report names both lines so the reason is visible.
+      if (credentialReads.length > 0 && outboundSends.length > 0) {
+        const read = credentialReads[0];
+        const send = outboundSends[0];
+        violations.push({
+          ruleId: 'SEC-NET-01',
+          ruleCategory: 'Credential Snooping & Exfiltration',
+          severity: 'CRITICAL',
+          file: relPath,
+          line: read.line,
+          message: `Reads API credentials from the environment (line ${read.line}) and makes an outbound network call (line ${send.line}). Review both before installing.`,
+          matchedSnippet: read.snippet,
+        });
       }
     }
 

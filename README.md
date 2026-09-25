@@ -44,7 +44,7 @@ When provided with a complex research inquiry (e.g., *"Evaluate the allosteric s
 | **🌲 Subagent Hypothesis Tree** | Concurrent multi-hypothesis exploration: The parent agent dynamically forks isolated subagent branches to evaluate competing targets/mechanisms in parallel, computing empirical multi-factor confidence gradients and synthesizing a structured **Hypothesis Comparison Matrix**. |
 | **🛡️ Formal Lifecycle Hooks Gate (`HookRegistry`)** | Non-bypassable guardrails triggered across 4 lifecycle events (`PreToolUse`, `PostToolUse`, `SessionStart`, `Stop`): `secret-redaction` (blocks credential leaks), `evidence-verifier` (boundary checks), `clinical-data-gate` (guards EHR/DICOM data), and `evidence-completeness-check` (ensures 100% provenance). |
 | **📝 Confined Workspace File Editor (`FileEditorTool`)** | In-workspace text/script modification with zero host escape: supports view, atomic str_replace, line insertion, and append strictly within session workspaces for iterative manuscript and data editing. |
-| **📦 19 Domain Skills & Security Installer (`SkillInstaller`)** | Comprehensive scientific SOP library covering molecular biology, cheminformatics, statistics, MASLD RNA-seq, survival analysis, FAERS signal detection, and PRISMA systematic reviews, equipped with automated static security auditing (`medscience skill install <url>`). |
+| **📦 19 Domain Skills & Security Installer (`SkillInstaller`)** | Comprehensive scientific SOP library covering molecular biology, cheminformatics, statistics, MASLD RNA-seq, survival analysis, FAERS signal detection, and PRISMA systematic reviews, equipped with a static pre-install scan that refuses skills tripping its rules (Scientific Skills → Install from a URL). The scan catches obvious and careless code, not a determined author. |
 | **📋 Explicit Plan & Stream Orchestration** | Transparent scientific milestones: Formulates an explicit 5-stage research plan at Turn 1, streaming live task milestones (`[✔] Completed` / `[⏳] In Progress` / `[ ] Pending`) and attached `EV-xxx` evidence anchors via EventBus to CLI and Desktop UI. |
 | **🔒 Kernel-Level OS Sandboxing** | Multi-platform script execution isolation:<br>• **macOS**: Seatbelt kernel sandbox (`sandbox-exec`) + physical network air-gap (`(deny default)`)<br>• **Linux**: Bubblewrap / Landlock unprivileged LSM container (`bwrap --ro-bind / / --proc /proc --dev /dev --unshare-net`)<br>• **Windows**: Mandatory Integrity Control (`Low Integrity Token` + Workspace ACL) |
 | **⚖️ CritiqueEngine Anti-Hallucination Gate** | Live verification of cited **PMIDs (NCBI PubMed)** and **NCT IDs (ClinicalTrials.gov)**; validates canonical sequence lengths and flags suspect fragments. |
@@ -86,12 +86,11 @@ npm install
 # Build all packages
 npm run build
 
-# Run an autonomous scientific inquiry
-npm run cli research "Evaluate the allosteric selectivity of TYK2 JH2 pseudokinase vs ATP catalytic domain across JAK family kinases"
+# Run the workstation in your browser
+npm run web   # then open http://127.0.0.1:3000
 
-# Inspect guardrails and scientific skills
-npm run cli hooks list
-npm run cli skill list
+# Or launch the Electron desktop app
+npm run desktop
 ```
 
 #### 3. Local Web Application (no `.exe` required)

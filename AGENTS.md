@@ -29,7 +29,6 @@ MedScience/
 │   │   │   ├── sandbox/        # Cross-platform sandbox (macOS Seatbelt, Linux bwrap, Windows)
 │   │   │   └── privacy/        # ClinicalDataGate privacy enforcement
 │   │   └── tests/      # Core test suites and integration verification
-│   ├── cli/            # Interactive REPL and subcommands (`medscience research`, `medscience hooks list`)
 │   ├── web/            # Loopback-only server that serves the desktop renderer as a
 │   │                   # local web app (`npm run web`)
 │   ├── desktop/        # Electron + React + Tailwind desktop app (ships via GitHub Releases)
@@ -44,7 +43,6 @@ MedScience/
 | Package | Name | Ships as |
 |---|---|---|
 | `packages/core` | `@medscience/core` | Internal library -- the engine every other package builds on |
-| `packages/cli` | `@medscience/cli` | The `medscience` command (`npm run cli`) |
 | `packages/web` | `@medscience/web` | The `medscience-web` local server (`npm run web`) |
 | `packages/desktop` | `@medscience/desktop` | GitHub Releases, via electron-builder |
 | `packages/portal` | `@medscience/portal` | GitHub Pages, built in CI by `pages.yml` |
@@ -133,9 +131,9 @@ npx tsx packages/core/tests/test-evidence-verifier.ts
 npx tsx packages/core/tests/test-plan-tracker.ts
 npx tsx packages/core/tests/test-medical-connectors.ts
 
-# Inspect registered hooks
-medscience hooks list
+# Run the workstation as a local web app (loopback only)
+npm run web
 
-# Start interactive CLI
-medscience
+# Run the Electron desktop app
+npm run desktop
 ```

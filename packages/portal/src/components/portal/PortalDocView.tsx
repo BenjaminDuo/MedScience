@@ -6,7 +6,6 @@ import {
   Compass,
   Code2,
   FlaskConical,
-  Terminal,
   Layers,
   Cpu,
   GitPullRequest,
@@ -66,7 +65,6 @@ export const PortalDocView: React.FC<PortalDocViewProps> = ({ section }) => {
     userguide: { en: 'User Guide & Operating Manual', zh: '用户指南与操作手册' },
     apireference: { en: 'TypeScript API Reference', zh: 'TypeScript API 参考' },
     examples: { en: 'Scientific Examples & Workflows', zh: '实践案例与科研工作流' },
-    cli: { en: 'CLI Agent Manual', zh: 'CLI 终端智能体手册' },
     architecture: { en: 'System Architecture & Sandboxes', zh: '系统架构与安全沙箱' },
     skills: { en: 'Agent Skills Library (19 Total)', zh: '科学技能库 (共19项)' },
     contributing: { en: 'Contributing Guide', zh: '参与贡献与开发者指南' },
@@ -266,23 +264,16 @@ export const PortalDocView: React.FC<PortalDocViewProps> = ({ section }) => {
                 <span>{isZh ? '2. 快速安装' : '2. Quick Installation'}</span>
               </h2>
               <div className="space-y-2">
-                <div className="text-[13px] font-semibold text-text-primary">{isZh ? '方式 A：一键脚本 (macOS & Linux)' : 'Option A: One-Line Installer (macOS & Linux)'}</div>
-                {renderCodeBlock(
-                  `curl -fsSL https://benjaminduo.github.io/MedScience/install.sh | bash`,
-                  'bash',
-                  'qs-curl'
-                )}
+                <div className="text-[13px] font-semibold text-text-primary">{isZh ? '方式 A：桌面客户端' : 'Option A: Desktop App'}</div>
+                <p className="text-[12.5px] text-text-secondary leading-relaxed">
+                  {isZh
+                    ? '从 GitHub Releases 下载 macOS / Windows 安装包，开箱即用。'
+                    : 'Download the macOS / Windows installer from GitHub Releases — nothing else to set up.'}
+                </p>
 
-                <div className="text-[13px] font-semibold text-text-primary pt-2">{isZh ? '方式 B：从源码运行' : 'Option B: Run from Source'}</div>
+                <div className="text-[13px] font-semibold text-text-primary pt-2">{isZh ? '方式 B：本地 Web 工作站' : 'Option B: Local Web Workstation'}</div>
                 {renderCodeBlock(
-                  `git clone https://github.com/BenjaminDuo/MedScience.git\ncd MedScience\nnpm install && npm run build\nnpm run cli`,
-                  'bash',
-                  'qs-source'
-                )}
-
-                <div className="text-[13px] font-semibold text-text-primary pt-2">{isZh ? '方式 C：本地 Web 工作站' : 'Option C: Local Web Workstation'}</div>
-                {renderCodeBlock(
-                  `npm run web`,
+                  `git clone https://github.com/BenjaminDuo/MedScience.git\ncd MedScience\nnpm install && npm run build\nnpm run web`,
                   'bash',
                   'qs-web'
                 )}
@@ -1106,147 +1097,6 @@ export const PortalDocView: React.FC<PortalDocViewProps> = ({ section }) => {
       {/* ========================================================================= */}
       {/* SECTION: CLI AGENT MANUAL                                                 */}
       {/* ========================================================================= */}
-      {section === 'cli' && (
-        <article className="space-y-8">
-          <div className="space-y-2 border-b border-border pb-4">
-            <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-accent/10 text-accent font-bold text-[11px] font-mono">
-              <Terminal size={12} />
-              <span>{isZh ? '终端研究智能体手册' : 'TERMINAL AGENT WORKSTATION'}</span>
-            </div>
-            <h1 className="text-3xl font-extrabold text-text-primary tracking-tight">
-              {isZh ? 'MedScience CLI 终端智能体操作手册' : 'MedScience CLI Agent Manual'}
-            </h1>
-            <p className="text-[15px] text-text-secondary leading-relaxed">
-              {isZh
-                ? '面向开发者的高性能命令行科研智能体。支持 Plan 规划模式与 Act 执行模式双向切换、/model 动态换模、实时工具流与密码学证据锚定。'
-                : 'A high-performance, developer-first command-line research agent featuring dual-mode execution (Plan vs Act), model switching with /model, and cryptographic evidence anchoring.'}
-            </p>
-          </div>
-
-          <div className="space-y-6 text-[14px] text-text-secondary leading-relaxed">
-            {/* Quick Install */}
-            <div className="space-y-3">
-              <h2 className="text-xl font-bold text-text-primary flex items-center gap-2">
-                <span>{isZh ? '1. 快速安装' : '1. Quick Installation'}</span>
-              </h2>
-              <div className="space-y-2">
-                <div className="text-[12.5px] font-semibold text-text-primary">{isZh ? '方式 A：一键 Bash 脚本 (macOS & Linux)' : 'Option A: One-Line Bash Installer (macOS & Linux)'}</div>
-                {renderCodeBlock(
-                  `curl -fsSL https://benjaminduo.github.io/MedScience/install.sh | bash`,
-                  'bash',
-                  'cli-curl'
-                )}
-
-                <div className="text-[12.5px] font-semibold text-text-primary pt-2">{isZh ? '方式 B：从源码运行' : 'Option B: Run from Source'}</div>
-                {renderCodeBlock(
-                  `git clone https://github.com/BenjaminDuo/MedScience.git\ncd MedScience\nnpm install && npm run build\nnpm run cli`,
-                  'bash',
-                  'cli-source'
-                )}
-
-                <div className="text-[12.5px] font-semibold text-text-primary pt-2">{isZh ? '方式 C：本地 Web 工作站' : 'Option C: Local Web Workstation'}</div>
-                {renderCodeBlock(
-                  `npm run web`,
-                  'bash',
-                  'cli-web'
-                )}
-              </div>
-            </div>
-
-            {/* Execution Modes */}
-            <div className="space-y-4 pt-2">
-              <h2 className="text-xl font-bold text-text-primary flex items-center gap-2">
-                <Sliders size={20} className="text-accent" />
-                <span>{isZh ? '2. 执行模式：Plan 规划模式 vs Act 执行模式' : '2. Execution Modes: Plan Mode vs Act Mode'}</span>
-              </h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 my-3">
-                <div className="p-4 rounded-xl border border-purple-500/30 bg-purple-50/50 dark:bg-purple-950/20 space-y-2">
-                  <div className="flex items-center justify-between">
-                    <span className="px-2 py-0.5 rounded font-mono font-bold text-[11px] bg-purple-500 text-white">/plan Mode</span>
-                    <span className="text-[11px] text-purple-600 dark:text-purple-400 font-mono">{isZh ? '审慎推演' : 'Deliberative'}</span>
-                  </div>
-                  <h3 className="font-bold text-[14px] text-text-primary">{isZh ? '假说树与方案规划' : 'Hypothesis & Protocol Design'}</h3>
-                  <ul className="text-[12px] text-text-secondary space-y-1 list-disc list-inside">
-                    <li>{isZh ? '构建五阶段研究里程碑与多假说树。' : 'Formulates 5-stage research plans and hypothesis trees.'}</li>
-                    <li>{isZh ? '执行只读文献检索与机制综合。' : 'Performs read-only literature searches and syntheses.'}</li>
-                    <li>{isZh ? '草拟 EV 证据检验指标，不改动任何环境状态。' : 'Drafts required EV evidence anchors without mutating state.'}</li>
-                  </ul>
-                </div>
-
-                <div className="p-4 rounded-xl border border-emerald-500/30 bg-emerald-50/50 dark:bg-emerald-950/20 space-y-2">
-                  <div className="flex items-center justify-between">
-                    <span className="px-2 py-0.5 rounded font-mono font-bold text-[11px] bg-emerald-500 text-white">/act Mode</span>
-                    <span className="text-[11px] text-emerald-600 dark:text-emerald-400 font-mono">{isZh ? '自主执行' : 'Autonomous'}</span>
-                  </div>
-                  <h3 className="font-bold text-[14px] text-text-primary">{isZh ? '工具调用与报告输出' : 'Task Execution & Synthesis'}</h3>
-                  <ul className="text-[12px] text-text-secondary space-y-1 list-disc list-inside">
-                    <li>{isZh ? '自主调用 UniProt、ChEMBL、PDB、PubMed 工具。' : 'Autonomously invokes UniProt, ChEMBL, PDB, PubMed tools.'}</li>
-                    <li>{isZh ? '在内核沙箱内运行 Python 统计处理脚本。' : 'Executes Python data analysis scripts in kernel sandboxes.'}</li>
-                    <li>{isZh ? '通过 EvidenceVerifier 进行严格数学与物理边界拦截。' : 'Evaluates mathematical boundaries via EvidenceVerifier.'}</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-
-            {/* Slash commands */}
-            <div className="space-y-3 pt-2">
-              <h2 className="text-xl font-bold text-text-primary flex items-center gap-2">
-                <Code2 size={20} className="text-accent" />
-                <span>{isZh ? '3. 常用 REPL 斜杠指令清单' : '3. CLI Slash Commands Reference'}</span>
-              </h2>
-              <div className="overflow-x-auto rounded-xl border border-border bg-bg-surface shadow-xs">
-                <table className="w-full text-left text-[12.5px]">
-                  <thead className="bg-bg-elevated/70 border-b border-border text-text-muted font-mono text-[11px]">
-                    <tr>
-                      <th className="p-3">Command</th>
-                      <th className="p-3">Description</th>
-                      <th className="p-3">Example Usage</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-border">
-                    <tr>
-                      <td className="p-3 font-mono font-bold text-accent">/model</td>
-                      <td className="p-3 text-text-secondary">{isZh ? '查看、切换或配置大模型基座与 API 密钥' : 'List, switch, or configure LLM model and API keys'}</td>
-                      <td className="p-3 font-mono text-[11.5px] text-text-muted"><code>/model set --model deepseek-chat --api-key sk-...</code></td>
-                    </tr>
-                    <tr>
-                      <td className="p-3 font-mono font-bold text-purple-500">/plan</td>
-                      <td className="p-3 text-text-secondary">{isZh ? '切换至 Plan 规划模式（只读设计与假说树构建）' : 'Switch agent to Plan Mode'}</td>
-                      <td className="p-3 font-mono text-[11.5px] text-text-muted"><code>/plan</code></td>
-                    </tr>
-                    <tr>
-                      <td className="p-3 font-mono font-bold text-emerald-500">/act</td>
-                      <td className="p-3 text-text-secondary">{isZh ? '切换至 Act 执行模式（自主执行工具与沙箱计算）' : 'Switch agent to Act Mode'}</td>
-                      <td className="p-3 font-mono text-[11.5px] text-text-muted"><code>/act</code></td>
-                    </tr>
-                    <tr>
-                      <td className="p-3 font-mono font-bold text-yellow-500">/mode</td>
-                      <td className="p-3 text-text-secondary">{isZh ? '在 Plan 与 Act 之间快捷双向切换' : 'Toggle between Plan Mode and Act Mode'}</td>
-                      <td className="p-3 font-mono text-[11.5px] text-text-muted"><code>/mode</code></td>
-                    </tr>
-                    <tr>
-                      <td className="p-3 font-mono font-bold text-accent">/cost</td>
-                      <td className="p-3 text-text-secondary">{isZh ? '查看会话 Token 统计、Prompt 缓存命中率与估算费用' : 'Display session tokens and estimated API costs'}</td>
-                      <td className="p-3 font-mono text-[11.5px] text-text-muted"><code>/cost</code></td>
-                    </tr>
-                    <tr>
-                      <td className="p-3 font-mono font-bold text-accent">/compact</td>
-                      <td className="p-3 text-text-secondary">{isZh ? '无损压缩上下文，100% 完整保留所有 EV 证据锚点' : 'Compress context memory while preserving EV anchors'}</td>
-                      <td className="p-3 font-mono text-[11.5px] text-text-muted"><code>/compact</code></td>
-                    </tr>
-                    <tr>
-                      <td className="p-3 font-mono font-bold text-accent">/export</td>
-                      <td className="p-3 text-text-secondary">{isZh ? '将当前研究成果及证据卡片导出为 Markdown / LaTeX 报告' : 'Export current findings to Markdown / LaTeX'}</td>
-                      <td className="p-3 font-mono text-[11.5px] text-text-muted"><code>/export ./report.md</code></td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-        </article>
-      )}
-
       {/* ========================================================================= */}
       {/* SECTION: INSTALLATION                                                     */}
       {/* ========================================================================= */}
@@ -1336,10 +1186,10 @@ export const PortalDocView: React.FC<PortalDocViewProps> = ({ section }) => {
             {/* CLI Install */}
             <div className="space-y-3 pt-2">
               <h2 className="text-xl font-bold text-text-primary flex items-center gap-2">
-                <span>{isZh ? '2. 快速安装 CLI 终端' : '2. Quick Install CLI Agent'}</span>
+                <span>{isZh ? '2. 快速安装' : '2. Quick Install'}</span>
               </h2>
               {renderCodeBlock(
-                `# 方式 A：一键脚本 (macOS & Linux)\ncurl -fsSL https://benjaminduo.github.io/MedScience/install.sh | bash\n\n# 方式 B：从源码运行\ngit clone https://github.com/BenjaminDuo/MedScience.git\ncd MedScience && npm install && npm run build\n\n# 方式 C：本地 Web 工作站\nnpm run web`,
+                `# 方式 A：桌面客户端\n# 从 GitHub Releases 下载 macOS / Windows 安装包\n\n# 方式 B：本地 Web 工作站\ngit clone https://github.com/BenjaminDuo/MedScience.git\ncd MedScience && npm install && npm run build\nnpm run web`,
                 'bash',
                 'inst-cli'
               )}

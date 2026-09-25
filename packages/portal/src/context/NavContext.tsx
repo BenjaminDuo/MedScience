@@ -22,7 +22,6 @@ const validSections: PortalSection[] = [
   'userguide',
   'apireference',
   'examples',
-  'cli',
   'architecture',
   'skills',
   'contributing',
