@@ -74,8 +74,8 @@ console.log(turn.agentResponse);`,
               <Sparkles size={14} />
               <span>
                 {isZh
-                  ? 'v1.4.0 正式发布 — 现代 TUI 与加固型自主科研工作站'
-                  : 'v1.4.0 Released — Modern TUI & Fortified Scientific Agent Workstation'}
+                  ? 'v2.0.0 正式发布 — 四端可用：macOS / Windows / Linux / 本地 Web'
+                  : 'v2.0.0 Released — macOS, Windows, Linux and a local web workstation'}
               </span>
             </div>
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-text-primary leading-[1.15]">
@@ -290,12 +290,12 @@ console.log(turn.agentResponse);`,
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2">
           <div className="text-left space-y-1">
             <h2 className="text-2xl sm:text-3xl font-extrabold text-text-primary tracking-tight">
-              {isZh ? '多模态界面体验：桌面工作站与终端命令行' : 'One Scientific Agent. Multiple Interfaces.'}
+              {isZh ? '多端一致体验：桌面工作站与本地 Web' : 'One Scientific Agent. Multiple Interfaces.'}
             </h2>
             <p className="text-[14px] text-text-secondary">
               {isZh
-                ? '支持基于 Electron 的沉浸式学术科研桌面工作站，以及面向开发者的全功能终端交互智能体。'
-                : 'Experience MedScience in native Desktop Electron or high-speed CLI terminal.'}
+                ? '基于 Electron 的沉浸式学术科研桌面工作站，以及仅监听回环地址的本地 Web 工作站——同一套界面，同一份本地数据。'
+                : 'The immersive Electron desktop workstation and the loopback-only local web workstation: the same interface over the same local data.'}
             </p>
           </div>
 

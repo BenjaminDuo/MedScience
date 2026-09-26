@@ -1,7 +1,7 @@
 {
   "name": "medscience-monorepo",
   "private": true,
-  "version": "1.4.0",
+  "version": "2.0.0",
   "description": "MedScience - Autonomous Scientific Research Workstation",
   "author": "MedScience Team <team@medscience.org>",
   "repository": {
@@ -26,6 +26,7 @@
     "web:dev": "npm run build:core && npm run build:web && node packages/web/bin/medscience-web.js --dev",
     "dist:mac": "node node_modules/electron-builder/cli.js --mac --project packages/desktop -c electron-builder.json --publish never",
     "dist:win": "node node_modules/electron-builder/cli.js --win --project packages/desktop -c electron-builder.json --publish never",
+    "dist:linux": "node node_modules/electron-builder/cli.js --linux --project packages/desktop -c electron-builder.json --publish never",
     "portal:dev": "npm --workspace=@medscience/portal run dev",
     "portal:preview": "npm --workspace=@medscience/portal run preview",
     "portal:build": "npm --workspace=@medscience/portal run build"

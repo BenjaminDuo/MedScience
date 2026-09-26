@@ -1,6 +1,6 @@
 {
   "name": "@medscience/core",
-  "version": "1.4.0",
+  "version": "2.0.0",
   "description": "MedScience research engine: agent loop, evidence-verified research workflows, scientific tool registry, multi-runtime execution.",
   "license": "MIT",
   "private": true,

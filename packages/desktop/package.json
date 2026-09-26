@@ -1,8 +1,9 @@
 {
   "name": "@medscience/desktop",
-  "version": "1.4.0",
+  "version": "2.0.0",
   "description": "MedScience Autonomous Scientific Workstation Desktop",
-  "author": "MedScience Team",
+  "author": "MedScience Team <team@medscience.org>",
+  "license": "MIT",
   "productName": "MedScience",
   "desktopName": "MedScience",
   "executableName": "medscience",
@@ -21,6 +22,7 @@
     "dist": "npm run build && node ../../node_modules/electron-builder/cli.js --project . -c electron-builder.json --publish never",
     "dist:mac": "npm run build && node ../../node_modules/electron-builder/cli.js --mac --project . -c electron-builder.json --publish never",
     "dist:win": "npm run build && node ../../node_modules/electron-builder/cli.js --win --project . -c electron-builder.json --publish never",
+    "dist:linux": "npm run build && node ../../node_modules/electron-builder/cli.js --linux --project . -c electron-builder.json --publish never",
     "test": "tsx tests/test-member-routing.ts"
   },
   "dependencies": {},

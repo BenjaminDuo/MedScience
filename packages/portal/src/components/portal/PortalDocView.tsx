@@ -26,6 +26,18 @@ interface PortalDocViewProps {
   section: PortalSection;
 }
 
+/**
+ * The release the download buttons point at.
+ *
+ * These URLs used to carry the version six times over, so every release left
+ * some of them pointing at the previous one -- the page still offered v1.1.0
+ * builds long after v1.4.0 shipped. One constant, one edit.
+ */
+const RELEASE_TAG = 'v2.0.0';
+const RELEASE_VERSION = '2.0.0';
+const asset = (file: string) =>
+  `https://github.com/BenjaminDuo/MedScience/releases/download/${RELEASE_TAG}/${file}`;
+
 export const PortalDocView: React.FC<PortalDocViewProps> = ({ section }) => {
   const { setActiveSection } = useNav();
   const { language } = useLanguage();
@@ -179,8 +191,8 @@ export const PortalDocView: React.FC<PortalDocViewProps> = ({ section }) => {
               </h2>
               <p>
                 {isZh
-                  ? 'MedScience 采用模块化解耦的 npm workspaces 结构，核心运行引擎、命令行工具和桌面客户端职责清晰：'
-                  : 'MedScience is structured as an npm workspaces monorepo separating core scientific runtime, CLI REPL, desktop application, and standardized OpenScience skills:'}
+                  ? 'MedScience 采用模块化解耦的 npm workspaces 结构，核心运行引擎、桌面客户端、本地 Web 服务与文档门户职责清晰：'
+                  : 'MedScience is structured as an npm workspaces monorepo separating the core scientific runtime, the desktop application, the local web server, the docs portal, and standardized OpenScience skills:'}
               </p>
               <div className="overflow-x-auto rounded-xl border border-border bg-bg-surface shadow-xs">
                 <table className="w-full text-left text-[12.5px]">
@@ -198,14 +210,19 @@ export const PortalDocView: React.FC<PortalDocViewProps> = ({ section }) => {
                       <td className="p-3 text-text-muted">{isZh ? 'ReAct循环、EvidenceVerifier、SubagentTreeEngine、生命周期Hook、沙箱' : 'Research loop, EvidenceVerifier, SubagentTree, Hooks, Sandboxes'}</td>
                     </tr>
                     <tr>
-                      <td className="p-3 font-mono font-bold text-accent">packages/cli</td>
-                      <td className="p-3 text-text-secondary">{isZh ? '交互式终端研究智能体' : 'Interactive CLI research agent'}</td>
-                      <td className="p-3 text-text-muted">{isZh ? '终端 REPL、/model、/plan、/act、/cost 指令与单次直接执行命令' : 'REPL, slash commands (/model, /plan, /act), one-shot research'}</td>
-                    </tr>
-                    <tr>
                       <td className="p-3 font-mono font-bold text-accent">packages/desktop</td>
                       <td className="p-3 text-text-secondary">{isZh ? '跨平台学术桌面工作站' : 'Electron desktop application'}</td>
                       <td className="p-3 text-text-muted">{isZh ? 'Electron 28 + React 18，多栏工作区、假说树可视化与报告导出' : 'Native workspace UI, real-time PlanTracker, hypothesis graph'}</td>
+                    </tr>
+                    <tr>
+                      <td className="p-3 font-mono font-bold text-accent">packages/web</td>
+                      <td className="p-3 text-text-secondary">{isZh ? '仅回环的本地 Web 工作站' : 'Loopback-only local web server'}</td>
+                      <td className="p-3 text-text-muted">{isZh ? '以 npm run web 在浏览器中运行同一界面，密钥与沙盒留在 Node 进程内' : 'Serves the same UI in a browser via npm run web; keys and sandboxes stay in Node'}</td>
+                    </tr>
+                    <tr>
+                      <td className="p-3 font-mono font-bold text-accent">packages/portal</td>
+                      <td className="p-3 text-text-secondary">{isZh ? '文档门户与官网' : 'Documentation portal & site'}</td>
+                      <td className="p-3 text-text-muted">{isZh ? '中英双语文档站，由 CI 构建并发布至 GitHub Pages' : 'Bilingual docs site, built in CI and deployed to GitHub Pages'}</td>
                     </tr>
                     <tr>
                       <td className="p-3 font-mono font-bold text-accent">skills/</td>
@@ -267,8 +284,8 @@ export const PortalDocView: React.FC<PortalDocViewProps> = ({ section }) => {
                 <div className="text-[13px] font-semibold text-text-primary">{isZh ? '方式 A：桌面客户端' : 'Option A: Desktop App'}</div>
                 <p className="text-[12.5px] text-text-secondary leading-relaxed">
                   {isZh
-                    ? '从 GitHub Releases 下载 macOS / Windows 安装包，开箱即用。'
-                    : 'Download the macOS / Windows installer from GitHub Releases — nothing else to set up.'}
+                    ? '从 GitHub Releases 下载 macOS / Windows / Linux 安装包，开箱即用。'
+                    : 'Download the macOS, Windows, or Linux build from GitHub Releases — nothing else to set up.'}
                 </p>
 
                 <div className="text-[13px] font-semibold text-text-primary pt-2">{isZh ? '方式 B：本地 Web 工作站' : 'Option B: Local Web Workstation'}</div>
@@ -287,49 +304,50 @@ export const PortalDocView: React.FC<PortalDocViewProps> = ({ section }) => {
               </h2>
               <p>
                 {isZh
-                  ? '让我们通过一个真实的生物医药案例，体验 Plan Mode 规划与 Act Mode 执行的全过程：'
-                  : 'Follow this real-world pharmaceutical discovery inquiry through Plan Mode deliberation and Act Mode execution:'}
+                  ? '让我们通过一个真实的生物医药案例，走完从模型配置到证据入库的全过程：'
+                  : 'Follow a real-world pharmaceutical discovery inquiry from model setup through to a verified evidence record:'}
               </p>
 
               <div className="space-y-3">
                 <div className="p-3.5 rounded-xl bg-bg-surface border border-border">
                   <span className="font-bold text-[13px] text-accent block mb-1">
-                    {isZh ? '第一步：启动终端 REPL 并配置大模型' : 'Step 1: Launch REPL and Configure LLM'}
+                    {isZh ? '第一步：配置模型端点' : 'Step 1: Configure a Model Endpoint'}
                   </span>
                   <p className="text-[12.5px] text-text-muted mb-2">
-                    {isZh ? '启动后输入 /model 配置您的大模型（内置离线科学 Mock 服务可直接用于测试）：' : 'Launch the CLI and configure your provider (or use the offline scientific mock provider):'}
+                    {isZh
+                      ? '在左侧边栏打开「运行时（模型配置）」，添加任意 OpenAI 或 Anthropic 协议兼容的端点（亦可指向本地 Ollama）。API Key 存入本地 AES-256-GCM 密钥库，不以明文落盘；内置离线科学 Mock 服务可在不配置任何密钥的情况下直接试用。'
+                      : 'Open Runtime (Model Configuration) in the left sidebar and add any OpenAI- or Anthropic-compatible endpoint — a local Ollama works too. Keys go into a local AES-256-GCM vault, never plain text. The offline scientific mock provider lets you try the workflow with no key at all.'}
                   </p>
-                  {renderCodeBlock(
-                    `# 启动终端\nmedscience\n\n# 在终端内配置大模型提供方 (如 DeepSeek V3 或 Claude 3.7)\n/model set --model deepseek-chat --api-key sk-your-key-here`,
-                    'bash',
-                    'qs-step1'
-                  )}
                 </div>
 
                 <div className="p-3.5 rounded-xl bg-bg-surface border border-border">
                   <span className="font-bold text-[13px] text-purple-500 block mb-1">
-                    {isZh ? '第二步：进入 /plan 模式进行审慎设计' : 'Step 2: Enter /plan Mode for Deliberative Planning'}
+                    {isZh ? '第二步：提出研究课题，智能体先出计划' : 'Step 2: Ask the Question — the Agent Plans First'}
                   </span>
                   <p className="text-[12.5px] text-text-muted mb-2">
-                    {isZh ? '输入 /plan，输入研究课题。智能体将制定5阶段里程碑计划，拆解靶点与文献，不触发改变环境的沙箱代码：' : 'Switch to /plan mode and enter your research query. The agent formulates a 5-stage plan without modifying state:'}
+                    {isZh
+                      ? '在工作区新建对话并输入课题。智能体会先拆解靶点与文献，产出 5 阶段里程碑计划（TASK-1 至 TASK-5），并经 EventBus 实时流式呈现：'
+                      : 'Start a conversation in a workspace and enter your query. The agent decomposes targets and literature into a 5-stage milestone plan (TASK-1 to TASK-5), streamed live through the EventBus:'}
                   </p>
                   {renderCodeBlock(
-                    `medscience [PLAN] > Investigate TYK2 JH2 allosteric pseudokinase binding vs JAK1/2/3 catalytic domain for Deucravacitinib`,
-                    'bash',
+                    `Investigate TYK2 JH2 allosteric pseudokinase binding vs JAK1/2/3 catalytic domain for Deucravacitinib`,
+                    'text',
                     'qs-step2'
                   )}
                 </div>
 
                 <div className="p-3.5 rounded-xl bg-bg-surface border border-border">
                   <span className="font-bold text-[13px] text-emerald-500 block mb-1">
-                    {isZh ? '第三步：切换到 /act 模式自主执行工具' : 'Step 3: Switch to /act Mode to Execute Tools'}
+                    {isZh ? '第三步：工具自主执行与证据入库审查' : 'Step 3: Autonomous Tool Execution & the Evidence Gate'}
                   </span>
                   <p className="text-[12.5px] text-text-muted mb-2">
-                    {isZh ? '输入 /act，智能体将自主调用 UniProt、ChEMBL、Python 沙箱执行统计拟合，并通过 EvidenceVerifier 边界审查：' : 'Switch to /act mode to autonomously trigger database queries, compute fold selectivity, and verify bounds:'}
+                    {isZh
+                      ? '智能体自主调用 UniProt、ChEMBL 与 Python 沙箱执行统计拟合；每一项结果都须通过 EvidenceVerifier 的物理边界审查方可入库：'
+                      : 'The agent autonomously queries UniProt and ChEMBL, computes fold selectivity in the Python sandbox, and admits nothing into the evidence tracker until EvidenceVerifier clears its physical bounds:'}
                   </p>
                   {renderCodeBlock(
-                    `medscience [ACT] > Proceed with data retrieval and compute fold selectivity\n\n# 智能体将输出：\n# [TOOL] uniprot_fetch(P29597) -> 1187 aa sequence [EV-001]\n# [TOOL] chembl_query(target: "TYK2", drug: "Deucravacitinib") -> IC50 = 12.8 nM [EV-002]\n# [SANDBOX] Running Python fold selectivity script...\n# [VERIFIER] Pre-adoption gate passed: IC50 > 0, p < 0.001. Digest: sha256:7f4a...`,
-                    'bash',
+                    `[TOOL] uniprot_fetch(P29597) -> 1187 aa sequence [EV-001]\n[TOOL] chembl_query(target: "TYK2", drug: "Deucravacitinib") -> IC50 = 12.8 nM [EV-002]\n[SANDBOX] Running Python fold selectivity script...\n[VERIFIER] Pre-adoption gate passed: IC50 > 0, p < 0.001. Digest: sha256:7f4a...`,
+                    'text',
                     'qs-step3'
                   )}
                 </div>
@@ -360,32 +378,32 @@ export const PortalDocView: React.FC<PortalDocViewProps> = ({ section }) => {
           </div>
 
           <div className="space-y-6 text-[14px] text-text-secondary leading-relaxed">
-            {/* 1. Plan Mode vs Act Mode */}
+            {/* 1. Which runtime handles a request */}
             <div className="space-y-3">
               <h2 className="text-xl font-bold text-text-primary flex items-center gap-2">
                 <Sliders size={18} className="text-accent" />
-                <span>{isZh ? '1. 规划模式 (/plan) 与 执行模式 (/act)' : '1. Plan Mode vs Act Mode Mechanics'}</span>
+                <span>{isZh ? '1. 选择承载本次请求的运行时' : '1. Choosing Which Runtime Handles a Request'}</span>
               </h2>
               <p>
                 {isZh
-                  ? '为了解决通用自主智能体容易在缺乏充分论证前盲目执行破坏性工具或浪费 API 配额的问题，MedScience 引入了双重状态机控制：'
-                  : 'MedScience provides deliberate mode separation to ensure scientists can inspect study design before executing mutating tool calls:'}
+                  ? '消息框左侧的运行时选择器决定这一次提问由谁执行。该选择仅作用于本次提交，设置中的全局默认不受影响：'
+                  : 'The runtime picker beside the composer decides who executes a given prompt. The choice applies to that one submission; the globally active profile in Settings is left untouched:'}
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 my-2">
                 <div className="p-4 rounded-xl border border-purple-500/30 bg-purple-500/5 space-y-2">
-                  <span className="font-bold text-[13.5px] text-purple-600 dark:text-purple-400 font-mono">/plan Mode</span>
+                  <span className="font-bold text-[13.5px] text-purple-600 dark:text-purple-400 font-mono">{isZh ? '云端模型 (api)' : 'Cloud model (api)'}</span>
                   <p className="text-[12.5px] text-text-secondary">
                     {isZh
-                      ? '审慎规划模式。仅允许调用只读检索工具与文献归纳，聚焦于制定多假说树（SubagentTreeEngine）、设定研究阶段目标（TASK-1 至 TASK-5）与确定证据检验标准。'
-                      : 'Deliberative planning. Restricts execution to read-only queries, hypothesis generation, and experimental design without triggering environment changes.'}
+                      ? '由您配置的模型端点驱动 MedScience 自身的 ReAct 研究循环：分子与临床连接器、Python 沙箱、假说树（SubagentTreeEngine）与 5 阶段计划（TASK-1 至 TASK-5）全部在本进程内运行。'
+                      : 'Your configured model endpoint drives MedScience’s own ReAct research loop: molecular and clinical connectors, the Python sandbox, SubagentTreeEngine, and the 5-stage plan (TASK-1 to TASK-5) all run in-process.'}
                   </p>
                 </div>
                 <div className="p-4 rounded-xl border border-emerald-500/30 bg-emerald-500/5 space-y-2">
-                  <span className="font-bold text-[13.5px] text-emerald-600 dark:text-emerald-400 font-mono">/act Mode</span>
+                  <span className="font-bold text-[13.5px] text-emerald-600 dark:text-emerald-400 font-mono">{isZh ? '本地运行时 (local-runtime)' : 'Local runtime (local-runtime)'}</span>
                   <p className="text-[12.5px] text-text-secondary">
                     {isZh
-                      ? '自主执行模式。智能体自主调用分子数据库连接器、在沙箱内运行 Python 数据处理脚本、调用 FileEditorTool 编辑工作区文件，并实时生成带有 EV 标签的研究报告。'
-                      : 'Autonomous execution. Invokes molecular database connectors, executes Python code inside sandboxes, updates local project files, and streams findings.'}
+                      ? '将执行委派给本机上已安装的编码运行时（如 Codex App Server），并带有两档沙箱预设：只读，或可写当前工作区。越权操作会以审批卡片的形式交由您裁决。'
+                      : 'Delegates execution to a coding runtime installed on your machine (for example the Codex App Server), under one of two sandbox presets — read-only, or workspace-write. Anything beyond the preset surfaces as an approval card for you to decide.'}
                   </p>
                 </div>
               </div>
@@ -426,18 +444,13 @@ export const PortalDocView: React.FC<PortalDocViewProps> = ({ section }) => {
             <div className="space-y-3 pt-2">
               <h2 className="text-xl font-bold text-text-primary flex items-center gap-2">
                 <ShieldCheck size={18} className="text-accent" />
-                <span>{isZh ? '3. 证据锚点与上下文压缩 (/compact)' : '3. Evidence Anchors & Memory Management'}</span>
+                <span>{isZh ? '3. 证据锚点与上下文自动压缩' : '3. Evidence Anchors & Memory Management'}</span>
               </h2>
               <p>
                 {isZh
-                  ? '所有被智能体采纳的科学论据都会生成唯一的 EV-xxx 锚点。在长周期研究任务中，如果上下文长度接近模型上限，可以随时执行 /compact：系统将压缩冗余对话，但 100% 完整保留所有证据锚点、原始数据哈希和边界检验结果。'
-                  : 'Every verified data point receives a unique immutable EV-xxx tag. When context window usage increases during long research sessions, the /compact command compresses conversational clutter while preserving all evidence records.'}
+                  ? '所有被智能体采纳的科学论据都会生成唯一的 EV-xxx 锚点。在长周期研究任务中，当上下文长度接近模型上限时，MemoryCompactor 会自动压缩冗余对话，但 100% 完整保留所有证据锚点、原始数据哈希与边界检验结果——无需任何手动指令。每个工作区的「证据登记簿」可随时查阅全部锚点，「运行时（模型配置）」页面则按端点列出 Token 消耗。'
+                  : 'Every verified data point receives a unique immutable EV-xxx tag. As a long session approaches the model’s context limit, MemoryCompactor folds away conversational clutter on its own — no command to run — while preserving every evidence anchor, raw-data digest, and bounds-check result. Each workspace’s Evidence Registry lists those anchors, and Runtime (Model Configuration) reports token usage per endpoint.'}
               </p>
-              {renderCodeBlock(
-                `# 在 REPL 中压缩记忆\nmedscience > /compact\n\n# 查看当前会话 Token 消耗与缓存命中率\nmedscience > /cost`,
-                'bash',
-                'ug-compact'
-              )}
             </div>
           </div>
         </article>
@@ -630,8 +643,8 @@ export const PortalDocView: React.FC<PortalDocViewProps> = ({ section }) => {
                   </span>
                   <p className="text-[12.5px] text-text-muted">
                     {isZh
-                      ? '包含 Electron 原生学术桌面工作站（多栏工作区、实时计划看板、证据卡片）与高性能终端命令行 REPL（支持 /model、/plan、/act 等斜杠指令）。'
-                      : 'Provides the native Electron desktop application and high-speed CLI REPL with interactive slash commands.'}
+                      ? '包含 Electron 原生学术桌面工作站（多栏工作区、实时计划看板、证据卡片、科研小队群聊）与仅监听回环地址的本地 Web 工作站——两者共用同一套渲染界面。'
+                      : 'The native Electron desktop workstation (multi-pane workspaces, live plan board, evidence cards, group-chat research teams) and the loopback-only local web workstation, which serve the same renderer.'}
                   </p>
                 </div>
 
@@ -730,7 +743,7 @@ export const PortalDocView: React.FC<PortalDocViewProps> = ({ section }) => {
           </div>
 
           <div className="space-y-6 text-[14px] text-text-secondary leading-relaxed">
-            {/* Skill CLI commands */}
+            {/* Skill management */}
             <div className="p-4 rounded-xl bg-accent/5 border border-accent/20 space-y-2">
               <div className="font-bold text-[13.5px] text-text-primary flex items-center gap-2">
                 <Cpu size={16} className="text-accent" />
@@ -738,13 +751,13 @@ export const PortalDocView: React.FC<PortalDocViewProps> = ({ section }) => {
               </div>
               <p className="text-[12.5px] text-text-secondary">
                 {isZh
-                  ? 'MedScience 兼容 OpenScience SKILL.md 标准规范。安装任何第三方技能时，SkillInstaller 均会自动执行针对 RCE、路径穿越与守卫绕过的静态安全代码审计：'
-                  : 'Manage scientific skills via CLI with automated static security checks against code injection and hook bypassing:'}
+                  ? 'MedScience 兼容 OpenScience SKILL.md 标准规范。在侧边栏「科研技能」页面粘贴技能仓库地址即可安装；SkillInstaller 会先执行针对 RCE、路径穿越与守卫绕过的静态安全代码审计，审查不通过则拒绝安装：'
+                  : 'MedScience follows the OpenScience SKILL.md convention. Paste a skill repository URL into the Scientific Skills page in the sidebar; SkillInstaller runs a static audit for code injection, path traversal, and guardrail bypass first, and refuses the install if the audit fails:'}
               </p>
               {renderCodeBlock(
-                `# 列出所有已安装技能\nmedscience skill list\n\n# 安全安装第三方技能并审计\nmedscience skill install https://github.com/OpenScience/custom-crispr-screening.git\n\n# 运行特定领域技能\nmedscience skill run pathway-enrichment --input ./genes.txt`,
-                'bash',
-                'skills-cli'
+                `https://github.com/OpenScience/custom-crispr-screening.git`,
+                'text',
+                'skills-install'
               )}
             </div>
 
@@ -966,6 +979,45 @@ export const PortalDocView: React.FC<PortalDocViewProps> = ({ section }) => {
           </div>
 
           <div className="space-y-6 text-[14px]">
+            {/* Release v2.0.0 */}
+            <div className="p-5 rounded-2xl bg-bg-surface border border-accent/40 space-y-3 shadow-xs">
+              <div className="flex items-center justify-between border-b border-border-subtle pb-2">
+                <div className="flex items-center gap-2">
+                  <span className="px-2 py-0.5 rounded text-[11px] font-bold font-mono bg-accent text-white">v{RELEASE_VERSION}</span>
+                  <span className="font-bold text-[15px] text-text-primary">
+                    {isZh ? '四端可用、科研小队群聊化与 26 位领域专家' : 'Four Surfaces, Group-Chat Research Teams & 26 Specialists'}
+                  </span>
+                </div>
+                <span className="text-[12px] text-accent font-mono font-semibold">October 2026</span>
+              </div>
+              <ul className="text-[13px] text-text-secondary space-y-1.5 list-disc list-inside">
+                <li>
+                  <strong>{isZh ? 'Linux 安装包与本地 Web 工作站：' : 'Linux Builds & Local Web Workstation: '}</strong>
+                  {isZh
+                    ? '新增 AppImage 与 Debian/Ubuntu `.deb` 发布目标，并提供 `npm run web` 本地 Web 工作站（仅监听回环地址）。macOS、Windows、Linux 与浏览器四端共用同一引擎与 `~/.medscience/` 本地数据，可随时互换。'
+                    : 'Added AppImage and Debian/Ubuntu `.deb` release targets, plus the `npm run web` local workstation (loopback only). All four surfaces run the same engine against the same local data in `~/.medscience/`, so a session started in one is there in the others.'}
+                </li>
+                <li>
+                  <strong>{isZh ? '科研小队重构为群聊，队员扩充至 26 位：' : 'Research Teams as Group Chats, 26 Specialists: '}</strong>
+                  {isZh
+                    ? '小队页面改为「群列表 + 聊天 + 详情」三栏布局；内置队员由 11 位扩充至 26 位生物医学专家（医学影像、药理、免疫、临床试验设计等），同一队员既可单聊也可编入小队，并支持账户级与队内两级指令。'
+                    : 'The teams page became a three-pane group-chat layout (roster, conversation, details); built-in members grew from 11 to 26 biomedical specialists (imaging, pharmacology, immunology, trial design, and more). A member can be messaged alone or put on a team, under account-level and per-team instructions.'}
+                </li>
+                <li>
+                  <strong>{isZh ? '@ 提及路由与统一会话中心：' : '@Mention Routing & Unified Conversation Center: '}</strong>
+                  {isZh
+                    ? '消息框输入 `@` 即可将问题指派给特定队员；对话与小队会话统一混排、支持全文搜索与 ⌘K 直达；当问题明确归属某位专家时系统会主动推荐。'
+                    : 'Type `@` in the composer to put a question to one member. Plain conversations and team sessions share one searchable list with ⌘K navigation, and MedScience offers the right specialist when a question clearly belongs to one.'}
+                </li>
+                <li>
+                  <strong>{isZh ? '仓库精简与事件驱动 UI：' : 'Repository Consolidation & Event-Driven UI: '}</strong>
+                  {isZh
+                    ? '移除命令行包与门户的不可达代码，撤销 npm 发布计划（所有工作区均为 private）；UI 由 1.5s 轮询改为 150ms 合批的事件订阅。'
+                    : 'Retired the CLI package and the portal’s unreachable modules, dropped the npm publishing plan (every workspace is private), and replaced 1.5s UI polling with batched event subscriptions at 150ms.'}
+                </li>
+              </ul>
+            </div>
+
             {/* Release v1.4.0 */}
             <div className="p-5 rounded-2xl bg-bg-surface border border-accent/40 space-y-3 shadow-xs">
               <div className="flex items-center justify-between border-b border-border-subtle pb-2">
@@ -1000,15 +1052,15 @@ export const PortalDocView: React.FC<PortalDocViewProps> = ({ section }) => {
             </div>
 
             {/* Release v1.3.0 */}
-            <div className="p-5 rounded-2xl bg-bg-surface border border-accent/40 space-y-3 shadow-xs">
+            <div className="p-5 rounded-2xl bg-bg-surface border border-border space-y-3 shadow-xs">
               <div className="flex items-center justify-between border-b border-border-subtle pb-2">
                 <div className="flex items-center gap-2">
-                  <span className="px-2 py-0.5 rounded text-[11px] font-bold font-mono bg-accent text-white">v1.3.0</span>
+                  <span className="px-2 py-0.5 rounded text-[11px] font-bold font-mono bg-slate-600 text-white">v1.3.0</span>
                   <span className="font-bold text-[15px] text-text-primary">
                     {isZh ? '跨平台多目标打包优化与中英双语门户发布' : 'Multi-Target Desktop Release & Bilingual Documentation Portal'}
                   </span>
                 </div>
-                <span className="text-[12px] text-accent font-mono font-semibold">September 2026</span>
+                <span className="text-[12px] text-text-muted font-mono">September 2026</span>
               </div>
               <ul className="text-[13px] text-text-secondary space-y-1.5 list-disc list-inside">
                 <li>
@@ -1095,9 +1147,6 @@ export const PortalDocView: React.FC<PortalDocViewProps> = ({ section }) => {
       )}
 
       {/* ========================================================================= */}
-      {/* SECTION: CLI AGENT MANUAL                                                 */}
-      {/* ========================================================================= */}
-      {/* ========================================================================= */}
       {/* SECTION: INSTALLATION                                                     */}
       {/* ========================================================================= */}
       {section === 'installation' && (
@@ -1112,16 +1161,16 @@ export const PortalDocView: React.FC<PortalDocViewProps> = ({ section }) => {
             </h1>
             <p className="text-[15px] text-text-secondary leading-relaxed">
               {isZh
-                ? '官方桌面客户端下载 (v1.4.0)、命令行终端一键部署以及源码编译指南。'
-                : 'Desktop application downloads (v1.4.0), CLI one-line installer, prerequisites, and monorepo build setup.'}
+                ? '官方桌面客户端下载 (v2.0.0)、本地 Web 工作站以及源码编译指南。'
+                : 'Desktop application downloads (v2.0.0), the local web workstation, prerequisites, and monorepo build setup.'}
             </p>
           </div>
 
           <div className="space-y-6 text-[14px] text-text-secondary leading-relaxed">
-            {/* Desktop Downloads v1.4.0 */}
+            {/* Desktop Downloads -- versions come from RELEASE_TAG / RELEASE_VERSION above */}
             <div className="space-y-3">
               <h2 className="text-xl font-bold text-text-primary flex items-center gap-2">
-                <span>{isZh ? '1. 下载桌面客户端 (v1.4.0 正式版)' : '1. Download Desktop App (v1.4.0)'}</span>
+                <span>{isZh ? '1. 下载桌面客户端 (v2.0.0 正式版)' : '1. Download Desktop App (v2.0.0)'}</span>
               </h2>
               <p className="text-[13px] text-text-muted">
                 {isZh
@@ -1130,7 +1179,7 @@ export const PortalDocView: React.FC<PortalDocViewProps> = ({ section }) => {
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 my-3">
                 <a
-                  href="https://github.com/BenjaminDuo/MedScience/releases/download/v1.4.0/MedScience-1.4.0-arm64.dmg"
+                  href={asset(`MedScience-${RELEASE_VERSION}-arm64.dmg`)}
                   target="_blank"
                   rel="noreferrer"
                   className="p-3.5 rounded-xl bg-bg-surface border border-border hover:border-accent hover:shadow-xs flex items-center justify-between group transition-all"
@@ -1143,7 +1192,7 @@ export const PortalDocView: React.FC<PortalDocViewProps> = ({ section }) => {
                 </a>
 
                 <a
-                  href="https://github.com/BenjaminDuo/MedScience/releases/download/v1.4.0/MedScience-1.4.0.dmg"
+                  href={asset(`MedScience-${RELEASE_VERSION}.dmg`)}
                   target="_blank"
                   rel="noreferrer"
                   className="p-3.5 rounded-xl bg-bg-surface border border-border hover:border-accent hover:shadow-xs flex items-center justify-between group transition-all"
@@ -1156,7 +1205,7 @@ export const PortalDocView: React.FC<PortalDocViewProps> = ({ section }) => {
                 </a>
 
                 <a
-                  href="https://github.com/BenjaminDuo/MedScience/releases/download/v1.4.0/MedScience.Setup.1.4.0.exe"
+                  href={asset(`MedScience.Setup.${RELEASE_VERSION}.exe`)}
                   target="_blank"
                   rel="noreferrer"
                   className="p-3.5 rounded-xl bg-bg-surface border border-border hover:border-accent hover:shadow-xs flex items-center justify-between group transition-all"
@@ -1169,7 +1218,7 @@ export const PortalDocView: React.FC<PortalDocViewProps> = ({ section }) => {
                 </a>
 
                 <a
-                  href="https://github.com/BenjaminDuo/MedScience/releases/download/v1.4.0/MedScience-1.4.0-win.zip"
+                  href={asset(`MedScience-${RELEASE_VERSION}-win.zip`)}
                   target="_blank"
                   rel="noreferrer"
                   className="p-3.5 rounded-xl bg-bg-surface border border-border hover:border-accent hover:shadow-xs flex items-center justify-between group transition-all"
@@ -1180,18 +1229,49 @@ export const PortalDocView: React.FC<PortalDocViewProps> = ({ section }) => {
                   </div>
                   <Download size={16} className="text-text-muted group-hover:text-accent" />
                 </a>
+
+                <a
+                  href={asset(`MedScience-${RELEASE_VERSION}.AppImage`)}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="p-3.5 rounded-xl bg-bg-surface border border-border hover:border-accent hover:shadow-xs flex items-center justify-between group transition-all"
+                >
+                  <div>
+                    <span className="font-bold text-[13.5px] text-text-primary block">Linux AppImage</span>
+                    <span className="text-[11px] text-text-muted">{isZh ? '任意发行版' : 'Any distro'} (.AppImage)</span>
+                  </div>
+                  <Download size={16} className="text-text-muted group-hover:text-accent" />
+                </a>
+
+                <a
+                  href={asset(`medscience_${RELEASE_VERSION}_amd64.deb`)}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="p-3.5 rounded-xl bg-bg-surface border border-border hover:border-accent hover:shadow-xs flex items-center justify-between group transition-all"
+                >
+                  <div>
+                    <span className="font-bold text-[13.5px] text-text-primary block">Debian / Ubuntu</span>
+                    <span className="text-[11px] text-text-muted">amd64 (.deb)</span>
+                  </div>
+                  <Download size={16} className="text-text-muted group-hover:text-accent" />
+                </a>
               </div>
             </div>
 
-            {/* CLI Install */}
+            {/* Linux prerequisite + quick install */}
             <div className="space-y-3 pt-2">
               <h2 className="text-xl font-bold text-text-primary flex items-center gap-2">
                 <span>{isZh ? '2. 快速安装' : '2. Quick Install'}</span>
               </h2>
+              <p className="text-[13px] text-text-muted">
+                {isZh
+                  ? 'Linux 上的沙箱化 Python 依赖 bubblewrap。若系统缺少该组件，MedScience 会拒绝执行 Python，而非在无隔离状态下运行——这一拒绝是刻意设计的。请先安装：sudo apt install bubblewrap。'
+                  : 'Sandboxed Python on Linux needs bubblewrap. Without it MedScience refuses to run Python rather than running it unconfined — that refusal is deliberate. Install it first with sudo apt install bubblewrap (or your distro’s equivalent).'}
+              </p>
               {renderCodeBlock(
-                `# 方式 A：桌面客户端\n# 从 GitHub Releases 下载 macOS / Windows 安装包\n\n# 方式 B：本地 Web 工作站\ngit clone https://github.com/BenjaminDuo/MedScience.git\ncd MedScience && npm install && npm run build\nnpm run web`,
+                `# 方式 A：桌面客户端\n# 从 GitHub Releases 下载 macOS / Windows / Linux 安装包\n\n# 方式 B：本地 Web 工作站\ngit clone https://github.com/BenjaminDuo/MedScience.git\ncd MedScience && npm install && npm run build\nnpm run web   # 然后访问 http://127.0.0.1:3000`,
                 'bash',
-                'inst-cli'
+                'inst-quick'
               )}
             </div>
 
@@ -1201,7 +1281,7 @@ export const PortalDocView: React.FC<PortalDocViewProps> = ({ section }) => {
                 <span>{isZh ? '3. 源码编译 (Monorepo)' : '3. Build From Source (Monorepo)'}</span>
               </h2>
               {renderCodeBlock(
-                `# 克隆仓库\ngit clone https://github.com/BenjaminDuo/MedScience.git\ncd MedScience\n\n# 安装依赖\nnpm install\n\n# 编译全工作区包 (core / cli / web / desktop)\nnpm run build\n\n# 启动客户端\nnpm run desktop:dev`,
+                `# 克隆仓库\ngit clone https://github.com/BenjaminDuo/MedScience.git\ncd MedScience\n\n# 安装依赖\nnpm install\n\n# 编译全工作区包 (core / desktop / web)\nnpm run build\n\n# 启动客户端\nnpm run desktop:dev`,
                 'bash',
                 'inst-src'
               )}

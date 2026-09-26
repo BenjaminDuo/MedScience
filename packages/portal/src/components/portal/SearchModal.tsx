@@ -22,8 +22,8 @@ const searchEntries: SearchEntry[] = [
     categoryEn: 'Guide',
     categoryZh: '指南',
     section: 'quickstart',
-    descriptionEn: 'Run your first autonomous scientific inquiry in CLI or Desktop in under 2 minutes.',
-    descriptionZh: '2分钟内在终端或桌面端启动首个有据可循的科学研究循环。',
+    descriptionEn: 'Run your first autonomous scientific inquiry in the desktop or browser workstation in under 2 minutes.',
+    descriptionZh: '2分钟内在桌面端或浏览器中启动首个有据可循的科学研究循环。',
     keywords: ['quickstart', 'tutorial', '入门', '快速开始', 'demo'],
   },
   {
@@ -32,9 +32,9 @@ const searchEntries: SearchEntry[] = [
     categoryEn: 'Setup',
     categoryZh: '部署',
     section: 'installation',
-    descriptionEn: 'Download macOS DMG, Windows installer, or install CLI via npm / one-line script.',
-    descriptionZh: '下载 macOS DMG、Windows 安装包，或通过 npm / 一键脚本安装命令行智能体。',
-    keywords: ['install', 'download', 'dmg', 'exe', 'npm', '安装', '下载'],
+    descriptionEn: 'Download the macOS DMG, Windows installer, or Linux AppImage / .deb, or run the local web workstation from source.',
+    descriptionZh: '下载 macOS DMG、Windows 安装包或 Linux AppImage / .deb，也可从源码启动本地 Web 工作站。',
+    keywords: ['install', 'download', 'dmg', 'exe', 'appimage', 'deb', 'linux', '安装', '下载'],
   },
   {
     titleEn: 'Scientific Research Examples',
@@ -97,14 +97,14 @@ const searchEntries: SearchEntry[] = [
     keywords: ['contribute', 'development', 'pr', 'tools', 'hooks', '贡献', '开发'],
   },
   {
-    titleEn: 'Changelog & Releases (v1.4.0)',
-    titleZh: '版本更新日志 (v1.4.0)',
+    titleEn: 'Changelog & Releases (v2.0.0)',
+    titleZh: '版本更新日志 (v2.0.0)',
     categoryEn: 'Release',
     categoryZh: '版本',
     section: 'changelog',
-    descriptionEn: 'v1.4.0 CLI TUI workstation revamp, desktop IPC security hardening, and version history.',
-    descriptionZh: 'v1.4.0 终端 AI 工作站全面重构、桌面端 IPC 健全性加固与全套离线韧性发布。',
-    keywords: ['changelog', 'release', 'v1.4.0', 'notes', '更新', '发布'],
+    descriptionEn: 'v2.0.0 adds Linux builds and the local web workstation, retires the CLI, and reworks conversation routing.',
+    descriptionZh: 'v2.0.0 新增 Linux 安装包与本地 Web 工作站，移除命令行包，并重做对话路由。',
+    keywords: ['changelog', 'release', 'v2.0.0', 'notes', '更新', '发布'],
   },
 ];
 

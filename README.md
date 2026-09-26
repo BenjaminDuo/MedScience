@@ -64,14 +64,26 @@ When provided with a complex research inquiry (e.g., *"Evaluate the allosteric s
 
 #### 1. Download Native Desktop Application
 
-Download pre-built installers for macOS and Windows from the
-[latest GitHub Release](https://github.com/BenjaminDuo/MedScience/releases/latest).
+Download pre-built builds for macOS, Windows, and Linux from the
+[latest GitHub Release](https://github.com/BenjaminDuo/MedScience/releases/latest):
+
+| Platform | File |
+|---|---|
+| macOS (Apple Silicon) | `MedScience-<version>-arm64.dmg` |
+| macOS (Intel) | `MedScience-<version>.dmg` |
+| Windows (installer) | `MedScience.Setup.<version>.exe` |
+| Windows (portable) | `MedScience-<version>-win.zip` |
+| Linux (any distro) | `MedScience-<version>.AppImage` |
+| Debian / Ubuntu | `medscience_<version>_amd64.deb` |
 
 > [!NOTE]
 > **First-Launch Security Notice (macOS Gatekeeper & Windows SmartScreen):**  
 > Because MedScience is a community open-source project without commercial code-signing certificates, your operating system will display a standard security warning on first launch:
 > - **macOS**: If you see *"MedScience cannot be opened because Apple cannot check it for malicious software"*, simply **Right-Click (or Control-Click) the application in `/Applications` and select "Open"**, then click **"Open"** in the confirmation dialog. Alternatively, navigate to *System Settings → Privacy & Security* and click *"Open Anyway"*.
 > - **Windows**: If Windows SmartScreen displays *"Windows protected your PC"*, click **"More info"** and then select **"Run anyway"**.
+
+> [!IMPORTANT]
+> **Linux**: sandboxed Python execution requires `bubblewrap`. Without it MedScience **refuses** to run Python rather than running it unconfined — that refusal is deliberate. Install it with `sudo apt install bubblewrap` (or your distribution's equivalent).
 
 #### 2. Run from source
 
@@ -172,18 +184,27 @@ npx tsx packages/core/tests/test-clinical-research-loop.ts # Pure clinical ReAct
 - **🔒 跨平台操作系统级内核沙盒**：macOS `sandbox-exec` 物理断网隔离、Linux `bwrap` LSM 容器化、Windows Low-Integrity MIC 访问控制，全量通过 GitHub Actions CI 验证。
 - **🔌 双向 MCP 协议支持**：所有科研工具原生暴露为标准 Model Context Protocol (MCP) Server，亦可自由挂载第三方 MCP 工具。
 
-### 💻 原生桌面端下载与安装 (v1.1.0)
+### 💻 原生桌面端下载与安装
 
-从 [GitHub Releases](https://github.com/BenjaminDuo/MedScience/releases/tag/v1.1.0) 获取预编译安装包：
-- **macOS Apple Silicon (M1/M2/M3/M4)**: [`MedScience-1.1.0-arm64.dmg`](https://github.com/BenjaminDuo/MedScience/releases/download/v1.1.0/MedScience-1.1.0-arm64.dmg) (93.2 MB)
-- **macOS Intel (x86_64)**: [`MedScience-1.1.0.dmg`](https://github.com/BenjaminDuo/MedScience/releases/download/v1.1.0/MedScience-1.1.0.dmg) (98.0 MB)
-- **Windows x64**: [`MedScience.Setup.1.1.0.exe`](https://github.com/BenjaminDuo/MedScience/releases/download/v1.1.0/MedScience.Setup.1.1.0.exe) (NSIS 安装包) / [`MedScience.1.1.0.exe`](https://github.com/BenjaminDuo/MedScience/releases/download/v1.1.0/MedScience.1.1.0.exe) (便携免安装版)
+从 [最新 GitHub Release](https://github.com/BenjaminDuo/MedScience/releases/latest) 获取预编译安装包：
+
+| 平台 | 安装包 |
+|---|---|
+| macOS Apple Silicon (M1–M4) | `MedScience-<版本号>-arm64.dmg` |
+| macOS Intel (x86_64) | `MedScience-<版本号>.dmg` |
+| Windows x64（NSIS 安装包） | `MedScience.Setup.<版本号>.exe` |
+| Windows x64（便携免安装） | `MedScience-<版本号>-win.zip` |
+| Linux（任意发行版） | `MedScience-<版本号>.AppImage` |
+| Debian / Ubuntu | `medscience_<版本号>_amd64.deb` |
 
 > [!NOTE]
 > **首次运行安全提示（macOS Gatekeeper 与 Windows SmartScreen 放行）：**  
 > MedScience 作为开源学术科研工作站，暂未购买商业企业数字签名。首次打开时系统会弹出安全拦截提示，请按以下说明快速放行：
 > - **macOS 系统**：若提示 *“无法打开 MedScience，因为 Apple 无法检查其是否包含恶意软件”*，请在访达 `/Applications` 文件夹中**右键（或按住 Control 键）点击 MedScience 图标选择「打开」**，在弹窗中点击**「打开」**即可；或在 *「系统设置 → 隐私与安全性」* 页面点击 *「仍要打开」*。
 > - **Windows 系统**：若弹出 SmartScreen *“Windows 已保护你的电脑”* 提示，请点击文字链接 **「更多信息」**，再点击出现的 **「仍要运行」** 按钮即可。
+
+> [!IMPORTANT]
+> **Linux 沙箱依赖**：沙箱内的 Python 执行依赖 `bubblewrap`。若系统缺少该组件，MedScience 会**拒绝**执行 Python，而不是在无隔离的状态下运行——这一拒绝是刻意设计的。请先安装：`sudo apt install bubblewrap`（或所用发行版的等效命令）。
 
 ### 🌐 本地 Web 模式（无需 `.exe`）
 
