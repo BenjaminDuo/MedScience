@@ -51,8 +51,16 @@ const files = fs
   .filter((name) => (only ? name.includes(only) : true))
   .sort();
 
+/**
+ * How long one test file may run before the runner gives up on it. Generous
+ * enough for the slowest real suite (the clinical loop takes ~40s on a cold
+ * cache) and short enough that a hang is reported in minutes, not hours.
+ */
+const FILE_TIMEOUT_MS = Number(process.env.MEDSCIENCE_TEST_TIMEOUT_MS || 300_000);
+
 const skipped: string[] = [];
 const failed: string[] = [];
+const timedOut: string[] = [];
 const started = Date.now();
 
 for (const file of files) {
@@ -67,7 +75,23 @@ for (const file of files) {
     // Live tests need the real config (API keys); everything else gets the
     // throwaway home so the suite never writes into ~/.medscience.
     env: LIVE_TESTS.has(file) ? process.env : { ...process.env, MEDSCIENCE_HOME: testHome },
+    timeout: FILE_TIMEOUT_MS,
+    killSignal: 'SIGKILL',
   });
+  // A suite that spawns a child runtime can finish its assertions and still
+  // not exit, because the parent is holding that child's stdio pipes open.
+  // Without a timeout that stalls the whole run indefinitely -- a CI job sat
+  // on one file for 25 minutes before it was killed by hand. Treat it as the
+  // failure it is, and name the file.
+  if (result.error && (result.error as NodeJS.ErrnoException).code === 'ETIMEDOUT') {
+    console.error(
+      `\n  ✖ ${file} did not exit within ${FILE_TIMEOUT_MS / 1000}s and was killed. ` +
+        'A leaked child process is the usual cause.'
+    );
+    timedOut.push(file);
+    failed.push(file);
+    continue;
+  }
   if (result.status !== 0) failed.push(file);
 }
 
@@ -77,6 +101,9 @@ if (skipped.length > 0) {
   console.log(
     `Skipped (need network and/or your configured API key; set MEDSCIENCE_TEST_NETWORK=1 to include): ${skipped.join(', ')}`
   );
+}
+if (timedOut.length > 0) {
+  console.log(`Timed out (killed after ${FILE_TIMEOUT_MS / 1000}s): ${timedOut.join(', ')}`);
 }
 if (failed.length > 0) {
   console.error(`\nFAILED: ${failed.join(', ')}`);

@@ -31,14 +31,37 @@ export function writeFakeExecutable(filePath: string): string {
  * Windows has no equivalent, so the tool refuses there by design.
  */
 export function hasKernelSandbox(): boolean {
-  const utility = process.platform === 'darwin' ? 'sandbox-exec' : process.platform === 'linux' ? 'bwrap' : undefined;
-  if (!utility) return false;
+  // Probing beats checking the binary exists: Ubuntu 24.04 ships bwrap but
+  // restricts unprivileged user namespaces through AppArmor, so `which bwrap`
+  // says yes on a machine where every sandboxed run fails. CI hit exactly
+  // that and reported a sandbox mode it could not actually enter.
   try {
-    execSync(`command -v ${utility}`, { stdio: 'ignore' });
-    return true;
+    if (process.platform === 'darwin') {
+      execSync('sandbox-exec -p "(version 1)(allow default)" /usr/bin/true', { stdio: 'ignore' });
+      return true;
+    }
+    if (process.platform === 'linux') {
+      execSync('bwrap --ro-bind / / --dev /dev /bin/true', { stdio: 'ignore' });
+      return true;
+    }
   } catch {
     return false;
   }
+  return false;
+}
+
+/**
+ * Whether this platform can spawn the Node-script fixtures the runtime tests
+ * use as a stand-in for the codex binary.
+ *
+ * Node refuses to spawn a .cmd/.bat without a shell (CVE-2024-27980), and
+ * ChildProcessSupervisor deliberately does not pass shell: true, so on
+ * Windows there is no way to stand a Node script in for the executable. A
+ * real Windows deployment uses codex.exe; the protocol behaviour these tests
+ * cover has no platform component.
+ */
+export function canSpawnScriptAsRuntime(): boolean {
+  return !isWindows;
 }
 
 /**

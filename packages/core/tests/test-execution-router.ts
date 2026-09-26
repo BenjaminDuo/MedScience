@@ -12,7 +12,7 @@ import { SessionManager } from '../src/core/SessionManager';
 import { EventBus } from '../src/core/EventBus';
 import { LocalRuntimeExecutionProfile, RuntimeApprovalRequest, RuntimeApprovalDecision } from '../src/execution/types';
 import { RuntimeEvent } from '../src/types/events';
-import { spawnableScript } from './platform';
+import { canSpawnScriptAsRuntime, spawnableScript } from './platform';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const FIXTURE_PATH = path.join(__dirname, 'fixtures', 'fake-codex-app-server.mjs');
@@ -44,6 +44,18 @@ function makeRig(testDir: string) {
 }
 
 async function runTests() {
+  if (!canSpawnScriptAsRuntime()) {
+    // Not a failure and not a silent pass: say why, and leave the suite green
+    // so a real regression elsewhere still stands out.
+    console.log(
+      '\n=== ExecutionRouter suite skipped on Windows ===\n' +
+        'The fake app-server is a Node script, and Node refuses to spawn .cmd/.bat without a\n' +
+        'shell (CVE-2024-27980), which ChildProcessSupervisor deliberately does not use. A real\n' +
+        'Windows install runs codex.exe; the protocol behaviour covered here is platform-independent.\n'
+    );
+    return;
+  }
+
   console.log('\n=== Running ExecutionRouter / CodexRuntimeBackend Integration Test Suite (fake Codex app-server) ===\n');
   const rootTestDir = fs.mkdtempSync(path.join(os.tmpdir(), 'medscience-execrouter-test-'));
   const originalMode = process.env.FAKE_CODEX_MODE;

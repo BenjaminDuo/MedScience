@@ -34,9 +34,15 @@ jobs:
 
       # PythonRunnerTool fails closed without a kernel sandbox, so without
       # this the Linux job would only ever verify the refusal path.
-      - name: Install Bubblewrap (Linux kernel sandbox)
+      # Ubuntu 24.04 ships bwrap but AppArmor blocks unprivileged user
+      # namespaces, so without the sysctl every sandboxed run fails and the
+      # suite only ever sees the refusal path.
+      - name: Install Bubblewrap and allow unprivileged userns (Linux)
         if: runner.os == 'Linux'
-        run: sudo apt-get update && sudo apt-get install -y bubblewrap
+        run: |
+          sudo apt-get update && sudo apt-get install -y bubblewrap
+          sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0 || true
+          bwrap --ro-bind / / --dev /dev /bin/true && echo "bwrap sandbox works"
 
       - name: Install Monorepo Dependencies
         run: npm ci || npm install
