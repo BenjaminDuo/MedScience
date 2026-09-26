@@ -62,12 +62,11 @@ export const MedScienceLogo: React.FC<MedScienceLogoProps> = ({
           transform="rotate(30 50 50)"
         />
 
-        {/* Center Stylized 'J' */}
+        {/* Center stylized 'M' */}
         <path
-          d="M55 28 V57 C55 64 49 69 41 69 C33 69 29 65 27 61 L34 56 C36 59 38 61 41 61 C45 61 46 58 46 54 V28 H55 Z"
+          d="M28 69 V28 H37 L50 48 L63 28 H72 V69 H63 V43 L52 60 H48 L37 43 V69 Z"
           fill="var(--term-accent-bright)"
         />
-        <rect x="40" y="26" width="20" height="4.5" rx="1" fill="var(--term-accent-bright)" />
       </svg>
     );
   }
@@ -158,19 +157,9 @@ export const MedScienceLogo: React.FC<MedScienceLogoProps> = ({
         opacity="0.6"
       />
 
-      {/* Center Stylized 'J' with high-contrast scientific typography */}
+      {/* Center stylized 'M' with high-contrast scientific typography */}
       <path
-        d="M55 28 V57 C55 64 49 69 41 69 C33 69 29 65 27 61 L34 56 C36 59 38 61 41 61 C45 61 46 58 46 54 V28 H55 Z"
-        fill="url(#js-grad-j)"
-        filter="url(#js-soft-glow)"
-      />
-      {/* Top serif bar of J */}
-      <rect
-        x="40"
-        y="26"
-        width="20"
-        height="4.5"
-        rx="1"
+        d="M28 69 V28 H37 L50 48 L63 28 H72 V69 H63 V43 L52 60 H48 L37 43 V69 Z"
         fill="url(#js-grad-j)"
         filter="url(#js-soft-glow)"
       />

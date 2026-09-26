@@ -145,13 +145,12 @@ export const PortalHeroVisual: React.FC = () => {
         {/* Central Core Glowing Sphere */}
         <circle cx="170" cy="170" r="48" fill="url(#center-sphere)" filter="url(#soft-glow)" />
 
-        {/* Central Stylized Bold 'J' */}
+        {/* Central stylized bold 'M', sized to sit inside the r=48 core sphere */}
         <path
-          d="M178 140 V182 C178 193 169 200 156 200 C146 200 139 195 136 189 L146 182 C148 186 151 189 156 189 C162 189 164 185 164 179 V140 H178 Z"
+          d="M141 197 V143 H153 L170 169 L187 143 H199 V197 H187 V163 L173 185 H167 L153 163 V197 Z"
           fill="#FFFFFF"
           filter="url(#soft-glow)"
         />
-        <rect x="157" y="136" width="30" height="7" rx="1.5" fill="#FFFFFF" filter="url(#soft-glow)" />
       </svg>
     </div>
   );
