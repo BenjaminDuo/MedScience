@@ -4,6 +4,7 @@ import os from 'node:os';
 import { spawn as realSpawn } from 'node:child_process';
 import { PassThrough } from 'node:stream';
 import { RuntimeDetector, SpawnFn } from '../src/execution/local/RuntimeDetector';
+import { isWindows, writeFakeExecutable } from './platform';
 
 function assertTrue(cond: boolean, message: string) {
   if (!cond) throw new Error(`Assertion failed: ${message}`);
@@ -75,8 +76,11 @@ async function runTests() {
     {
       const binDir = path.join(testDir, 'bin');
       fs.mkdirSync(binDir, { recursive: true });
-      const codexPath = path.join(binDir, 'codex');
-      fs.writeFileSync(codexPath, '#!/bin/sh\n', { mode: 0o755 });
+      // RuntimeDetector looks for codex.exe/codex.cmd on Windows and plain
+      // `codex` elsewhere, so the fixture has to be named the way the
+      // platform would actually ship it.
+      const codexPath = isWindows ? path.join(binDir, 'codex.cmd') : path.join(binDir, 'codex');
+      writeFakeExecutable(isWindows ? path.join(binDir, 'codex') : codexPath);
       process.env.PATH = `${binDir}${path.delimiter}${originalPath}`;
       delete process.env.MEDSCIENCE_CODEX_PATH;
 

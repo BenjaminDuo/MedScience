@@ -32,6 +32,12 @@ jobs:
         with:
           python-version: '3.11'
 
+      # PythonRunnerTool fails closed without a kernel sandbox, so without
+      # this the Linux job would only ever verify the refusal path.
+      - name: Install Bubblewrap (Linux kernel sandbox)
+        if: runner.os == 'Linux'
+        run: sudo apt-get update && sudo apt-get install -y bubblewrap
+
       - name: Install Monorepo Dependencies
         run: npm ci || npm install
 

@@ -2,6 +2,7 @@ import { SkillRegistry, PythonRunnerTool } from '../src/index.js';
 import { resolveWorkspaceRoot } from '../src/tools/execution/PythonRunnerTool.js';
 import fs from 'node:fs';
 import path from 'node:path';
+import { hasKernelSandbox } from './platform';
 
 async function testPriority3() {
   console.log('=== Running Priority 3 (Cleanup & Robustness) Verification Suite ===\n');
@@ -96,7 +97,16 @@ print(f"CALCULATED_VAL={val}")
   console.log(`  ✔ Sandbox Mode: "${pyResult.output?.sandboxMode}"`);
   console.log(`  ✔ Output: "${pyResult.output?.stdout}"`);
 
-  if (!pyResult.success || !pyResult.output?.stdout?.includes('CALCULATED_VAL=12.0')) {
+  if (!hasKernelSandbox()) {
+    // PythonRunnerTool fails closed without the platform's sandbox utility,
+    // which is the behaviour we want -- so on a machine that lacks it, the
+    // correct outcome is a refusal, and asserting on the script's output
+    // would be asserting that the guard did NOT hold.
+    if (pyResult.success) {
+      throw new Error('Python ran with no kernel sandbox available -- the fail-closed guard did not hold.');
+    }
+    console.log('  ⚠ No kernel sandbox on this machine (macOS sandbox-exec / Linux bwrap); verified the guard refused instead.');
+  } else if (!pyResult.success || !pyResult.output?.stdout?.includes('CALCULATED_VAL=12.0')) {
     throw new Error('Sandboxed Python execution test failed.');
   }
 

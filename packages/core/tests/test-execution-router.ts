@@ -12,6 +12,7 @@ import { SessionManager } from '../src/core/SessionManager';
 import { EventBus } from '../src/core/EventBus';
 import { LocalRuntimeExecutionProfile, RuntimeApprovalRequest, RuntimeApprovalDecision } from '../src/execution/types';
 import { RuntimeEvent } from '../src/types/events';
+import { spawnableScript } from './platform';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const FIXTURE_PATH = path.join(__dirname, 'fixtures', 'fake-codex-app-server.mjs');
@@ -31,7 +32,7 @@ function makeRig(testDir: string) {
   const router = new ExecutionRouter(executionProfileManager, apiBackend, codexBackend);
 
   const profile: LocalRuntimeExecutionProfile = executionProfileManager.createDefaultLocalRuntimeProfile({
-    executablePath: FIXTURE_PATH,
+    executablePath: spawnableScript(FIXTURE_PATH, testDir),
     workingDirectoryMode: 'project',
     sandboxPreset: 'workspace-write',
   });

@@ -3,6 +3,7 @@ import path from 'node:path';
 import os from 'node:os';
 import { ExecutionProfileManager } from '../src/config/ExecutionProfileManager';
 import { ProfileManager } from '../src/config/ProfileManager';
+import { writeFakeExecutable } from './platform';
 
 function assertTrue(cond: boolean, message: string) {
   if (!cond) throw new Error(`Assertion failed: ${message}`);
@@ -42,8 +43,7 @@ async function runTests() {
     assertTrue(badSave.success === false, 'A non-existent executable path must fail validation');
 
     console.log('[Test 4/6] Saving a local-runtime profile with a real executable path succeeds and can be activated');
-    const fakeExecutable = path.join(testDir, 'fake-codex');
-    fs.writeFileSync(fakeExecutable, '#!/bin/sh\necho fake\n', { mode: 0o755 });
+    const fakeExecutable = writeFakeExecutable(path.join(testDir, 'fake-codex'));
     const goodProfile = execManager.createDefaultLocalRuntimeProfile({ executablePath: fakeExecutable });
     const goodSave = execManager.saveProfile(goodProfile);
     assertTrue(goodSave.success === true, 'A valid local-runtime profile should save successfully');
