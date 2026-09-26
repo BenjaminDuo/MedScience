@@ -25,11 +25,17 @@
     "target": [
       {
         "target": "dmg",
-        "arch": ["x64", "arm64"]
+        "arch": [
+          "x64",
+          "arm64"
+        ]
       },
       {
         "target": "zip",
-        "arch": ["x64", "arm64"]
+        "arch": [
+          "x64",
+          "arm64"
+        ]
       }
     ],
     "hardenedRuntime": false,
@@ -39,11 +45,15 @@
     "target": [
       {
         "target": "nsis",
-        "arch": ["x64"]
+        "arch": [
+          "x64"
+        ]
       },
       {
         "target": "zip",
-        "arch": ["x64"]
+        "arch": [
+          "x64"
+        ]
       }
     ]
   },
@@ -52,5 +62,29 @@
     "allowToChangeInstallationDirectory": true,
     "createDesktopShortcut": true,
     "createStartMenuShortcut": true
+  },
+  "linux": {
+    "category": "Science",
+    "synopsis": "Autonomous scientific research workstation",
+    "description": "MedScience is an open-source biomedical research workstation: evidence-verified research runs, hardened molecular and clinical connectors, and a kernel-enforced Python sandbox.",
+    "desktop": {
+      "entry": {
+        "Categories": "Science;Education;"
+      }
+    },
+    "target": [
+      {
+        "target": "AppImage",
+        "arch": [
+          "x64"
+        ]
+      },
+      {
+        "target": "deb",
+        "arch": [
+          "x64"
+        ]
+      }
+    ]
   }
 }

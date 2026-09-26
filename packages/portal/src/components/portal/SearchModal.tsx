@@ -97,14 +97,14 @@ const searchEntries: SearchEntry[] = [
     keywords: ['contribute', 'development', 'pr', 'tools', 'hooks', '贡献', '开发'],
   },
   {
-    titleEn: 'Changelog & Releases (v1.4.0)',
-    titleZh: '版本更新日志 (v1.4.0)',
+    titleEn: 'Changelog & Releases (v2.0.0)',
+    titleZh: '版本更新日志 (v2.0.0)',
     categoryEn: 'Release',
     categoryZh: '版本',
     section: 'changelog',
-    descriptionEn: 'v1.4.0 CLI TUI workstation revamp, desktop IPC security hardening, and version history.',
-    descriptionZh: 'v1.4.0 终端 AI 工作站全面重构、桌面端 IPC 健全性加固与全套离线韧性发布。',
-    keywords: ['changelog', 'release', 'v1.4.0', 'notes', '更新', '发布'],
+    descriptionEn: 'v2.0.0 adds Linux builds and the local web workstation, retires the CLI, and reworks conversation routing.',
+    descriptionZh: 'v2.0.0 新增 Linux 安装包与本地 Web 工作站，移除命令行包，并重做对话路由。',
+    keywords: ['changelog', 'release', 'v2.0.0', 'notes', '更新', '发布'],
   },
 ];
 

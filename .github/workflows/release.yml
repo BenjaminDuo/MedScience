@@ -18,7 +18,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [macos-latest, windows-latest]
+        os: [macos-latest, windows-latest, ubuntu-latest]
 
     steps:
       - name: Checkout code
@@ -41,7 +41,7 @@ jobs:
       - name: Build Monorepo Workspaces
         run: npm run build
 
-      - name: Build Desktop Binaries (macOS DMG / Windows EXE)
+      - name: Build Desktop Binaries (macOS DMG / Windows EXE / Linux AppImage + deb)
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CSC_IDENTITY_AUTO_DISCOVERY: false
@@ -49,6 +49,8 @@ jobs:
           if [ "${{ runner.os }}" = "macOS" ]; then
             chmod -R +x node_modules/7zip-bin/mac/ 2>/dev/null || true
             node node_modules/electron-builder/cli.js --mac --project packages/desktop -c electron-builder.json --config.npmRebuild=false --publish never
+          elif [ "${{ runner.os }}" = "Linux" ]; then
+            node node_modules/electron-builder/cli.js --linux --project packages/desktop -c electron-builder.json --config.npmRebuild=false --publish never
           else
             node node_modules/electron-builder/cli.js --win --project packages/desktop -c electron-builder.json --config.npmRebuild=false --publish never
           fi
@@ -63,10 +65,14 @@ jobs:
           draft: false
           prerelease: false
           generate_release_notes: true
+          body_path: .github/RELEASE_BODY.md
+          append_body: true
           fail_on_unmatched_files: false
           files: |
             packages/desktop/release/*.dmg
             packages/desktop/release/*.zip
             packages/desktop/release/*.exe
+            packages/desktop/release/*.AppImage
+            packages/desktop/release/*.deb
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

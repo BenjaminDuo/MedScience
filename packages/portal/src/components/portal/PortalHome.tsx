@@ -74,8 +74,8 @@ console.log(turn.agentResponse);`,
               <Sparkles size={14} />
               <span>
                 {isZh
-                  ? 'v1.4.0 正式发布 — 现代 TUI 与加固型自主科研工作站'
-                  : 'v1.4.0 Released — Modern TUI & Fortified Scientific Agent Workstation'}
+                  ? 'v2.0.0 正式发布 — 四端可用：macOS / Windows / Linux / 本地 Web'
+                  : 'v2.0.0 Released — macOS, Windows, Linux and a local web workstation'}
               </span>
             </div>
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-text-primary leading-[1.15]">

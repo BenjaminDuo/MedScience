@@ -1,5 +1,6 @@
 import { JsonlRpcClient, JsonRpcNotificationMessage, JsonRpcRequestMessage } from './JsonlRpcClient.js';
 import { RuntimeApprovalDecision, RuntimeApprovalRequest, LocalRuntimeExecutionProfile, RuntimeUsageDelta } from '../types.js';
+import corePkg from '../../../package.json' with { type: 'json' };
 
 /**
  * Adapter over the Codex App Server JSON-RPC protocol
@@ -152,7 +153,7 @@ export class CodexAppServerClient {
     const result = await this.rpc.request(
       'initialize',
       {
-        clientInfo: { name: 'medscience', title: 'MedScience', version: '1.4.0' },
+        clientInfo: { name: 'medscience', title: 'MedScience', version: corePkg.version },
       },
       10000
     );
