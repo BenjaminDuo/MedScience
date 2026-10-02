@@ -105,8 +105,8 @@ All agents contributing to this codebase **MUST** follow these strict rules:
 - **Code Comments & Docstrings**: Standard English.
 
 ### E. Branching & Release Channels
-- `main` is the release branch. Day-to-day work happens on a development branch and
-  reaches `main` by merge, to be released.
+- `main` is the release branch; `develop` is where day-to-day work lands, reaching `main`
+  by merge to be released. Feature branches are cut from `develop`.
 - Release channel is decided by `release.yml`, never by hand: a `v*` tag whose commit is
   on `main` publishes a **stable release**; a `v*` tag anywhere else publishes a
   **pre-release**. A tag with a semver pre-release suffix (`v2.1.0-rc.1`) is a

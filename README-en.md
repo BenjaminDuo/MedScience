@@ -155,9 +155,12 @@ that need network access or a personal API key. Set `MEDSCIENCE_TEST_NETWORK=1` 
 | Branch | Purpose | Releases as |
 |---|---|---|
 | `main` | Release branch | A `v*` tag → **stable release** |
-| development branch | Day-to-day development and integration | A `v*` tag → **pre-release** |
+| `develop` | Day-to-day development and integration | A `v*` tag → **pre-release** |
 
-- Work lands on a development branch first and is merged to `main` to be released.
+- Work lands on `develop` (or a feature branch cut from it) and is merged to `main` to be
+  released.
+- The test is whether the commit is on `main`, not what the branch is called, so a tag on
+  any branch not yet merged to `main` is a pre-release.
 - The channel is decided by CI, not by hand: if the tagged commit is on `main` it ships as a
   stable release, otherwise as a pre-release.
 - A tag carrying a semver pre-release suffix (e.g. `v2.1.0-rc.1`) is always a pre-release,
