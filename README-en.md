@@ -165,6 +165,10 @@ that need network access or a personal API key. Set `MEDSCIENCE_TEST_NETWORK=1` 
   stable release, otherwise as a pre-release.
 - A tag carrying a semver pre-release suffix (e.g. `v2.1.0-rc.1`) is always a pre-release,
   whichever branch it sits on.
+- To release without pushing a tag yourself, use Actions → **MedScience Desktop Release** →
+  *Run workflow*: pick the branch and enter the tag (e.g. `v2.0.0`). CI creates the tag on that
+  branch's latest commit, then builds and publishes under the same rules. Leave the tag empty
+  to build the installers without publishing.
 - CI runs on **every branch**, so a development branch gets the same cross-platform matrix.
 
 ---

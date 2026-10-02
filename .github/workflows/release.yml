@@ -4,14 +4,119 @@ on:
   push:
     tags:
       - 'v*'
+  # Releasing without pushing a tag yourself: give the tag name and the run
+  # creates it on the commit you dispatched from, then builds and publishes.
+  # This is the path for anyone who can trigger workflows but cannot push
+  # tags (e.g. an automation limited to pushing one branch). A tag pushed with
+  # GITHUB_TOKEN does not start another workflow run, so this does not
+  # release twice. Leave the tag empty to build the installers without
+  # publishing anything.
   workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Tag to create and release, e.g. v2.0.0 (empty = build only, publish nothing)'
+        required: false
+        default: ''
 
 permissions:
   contents: write
 
 jobs:
+  prepare:
+    name: Resolve tag and release channel
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    outputs:
+      tag: ${{ steps.tag.outputs.tag }}
+      sha: ${{ steps.tag.outputs.sha }}
+      publish: ${{ steps.tag.outputs.publish }}
+      channel: ${{ steps.channel.outputs.channel }}
+      prerelease: ${{ steps.channel.outputs.prerelease }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          # Full history: the release channel is decided by asking whether this
+          # tag's commit is on main, which a shallow clone cannot answer.
+          fetch-depth: 0
+
+      - name: Resolve tag
+        id: tag
+        shell: bash
+        env:
+          INPUT_TAG: ${{ github.event.inputs.tag }}
+        run: |
+          set -euo pipefail
+
+          if [[ "${GITHUB_EVENT_NAME}" == "push" ]]; then
+            tag="${GITHUB_REF_NAME}"
+            sha="${GITHUB_SHA}"
+            publish=true
+          elif [[ -z "${INPUT_TAG}" ]]; then
+            tag=""
+            sha="${GITHUB_SHA}"
+            publish=false
+            echo "No tag given: building installers only, nothing is published."
+          else
+            tag="${INPUT_TAG}"
+            if [[ ! "${tag}" =~ ^v[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z.-]+)?$ ]]; then
+              echo "::error::'${tag}' is not a v-prefixed semver tag (e.g. v2.0.0 or v2.1.0-rc.1)"
+              exit 1
+            fi
+            git fetch --quiet --tags origin
+            if git rev-parse -q --verify "refs/tags/${tag}" >/dev/null; then
+              # Re-running a release whose tag already exists (say, an upload
+              # failed): publish that tag's commit, never move the tag.
+              sha="$(git rev-parse "refs/tags/${tag}^{commit}")"
+              echo "Tag ${tag} already exists at ${sha}; releasing it as-is."
+            else
+              sha="${GITHUB_SHA}"
+              git config user.name "github-actions[bot]"
+              git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+              git tag -a "${tag}" "${sha}" -m "MedScience ${tag}"
+              git push origin "refs/tags/${tag}"
+              echo "Created tag ${tag} at ${sha} (${GITHUB_REF_NAME})."
+            fi
+            publish=true
+          fi
+
+          echo "tag=${tag}" >> "$GITHUB_OUTPUT"
+          echo "sha=${sha}" >> "$GITHUB_OUTPUT"
+          echo "publish=${publish}" >> "$GITHUB_OUTPUT"
+
+      # main ships stable releases; every other branch ships pre-releases.
+      # A tag carrying a semver pre-release suffix (v2.0.0-rc.1) is a
+      # pre-release wherever it sits, so a release candidate cut from main
+      # is not announced as stable.
+      - name: Decide release channel
+        id: channel
+        shell: bash
+        env:
+          TAG: ${{ steps.tag.outputs.tag }}
+          SHA: ${{ steps.tag.outputs.sha }}
+        run: |
+          set -euo pipefail
+          git fetch --quiet origin main || true
+
+          if [[ "${TAG}" == *-* ]]; then
+            channel=prerelease
+            why="tag ${TAG} carries a semver pre-release suffix"
+          elif git merge-base --is-ancestor "${SHA}" origin/main 2>/dev/null; then
+            channel=stable
+            why="commit is on main"
+          else
+            channel=prerelease
+            why="commit is not on main (development branch)"
+          fi
+
+          echo "prerelease=$([[ $channel == prerelease ]] && echo true || echo false)" >> "$GITHUB_OUTPUT"
+          echo "channel=${channel}" >> "$GITHUB_OUTPUT"
+          echo "Release channel: ${channel} (${why})"
+
   build-release:
     name: Build Desktop Release (${{ matrix.os }})
+    needs: prepare
     runs-on: ${{ matrix.os }}
     permissions:
       contents: write
@@ -24,35 +129,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          # Full history: the release channel is decided by asking whether this
-          # tag's commit is on main, which a shallow clone cannot answer.
-          fetch-depth: 0
-
-      # main ships stable releases; every other branch ships pre-releases.
-      # A tag carrying a semver pre-release suffix (v2.0.0-rc.1) is a
-      # pre-release wherever it sits, so a release candidate cut from main
-      # is not announced as stable.
-      - name: Decide release channel
-        id: channel
-        shell: bash
-        run: |
-          set -euo pipefail
-          git fetch --quiet origin main || true
-
-          if [[ "${GITHUB_REF_NAME}" == *-* ]]; then
-            channel=prerelease
-            why="tag ${GITHUB_REF_NAME} carries a semver pre-release suffix"
-          elif git merge-base --is-ancestor "${GITHUB_SHA}" origin/main 2>/dev/null; then
-            channel=stable
-            why="commit is on main"
-          else
-            channel=prerelease
-            why="commit is not on main (development branch)"
-          fi
-
-          echo "prerelease=$([[ $channel == prerelease ]] && echo true || echo false)" >> "$GITHUB_OUTPUT"
-          echo "channel=${channel}" >> "$GITHUB_OUTPUT"
-          echo "Release channel: ${channel} (${why})"
+          ref: ${{ needs.prepare.outputs.sha }}
 
       - name: Setup Node.js 22
         uses: actions/setup-node@v4
@@ -88,14 +165,14 @@ jobs:
 
       - name: Upload Release Assets to GitHub Release
         uses: softprops/action-gh-release@v2
-        if: startsWith(github.ref, 'refs/tags/')
+        if: needs.prepare.outputs.publish == 'true'
         with:
-          tag_name: ${{ github.ref_name }}
+          tag_name: ${{ needs.prepare.outputs.tag }}
           name: >-
-            MedScience ${{ steps.channel.outputs.channel == 'prerelease' && 'Pre-Release' || 'Release' }}
-            ${{ github.ref_name }}
+            MedScience ${{ needs.prepare.outputs.channel == 'prerelease' && 'Pre-Release' || 'Release' }}
+            ${{ needs.prepare.outputs.tag }}
           draft: false
-          prerelease: ${{ steps.channel.outputs.prerelease }}
+          prerelease: ${{ needs.prepare.outputs.prerelease }}
           generate_release_notes: true
           # All three matrix jobs upload into the same release, so only one of
           # them may append the install guide -- otherwise it lands in the

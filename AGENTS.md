@@ -111,7 +111,11 @@ All agents contributing to this codebase **MUST** follow these strict rules:
   on `main` publishes a **stable release**; a `v*` tag anywhere else publishes a
   **pre-release**. A tag with a semver pre-release suffix (`v2.1.0-rc.1`) is a
   pre-release on any branch.
-- Because of this, `release.yml` must keep `fetch-depth: 0` — the check asks whether the
+- A release can also be started by dispatching `release.yml` with a `tag` input: its
+  `prepare` job creates the tag on the dispatched commit (or reuses an existing tag without
+  moving it) and every later step reads the tag and commit from that job, never from
+  `github.ref`, which on a dispatch names a branch.
+- Because of this, `release.yml`'s `prepare` job must keep `fetch-depth: 0` — the check asks whether the
   tagged commit is an ancestor of `origin/main`, which a shallow clone cannot answer.
 - CI (`test.yml`) runs on every branch. Do not narrow it back to `main`: work lands on a
   development branch first, and that is exactly where a break needs to be caught.
