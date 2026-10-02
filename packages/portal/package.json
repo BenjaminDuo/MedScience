@@ -9,8 +9,7 @@
     "dev": "vite",
     "build": "vite build && cp dist/index.html dist/404.html && touch dist/.nojekyll",
     "preview": "vite preview",
-    "typecheck": "tsc --noEmit",
-    "test": "tsx tests/test-runtime.ts"
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "lucide-react": "^0.475.0",

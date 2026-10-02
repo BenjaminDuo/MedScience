@@ -1,10 +1,15 @@
 name: MedScience Cross-Platform CI
 
 on:
+  # Every branch, not just main. Work lands on a development branch first and
+  # is only merged to main to be released, so limiting CI to main meant the
+  # branch where the work actually happens had no coverage at all, and a break
+  # was only found once it had already reached the release branch.
   push:
-    branches: [ main, master ]
+    branches: [ '**' ]
+    tags-ignore: [ '**' ]
   pull_request:
-    branches: [ main, master ]
+    branches: [ main ]
   workflow_dispatch:
 
 jobs:

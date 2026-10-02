@@ -2,8 +2,8 @@
 
 <div align="center">
 
-**Open-Source Evidence-Traceable AI Agent Framework for Scientific & Biomedical Discovery**  
-*(Molecular Biology • Clinical Evidence • Medical Multimodal • OS-Level Sandboxing)*
+**面向科学与生物医学发现的开源证据溯源型 AI Agent 框架**  
+*(分子生物学 • 临床证据 • 医学多模态 • 操作系统级沙盒)*
 
 [![Cross-Platform CI](https://github.com/BenjaminDuo/MedScience/actions/workflows/test.yml/badge.svg)](https://github.com/BenjaminDuo/MedScience/actions/workflows/test.yml)
 [![Desktop Release](https://github.com/BenjaminDuo/MedScience/actions/workflows/release.yml/badge.svg)](https://github.com/BenjaminDuo/MedScience/actions/workflows/release.yml)
@@ -12,181 +12,57 @@
 [![MCP Compatible](https://img.shields.io/badge/MCP-Model_Context_Protocol-green.svg)](https://modelcontextprotocol.io)
 [![Platform: macOS | Linux | Windows](https://img.shields.io/badge/Platform-macOS%20%7C%20Linux%20%7C%20Windows-purple.svg)]()
 
-[English](#english) | [中文说明](#chinese) | [Documentation Portal](https://benjaminduo.github.io/MedScience/)
+**简体中文** | [English](README-en.md) | [文档门户](https://benjaminduo.github.io/MedScience/)
 
 </div>
 
 ---
 
-<a name="english"></a>
-## 🌐 English Overview
+## 📌 一句话定位
 
-### 📌 Positioning
+**MedScience 是一个专注于生物与医学领域的开源证据溯源型科研 Agent 框架。**
 
-**MedScience is an open-source, evidence-anchored scientific research agent powered by real empirical data and OS-level sandboxing.**
+输入一个复杂的科学课题（例如 *“探讨 TYK2 变构抑制剂在红斑狼疮中的靶点选择性、真实世界 FAERS 不良反应信号与临床试验终点”*），MedScience 能够自主完成：
 
-When provided with a complex research inquiry (e.g., *"Evaluate the allosteric selectivity of TYK2 JH2 pseudokinase vs ATP catalytic domain across JAK family kinases, screen real-world FAERS safety signals, and verify active Phase III clinical trial endpoints"*), MedScience autonomously:
-1. Formulates an **explicit 5-stage research plan** and live To-Do checklist.
-2. Deploys an isolated **Subagent Hypothesis Tree** to explore competing targets or mechanisms in parallel.
-3. Retrieves real-time data across **PubMed, arXiv, bioRxiv, Papers With Code, Hugging Face, UniProtKB, RCSB PDB, ChEMBL, PubChem, ClinicalTrials.gov v2, openFDA, RxNorm, and DailyMed**.
-4. Executes Python statistical scripts, radiomics, and clinical NLP within **air-gapped OS kernel sandboxes** (macOS Seatbelt, Linux Bubblewrap, Windows Low-Integrity Tokens).
-5. Validates all outputs through the **Pre-Adoption Patch Verification Gate (`EvidenceVerifier`)** (checking $p \in [0, 1]$, $IC_{50} > 0$, CT $HU \in [-1024, 3071]$, and numerical anomalies).
-6. Runs a **CritiqueEngine gate** to verify PMIDs, NCT numbers, and sequence lengths.
-7. Produces a publication-grade scientific report with tamper-proof **`[Evidence: EV-xxx]`** tags and an immutable **Evidence Traceability Index**.
+1. **显式制定 5 阶段调研计划**与可交互 To-Do 看板。
+2. 启动**假设子 Agent 树 (`SubagentTreeEngine`)** 并发探索多候选靶点与机制假说，输出置信度梯度矩阵。
+3. 跨 **PubMed、arXiv、bioRxiv、Papers With Code、Hugging Face、UniProtKB、RCSB PDB、ChEMBL、PubChem、ClinicalTrials.gov v2、openFDA、RxNorm、DailyMed** 等权威数据库实时检索。
+4. 在**物理断网的操作系统内核沙盒**内（macOS Seatbelt、Linux Bubblewrap、Windows 低完整性令牌）执行 Python 统计计算、影像组学与临床 NLP。
+5. 经**生成物前置严审门禁 (`EvidenceVerifier`)** 校验全部输出（$p \in [0, 1]$、$IC_{50} > 0$、CT $HU \in [-1024, 3071]$ 及数值异常）。
+6. 经 **CritiqueEngine 门禁**核验 PMID、NCT 编号与序列长度的真实性。
+7. 产出带有不可伪造 **`[Evidence: EV-xxx]`** 锚点与完整**证据溯源索引**的学术级调研报告。
 
 ---
 
-### ✨ Key Architecture & Features
+## ✨ 核心架构与特性
 
-| Architectural Pillar | Technical Implementation |
+| 架构支柱 | 技术实现 |
 | :--- | :--- |
-| **🔍 Pre-Adoption Patch Verification Gate** | Empirical validation before admission: Python computations, kinetic constants, and radiomics statistics are strictly verified by `EvidenceVerifier` for physical sanity boundaries ($p \in [0,1]$, $IC_{50}>0$, $HU \in [-1024,3071]$) and NaN/ZeroDivision anomalies before assigning `[Evidence: EV-xxx]`. Boundary failures trigger self-correcting feedback loops. |
-| **🌲 Subagent Hypothesis Tree** | Concurrent multi-hypothesis exploration: The parent agent dynamically forks isolated subagent branches to evaluate competing targets/mechanisms in parallel, computing empirical multi-factor confidence gradients and synthesizing a structured **Hypothesis Comparison Matrix**. |
-| **🛡️ Formal Lifecycle Hooks Gate (`HookRegistry`)** | Non-bypassable guardrails triggered across 4 lifecycle events (`PreToolUse`, `PostToolUse`, `SessionStart`, `Stop`): `secret-redaction` (blocks credential leaks), `evidence-verifier` (boundary checks), `clinical-data-gate` (guards EHR/DICOM data), and `evidence-completeness-check` (ensures 100% provenance). |
-| **📝 Confined Workspace File Editor (`FileEditorTool`)** | In-workspace text/script modification with zero host escape: supports view, atomic str_replace, line insertion, and append strictly within session workspaces for iterative manuscript and data editing. |
-| **📦 19 Domain Skills & Security Installer (`SkillInstaller`)** | Comprehensive scientific SOP library covering molecular biology, cheminformatics, statistics, MASLD RNA-seq, survival analysis, FAERS signal detection, and PRISMA systematic reviews, equipped with a static pre-install scan that refuses skills tripping its rules (Scientific Skills → Install from a URL). The scan catches obvious and careless code, not a determined author. |
-| **📋 Explicit Plan & Stream Orchestration** | Transparent scientific milestones: Formulates an explicit 5-stage research plan at Turn 1, streaming live task milestones (`[✔] Completed` / `[⏳] In Progress` / `[ ] Pending`) and attached `EV-xxx` evidence anchors via EventBus to CLI and Desktop UI. |
-| **🔒 Kernel-Level OS Sandboxing** | Multi-platform script execution isolation:<br>• **macOS**: Seatbelt kernel sandbox (`sandbox-exec`) + physical network air-gap (`(deny default)`)<br>• **Linux**: Bubblewrap / Landlock unprivileged LSM container (`bwrap --ro-bind / / --proc /proc --dev /dev --unshare-net`)<br>• **Windows**: Mandatory Integrity Control (`Low Integrity Token` + Workspace ACL) |
-| **⚖️ CritiqueEngine Anti-Hallucination Gate** | Live verification of cited **PMIDs (NCBI PubMed)** and **NCT IDs (ClinicalTrials.gov)**; validates canonical sequence lengths and flags suspect fragments. |
-| **🔌 Bidirectional MCP Protocol** | Exposes all 20+ scientific tools as a standard Model Context Protocol (MCP) Server for external LLM environments (Claude Desktop / Cursor / IDEs), and dynamically mounts third-party MCP servers. |
+| **🔍 生成物前置严审门禁** | 入库前的实证校验：Python 计算结果、动力学常数与影像组学统计量，必须先通过 `EvidenceVerifier` 的物理合理性边界检查（$p \in [0,1]$、$IC_{50}>0$、$HU \in [-1024,3071]$）与 NaN / 除零异常检测，方可获得 `[Evidence: EV-xxx]` 编号。越界将触发自主纠错回路。 |
+| **🌲 假设子 Agent 树** | 多假说并发探索：父 Agent 动态派生隔离的子 Agent 分支，并行评估相互竞争的靶点与机制，计算多因子置信度梯度，并合成结构化的**假说对比矩阵**。 |
+| **🛡️ 正式生命周期 Hooks 门禁 (`HookRegistry`)** | 在 `PreToolUse`、`PostToolUse`、`SessionStart`、`Stop` 四大生命周期节点触发不可绕过的守护：`secret-redaction`（阻断凭证泄漏）、`evidence-verifier`（边界校验）、`clinical-data-gate`（守护 EHR / DICOM 数据）、`evidence-completeness-check`（确保 100% 溯源完整）。 |
+| **📝 工作区受限文件编辑器 (`FileEditorTool`)** | 零宿主逃逸的工作区内文本 / 脚本修改：支持查看、原子化 str_replace、按行插入与追加，严格限定在会话工作区内，用于手稿与数据的迭代编辑。 |
+| **📦 19 项领域 Skill 与安全安装器 (`SkillInstaller`)** | 覆盖分子生物学、化学信息学、统计分析、MASLD RNA-seq、生存分析、FAERS 信号检测与 PRISMA 系统综述的科研 SOP 库；安装前执行静态扫描，命中规则即拒绝安装（科研技能 → 从 URL 安装）。该扫描能拦下明显与粗心的代码，但拦不住蓄意构造的作者。 |
+| **📋 显式计划与流式编排** | 透明的科研里程碑：第 1 轮即显式制定 5 阶段调研计划，通过 EventBus 向桌面端与 Web 端实时推送任务状态（`[✔] 已完成` / `[⏳] 进行中` / `[ ] 待处理`）及其挂载的 `EV-xxx` 证据锚点。 |
+| **🔒 内核级操作系统沙盒** | 跨平台脚本执行隔离：<br>• **macOS**：Seatbelt 内核沙盒（`sandbox-exec`）+ 物理断网（`(deny default)`）<br>• **Linux**：Bubblewrap / Landlock 非特权 LSM 容器（`bwrap --ro-bind / / --proc /proc --dev /dev --unshare-net`）<br>• **Windows**：强制完整性控制（低完整性令牌 + 工作区 ACL） |
+| **⚖️ CritiqueEngine 反幻觉门禁** | 实时核验引用的 **PMID（NCBI PubMed）** 与 **NCT ID（ClinicalTrials.gov）**，校验规范序列长度并标记可疑片段。 |
+| **🔌 双向 MCP 协议** | 将全部 20+ 科研工具暴露为标准 Model Context Protocol (MCP) Server，供外部 LLM 环境（Claude Desktop / Cursor / IDE）调用；亦可动态挂载第三方 MCP Server。 |
 
 ---
 
-### 🏗️ Architecture Overview
+## 🏗️ 系统架构总览
 
 <div align="center">
-  <img src="./docs/assets/architecture.png" alt="MedScience Core Architecture" width="100%" />
+  <img src="./docs/assets/architecture.png" alt="MedScience 核心架构" width="100%" />
 </div>
 
 ---
 
-### 🚀 Quick Start
+## 🚀 快速开始
 
-#### 1. Download Native Desktop Application
+### 1. 下载原生桌面客户端
 
-Download pre-built builds for macOS, Windows, and Linux from the
-[latest GitHub Release](https://github.com/BenjaminDuo/MedScience/releases/latest):
-
-| Platform | File |
-|---|---|
-| macOS (Apple Silicon) | `MedScience-<version>-arm64.dmg` |
-| macOS (Intel) | `MedScience-<version>.dmg` |
-| Windows (installer) | `MedScience.Setup.<version>.exe` |
-| Windows (portable) | `MedScience-<version>-win.zip` |
-| Linux (any distro) | `MedScience-<version>.AppImage` |
-| Debian / Ubuntu | `medscience_<version>_amd64.deb` |
-
-> [!NOTE]
-> **First-Launch Security Notice (macOS Gatekeeper & Windows SmartScreen):**  
-> Because MedScience is a community open-source project without commercial code-signing certificates, your operating system will display a standard security warning on first launch:
-> - **macOS**: If you see *"MedScience cannot be opened because Apple cannot check it for malicious software"*, simply **Right-Click (or Control-Click) the application in `/Applications` and select "Open"**, then click **"Open"** in the confirmation dialog. Alternatively, navigate to *System Settings → Privacy & Security* and click *"Open Anyway"*.
-> - **Windows**: If Windows SmartScreen displays *"Windows protected your PC"*, click **"More info"** and then select **"Run anyway"**.
-
-> [!IMPORTANT]
-> **Linux**: sandboxed Python execution requires `bubblewrap`. Without it MedScience **refuses** to run Python rather than running it unconfined — that refusal is deliberate. Install it with `sudo apt install bubblewrap` (or your distribution's equivalent).
-
-#### 2. Run from source
-
-```bash
-# Clone the repository
-git clone https://github.com/BenjaminDuo/MedScience.git
-cd MedScience
-
-# Install dependencies
-npm install
-
-# Build all packages
-npm run build
-
-# Run the workstation in your browser
-npm run web   # then open http://127.0.0.1:3000
-
-# Or launch the Electron desktop app
-npm run desktop
-```
-
-#### 3. Local Web Application (no `.exe` required)
-
-The browser UI can run against the real local MedScience runtime. The HTTP server binds to
-`127.0.0.1` only; model credentials, sessions, tools, and sandboxed execution remain in the
-local Node.js process and are not exposed as browser-stored secrets.
-
-```bash
-# Production-style local build and server
-npm run web
-
-# Or use Vite hot reload while developing
-npm run web:dev
-```
-
-Open [http://127.0.0.1:3000](http://127.0.0.1:3000). Set `MEDSCIENCE_WEB_PORT` to use a different port.
-
-#### 4. TypeScript Core SDK Usage
-
-```typescript
-import { AutonomousResearchEngine, globalToolRegistry } from '@medscience/core';
-
-const engine = new AutonomousResearchEngine({
-  maxTurns: 16,
-  modelProvider: activeModelProvider,
-});
-
-const turn = await engine.run(session, "Screen FAERS adverse event signals for Deucravacitinib");
-console.log(turn.agentResponse);
-```
-
----
-
-### 🧪 Automated CI Test Matrix
-
-MedScience runs full continuous integration tests across **macOS, Ubuntu Linux, and Windows** runners on GitHub Actions:
-
-```bash
-npm run build
-npx tsx packages/core/tests/test-file-editor.ts           # Confined FileEditorTool & security isolation
-npx tsx packages/core/tests/test-skill-installer.ts        # SkillInstaller static security audit rulebook
-npx tsx packages/core/tests/test-hooks-system.ts           # 4 Formal lifecycle guardrail hooks
-npx tsx packages/core/tests/test-expanded-skills.ts        # 19 Scientific domain skills with real public data
-npx tsx packages/core/tests/test-subagent-tree.ts          # Subagent tree hypothesis confidence differentiation
-npx tsx packages/core/tests/test-evidence-verifier.ts      # Pre-adoption numerical sanity & anomaly checks
-npx tsx packages/core/tests/test-plan-tracker.ts           # Explicit plan mode & To-Do tracker
-npx tsx packages/core/tests/test-medical-connectors.ts     # Clinical connectors & NCT verification
-npx tsx packages/core/tests/test-clinical-research-loop.ts # Pure clinical ReAct research loop
-```
-
----
-
-<a name="chinese"></a>
-## 🇨🇳 中文说明
-
-### 📌 一句话定位
-
-**MedScience 是一个专注于生物与医学领域的开源证据溯源型科研 Agent 框架**。
-
-输入一个复杂的科学课题（例如 *“探讨 TYK2 变构抑制剂在红斑狼疮中的靶点选择性、真实世界 FAERS 不良反应信号与临床试验终点”*），MedScience 能够：
-1. **显式制定 5 阶段调研计划** 与可交互 To-Do 看板。
-2. 启动 **假设子 Agent 树 (SubagentTreeEngine)** 并发探索多候选靶点与机制假说并输出置信度梯度矩阵。
-3. 跨 **PubMed、arXiv、bioRxiv、UniProtKB、RCSB PDB、ChEMBL、PubChem、ClinicalTrials.gov v2 (MAESTRO-NASH NCT03900429)、openFDA、DailyMed** 等权威数据库实时检索。
-4. 调用 **受限工作区编辑器 (`FileEditorTool`)** 与 19 项专业科研 Skill，在 **操作系统内核安全沙盒** 内执行本地统计计算与手稿构建。
-5. 经由 **4 大生命周期强制门禁 (`HookRegistry`)**（密钥脱敏、生成物前置严审 `EvidenceVerifier`、患者隐私闸门 `ClinicalDataGate`、引用完整性核验）确保数据真实合规。
-6. 产出包含不可伪造证据锚点（`[Evidence: EV-xxx]`）与完整溯源清单的学术调研报告。
-
----
-
-### ✨ 核心特性
-
-- **🔍 生成物前置严审门禁 (`EvidenceVerifier`)**：拒绝盲目采纳计算结果，入库前强制校验物理极值（$p \in [0,1]$, $IC_{50}>0$, $HU \in [-1024,3071]$）与 NaN 异常，异常时触发自主纠错。
-- **🌲 假设子 Agent 树 (`SubagentTreeEngine`)**：多假说并发分支探索，依据多维证据计算置信度并合成对比矩阵。
-- **🛡️ 正式生命周期 Hooks 守护 (`HookRegistry`)**：在 `PreToolUse`、`PostToolUse`、`SessionStart`、`Stop` 四大节点强制拦截敏感凭证泄漏与未授权隐私外发。
-- **📝 工作区受限文件编辑器 (`FileEditorTool`)**：提供文本精准替换、插入与追加能力，严格限定于会话目录内，杜绝任意 Shell 逃逸。
-- **📦 19 项专业科研 Skill 库与安全安装机制 (`SkillInstaller`)**：涵盖分子生物、化学信息、生信分析、临床试验、系统综述与论文排版，支持安装前静态安全审查。
-- **📋 显式科学规划与流式任务追踪器 (`PlanTracker`)**：推理之初显式制定 5 阶段调研计划，全双工广播每一步任务流转与挂载的证据勋章。
-- **🔒 跨平台操作系统级内核沙盒**：macOS `sandbox-exec` 物理断网隔离、Linux `bwrap` LSM 容器化、Windows Low-Integrity MIC 访问控制，全量通过 GitHub Actions CI 验证。
-- **🔌 双向 MCP 协议支持**：所有科研工具原生暴露为标准 Model Context Protocol (MCP) Server，亦可自由挂载第三方 MCP 工具。
-
-### 💻 原生桌面端下载与安装
-
-从 [最新 GitHub Release](https://github.com/BenjaminDuo/MedScience/releases/latest) 获取预编译安装包：
+从 [最新 GitHub Release](https://github.com/BenjaminDuo/MedScience/releases/latest) 获取 macOS、Windows 与 Linux 的预编译安装包：
 
 | 平台 | 安装包 |
 |---|---|
@@ -206,16 +82,86 @@ npx tsx packages/core/tests/test-clinical-research-loop.ts # Pure clinical ReAct
 > [!IMPORTANT]
 > **Linux 沙箱依赖**：沙箱内的 Python 执行依赖 `bubblewrap`。若系统缺少该组件，MedScience 会**拒绝**执行 Python，而不是在无隔离的状态下运行——这一拒绝是刻意设计的。请先安装：`sudo apt install bubblewrap`（或所用发行版的等效命令）。
 
-### 🌐 本地 Web 模式（无需 `.exe`）
+### 2. 从源码运行
 
-安装依赖后运行 `npm run web`，再访问 [http://127.0.0.1:3000](http://127.0.0.1:3000)。开发时可运行
-`npm run web:dev` 启用 Vite 热更新。本地服务器仅监听回环地址；模型密钥、科研会话、工具调用和沙盒执行均保留在
-Node.js 后端，不会作为浏览器本地存储中的明文密钥下发。
+```bash
+# 克隆仓库
+git clone https://github.com/BenjaminDuo/MedScience.git
+cd MedScience
+
+# 安装依赖
+npm install
+
+# 编译全部工作区
+npm run build
+
+# 在浏览器中运行工作站
+npm run web   # 然后访问 http://127.0.0.1:3000
+
+# 或启动 Electron 桌面客户端
+npm run desktop
+```
+
+### 3. 本地 Web 模式（无需 `.exe`）
+
+浏览器界面直接驱动本机真实的 MedScience 运行时。HTTP 服务器**仅监听 `127.0.0.1`**；模型密钥、科研会话、工具调用与沙盒执行全部保留在本地 Node.js 进程内，不会作为明文密钥下发到浏览器存储。
+
+```bash
+# 生产模式的本地构建与服务
+npm run web
+
+# 开发时启用 Vite 热更新
+npm run web:dev
+```
+
+访问 [http://127.0.0.1:3000](http://127.0.0.1:3000)。设置 `MEDSCIENCE_WEB_PORT` 可更换端口。
+
+### 4. TypeScript 核心 SDK 用法
+
+```typescript
+import { AutonomousResearchEngine, globalToolRegistry } from '@medscience/core';
+
+const engine = new AutonomousResearchEngine({
+  maxTurns: 16,
+  modelProvider: activeModelProvider,
+});
+
+const turn = await engine.run(session, "Screen FAERS adverse event signals for Deucravacitinib");
+console.log(turn.agentResponse);
+```
 
 ---
 
-## 📄 License & Documentation
+## 🧪 自动化 CI 测试矩阵
 
-- Licensed under the [MIT License](LICENSE).
-- Architectural specifications, guidelines, and notices are located in [`docs/`](docs/).
-- Open Agent Conventions: [`AGENTS.md`](AGENTS.md).
+MedScience 在 GitHub Actions 的 **macOS、Ubuntu Linux 与 Windows** runner 上运行完整的持续集成测试：
+
+```bash
+npm run build
+npm test          # core 与 desktop 的全部测试套件
+```
+
+`packages/core/tests/run-all.ts` 会自动发现 `packages/core/tests` 下的每个套件，为每次运行分配一个临时的 `MEDSCIENCE_HOME`（因此 CI 永远不会写入真实用户配置），并跳过需要联网或个人 API Key 的套件。设置 `MEDSCIENCE_TEST_NETWORK=1` 可将这些套件一并纳入。
+
+---
+
+## 🌿 分支与发布策略
+
+| 分支 | 用途 | 发布形态 |
+|---|---|---|
+| `main` | 正式发布分支 | 打 `v*` tag → **正式版 Release** |
+| 开发分支 | 日常开发与功能集成 | 打 `v*` tag → **预发布 (Pre-release)** |
+
+- 所有改动先进入开发分支，经评审后再合并到 `main`。
+- 发布渠道由 CI 自动判定，无需手工勾选：tag 所指提交若在 `main` 上则为正式版，否则为预发布。
+- 带 semver 预发布后缀的 tag（如 `v2.1.0-rc.1`）无论在哪个分支，一律标记为预发布。
+- CI 对**所有分支**的推送生效，开发分支同样受完整跨平台测试矩阵保护。
+
+---
+
+## 📄 许可与文档
+
+- 本项目基于 [MIT License](LICENSE) 开源。
+- 架构规范、设计说明与声明位于 [`docs/`](docs/)。
+- 面向 AI 协作者的工程约定：[`AGENTS.md`](AGENTS.md)。
+- English version: [README-en.md](README-en.md)。

@@ -94,8 +94,27 @@ All agents contributing to this codebase **MUST** follow these strict rules:
 - Do **NOT** use Chinese transliterations (such as "君科") anywhere in the user-facing documentation, portal, or code comments.
 
 ### D. Documentation Language Conventions
-- **README and Documentation**: English-first overview followed by complete Chinese translations where appropriate.
+- **README**: Chinese and English are two separate, self-contained files, not one
+  bilingual document. `README.md` is the Chinese version and is what GitHub shows by
+  default; `README-en.md` is the English version. Each links to the other at the top.
+  Do **NOT** merge them back into a single file or make `README.md` English-first:
+  Chinese is the default for this project. A change to one must be mirrored in the other
+  in the same commit, or the two drift apart.
+- **Portal and in-app copy**: bilingual at runtime via the `isZh` language switch; both
+  strings live side by side in the source.
 - **Code Comments & Docstrings**: Standard English.
+
+### E. Branching & Release Channels
+- `main` is the release branch. Day-to-day work happens on a development branch and
+  reaches `main` by merge, to be released.
+- Release channel is decided by `release.yml`, never by hand: a `v*` tag whose commit is
+  on `main` publishes a **stable release**; a `v*` tag anywhere else publishes a
+  **pre-release**. A tag with a semver pre-release suffix (`v2.1.0-rc.1`) is a
+  pre-release on any branch.
+- Because of this, `release.yml` must keep `fetch-depth: 0` — the check asks whether the
+  tagged commit is an ancestor of `origin/main`, which a shallow clone cannot answer.
+- CI (`test.yml`) runs on every branch. Do not narrow it back to `main`: work lands on a
+  development branch first, and that is exactly where a break needs to be caught.
 
 ---
 
@@ -124,12 +143,19 @@ All agents contributing to this codebase **MUST** follow these strict rules:
 # Build the entire monorepo
 npm run build
 
-# Run core verification suites
+# Run every verification suite (core + desktop). packages/core/tests/run-all.ts
+# discovers each suite under packages/core/tests, gives every run a throwaway
+# MEDSCIENCE_HOME so a real profile is never written to, and skips the suites
+# that need network access or a personal API key. Do not reintroduce a
+# hand-kept list of test files here -- it goes stale and silently stops
+# covering new suites.
+npm test
+
+# Include the suites that need network access and a configured API key
+MEDSCIENCE_TEST_NETWORK=1 npm test
+
+# A single suite, when iterating on it
 npx tsx packages/core/tests/test-hooks-system.ts
-npx tsx packages/core/tests/test-subagent-tree.ts
-npx tsx packages/core/tests/test-evidence-verifier.ts
-npx tsx packages/core/tests/test-plan-tracker.ts
-npx tsx packages/core/tests/test-medical-connectors.ts
 
 # Run the workstation as a local web app (loopback only)
 npm run web
