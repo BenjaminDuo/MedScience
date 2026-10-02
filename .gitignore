@@ -8,6 +8,12 @@ dist/
 dist-electron/
 release/
 build/
+# ...but not the desktop app's build resources, which are source, not output:
+# electron-builder reads the app icon out of here to derive the macOS .icns,
+# the Windows .ico and the Linux hicolor set. Swept up by build/ above, they
+# would be missing on a fresh clone and every packaged build would silently
+# fall back to the default Electron icon.
+!packages/desktop/build/
 *.tsbuildinfo
 packages/*/src/**/*.js
 packages/*/src/**/*.js.map

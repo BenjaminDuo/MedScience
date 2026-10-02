@@ -1,0 +1,107 @@
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!--
+    The application icon, and the single source electron-builder derives every
+    platform's icon from (macOS .icns, Windows .ico, Linux hicolor PNGs).
+
+    The logo mark itself is lifted verbatim from MedScienceLogo.tsx's canonical
+    desktop variant, so the icon and the in-app mark cannot drift apart. What's
+    added here is the dark rounded plate underneath: the mark is cyan-on-white
+    and would disappear against a light dock, taskbar or Finder window without
+    it. Regenerate with: node scripts/render-icon.mjs
+  -->
+  <defs>
+    <linearGradient id="plate" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#101B2E" />
+      <stop offset="55%" stop-color="#0A1120" />
+      <stop offset="100%" stop-color="#05080F" />
+    </linearGradient>
+    <radialGradient id="plate-sheen" cx="30%" cy="22%" r="62%">
+      <stop offset="0%" stop-color="#38BDF8" stop-opacity="0.20" />
+      <stop offset="60%" stop-color="#38BDF8" stop-opacity="0.05" />
+      <stop offset="100%" stop-color="#38BDF8" stop-opacity="0" />
+    </radialGradient>
+
+    <linearGradient id="grad-ring" x1="10%" y1="10%" x2="90%" y2="90%">
+      <stop offset="0%" stop-color="#00D2FF" />
+      <stop offset="50%" stop-color="#38BDF8" />
+      <stop offset="100%" stop-color="#818CF8" />
+    </linearGradient>
+    <linearGradient id="grad-m" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF" />
+      <stop offset="100%" stop-color="#E0F2FE" />
+    </linearGradient>
+    <radialGradient id="center-glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#38BDF8" stop-opacity="0.45" />
+      <stop offset="70%" stop-color="#818CF8" stop-opacity="0.15" />
+      <stop offset="100%" stop-color="#00D2FF" stop-opacity="0" />
+    </radialGradient>
+    <!--
+      color-interpolation-filters is sRGB, not the linearRGB default: under
+      linearRGB the blur composites the filter region's transparent pixels
+      differently from the plate behind it, and every node ends up sitting in a
+      faintly visible square. The region is also widened, so the blur fades out
+      instead of being clipped at its edge.
+    -->
+    <filter
+      id="soft-glow"
+      x="-60%" y="-60%" width="220%" height="220%"
+      color-interpolation-filters="sRGB"
+    >
+      <feGaussianBlur stdDeviation="2.5" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Rounded plate. 184 approximates the macOS squircle at this size. -->
+  <rect x="0" y="0" width="1024" height="1024" rx="184" ry="184" fill="url(#plate)" />
+  <rect x="0" y="0" width="1024" height="1024" rx="184" ry="184" fill="url(#plate-sheen)" />
+  <rect
+    x="2" y="2" width="1020" height="1020" rx="183" ry="183"
+    fill="none" stroke="#38BDF8" stroke-opacity="0.14" stroke-width="4"
+  />
+
+  <!-- The mark, scaled from its native 100x100 and centred on (512, 512). -->
+  <g transform="translate(154.3 154.3) scale(7.3)">
+    <circle cx="50" cy="50" r="32" fill="url(#center-glow)" />
+
+    <polygon
+      points="50,10 78,18 90,42 82,70 60,88 32,88 12,70 8,42 22,18"
+      stroke="url(#grad-ring)"
+      stroke-width="1.8"
+      stroke-dasharray="4 3"
+      opacity="0.65"
+    />
+
+    <circle cx="50" cy="10" r="2.8" fill="#38BDF8" filter="url(#soft-glow)" />
+    <circle cx="78" cy="18" r="3" fill="#00D2FF" filter="url(#soft-glow)" />
+    <circle cx="90" cy="42" r="3" fill="#818CF8" filter="url(#soft-glow)" />
+    <circle cx="82" cy="70" r="3.2" fill="#38BDF8" filter="url(#soft-glow)" />
+    <circle cx="60" cy="88" r="2.8" fill="#60A5FA" filter="url(#soft-glow)" />
+    <circle cx="32" cy="88" r="3" fill="#818CF8" filter="url(#soft-glow)" />
+    <circle cx="12" cy="70" r="2.8" fill="#00D2FF" filter="url(#soft-glow)" />
+    <circle cx="8" cy="42" r="3" fill="#38BDF8" filter="url(#soft-glow)" />
+    <circle cx="22" cy="18" r="2.8" fill="#818CF8" filter="url(#soft-glow)" />
+
+    <ellipse
+      cx="50" cy="50" rx="41" ry="15"
+      stroke="url(#grad-ring)" stroke-width="2.2"
+      transform="rotate(-30 50 50)" filter="url(#soft-glow)"
+    />
+    <ellipse
+      cx="50" cy="50" rx="41" ry="15"
+      stroke="url(#grad-ring)" stroke-width="2.2"
+      transform="rotate(30 50 50)" filter="url(#soft-glow)"
+    />
+    <ellipse
+      cx="50" cy="50" rx="41" ry="15"
+      stroke="url(#grad-ring)" stroke-width="1.5"
+      transform="rotate(90 50 50)" opacity="0.6"
+    />
+
+    <path
+      d="M28 69 V28 H37 L50 48 L63 28 H72 V69 H63 V43 L52 60 H48 L37 43 V69 Z"
+      fill="url(#grad-m)"
+      filter="url(#soft-glow)"
+    />
+  </g>
+</svg>

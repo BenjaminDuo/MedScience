@@ -21,34 +21,59 @@ import {
 import { PortalSection } from '../../types/navigation';
 import { useNav } from '../../context/NavContext';
 import { useLanguage } from '../../context/LanguageContext';
+import { useLatestRelease, RELEASES_PAGE, AssetKind } from '../../hooks/useLatestRelease';
 
 interface PortalDocViewProps {
   section: PortalSection;
 }
 
-/**
- * The release the download buttons point at.
- *
- * These URLs used to carry the version six times over, so every release left
- * some of them pointing at the previous one -- the page still offered v1.1.0
- * builds long after v1.4.0 shipped. One constant, one edit.
- */
-const RELEASE_TAG = 'v2.0.0';
-const RELEASE_VERSION = '2.0.0';
-const asset = (file: string) =>
-  `https://github.com/BenjaminDuo/MedScience/releases/download/${RELEASE_TAG}/${file}`;
-
 export const PortalDocView: React.FC<PortalDocViewProps> = ({ section }) => {
   const { setActiveSection } = useNav();
   const { language } = useLanguage();
   const [copiedKey, setCopiedKey] = useState<string | null>(null);
+  const release = useLatestRelease();
 
   const isZh = language === 'zh';
+
+  /**
+   * The version the download section talks about. Until GitHub answers there
+   * is no honest number to show, so the copy stays version-less rather than
+   * naming one the release may not match.
+   */
+  const releaseLabel = release.version ? ` (v${release.version})` : '';
 
   const copyToClipboard = (text: string, key: string) => {
     navigator.clipboard.writeText(text);
     setCopiedKey(key);
     setTimeout(() => setCopiedKey(null), 2000);
+  };
+
+  /**
+   * One download tile. `kind` is resolved against the assets GitHub actually
+   * published; when there is no such file -- the request failed, hit a rate
+   * limit, or the release genuinely does not carry it -- the tile links to the
+   * releases page and says so, so a button on this page is never a 404.
+   */
+  const renderDownload = (kind: AssetKind, title: string, detail: string) => {
+    const url = release.urlFor(kind);
+    const unresolved = release.settled && !url;
+    return (
+      <a
+        key={kind}
+        href={url || RELEASES_PAGE}
+        target="_blank"
+        rel="noreferrer"
+        className="p-3.5 rounded-xl bg-bg-surface border border-border hover:border-accent hover:shadow-xs flex items-center justify-between group transition-all"
+      >
+        <div>
+          <span className="font-bold text-[13.5px] text-text-primary block">{title}</span>
+          <span className="text-[11px] text-text-muted">
+            {unresolved ? (isZh ? '前往 Release 页面' : 'Go to releases') : detail}
+          </span>
+        </div>
+        <Download size={16} className="text-text-muted group-hover:text-accent" />
+      </a>
+    );
   };
 
   const renderCodeBlock = (code: string, lang: string = 'bash', key: string) => (
@@ -983,7 +1008,7 @@ export const PortalDocView: React.FC<PortalDocViewProps> = ({ section }) => {
             <div className="p-5 rounded-2xl bg-bg-surface border border-accent/40 space-y-3 shadow-xs">
               <div className="flex items-center justify-between border-b border-border-subtle pb-2">
                 <div className="flex items-center gap-2">
-                  <span className="px-2 py-0.5 rounded text-[11px] font-bold font-mono bg-accent text-white">v{RELEASE_VERSION}</span>
+                  <span className="px-2 py-0.5 rounded text-[11px] font-bold font-mono bg-accent text-white">v2.0.0</span>
                   <span className="font-bold text-[15px] text-text-primary">
                     {isZh ? '四端可用、科研小队群聊化与 26 位领域专家' : 'Four Surfaces, Group-Chat Research Teams & 26 Specialists'}
                   </span>
@@ -1161,16 +1186,20 @@ export const PortalDocView: React.FC<PortalDocViewProps> = ({ section }) => {
             </h1>
             <p className="text-[15px] text-text-secondary leading-relaxed">
               {isZh
-                ? '官方桌面客户端下载 (v2.0.0)、本地 Web 工作站以及源码编译指南。'
-                : 'Desktop application downloads (v2.0.0), the local web workstation, prerequisites, and monorepo build setup.'}
+                ? `官方桌面客户端下载${releaseLabel}、本地 Web 工作站以及源码编译指南。`
+                : `Desktop application downloads${releaseLabel}, the local web workstation, prerequisites, and monorepo build setup.`}
             </p>
           </div>
 
           <div className="space-y-6 text-[14px] text-text-secondary leading-relaxed">
-            {/* Desktop Downloads -- versions come from RELEASE_TAG / RELEASE_VERSION above */}
+            {/* Desktop Downloads -- every link comes from the published release (useLatestRelease) */}
             <div className="space-y-3">
               <h2 className="text-xl font-bold text-text-primary flex items-center gap-2">
-                <span>{isZh ? '1. 下载桌面客户端 (v2.0.0 正式版)' : '1. Download Desktop App (v2.0.0)'}</span>
+                <span>
+                  {isZh
+                    ? `1. 下载桌面客户端${releaseLabel ? ` (v${release.version} 正式版)` : ''}`
+                    : `1. Download Desktop App${releaseLabel}`}
+                </span>
               </h2>
               <p className="text-[13px] text-text-muted">
                 {isZh
@@ -1178,83 +1207,16 @@ export const PortalDocView: React.FC<PortalDocViewProps> = ({ section }) => {
                   : 'Official native scientific workstations with integrated subagent tree, real-time PlanTracker, and interactive evidence cards:'}
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 my-3">
-                <a
-                  href={asset(`MedScience-${RELEASE_VERSION}-arm64.dmg`)}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="p-3.5 rounded-xl bg-bg-surface border border-border hover:border-accent hover:shadow-xs flex items-center justify-between group transition-all"
-                >
-                  <div>
-                    <span className="font-bold text-[13.5px] text-text-primary block">macOS Apple Silicon</span>
-                    <span className="text-[11px] text-text-muted">M1/M2/M3/M4 (.dmg)</span>
-                  </div>
-                  <Download size={16} className="text-text-muted group-hover:text-accent" />
-                </a>
-
-                <a
-                  href={asset(`MedScience-${RELEASE_VERSION}.dmg`)}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="p-3.5 rounded-xl bg-bg-surface border border-border hover:border-accent hover:shadow-xs flex items-center justify-between group transition-all"
-                >
-                  <div>
-                    <span className="font-bold text-[13.5px] text-text-primary block">macOS Intel</span>
-                    <span className="text-[11px] text-text-muted">x86_64 (.dmg)</span>
-                  </div>
-                  <Download size={16} className="text-text-muted group-hover:text-accent" />
-                </a>
-
-                <a
-                  href={asset(`MedScience.Setup.${RELEASE_VERSION}.exe`)}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="p-3.5 rounded-xl bg-bg-surface border border-border hover:border-accent hover:shadow-xs flex items-center justify-between group transition-all"
-                >
-                  <div>
-                    <span className="font-bold text-[13.5px] text-text-primary block">Windows Setup</span>
-                    <span className="text-[11px] text-text-muted">NSIS Installer (.exe)</span>
-                  </div>
-                  <Download size={16} className="text-text-muted group-hover:text-accent" />
-                </a>
-
-                <a
-                  href={asset(`MedScience-${RELEASE_VERSION}-win.zip`)}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="p-3.5 rounded-xl bg-bg-surface border border-border hover:border-accent hover:shadow-xs flex items-center justify-between group transition-all"
-                >
-                  <div>
-                    <span className="font-bold text-[13.5px] text-text-primary block">Windows Portable</span>
-                    <span className="text-[11px] text-text-muted">Standalone (.zip)</span>
-                  </div>
-                  <Download size={16} className="text-text-muted group-hover:text-accent" />
-                </a>
-
-                <a
-                  href={asset(`MedScience-${RELEASE_VERSION}.AppImage`)}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="p-3.5 rounded-xl bg-bg-surface border border-border hover:border-accent hover:shadow-xs flex items-center justify-between group transition-all"
-                >
-                  <div>
-                    <span className="font-bold text-[13.5px] text-text-primary block">Linux AppImage</span>
-                    <span className="text-[11px] text-text-muted">{isZh ? '任意发行版' : 'Any distro'} (.AppImage)</span>
-                  </div>
-                  <Download size={16} className="text-text-muted group-hover:text-accent" />
-                </a>
-
-                <a
-                  href={asset(`medscience_${RELEASE_VERSION}_amd64.deb`)}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="p-3.5 rounded-xl bg-bg-surface border border-border hover:border-accent hover:shadow-xs flex items-center justify-between group transition-all"
-                >
-                  <div>
-                    <span className="font-bold text-[13.5px] text-text-primary block">Debian / Ubuntu</span>
-                    <span className="text-[11px] text-text-muted">amd64 (.deb)</span>
-                  </div>
-                  <Download size={16} className="text-text-muted group-hover:text-accent" />
-                </a>
+                {renderDownload('mac-arm64', 'macOS Apple Silicon', 'M1/M2/M3/M4 (.dmg)')}
+                {renderDownload('mac-x64', 'macOS Intel', 'x86_64 (.dmg)')}
+                {renderDownload('win-setup', 'Windows Setup', 'NSIS Installer (.exe)')}
+                {renderDownload('win-portable', 'Windows Portable', 'Standalone (.zip)')}
+                {renderDownload(
+                  'linux-appimage',
+                  'Linux AppImage',
+                  `${isZh ? '任意发行版' : 'Any distro'} (.AppImage)`
+                )}
+                {renderDownload('linux-deb', 'Debian / Ubuntu', 'amd64 (.deb)')}
               </div>
             </div>
 

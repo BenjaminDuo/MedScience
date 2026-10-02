@@ -136,4 +136,20 @@ npm run web
 
 # Run the Electron desktop app
 npm run desktop
+
+# Package the desktop app locally (mac / win / linux)
+npm run dist:mac
+npm run dist:win
+npm run dist:linux
+
+# Regenerate the app icon after editing packages/desktop/build/icon.svg.
+# Needs headless Chromium and ImageMagick. Writes build/icon.png (the source
+# for the macOS .icns and Windows .ico) and build/icons/ (the Linux set --
+# Linux needs a directory of <size>x<size>.png, not a single file).
+node packages/desktop/scripts/render-icon.mjs
 ```
+
+> **Release packaging note**: `.github/workflows/release.yml` only runs
+> electron-builder on a `v*` tag, so packaging mistakes do not surface during
+> normal CI. Run `npm run dist:linux` locally after touching
+> `electron-builder.json`, the icon, or anything under `packages/desktop/build/`.
