@@ -70,9 +70,8 @@
     "synopsis": "Autonomous scientific research workstation",
     "description": "MedScience is an open-source biomedical research workstation: evidence-verified research runs, hardened molecular and clinical connectors, and a kernel-enforced Python sandbox.",
     "desktop": {
-      "entry": {
-        "Categories": "Science;Education;"
-      }
+      "Categories": "Science;Education;",
+      "Keywords": "science;biomedical;research;bioinformatics;agent;"
     },
     "target": [
       {
