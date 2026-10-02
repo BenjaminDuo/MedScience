@@ -173,11 +173,14 @@ jobs:
             ${{ needs.prepare.outputs.tag }}
           draft: false
           prerelease: ${{ needs.prepare.outputs.prerelease }}
-          generate_release_notes: true
-          # All three matrix jobs upload into the same release, so only one of
-          # them may append the install guide -- otherwise it lands in the
-          # release notes up to three times, racily. macOS is the one that does.
-          body_path: ${{ runner.os == 'macOS' && '.github/RELEASE_BODY.md' || '' }}
+          # All three matrix jobs upload into the same release and append_body
+          # is on, so whatever text a job adds lands once per job. Only one job
+          # may write the notes -- the generated changelog as well as the install
+          # guide, or the changelog is repeated by every job that uploads. Linux
+          # does it: its runner is the one that is reliably available, so a slow
+          # or missing macOS runner does not leave the release without a guide.
+          generate_release_notes: ${{ runner.os == 'Linux' }}
+          body_path: ${{ runner.os == 'Linux' && '.github/RELEASE_BODY.md' || '' }}
           append_body: true
           fail_on_unmatched_files: false
           files: |
