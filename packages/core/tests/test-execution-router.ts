@@ -267,7 +267,18 @@ async function runTests() {
   }
 }
 
-runTests().catch((err) => {
-  console.error('\n[ExecutionRouter integration tests FAILED]\n', err);
-  process.exitCode = 1;
-});
+runTests()
+  .catch((err) => {
+    console.error('\n[ExecutionRouter integration tests FAILED]\n', err);
+    process.exitCode = 1;
+  })
+  .finally(() => {
+    // Every backend is disposed by now, so nothing should hold the process
+    // open. If something does (a leaked child or timer -- an approval timer
+    // once kept it alive for exactly the runner's 300s limit), say what it
+    // is rather than leave only a timeout to go on. unref: this check must
+    // not itself keep the process alive.
+    setTimeout(() => {
+      console.error(`[ExecutionRouter] still alive 10s after the suite finished; active resources: ${JSON.stringify((process as any).getActiveResourcesInfo())}`);
+    }, 10_000).unref();
+  });

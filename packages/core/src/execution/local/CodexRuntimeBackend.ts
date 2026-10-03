@@ -227,8 +227,7 @@ export class CodexRuntimeBackend implements ExecutionBackend {
         });
       }
     } catch (error) {
-      this.handles.delete(sessionId);
-      await supervisor.terminate();
+      await this.releaseHandle(sessionId, handle);
       throw error;
     }
 
@@ -494,8 +493,7 @@ export class CodexRuntimeBackend implements ExecutionBackend {
           // would hang forever instead of surfacing an error. The handle is
           // dead either way, so drop it and terminate the process rather than
           // leaving a future execute() for this session reuse a closed transport.
-          this.handles.delete(sessionId);
-          void handle.supervisor.terminate();
+          void this.releaseHandle(sessionId, handle);
           this.emitEvent(
             sessionId,
             {
@@ -573,14 +571,22 @@ export class CodexRuntimeBackend implements ExecutionBackend {
           // this still stops the run promptly.
           throw new Error('No active Codex turn id yet.');
         }
-        await Promise.race([
-          handle.client.turnInterrupt(handle.threadId, handle.activeTurnId),
-          new Promise((_, reject) => setTimeout(() => reject(new Error('interrupt timeout')), 5000)),
-        ]);
+        let interruptTimer: NodeJS.Timeout | undefined;
+        try {
+          await Promise.race([
+            handle.client.turnInterrupt(handle.threadId, handle.activeTurnId),
+            new Promise((_, reject) => {
+              interruptTimer = setTimeout(() => reject(new Error('interrupt timeout')), 5000);
+            }),
+          ]);
+        } finally {
+          // The interrupt usually answers well inside 5s; the losing timer
+          // must not keep the process alive for the rest of that window.
+          clearTimeout(interruptTimer);
+        }
         return true;
       } catch {
-        await handle.supervisor.terminate();
-        this.handles.delete(sessionId);
+        await this.releaseHandle(sessionId, handle);
         this.emitEvent(sessionId, {
           type: 'runtime.turn.completed',
           sessionId,
@@ -593,19 +599,29 @@ export class CodexRuntimeBackend implements ExecutionBackend {
     return false;
   }
 
-  public async dispose(): Promise<void> {
-    const all = Array.from(this.handles.values());
-    this.handles.clear();
-    // Clear any still-pending approval timers (default-deny-on-timeout) so a
-    // disposed backend doesn't keep the process alive for up to 5 more
-    // minutes over approvals nobody will ever answer now.
-    for (const handle of all) {
-      for (const pending of handle.pendingApprovals.values()) {
-        clearTimeout(pending.timer);
-      }
-      handle.pendingApprovals.clear();
+  /**
+   * Drops a session's handle and everything it holds: the process tree and
+   * any approval still waiting on the user. Every path that discards a
+   * handle (failed start, fatal transport error, cancel, dispose) goes
+   * through here. Each pending approval carries a 5-minute default-deny
+   * timer, and dropping the handle without clearing it kept the whole
+   * process alive for those 5 minutes -- the length of the test runner's
+   * kill timeout, which is how it surfaced.
+   */
+  private async releaseHandle(sessionId: string, handle: SessionRuntimeHandle): Promise<void> {
+    if (this.handles.get(sessionId) === handle) this.handles.delete(sessionId);
+    for (const pending of handle.pendingApprovals.values()) {
+      clearTimeout(pending.timer);
+      // Nobody can answer it now; resolve it the way the timeout would have.
+      pending.resolve('decline');
     }
-    await Promise.all(all.map((h) => h.supervisor.terminate()));
+    handle.pendingApprovals.clear();
+    await handle.supervisor.terminate();
+  }
+
+  public async dispose(): Promise<void> {
+    const all = Array.from(this.handles.entries());
+    await Promise.all(all.map(([sessionId, handle]) => this.releaseHandle(sessionId, handle)));
   }
 }
 

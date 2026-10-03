@@ -139,10 +139,16 @@ export class ChildProcessSupervisor {
       }
     }
 
+    let graceTimer: NodeJS.Timeout | undefined;
     const exited = await Promise.race([
       this.exitPromise.then(() => true),
-      new Promise<boolean>((resolve) => setTimeout(() => resolve(false), gracefulTimeoutMs)),
+      new Promise<boolean>((resolve) => {
+        graceTimer = setTimeout(() => resolve(false), gracefulTimeoutMs);
+      }),
     ]);
+    // A child that exits on SIGTERM wins the race; its grace timer would
+    // otherwise hold the event loop open for the rest of the window.
+    clearTimeout(graceTimer);
 
     if (!exited) {
       try {
