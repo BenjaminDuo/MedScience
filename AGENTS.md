@@ -58,7 +58,11 @@ When modifying or expanding the codebase, preserve and adhere to these three cor
 
 1. **Subagent Hypothesis Tree (`SubagentTreeEngine`)**:
    - Explores multiple competing scientific hypotheses in parallel with isolated evidence scopes.
-   - Computes empirical multi-factor confidence scores ($S_{\text{seq}}, S_{\text{bio}}, S_{\text{clin}}, S_{\text{lit}}, P_{\text{contradiction}}$) with distinct status classification (`supported`, `inconclusive`, `refuted`).
+   - Orders each branch's lookups by expected information gain (`InformationGainPlanner`).
+   - Maps evidence to five features (sequence, bioactivity, clinical, literature, contradiction --
+     `epistemic/HypothesisFeatures.ts`) and decides `supported` / `refuted` / `inconclusive` with a
+     Mondrian conformal classifier (`ConformalClassifier`). Without a stored calibration the
+     decision is marked `calibrated: false` and claims no coverage.
 
 2. **Pre-Adoption Evidence Verification Gate (`EvidenceVerifier`)**:
    - Codex-style patch verification. No computational or tool output is admitted into the immutable `EvidenceTracker` without passing physical and mathematical boundary tests ($p \in [0, 1]$, $IC_{50} > 0$, $HU \in [-1024, +3071]$, NaN/Inf overflow detection).
@@ -73,6 +77,13 @@ When modifying or expanding the codebase, preserve and adhere to these three cor
 4. **Explicit Plan Tracker (`PlanTracker`)**:
    - 5-stage research milestones (`TASK-1` to `TASK-5`) streamed to the UI via `EventBus`.
 
+5. **Evidence Ledger (`EvidenceLedger`)**:
+   - The durable, cross-session store under `~/.medscience/ledger/`: an append-only, hash-chained
+     event log of evidence and claims, each moving only along `ALLOWED_TRANSITIONS`.
+   - Evidence reaches `verified` only through `AdmissionGate`; claims only through `promoteClaim`
+     (invariant I1). Losing support cascades claims to `contested`.
+   - Specification: [`docs/specs/MedScience_Evidence_Governance.md`](docs/specs/MedScience_Evidence_Governance.md).
+
 ---
 
 ## 3. Non-Negotiable Engineering Rules & Invariants
@@ -84,10 +95,25 @@ All agents contributing to this codebase **MUST** follow these strict rules:
 - Every claim synthesized by MedScience must be anchored in verified `[Evidence: EV-xxx]` tags.
 - Mock providers must use real-world grounded data (e.g. TYK2: P29597, 1187 aa; Deucravacitinib: CID 134821691).
 
+- **Never let a score depend on an entity's name or a hypothesis's wording.** Hypothesis scores are
+  computed from tool output only (`featuresFromObservations`); `tests/test-subagent-tree.ts` checks
+  that renaming a target leaves its score unchanged. v2 gave `TYK2` a perfect score by name -- do not
+  reintroduce anything like it, including in mock providers or fallbacks.
+- **Never report a coverage guarantee, alpha, or calibrated status that the code did not compute.**
+  An uncalibrated decision must stay labelled `uncalibrated-prior`.
+- **Never write ledger state directly.** Evidence goes through `AdmissionGate`, claims through
+  `promoteClaim`, and every other change through `EvidenceLedger.transition` with a reason. Do not
+  edit `events.jsonl` by hand: a broken hash chain makes the ledger read-only by design.
+
 ### B. Clinical Privacy & Sandbox Safety
 - **Clinical Data Policy**: Raw EHR text and DICOM image volumes must be processed locally inside the kernel-enforced sandbox. Transmission to external API endpoints requires explicit authorization through the `clinical-data-gate` Hook.
 - **Sandboxed Execution**: Python execution must default to the sandbox without direct network or host filesystem access.
 - **Credential Protection**: Never hardcode, commit, or echo real API keys. All tool invocations must pass the `secret-redaction` Hook.
+
+- **New API channel namespaces need the Electron preload too.** `packages/desktop/electron/preload.cjs`
+  allowlists channel prefixes; a new namespace works in `npm run web` and is blocked in the desktop
+  app until it is added there. `packages/desktop/tests/test-preload-channels.ts` fails when they
+  drift.
 
 ### C. Branding and Naming
 - The framework name is strictly **MedScience**.
@@ -117,6 +143,9 @@ All agents contributing to this codebase **MUST** follow these strict rules:
   `github.ref`, which on a dispatch names a branch.
 - Because of this, `release.yml`'s `prepare` job must keep `fetch-depth: 0` — the check asks whether the
   tagged commit is an ancestor of `origin/main`, which a shallow clone cannot answer.
+- `.github/RELEASE_BODY.md` is a template: write `{{VERSION}}` (the tag without its `v`) wherever an
+  asset name needs the version. `release.yml` renders it per release; a literal version there goes
+  stale on the next release.
 - CI (`test.yml`) runs on every branch. Do not narrow it back to `main`: work lands on a
   development branch first, and that is exactly where a break needs to be caught.
 

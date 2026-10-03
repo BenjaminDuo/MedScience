@@ -1004,6 +1004,42 @@ export const PortalDocView: React.FC<PortalDocViewProps> = ({ section }) => {
           </div>
 
           <div className="space-y-6 text-[14px]">
+            {/* Release v3.0.0 (pre-release) */}
+            <div className="p-5 rounded-2xl bg-bg-surface border border-accent/40 space-y-3 shadow-xs">
+              <div className="flex items-center justify-between border-b border-border-subtle pb-2">
+                <div className="flex items-center gap-2">
+                  <span className="px-2 py-0.5 rounded text-[11px] font-bold font-mono bg-accent text-white">v3.0.0</span>
+                  <span className="px-2 py-0.5 rounded text-[11px] font-mono border border-border text-text-muted">
+                    {isZh ? '预发布' : 'Pre-release'}
+                  </span>
+                  <span className="font-bold text-[15px] text-text-primary">
+                    {isZh ? '证据治理：证据账本、信息增益取证与共形判定' : 'Evidence Governance: Ledger, Information-Gain Requests & Conformal Decisions'}
+                  </span>
+                </div>
+                <span className="text-[12px] text-accent font-mono font-semibold">October 2026</span>
+              </div>
+              <ul className="text-[13px] text-text-secondary space-y-1.5 list-disc list-inside">
+                <li>
+                  <strong>{isZh ? '证据账本：' : 'Evidence Ledger: '}</strong>
+                  {isZh
+                    ? '跨会话持久化、哈希链防篡改的证据与结论库。证据须经准入门禁（来源、时效、隐私、数值校验、撤稿）方可验证；支持证据失效时，依赖它的结论自动转为「有争议」。可导入 Retraction Watch 撤稿数据并扫描整个账本。'
+                    : 'A durable, hash-chained store of evidence and claims. Evidence is verified only through an admission gate (provenance, validity window, privacy, numerical checks, retractions); when supporting evidence falls, the claims resting on it become contested. Retraction Watch data can be imported and swept across the ledger.'}
+                </li>
+                <li>
+                  <strong>{isZh ? '信息增益取证：' : 'Information-Gain Evidence Requests: '}</strong>
+                  {isZh
+                    ? '假设分支按期望信息增益 / 成本排序查询，可设预算与提前停止；工具失败只消耗预算，不会被当作反证。'
+                    : 'Hypothesis branches order their lookups by expected information gain per unit cost, within a budget and with optional early stopping; a failed tool call spends budget and is never read as counter-evidence.'}
+                </li>
+                <li>
+                  <strong>{isZh ? '共形三分判定：' : 'Conformal Three-Way Decisions: '}</strong>
+                  {isZh
+                    ? '支持 / 反驳 / 不确定 由分类条件共形预测集给出；未校准时明确标注、不声称覆盖率。移除了 v2 中按靶点名称（如 TYK2）打分的逻辑，评分只来自工具返回的证据。'
+                    : 'Supported / refuted / inconclusive come from a class-conditional conformal prediction set; uncalibrated decisions say so and claim no coverage. The v2 scoring that rewarded targets by name (e.g. TYK2) is removed: scores come only from what the tools returned.'}
+                </li>
+              </ul>
+            </div>
+
             {/* Release v2.0.0 */}
             <div className="p-5 rounded-2xl bg-bg-surface border border-accent/40 space-y-3 shadow-xs">
               <div className="flex items-center justify-between border-b border-border-subtle pb-2">

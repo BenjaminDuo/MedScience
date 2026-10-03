@@ -39,7 +39,8 @@
 | 架构支柱 | 技术实现 |
 | :--- | :--- |
 | **🔍 生成物前置严审门禁** | 入库前的实证校验：Python 计算结果、动力学常数与影像组学统计量，必须先通过 `EvidenceVerifier` 的物理合理性边界检查（$p \in [0,1]$、$IC_{50}>0$、$HU \in [-1024,3071]$）与 NaN / 除零异常检测，方可获得 `[Evidence: EV-xxx]` 编号。越界将触发自主纠错回路。 |
-| **🌲 假设子 Agent 树** | 多假说并发探索：父 Agent 动态派生隔离的子 Agent 分支，并行评估相互竞争的靶点与机制，计算多因子置信度梯度，并合成结构化的**假说对比矩阵**。 |
+| **🌲 假设子 Agent 树** | 多假说并发探索：父 Agent 动态派生隔离的子 Agent 分支，并行评估相互竞争的靶点与机制，并合成结构化的**假说对比矩阵**。评分只来自工具返回的证据，与靶点名称无关；每个分支按**期望信息增益**排序查询，并由**共形预测**给出 支持 / 反驳 / 不确定 判定（未校准时明确标注，不声称覆盖率）。 |
+| **📒 证据账本 (`EvidenceLedger`)** | 跨会话的持久证据库：追加写入、哈希链防篡改；证据与结论只能沿类型化状态机迁移（候选 → 已验证 → 有争议 / 已隔离 → 已取代 / 已撤销）。每条证据须经**准入门禁**（来源、时效、隐私、数值校验、撤稿）；支持证据失效时，依赖它的结论自动转为「有争议」。可导入 Retraction Watch 撤稿数据并扫描整个账本。详见 [方法说明](docs/specs/MedScience_Evidence_Governance.md)。 |
 | **🛡️ 正式生命周期 Hooks 门禁 (`HookRegistry`)** | 在 `PreToolUse`、`PostToolUse`、`SessionStart`、`Stop` 四大生命周期节点触发不可绕过的守护：`secret-redaction`（阻断凭证泄漏）、`evidence-verifier`（边界校验）、`clinical-data-gate`（守护 EHR / DICOM 数据）、`evidence-completeness-check`（确保 100% 溯源完整）。 |
 | **📝 工作区受限文件编辑器 (`FileEditorTool`)** | 零宿主逃逸的工作区内文本 / 脚本修改：支持查看、原子化 str_replace、按行插入与追加，严格限定在会话工作区内，用于手稿与数据的迭代编辑。 |
 | **📦 19 项领域 Skill 与安全安装器 (`SkillInstaller`)** | 覆盖分子生物学、化学信息学、统计分析、MASLD RNA-seq、生存分析、FAERS 信号检测与 PRISMA 系统综述的科研 SOP 库；安装前执行静态扫描，命中规则即拒绝安装（科研技能 → 从 URL 安装）。该扫描能拦下明显与粗心的代码，但拦不住蓄意构造的作者。 |
@@ -165,5 +166,6 @@ npm test          # core 与 desktop 的全部测试套件
 
 - 本项目基于 [MIT License](LICENSE) 开源。
 - 架构规范、设计说明与声明位于 [`docs/`](docs/)。
+- v3.0 证据治理方法（证据账本、信息增益取证、共形判定）的形式化说明：[`docs/specs/MedScience_Evidence_Governance.md`](docs/specs/MedScience_Evidence_Governance.md)。
 - 面向 AI 协作者的工程约定：[`AGENTS.md`](AGENTS.md)。
 - English version: [README-en.md](README-en.md)。

@@ -1,7 +1,7 @@
 {
   "name": "medscience-monorepo",
   "private": true,
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "MedScience - Autonomous Scientific Research Workstation",
   "author": "MedScience Team <team@medscience.org>",
   "repository": {

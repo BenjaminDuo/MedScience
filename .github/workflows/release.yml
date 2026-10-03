@@ -163,6 +163,21 @@ jobs:
           fi
         shell: bash
 
+      # RELEASE_BODY.md names the installers with a {{VERSION}} placeholder,
+      # so the install guide never points at the previous release's files.
+      - name: Render install guide for this version
+        if: needs.prepare.outputs.publish == 'true' && runner.os == 'Linux'
+        shell: bash
+        env:
+          TAG: ${{ needs.prepare.outputs.tag }}
+        run: |
+          set -euo pipefail
+          sed "s/{{VERSION}}/${TAG#v}/g" .github/RELEASE_BODY.md > "$RUNNER_TEMP/release-body.md"
+          if grep -q '{{' "$RUNNER_TEMP/release-body.md"; then
+            echo "::error::Unrendered placeholder left in the release notes"
+            exit 1
+          fi
+
       - name: Upload Release Assets to GitHub Release
         uses: softprops/action-gh-release@v2
         if: needs.prepare.outputs.publish == 'true'
@@ -180,7 +195,7 @@ jobs:
           # does it: its runner is the one that is reliably available, so a slow
           # or missing macOS runner does not leave the release without a guide.
           generate_release_notes: ${{ runner.os == 'Linux' }}
-          body_path: ${{ runner.os == 'Linux' && '.github/RELEASE_BODY.md' || '' }}
+          body_path: ${{ runner.os == 'Linux' && format('{0}/release-body.md', runner.temp) || '' }}
           append_body: true
           fail_on_unmatched_files: false
           files: |
