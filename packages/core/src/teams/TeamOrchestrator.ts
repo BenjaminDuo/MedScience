@@ -28,6 +28,8 @@ import { TeamRunStore, TeamRunRecord, globalTeamRunStore } from './TeamRunStore.
 import { validatePlanSubmission } from './TeamPlanner.js';
 import { computeReadyTasks, isTaskGraphSettled, hasDeadlockedTasks } from './TeamScheduler.js';
 import { runLeaderPlanning, runMemberTask, runReviewTask, runSynthesis } from './ApiAgentRunner.js';
+import { EvidenceLedger, getGlobalEvidenceLedger } from '../epistemic/EvidenceLedger.js';
+import { commitRunEvidence } from '../epistemic/LedgerBridge.js';
 
 /** Run statuses that mean "this run will not progress any further on its own". */
 const SETTLED_RUN_STATUSES = new Set(['completed', 'failed', 'cancelled']);
@@ -76,6 +78,7 @@ export class TeamOrchestrator {
   private active: Map<string, { record: TeamRunRecord; evidenceTracker: EvidenceTracker; paused: boolean; cancelled: boolean; dispatching: boolean }> = new Map();
 
   /** Test/advanced-use injection point: bypasses ExecutionProfile/ModelProfile resolution entirely when set. */
+  private evidenceLedger?: EvidenceLedger | null;
   private modelProviderOverride?: (team: ResearchTeamDefinition, member: ResearchTeamMember | undefined, agentDef: AgentDefinition | undefined) => { provider: ModelProvider; model: string };
 
   constructor(options?: {
@@ -87,6 +90,8 @@ export class TeamOrchestrator {
     profileManager?: ProfileManager;
     executionProfileManager?: ExecutionProfileManager;
     modelProviderOverride?: (team: ResearchTeamDefinition, member: ResearchTeamMember | undefined, agentDef: AgentDefinition | undefined) => { provider: ModelProvider; model: string };
+    /** Durable ledger the run's evidence is committed to; null turns committing off. */
+    evidenceLedger?: EvidenceLedger | null;
   }) {
     this.teamProfileManager = options?.teamProfileManager || globalTeamProfileManager;
     this.agentRegistry = options?.agentRegistry || globalTeamAgentRegistry;
@@ -96,6 +101,7 @@ export class TeamOrchestrator {
     this.profileManager = options?.profileManager || globalProfileManager;
     this.executionProfileManager = options?.executionProfileManager || globalExecutionProfileManager;
     this.modelProviderOverride = options?.modelProviderOverride;
+    this.evidenceLedger = options?.evidenceLedger;
   }
 
   /**
@@ -554,6 +560,18 @@ export class TeamOrchestrator {
     if (record.handoffs.length === 0) {
       this.failRun(runId, { code: 'NO_COMPLETED_WORK', message: 'No task completed successfully; there is nothing to review or synthesize.', cause: 'no-evidence' });
       return;
+    }
+
+    // The members' lookups go to the ledger before review, so what the run
+    // found is kept (and gated) even if the critic stops the synthesis.
+    if (this.evidenceLedger !== null) {
+      commitRunEvidence(evidenceTracker, {
+        ledger: this.evidenceLedger ?? getGlobalEvidenceLedger(),
+        sessionId: record.run.sessionId,
+        workspaceId: this.sessionManager.getSession(record.run.sessionId)?.workspaceId,
+        eventBus: this.eventBus,
+        source: 'team-run',
+      });
     }
 
     record.run.status = 'reviewing';

@@ -7,6 +7,7 @@ import { DesktopWorkspaceView } from '../views/DesktopWorkspaceView';
 import { ConversationsView } from '../views/ConversationsView';
 import { SkillsCatalogView } from '../views/SkillsCatalogView';
 import { EvidenceRegistryView } from '../views/EvidenceRegistryView';
+import { EvidenceLedgerView } from '../views/EvidenceLedgerView';
 import { OutputFilesView } from '../views/OutputFilesView';
 import { ModelConfigView } from '../views/ModelConfigView';
 import { GuardrailHooksView } from '../views/GuardrailHooksView';
@@ -37,6 +38,7 @@ export const AppShell: React.FC = () => {
           {activeSection === 'teams' && <ConversationsView />}
           {activeSection === 'skills' && <SkillsCatalogView />}
           {activeSection === 'evidence' && <EvidenceRegistryView />}
+          {activeSection === 'ledger' && <EvidenceLedgerView />}
           {activeSection === 'files' && <OutputFilesView />}
           {activeSection === 'model-config' && <ModelConfigView />}
           {activeSection === 'guardrails' && <GuardrailHooksView />}

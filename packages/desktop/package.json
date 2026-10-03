@@ -23,7 +23,7 @@
     "dist:mac": "npm run build && node ../../node_modules/electron-builder/cli.js --mac --project . -c electron-builder.json --publish never",
     "dist:win": "npm run build && node ../../node_modules/electron-builder/cli.js --win --project . -c electron-builder.json --publish never",
     "dist:linux": "npm run build && node ../../node_modules/electron-builder/cli.js --linux --project . -c electron-builder.json --publish never",
-    "test": "tsx tests/test-member-routing.ts"
+    "test": "tsx tests/test-member-routing.ts && tsx tests/test-preload-channels.ts"
   },
   "dependencies": {},
   "devDependencies": {

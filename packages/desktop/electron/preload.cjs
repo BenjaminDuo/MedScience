@@ -15,7 +15,7 @@ const { contextBridge, ipcRenderer } = require('electron');
  * live once in @medscience/core's channel registry, so there is nothing
  * left here to drift.
  */
-const ALLOWED_INVOKE_PREFIXES = ['model:', 'agent:', 'runtime:', 'team:', 'workspace:', 'session:', 'skill:'];
+const ALLOWED_INVOKE_PREFIXES = ['model:', 'agent:', 'runtime:', 'team:', 'workspace:', 'session:', 'skill:', 'ledger:'];
 const ALLOWED_EVENT_CHANNELS = ['agent:event', 'agent:delta'];
 
 contextBridge.exposeInMainWorld('medscienceBridge', {

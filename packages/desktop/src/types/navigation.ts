@@ -3,6 +3,7 @@ export type NavSection =
   | 'teams'
   | 'skills'
   | 'evidence'
+  | 'ledger'
   | 'files'
   | 'model-config'
   | 'guardrails';

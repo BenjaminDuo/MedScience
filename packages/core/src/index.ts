@@ -46,6 +46,10 @@ export * from './research-loop/ChatEngine.js';
 export * from './research-loop/MemoryCompactor.js';
 export * from './research-loop/ResearchEngine.js';
 
+// Evidence governance: conformal decisions, information-gain evidence requests,
+// and the persistent evidence ledger
+export * from './epistemic/index.js';
+
 // Execution backends (API vs local Codex runtime)
 export * from './execution/types.js';
 export * from './execution/ExecutionBackend.js';

@@ -9,6 +9,7 @@ import {
   Cpu,
   Shield,
   Users,
+  ScrollText,
 } from 'lucide-react';
 import { MedScienceLogo } from '../common/MedScienceLogo';
 import { WorkspaceTree } from './WorkspaceTree';
@@ -35,7 +36,13 @@ interface NavItemConfig {
 // WorkspaceTree, one set per workspace (see its sub-item entries), so a
 // user opens a workspace to see its own conversations/evidence/output
 // files/team runs instead of everything ever created flattened together.
-const navItems: NavItemConfig[] = [];
+//
+// The evidence ledger is the first page to use this slot: it is the one
+// store that outlives every session and workspace (entries still carry
+// their workspace, and the page filters by it).
+const navItems: NavItemConfig[] = [
+  { id: 'ledger', labelEn: 'Evidence Ledger', labelZh: '证据账本', icon: ScrollText },
+];
 
 // "配置" group -- Model Configuration, Guardrail Hooks, and Scientific
 // Skills (moved here from the old flat nav list -- it's account-wide
@@ -134,10 +141,8 @@ export const Sidebar: React.FC<SidebarProps> = ({ className = '' }) => {
           visible and pinned to the bottom, on any window height. */}
       <WorkspaceTree collapsed={isSidebarCollapsed} />
 
-      {/* Navigation List -- currently empty (see navItems above); kept as
-          a real, zero-item section rather than deleted outright, so a
-          future account-wide, non-workspace-scoped page has somewhere to
-          land. Deliberately NOT flex-1 (WorkspaceTree above is now the
+      {/* Navigation List -- account-wide pages that are not scoped to a
+          workspace (see navItems above). Deliberately NOT flex-1 (WorkspaceTree above is now the
           sidebar's one growing/scrolling spacer) -- two flex-1 siblings
           would each fight for half the leftover space instead of giving
           it all to the workspace list. */}

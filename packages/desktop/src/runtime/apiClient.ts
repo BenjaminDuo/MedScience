@@ -1,4 +1,16 @@
 import type {
+  CalibrationFileReport,
+  ChainStatus,
+  GateCheck,
+  InvariantViolation,
+  LedgerEntry,
+  LedgerEvent,
+  LedgerFilter,
+  LedgerKind,
+  LedgerState,
+  RetractionImportResult,
+  RetractionSweepChange,
+  TransitionResult,
   AgentDefinition,
   AgentSubmitPayload,
   ApiChannelName,
@@ -41,6 +53,16 @@ declare global {
   interface Window {
     medscienceBridge?: MedScienceBridge;
   }
+}
+
+export interface LedgerOverview {
+  stats: Record<LedgerKind, Record<LedgerState, number>>;
+  chain: ChainStatus;
+  violations: InvariantViolation[];
+  retractions: { size: number; importedAt?: string; source?: string };
+  calibration:
+    | { calibrated: true; alpha: number; counts: Record<'supported' | 'refuted', number>; createdAt: string; datasetHash: string }
+    | { calibrated: false };
 }
 
 export function createApiClient(invoke: Transport, subscribe: EventSubscriber) {
@@ -180,6 +202,31 @@ export function createApiClient(invoke: Transport, subscribe: EventSubscriber) {
       delete: (id: string): Promise<boolean> => invoke('session:delete', id),
       rename: (id: string, title: string): Promise<boolean> => invoke('session:rename', id, title),
       export: (id: string): Promise<string> => invoke('session:export', id),
+    },
+    ledger: {
+      list: (filter?: LedgerFilter): Promise<LedgerEntry[]> => invoke('ledger:list', filter),
+      get: (
+        id: string
+      ): Promise<
+        | { entry: LedgerEntry; history: LedgerEvent[]; dependents: LedgerEntry[]; cites: LedgerEntry[]; allowedTransitions: LedgerState[] }
+        | undefined
+      > => invoke('ledger:get', id),
+      overview: (): Promise<LedgerOverview> => invoke('ledger:overview'),
+      verify: (): Promise<{ chain: ChainStatus; violations: InvariantViolation[] }> => invoke('ledger:verify'),
+      transition: (id: string, to: LedgerState, reason: string): Promise<TransitionResult> =>
+        invoke('ledger:transition', id, to, reason),
+      promoteClaim: (id: string): Promise<TransitionResult> => invoke('ledger:promoteClaim', id),
+      readmit: (
+        id: string
+      ): Promise<{ ok: boolean; error?: string; decision?: 'admit' | 'quarantine'; checks?: GateCheck[]; state?: LedgerState }> =>
+        invoke('ledger:readmit', id),
+      importRetractionsFromPath: (filePath: string): Promise<RetractionImportResult> =>
+        invoke('ledger:importRetractionsFromPath', filePath),
+      importRetractionsCsv: (csvText: string, sourceName?: string): Promise<RetractionImportResult> =>
+        invoke('ledger:importRetractionsCsv', csvText, sourceName),
+      sweepRetractions: (): Promise<RetractionSweepChange[]> => invoke('ledger:sweepRetractions'),
+      calibrateFromFile: (filePath: string, alpha?: number): Promise<CalibrationFileReport> =>
+        invoke('ledger:calibrateFromFile', filePath, alpha),
     },
   };
 }

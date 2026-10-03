@@ -173,6 +173,19 @@ export type TeamRunCompletedEvent = BaseEvent<
   { teamRunId: string; status: 'completed' | 'failed' | 'cancelled'; error?: { code: string; message: string } }
 >;
 
+export type EvidenceLedgerUpdatedEvent = BaseEvent<
+  'evidence.ledger.updated',
+  {
+    source: 'research-turn' | 'hypothesis-tree' | 'team-run' | 'retraction-sweep' | 'curator';
+    admitted: number;
+    quarantined: number;
+    claims?: number;
+    /** State changes made by a sweep or a curator action, including cascades. */
+    transitions?: number;
+    error?: string;
+  }
+>;
+
 export type RuntimeEvent =
   | SessionCreatedEvent
   | SessionResumedEvent
@@ -206,6 +219,7 @@ export type RuntimeEvent =
   | TeamPlanReadyEvent
   | TeamTaskStatusEvent
   | TeamHandoffSubmittedEvent
-  | TeamRunCompletedEvent;
+  | TeamRunCompletedEvent
+  | EvidenceLedgerUpdatedEvent;
 
 export type EventType = RuntimeEvent['type'];

@@ -12,6 +12,8 @@ import { SkillRegistry, globalSkillRegistry } from '../skills/SkillRegistry.js';
 import { EvidenceVerifier, globalEvidenceVerifier } from './EvidenceVerifier.js';
 import { PlanTracker, globalPlanTracker } from './PlanTracker.js';
 import { SubagentTreeEngine, globalSubagentTreeEngine } from './SubagentTreeEngine.js';
+import { EvidenceLedger, getGlobalEvidenceLedger } from '../epistemic/EvidenceLedger.js';
+import { commitRunEvidence } from '../epistemic/LedgerBridge.js';
 import { HypothesisNode } from './HypothesisTree.js';
 import { HookRegistry, globalHookRegistry } from '../hooks/HookRegistry.js';
 import { HookContext } from '../hooks/types.js';
@@ -32,6 +34,8 @@ export interface AutonomousResearchEngineOptions {
   planTracker?: PlanTracker;
   subagentTreeEngine?: SubagentTreeEngine;
   hookRegistry?: HookRegistry;
+  /** Durable ledger that admitted evidence is committed to; null turns committing off. */
+  evidenceLedger?: EvidenceLedger | null;
 }
 
 export class AutonomousResearchEngine {
@@ -48,6 +52,7 @@ export class AutonomousResearchEngine {
   private planTracker: PlanTracker;
   private subagentTreeEngine: SubagentTreeEngine;
   private hookRegistry: HookRegistry;
+  private evidenceLedger: EvidenceLedger | null | undefined;
 
   constructor(options: AutonomousResearchEngineOptions) {
     this.maxTurns = options.maxTurns || 16;
@@ -63,6 +68,18 @@ export class AutonomousResearchEngine {
     this.planTracker = options.planTracker || globalPlanTracker;
     this.subagentTreeEngine = options.subagentTreeEngine || globalSubagentTreeEngine;
     this.hookRegistry = options.hookRegistry || globalHookRegistry;
+    // undefined = the profile's ledger, opened lazily on first commit.
+    this.evidenceLedger = options.evidenceLedger;
+  }
+
+  private ledgerContext(sessionId: string) {
+    const session = this.sessionManager.getSession(sessionId);
+    return {
+      ledger: this.evidenceLedger ?? getGlobalEvidenceLedger(),
+      sessionId,
+      workspaceId: session?.workspaceId,
+      eventBus: this.eventBus,
+    };
   }
 
   public setModelProvider(provider: ModelProvider): void {
@@ -98,12 +115,23 @@ export class AutonomousResearchEngine {
     parentEvidenceTracker: EvidenceTracker,
     maxConcurrency?: number
   ) {
-    return this.subagentTreeEngine.exploreHypothesesParallel(
+    const result = await this.subagentTreeEngine.exploreHypothesesParallel(
       parentSessionId,
       hypotheses,
       parentEvidenceTracker,
       maxConcurrency
     );
+    if (this.evidenceLedger !== null) {
+      commitRunEvidence(parentEvidenceTracker, {
+        ...this.ledgerContext(parentSessionId),
+        source: 'hypothesis-tree',
+        hypotheses: {
+          results: result.branchResults,
+          statements: new Map(hypotheses.map((h) => [h.id, h.statement])),
+        },
+      });
+    }
+    return result;
   }
 
   public async run(
@@ -480,6 +508,13 @@ ${researchProfile.systemPromptFocus ? `\n${researchProfile.systemPromptFocus}` :
 
     this.sessionManager.addTurn(sessionId, completedTurn);
     this.sessionManager.updateSessionStatus(sessionId, critiquePassed ? 'completed' : 'error');
+
+    // Every recorded result goes to the ledger as a candidate and through
+    // the admission gate, whether or not the report itself passed: a failed
+    // synthesis does not make the underlying lookups any less real.
+    if (this.evidenceLedger !== null) {
+      commitRunEvidence(evidenceTracker, { ...this.ledgerContext(sessionId), source: 'research-turn' });
+    }
 
     return completedTurn;
   }

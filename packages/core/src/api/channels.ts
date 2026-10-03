@@ -17,6 +17,12 @@ import { ModelProfile, ConnectionTestResult } from '../types/model.js';
 import { ExecutionProfile, RuntimeApprovalDecision, LocalRuntimeKind } from '../execution/types.js';
 import { ResearchTeamDefinition } from '../teams/types.js';
 import { DEFAULT_AGENT_ID } from '../agents/agentPersona.js';
+import { ALLOWED_TRANSITIONS, getGlobalEvidenceLedger, LedgerFilter, LedgerState } from '../epistemic/EvidenceLedger.js';
+import { getGlobalRetractionIndex } from '../epistemic/RetractionIndex.js';
+import { AdmissionGate, sweepRetractions } from '../epistemic/AdmissionGate.js';
+import { calibrateFromFile, loadCalibration, loadDefaultClassifier } from '../epistemic/ConformalClassifier.js';
+import { globalSubagentTreeEngine } from '../research-loop/SubagentTreeEngine.js';
+import { globalEventBus } from '../core/EventBus.js';
 
 /**
  * The single definition of MedScience's app API.
@@ -93,6 +99,15 @@ function legacyArgs<T extends Record<string, any>>(first: any, keys: (keyof T)[]
     (unpacked as any)[key] = index === 0 ? first : values[index - 1];
   });
   return unpacked;
+}
+
+function emitLedgerUpdate(source: 'curator' | 'retraction-sweep', transitions: number): void {
+  globalEventBus.emit({
+    type: 'evidence.ledger.updated',
+    sessionId: 'ledger',
+    timestamp: new Date().toISOString(),
+    payload: { source, admitted: 0, quarantined: 0, transitions },
+  });
 }
 
 export function createApiChannels(host: ApiChannelHost) {
@@ -284,6 +299,85 @@ export function createApiChannels(host: ApiChannelHost) {
       return globalSessionManager.renameSession(args.id, args.title);
     },
     'session:export': async (id: string): Promise<string> => globalSessionManager.exportSessionMarkdown(id),
+
+    // ----- evidence ledger (证据账本) -----
+    'ledger:list': async (filter?: LedgerFilter) => getGlobalEvidenceLedger().list(filter ?? {}),
+    'ledger:get': async (id: string) => {
+      const ledger = getGlobalEvidenceLedger();
+      const entry = ledger.get(id);
+      if (!entry) return undefined;
+      const cites = [...(entry.supports ?? []), ...(entry.refutes ?? [])].map((ref) => ledger.get(ref)).filter(Boolean);
+      return {
+        entry,
+        history: ledger.history(id),
+        dependents: ledger.dependents(id),
+        cites,
+        // The UI offers only these, so it never has to mirror the state machine.
+        allowedTransitions: ALLOWED_TRANSITIONS[entry.state],
+      };
+    },
+    'ledger:overview': async () => {
+      const ledger = getGlobalEvidenceLedger();
+      const calibration = loadCalibration();
+      return {
+        stats: ledger.stats(),
+        chain: ledger.chainStatus(),
+        violations: ledger.checkInvariants(),
+        retractions: getGlobalRetractionIndex().info(),
+        calibration: calibration
+          ? { calibrated: true, alpha: calibration.alpha, counts: calibration.counts, createdAt: calibration.createdAt, datasetHash: calibration.datasetHash }
+          : { calibrated: false },
+      };
+    },
+    'ledger:verify': async () => {
+      const ledger = getGlobalEvidenceLedger();
+      return { chain: ledger.verifyChain(), violations: ledger.checkInvariants() };
+    },
+    /** Curator action: a person moves an entry (e.g. contests or revokes it), with a reason. */
+    'ledger:transition': async (id: string, to: LedgerState, reason: string) => {
+      if (!reason?.trim()) return { ok: false, cascaded: [], error: 'A reason is required for every manual change.' };
+      const result = getGlobalEvidenceLedger().transition(id, to, reason.trim(), 'user');
+      if (result.ok) emitLedgerUpdate('curator', 1 + result.cascaded.length);
+      return result;
+    },
+    'ledger:promoteClaim': async (id: string) => {
+      const result = getGlobalEvidenceLedger().promoteClaim(id, 'user');
+      if (result.ok) emitLedgerUpdate('curator', 1 + result.cascaded.length);
+      return result;
+    },
+    /** Sends a quarantined entry back through the admission gate. */
+    'ledger:readmit': async (id: string) => {
+      const ledger = getGlobalEvidenceLedger();
+      const entry = ledger.get(id);
+      if (!entry || entry.kind !== 'evidence' || entry.state !== 'quarantined') {
+        return { ok: false, error: 'Only quarantined evidence can be re-admitted.' };
+      }
+      const back = ledger.transition(id, 'candidate', 're-review requested', 'user');
+      if (!back.ok) return { ok: false, error: back.error };
+      const gate = new AdmissionGate({ retractions: getGlobalRetractionIndex() }).admit(ledger, id, { actor: 'user' });
+      emitLedgerUpdate('curator', 2);
+      return { ok: true, decision: gate.decision, checks: gate.checks, state: ledger.get(id)?.state };
+    },
+    /**
+     * Imports a retraction CSV by path. Reading the file in the host process
+     * (rather than sending its contents) is what lets the full Retraction
+     * Watch file through: the web host caps request bodies at 1 MiB.
+     */
+    'ledger:importRetractionsFromPath': async (filePath: string) => getGlobalRetractionIndex().importFile(filePath),
+    'ledger:importRetractionsCsv': async (csvText: string, sourceName?: string) =>
+      getGlobalRetractionIndex().importCsv(csvText, sourceName || 'pasted.csv'),
+    'ledger:sweepRetractions': async () => {
+      const changes = sweepRetractions(getGlobalEvidenceLedger(), getGlobalRetractionIndex(), { actor: 'user' });
+      emitLedgerUpdate('retraction-sweep', changes.reduce((n, c) => n + 1 + c.cascaded.length, 0));
+      return changes;
+    },
+    /** Fits and calibrates the hypothesis classifier from a labelled JSON/JSONL file. */
+    'ledger:calibrateFromFile': async (filePath: string, alpha?: number) => {
+      const report = calibrateFromFile(filePath, alpha ?? 0.1);
+      // The running engine picks up the new calibration without a restart.
+      globalSubagentTreeEngine.setClassifier(loadDefaultClassifier());
+      return report;
+    },
   };
 }
 
