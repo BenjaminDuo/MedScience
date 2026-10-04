@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Markdown } from '../common/Markdown';
 import type { AgentDefinition, ScientificHandoff, TeamRun, TeamTask } from '@medscience/core';
 import { ChevronDown, ChevronRight, FileText, ListTree, ShieldCheck } from 'lucide-react';
 import { useLanguage } from '../../context/LanguageContext';
@@ -155,8 +156,14 @@ export const ReportCard: React.FC<{ run: TeamRun }> = ({ run }) => {
           {t(`${report.evidenceIds.length} evidence`, `${report.evidenceIds.length} 条证据`)}
         </span>
       </div>
-      <div className="px-3 py-2 text-[12px] text-text-secondary leading-relaxed whitespace-pre-wrap">
-        {expanded ? report.narrative : `${report.narrative.slice(0, 320)}${report.narrative.length > 320 ? '…' : ''}`}
+      <div className="px-3 py-2 text-[12px] text-text-secondary leading-relaxed">
+        {/* The collapsed preview stays plain text: cutting Markdown at 320
+            characters can split a table or a list mid-way. */}
+        {expanded ? (
+          <Markdown className="space-y-2">{report.narrative}</Markdown>
+        ) : (
+          <span className="whitespace-pre-wrap">{`${report.narrative.slice(0, 320)}${report.narrative.length > 320 ? '…' : ''}`}</span>
+        )}
       </div>
       {report.limitations.length > 0 && expanded && (
         <div className="px-3 pb-2 text-[11.5px] text-text-muted">

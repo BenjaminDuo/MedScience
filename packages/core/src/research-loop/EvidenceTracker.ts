@@ -1,5 +1,6 @@
 import { Citation, Artifact } from '../types/runtime.js';
 import { EvidenceVerificationResult, globalEvidenceVerifier } from './EvidenceVerifier.js';
+import { markdownTableCell } from './PlanTracker.js';
 
 export interface EvidenceRecord {
   id: string; // e.g. 'EV-1', 'EV-2'
@@ -115,8 +116,8 @@ export class EvidenceTracker {
 
     for (const ev of this.records.values()) {
       const vBadge = ev.verificationStatus === 'flagged' ? '⚠️ Flagged' : '✔ Verified';
-      const cleanSummary = ev.summary.replace(/\|/g, '-').slice(0, 75);
-      const cleanQuery = ev.query.replace(/\|/g, '-').slice(0, 25);
+      const cleanSummary = markdownTableCell(ev.summary.slice(0, 75));
+      const cleanQuery = markdownTableCell(ev.query.slice(0, 25));
       const time = new Date(ev.timestamp).toLocaleTimeString();
       table += `| **${ev.id}** | \`${ev.toolName}\` | ${vBadge} | ${cleanQuery} | ${cleanSummary}... | ${time} |\n`;
     }

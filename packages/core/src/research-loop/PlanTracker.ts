@@ -204,8 +204,11 @@ export class PlanTracker {
         : 'Pending';
 
       const evStr = t.evidenceIds.length > 0 ? t.evidenceIds.join(', ') : '-';
-      const noteStr = t.resultNote ? t.resultNote.slice(0, 60) : '-';
-      const title = (zh && t.titleZh) || t.title;
+      // Notes carry tool error text (tracebacks included): a newline or a
+      // pipe there ends the table row early and the whole table stops
+      // rendering as a table.
+      const noteStr = t.resultNote ? markdownTableCell(t.resultNote.slice(0, 60)) : '-';
+      const title = markdownTableCell((zh && t.titleZh) || t.title);
 
       out += `| **${t.id.toUpperCase()}** | ${icon} | **[${t.category}]** ${title} | ${evStr} | ${noteStr} |\n`;
     }
@@ -260,3 +263,8 @@ export class PlanTracker {
 }
 
 export const globalPlanTracker = new PlanTracker();
+
+/** Makes text safe inside one Markdown table cell: no line breaks, pipes escaped. */
+export function markdownTableCell(text: string): string {
+  return text.replace(/\r?\n+/g, ' ').replace(/\|/g, '\\|').trim();
+}

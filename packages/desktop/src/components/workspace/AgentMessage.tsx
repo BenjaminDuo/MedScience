@@ -1,4 +1,5 @@
 import React from 'react';
+import { Markdown } from '../common/Markdown';
 import { User, Database, BookOpen, Layers } from 'lucide-react';
 import { AgentMessage as AgentMessageType } from '../../types/agent';
 import { ToolExecutionCard } from './ToolExecutionCard';
@@ -66,28 +67,8 @@ export const AgentMessage: React.FC<AgentMessageProps> = ({ message }) => {
         )}
 
         {/* Main Synthesized Text Content */}
-        <div className="p-4 rounded-2xl bg-bg-surface border border-border text-[14px] text-text-primary leading-relaxed space-y-3 shadow-sm">
-          {message.content.split('\n\n').map((paragraph, idx) => {
-            if (paragraph.startsWith('### ')) {
-              return (
-                <h3 key={idx} className="text-[16px] font-bold text-text-primary pt-1">
-                  {paragraph.replace('### ', '')}
-                </h3>
-              );
-            }
-            if (paragraph.startsWith('1. ') || paragraph.startsWith('2. ') || paragraph.startsWith('3. ')) {
-              return (
-                <div key={idx} className="pl-2 border-l-2 border-accent/40 py-0.5 my-2">
-                  <p className="text-text-secondary">{paragraph}</p>
-                </div>
-              );
-            }
-            return (
-              <p key={idx} className="text-text-secondary">
-                {paragraph}
-              </p>
-            );
-          })}
+        <div className="p-4 rounded-2xl bg-bg-surface border border-border text-[14px] text-text-primary leading-relaxed shadow-sm">
+          <Markdown>{message.content}</Markdown>
         </div>
 
         {/* Generated Scientific Artifacts */}
