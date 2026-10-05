@@ -50,18 +50,20 @@ const CW = W - 2 * MX; // content width
 
 // --------------------------------------------------------------- layouts
 pres.defineSlideMaster({
-  title: 'TITLE_DARK',
-  background: { color: HEX.dk2 },
+  title: 'TITLE_LIGHT',
+  background: { color: HEX.lt1 },
   objects: [
+    { rect: { x: MX, y: 1.95, w: 1.1, h: 0.09, fill: { color: HEX.accent1 } } },
+    { rect: { x: 0, y: 7.2, w: W, h: 0.3, fill: { color: HEX.lt2 } } },
     {
       placeholder: {
-        options: { name: 'title', type: 'title', x: MX, y: 2.3, w: 11.5, h: 1.2, fontSize: 48, bold: true, color: C.background1, align: 'left', valign: 'bottom', margin: 0 },
+        options: { name: 'title', type: 'title', x: MX, y: 2.3, w: 11.5, h: 1.2, fontSize: 48, bold: true, color: C.text2, align: 'left', valign: 'bottom', margin: 0 },
         text: '',
       },
     },
     {
       placeholder: {
-        options: { name: 'body', type: 'body', x: MX, y: 3.6, w: 11.5, h: 1.6, fontSize: 22, color: C.background1, align: 'left', valign: 'top', margin: 0 },
+        options: { name: 'body', type: 'body', x: MX, y: 3.6, w: 11.5, h: 1.6, fontSize: 22, color: C.text1, align: 'left', valign: 'top', margin: 0 },
         text: '',
       },
     },
@@ -208,28 +210,28 @@ function card(s, x, y, w, h, fill = C.background2) {
 // 1 -- cover
 pres.addSection({ title: '开篇' });
 {
-  const s = pres.addSlide({ masterName: 'TITLE_DARK', sectionTitle: '开篇' });
+  const s = pres.addSlide({ masterName: 'TITLE_LIGHT', sectionTitle: '开篇' });
   s.addText('MedScience 3.0', { placeholder: 'title' });
   s.addText(
     [
-      { text: '可信科研智能体工作站 · 设计汇报', options: { breakLine: true } },
-      { text: '让每一个科研结论都有据可查、可以撤回、说得清可信度', options: { fontSize: 16, color: 'B9C7D6' } },
+      { text: '面向生物医学研究的科研智能体系统 · 设计汇报', options: { breakLine: true } },
+      { text: '让每一个科研结论都有据可查、可以撤回、说得清可信度', options: { fontSize: 16, color: HEX.accent6 } },
     ],
     { placeholder: 'body' }
   );
-  label(s, MX, 6.55, 8, 0.35, '2026 年 10 月  ·  版本 v3.0.0（预发布）', { size: 13, color: 'B9C7D6' });
+  label(s, MX, 6.55, 8, 0.35, '2026 年 10 月  ·  版本 v3.0.0（预发布）', { size: 13, color: C.accent6 });
   s.addNotes(
-    '开场一句话：MedScience 是一个面向生物医学的科研智能体工作站。3.0 的重点不是让 AI 说得更多，而是让它的结论站得住：有证据、能撤回、可信度说得清，并且数据留在本机。'
+    '开场一句话：MedScience 是一个面向生物医学研究的科研智能体系统，不是通用聊天助手。3.0 的重点不是让 AI 说得更多，而是让它的结论站得住：有证据、能撤回、可信度说得清，并且数据留在本机。'
   );
 }
 
 // 2 -- executive summary
 pres.addSection({ title: '为什么' });
 {
-  const s = content('一页概要', '一句话：让 AI 科研助手的结论有证据、能撤回、说得清可信度，并且数据不出本机。', '为什么');
+  const s = content('一页概要', '一句话：面向生物医学研究——让科研结论有证据、能撤回、说得清可信度，科研数据不出本机。', '为什么');
   const cards = [
-    ['要解决的问题', C.accent3, 'AI 科研助手能很快给出结论，但结论依据什么、依据失效后怎么办、可信度到底多高，往往说不清。'],
-    ['我们的做法', C.accent1, '三类设计：证据治理（结论必须挂靠已验证的证据）、多智能体协作（专家分工、审查把关）、本地运行（数据在本机，复用已有 AI 订阅）。'],
+    ['要解决的问题', C.accent3, 'AI 能很快给出科研结论，但依据哪些文献和数据、依据被新研究推翻后怎么办、可信度多高，往往说不清。'],
+    ['我们的做法', C.accent1, '三类设计：证据治理（结论必须挂靠已验证的文献与数据库证据）、多智能体协作（像课题组一样分工、审查把关）、本地运行（科研与临床数据留在本机）。'],
     ['当前进展', C.accent2, 'v3.0.0 已发布：macOS、Windows、Linux 安装包和本地 Web 版，自动化测试在三个平台通过。真实任务上的对照实验尚待开展。'],
   ];
   const cw = (CW - 2 * 0.3) / 3;
@@ -242,7 +244,7 @@ pres.addSection({ title: '为什么' });
   });
   const kpis = [
     ['3 类', '系统设计'],
-    ['26 位', '领域专家角色'],
+    ['26 位', '科研领域专家角色'],
     ['26 种', '本地 AI 命令行工具可接入'],
     ['4 种', '使用方式（三平台 + Web）'],
   ];
@@ -258,7 +260,7 @@ pres.addSection({ title: '为什么' });
 
 // 3 -- problem and positioning
 {
-  const s = content('问题与定位：四个痛点，同类方案与我们的不同回应', '同类系统各有所长；MedScience 的差异在于“结论治理”与“本地可用”。', '为什么');
+  const s = content('问题与定位：科研场景的四个痛点', '同类科研智能体各有所长；MedScience 的差异在于“结论治理”与“本地可用”。', '为什么');
   const head = (t) => ({ text: t, options: { bold: true, color: 'FFFFFF', fill: { color: HEX.dk2 }, fontSize: 14, valign: 'middle' } });
   const cell = (t, o = {}) => ({ text: t, options: { fontSize: 13, color: HEX.dk1, valign: 'middle', ...o } });
   const ours = (t) => cell(t, { color: HEX.dk2, bold: true });
@@ -266,17 +268,17 @@ pres.addSection({ title: '为什么' });
     [
       [head('痛点'), head('同类方案的常见做法'), head('MedScience 的回应')],
       [
-        cell('① 结论难追溯，错误会固化\n引用的论文后来被撤稿，结论仍被反复使用'),
+        cell('① 结论难追溯，错误会固化\n依据的试验或数据被新研究推翻，结论仍被反复引用'),
         cell('检索后生成带引用的报告\n（如 OpenAI Deep Research）'),
         ours('证据账本：证据持久保存；依据失效，相关结论自动降级'),
       ],
       [
-        cell('② “多问几个 AI”不等于更可靠\n智能体易互相附和，多轮讨论耗算力'),
+        cell('② 专家意见分歧时，下一步查什么\n多轮辩论易互相附和，且耗算力'),
         cell('多智能体生成、辩论、排序假设\n（如 Google AI co-scientist）'),
         ours('信息增益取证：把分歧变成“下一步最该查什么”'),
       ],
       [
-        cell('③ 可信度说不清\n“80% 可信”从何而来，无法核验'),
+        cell('③ 假设成立与否，可信度说不清\n“80% 可信”从何而来，无法核验'),
         cell('自动打分或排名\n（分数本身缺少统计口径）'),
         ours('共形三分判定：支持 / 反驳 / 不确定，各有统计含义'),
       ],
@@ -305,7 +307,7 @@ pres.addSection({ title: '为什么' });
 // 4 -- architecture with the three design categories
 pres.addSection({ title: '怎么设计' });
 {
-  const s = content('总体架构：三类设计落在五层结构中', '均为智能体系统层面的架构设计，不修改基础大模型；底层模型可以随时替换。', '怎么设计');
+  const s = content('总体架构：三类设计落在五层结构中', '均为科研智能体系统层面的架构设计，不修改基础大模型；底层模型可以随时替换。', '怎么设计');
   // legend
   const legend = [
     ['A', '证据治理设计', '管“结论凭什么成立”（3.0 新增）', CAT.A],
@@ -330,7 +332,7 @@ pres.addSection({ title: '怎么设计' });
     { n: '使用入口', k: 'C', items: ['桌面端（macOS / Windows / Linux）', '本地 Web（仅本机可访问）'] },
     { n: '协作层', k: 'B', items: ['队长规划', '成员并行执行', '审查员质量门', '写作专家综合'] },
     { n: '证据治理层', k: 'A', items: ['信息增益取证', '共形三分判定', '准入门禁', '证据账本'], hi: true },
-    { n: '执行层', k: 'C', items: ['模型 API', '本地 CLI 运行时', '科研工具连接器', '内核级沙盒'] },
+    { n: '执行层', k: 'C', items: ['模型 API', '本地 CLI 运行时', '科研数据库连接器', '内核级沙盒'] },
     { n: '数据层', k: 'C', items: ['本机 ~/.medscience：会话 · 证据账本 · 加密密钥库 · 配置'] },
   ];
   const top = 2.45;
@@ -362,7 +364,7 @@ pres.addSection({ title: '怎么设计' });
 
 // 5 -- data flow
 {
-  const s = content('一次研究提问的数据流转', '每一步都留下记录；依据失效时，结论会被“追回”。', '怎么设计');
+  const s = content('一次科研提问的数据流转', '每一步都留下记录；依据被新研究推翻时，结论会被“追回”。', '怎么设计');
   const steps = [
     ['提问', '研究问题'],
     ['规划分工', '任务清单'],
@@ -391,24 +393,24 @@ pres.addSection({ title: '怎么设计' });
 
   const ly = 4.55;
   card(s, MX, ly, CW, 2.15, AMBER_TINT);
-  label(s, MX + 0.3, ly + 0.2, 6, 0.4, '依据失效时的回路（撤稿 / 关注声明）', { size: 15, bold: true, color: C.text2 });
+  label(s, MX + 0.3, ly + 0.2, 6, 0.4, '依据被推翻时的回路', { size: 15, bold: true, color: C.text2 });
   const fg = 0.45;
   const fw = (CW - 0.6 - 3 * fg) / 4;
   const fy = ly + 0.75;
-  ['导入撤稿数据\n（Retraction Watch 等）', '扫描整个证据账本', '相关证据：撤销 / 标为有争议', '依赖它的结论：\n自动转为“有争议”'].forEach((t, i, arr) => {
+  ['新研究推翻依据\n（如药品撤市、新试验结果）', '在账本中标记该证据\n（审查人标注 / 自动扫描）', '依赖它的结论：\n自动转为“有争议”', '提示复核：重新论证，\n或以新结论取代'].forEach((t, i, arr) => {
     const x = MX + 0.3 + i * (fw + fg);
     box(s, x, fy, fw, 0.9, t, { fill: C.background1, line: HEX.accent3, size: 13, color: C.text1 });
     if (i < arr.length - 1) arrow(s, x + fw + 0.03, fy + 0.45, x + fw + fg - 0.03, fy + 0.45, { color: C.accent3, width: 1.5 });
   });
-  label(s, MX + 0.3, ly + 1.75, CW - 0.6, 0.3, '同一次操作完成，并写入哈希链记录原因；恢复证据不会自动恢复结论，需要重新核验。', { size: 11.5 });
+  label(s, MX + 0.3, ly + 1.75, CW - 0.6, 0.3, '例：2004 年罗非昔布（Vioxx）因 APPROVe 试验显示心血管风险升高而撤市 → “上市批准”证据被撤销 → “可用于关节炎长期镇痛”的结论自动降级。', { size: 11.5 });
   s.addNotes(
-    '上排是一次提问的完整路径，每一步下面的小字是这一步产生的数据。绿色四步由 3.0 新增的证据治理层完成。下方是回路：导入撤稿数据后扫描账本，被撤稿的证据被撤销，依赖它的结论在同一操作里自动转为“有争议”，原因写入哈希链，可以审计。'
+    '上排是一次科研提问的完整路径，每一步下面的小字是这一步产生的数据。绿色四步由 3.0 新增的证据治理层完成。下方是回路：科研结论的依据会被新研究推翻，比如药品因新的安全性试验撤市。证据在账本里被标记后，依赖它的结论在同一操作里自动转为“有争议”，原因写入哈希链，可以审计；恢复证据不会自动恢复结论，需要重新论证。下一页用罗非昔布的完整例子说明。'
   );
 }
 
 // 6 -- design point 1: evidence ledger (the core)
 {
-  const s = content('核心设计：证据账本——结论必须有据可查、可以撤回', 'A 类设计点 ①：每条证据经准入门禁才算数；依据失效，结论自动降级。', '怎么设计');
+  const s = content('核心设计：证据账本——结论必须有据可查、可以撤回', 'A 类设计点 ①：每条证据经准入门禁才算数；依据被推翻，结论自动降级。', '怎么设计');
   const sx = MX;
   const sw = 1.55;
   const sh = 0.62;
@@ -418,7 +420,7 @@ pres.addSection({ title: '怎么设计' });
     ver: [colX[1], 2.55, '已验证', HEX.accent1],
     con: [colX[2], 1.75, '有争议', HEX.accent3, '被反驳'],
     sup: [colX[2], 2.55, '已取代', HEX.accent2, '被取代'],
-    rev: [colX[2], 3.35, '已撤销', HEX.accent5, '来源撤稿'],
+    rev: [colX[2], 3.35, '已撤销', HEX.accent5, '撤市 / 撤稿'],
     qua: [colX[0], 4.3, '已隔离', 'A0522D'],
   };
   Object.values(st).forEach(([x, y, t, c, why]) => {
@@ -436,9 +438,26 @@ pres.addSection({ title: '怎么设计' });
   arrow(s, ...right('qua'), st.rev[0], st.rev[1] + sh, { color: C.text2, dash: 'dash' });
   label(s, colX[1] - 0.2, 4.45, 2.2, 0.3, '确认无效', { size: 10.5, align: 'center' });
 
-  card(s, MX, 5.25, 7.0, 1.3, AMBER_TINT);
-  label(s, MX + 0.25, 5.38, 6.5, 0.35, '举例：一篇论文被撤稿', { size: 14, bold: true, color: C.text2 });
-  label(s, MX + 0.25, 5.78, 6.5, 0.7, '该证据转为“已撤销” → 引用它的所有已验证结论，在同一次操作中转为“有争议”，并记录原因。测试用例中，受影响的已验证结论由 2 条降为 0 条。', { size: 13 });
+  // worked example: rofecoxib (Vioxx); replayed in packages/core/tests/test-evidence-ledger.ts [8]
+  const ey = 5.02;
+  card(s, MX, ey, 7.0, 1.9, AMBER_TINT);
+  label(s, MX + 0.25, ey + 0.1, 4.6, 0.32, '举例：罗非昔布（Vioxx）的两条结论', { size: 14, bold: true, color: C.text2, valign: 'middle' });
+  label(s, MX + 4.6, ey + 0.1, 2.15, 0.32, '已写成自动化测试', { size: 10.5, align: 'right', valign: 'middle' });
+  const ehead = (t) => ({ text: t, options: { bold: true, color: HEX.dk2, fill: { color: 'F3E3CF' }, fontSize: 10.5, valign: 'middle' } });
+  const ecell = (t, o = {}) => ({ text: t, options: { fontSize: 10.5, color: HEX.dk1, valign: 'middle', ...o } });
+  s.addTable(
+    [
+      [ehead('时间'), ehead('事件'), ehead('结论 A\n关节炎长期镇痛'), ehead('结论 B\n胃肠道风险低于萘普生')],
+      [ecell('1999–2000'), ecell('上市批准 + VIGOR 试验'), ecell('已验证', { color: HEX.accent1, bold: true }), ecell('已验证', { color: HEX.accent1, bold: true })],
+      [ecell('2004'), ecell('APPROVe 试验后撤市'), ecell('→ 有争议', { color: HEX.accent3, bold: true }), ecell('不受影响')],
+      [ecell('2005'), ecell('期刊对 VIGOR 发关注声明'), ecell('有争议', { color: HEX.accent3 }), ecell('→ 有争议（扫描）', { color: HEX.accent3, bold: true })],
+    ],
+    {
+      x: MX + 0.25, y: ey + 0.48, w: 6.5, colW: [1.05, 2.25, 1.4, 1.8], rowH: [0.46, 0.29, 0.29, 0.29],
+      border: { type: 'solid', pt: 0.5, color: 'E6D3BC' }, fill: { color: 'FFFFFF' }, margin: [0.02, 0.06, 0.02, 0.06], fontFace: THEME.bodyFontFace,
+      objectName: name('table'),
+    }
+  );
 
   const rx = MX + 7.6;
   const rw = CW - 7.6;
@@ -453,60 +472,98 @@ pres.addSection({ title: '怎么设计' });
     label(s, rx + 0.6, y + 0.48, rw - 0.6, 0.95, b, { size: 14 });
   });
   s.addNotes(
-    '这是 3.0 的核心。证据和结论有六种状态，只能沿箭头迁移：新证据先是候选，通过准入门禁才算已验证，否则隔离。关键是依赖级联：一篇论文被撤稿，依赖它的结论自动转为“有争议”，不需要人工排查。所有变更写入哈希链，可审计、防篡改。'
+    '这是 3.0 的核心。证据和结论有六种状态，只能沿箭头迁移：新证据先是候选，通过准入门禁才算已验证，否则隔离。关键是依赖级联，用罗非昔布举例：账本里有两条已验证结论，A“可作关节炎长期镇痛”依据上市批准和 VIGOR 试验，B“胃肠道风险低于萘普生”只依据 VIGOR。2004 年 APPROVe 试验显示长期服用心血管风险升高，药品撤市，审查人把“上市批准”证据标为已撤销，A 自动转为有争议，B 不依赖它，保持不变。2005 年期刊对 VIGOR 发布关注声明，导入后自动扫描，B 也转为有争议。整个过程不需要人工逐条排查，每一步的原因都写入哈希链。这个例子已写成自动化测试，文献编号经 PubMed 核实。'
   );
 }
 
 // 7 -- design points 2 and 3
+// Every number on this slide is computed by packages/core/src/epistemic/
+// InformationGainPlanner.ts with DEFAULT_HYPOTHESIS_TOOL_MODELS from a 50/50 start.
 {
-  const s = content('另外两个设计点：分歧时怎么取证，结论怎么下', 'A 类设计点 ② 与 ③：先查最能分出高下的证据；只有证据足够区分时才下结论。', '怎么设计');
-  const half = (CW - 0.3) / 2;
-  // left: information gain
+  const s = content('设计点②③：分歧时先查什么，结论何时能下', 'A 类设计点 ② 与 ③：用信息论量化分歧、挑选查询；用统计校准决定能否下结论。', '怎么设计');
+  const top = 1.7;
+  const ch = 4.95;
+  // ---------------- left: information gain
+  const lw = 7.55;
   const lx = MX;
-  card(s, lx, 1.75, half, 5.0);
-  badge(s, lx + 0.3, 1.98, 2, C.accent1);
-  label(s, lx + 0.85, 1.95, half - 1.1, 0.45, '信息增益取证', { size: 18, bold: true, color: C.text2, valign: 'middle' });
-  label(s, lx + 0.3, 2.5, half - 0.6, 0.62, '汇总专家意见 → 计算分歧度 → 选“预期信息增益 ÷ 成本”最高的查询 → 更新判断 → 足够确定即停，分歧大则升级专家', { size: 12.5, color: C.text1 });
-  label(s, lx + 0.3, 3.2, half - 0.6, 0.3, '示例：同一问题下三类查询的预期信息增益（比特）', { size: 12, bold: true, color: C.text2 });
+  card(s, lx, top, lw, ch);
+  badge(s, lx + 0.3, top + 0.2, 2, C.accent1);
+  label(s, lx + 0.85, top + 0.17, 4, 0.45, '信息增益取证', { size: 18, bold: true, color: C.text2, valign: 'middle' });
+
+  const tx = lx + 0.3;
+  const tw = 3.5;
+  const blocks = [
+    ['背景', '专家意见不一时，多轮辩论既耗算力又容易互相附和。借鉴贝叶斯实验设计（Lindley, 1956）：先做“最能分出对错”的那次查询。'],
+    ['分歧度怎么算', '把专家意见汇成对“支持 / 反驳”的概率判断 p；分歧度 = 熵 H(p) ÷ 最大熵。0 表示已有定论，1 表示五五开。'],
+    ['信息增益怎么得到', '每个查询有一张“结果概率表”。如 ChEMBL：假设成立时查到强活性（≤1 µM）的概率为 60%，不成立时仅 10%。\n预期信息增益 = 查询前的不确定度 − 查询后平均剩余的不确定度（单位：比特），按“增益 ÷ 成本”排序。'],
+  ];
+  let by = top + 0.8;
+  const bh = [0.95, 0.95, 1.75];
+  blocks.forEach(([h, b], i) => {
+    label(s, tx, by, tw, 0.28, h, { size: 12.5, bold: true, color: C.accent1 });
+    label(s, tx, by + 0.3, tw, bh[i] - 0.3, b, { size: 11.5, color: C.text1 });
+    by += bh[i] + 0.12;
+  });
+
+  // worked example
+  const ex = lx + 4.05;
+  const ew = lw - 4.05 - 0.25;
+  s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x: ex, y: top + 0.75, w: ew, h: ch - 0.95, rectRadius: 0.06, fill: { color: 'FFFFFF' }, line: { color: 'D5DCE4', width: 0.75 }, objectName: name('panel') });
+  label(s, ex + 0.15, top + 0.85, ew - 0.3, 0.5, '例：假设“TYK2 抑制可用于治疗银屑病”，起点 50 / 50（分歧度 1.0）', { size: 11.5, bold: true, color: C.text2 });
+  label(s, ex + 0.15, top + 1.37, ew - 0.3, 0.26, '第一步，三种查询的预期信息增益（比特）', { size: 10.5 });
   s.addChart(
     pres.charts.BAR,
-    [{ name: '预期信息增益', labels: ['UniProt 序列信息', '临床试验登记', 'ChEMBL 活性数据'], values: [0.039, 0.105, 0.259] }],
+    [{ name: '预期信息增益', labels: ['UniProt 序列', '临床试验登记', 'ChEMBL 活性'], values: [0.039, 0.105, 0.259] }],
     {
-      x: lx + 0.15, y: 3.5, w: half - 0.3, h: 2.0,
+      x: ex + 0.02, y: top + 1.58, w: ew - 0.1, h: 1.3,
       barDir: 'bar', chartColors: [HEX.accent1],
-      showValue: true, dataLabelPosition: 'outEnd', dataLabelFormatCode: '0.000', dataLabelFontSize: 11, dataLabelFontFace: '+mn-lt', dataLabelColor: HEX.dk1,
-      catAxisLabelFontSize: 11, catAxisLabelFontFace: '+mn-lt', catAxisLabelColor: HEX.dk1,
-      valAxisHidden: true, valGridLine: { style: 'none' }, catGridLine: { style: 'none' }, showLegend: false, barGapWidthPct: 60,
+      showValue: true, dataLabelPosition: 'outEnd', dataLabelFormatCode: '0.000', dataLabelFontSize: 10, dataLabelFontFace: '+mn-lt', dataLabelColor: HEX.dk1,
+      catAxisLabelFontSize: 10, catAxisLabelFontFace: '+mn-lt', catAxisLabelColor: HEX.dk1,
+      valAxisHidden: true, valAxisMaxVal: 0.33, valGridLine: { style: 'none' }, catGridLine: { style: 'none' }, showLegend: false, barGapWidthPct: 50,
       objectName: name('chart'),
     }
   );
-  label(s, lx + 0.3, 5.6, half - 0.6, 1.0, '先查 ChEMBL 活性数据最能区分“支持 / 反驳”（默认参数下的数值）。工具调用失败只消耗预算，绝不当作反证。', { size: 12.5, color: C.text1 });
+  label(s, ex + 0.15, top + 2.9, ew - 0.3, 0.5, 'UniProt 最低：无论假设对错，靶点几乎都能查到序列，查了也分不出对错。', { size: 10.5, color: C.text1 });
+  const seq = [
+    ['ChEMBL 查到强活性', '支持概率 0.50 → 0.86'],
+    ['再查临床试验：有登记', '0.86 → 0.95，分歧度降至 0.28'],
+  ];
+  seq.forEach(([a, b], i) => {
+    const y = top + 3.48 + i * 0.6;
+    badge(s, ex + 0.15, y + 0.06, i + 1, C.accent2, 0.32);
+    label(s, ex + 0.58, y, ew - 0.7, 0.26, a, { size: 11, bold: true, color: C.text2 });
+    label(s, ex + 0.58, y + 0.26, ew - 0.7, 0.26, b, { size: 10.5, color: C.text1 });
+  });
 
-  // right: conformal decision
-  const rx = MX + half + 0.3;
-  card(s, rx, 1.75, half, 5.0);
-  badge(s, rx + 0.3, 1.98, 3, C.accent1);
-  label(s, rx + 0.85, 1.95, half - 1.1, 0.45, '共形三分判定', { size: 18, bold: true, color: C.text2, valign: 'middle' });
-  label(s, rx + 0.3, 2.5, half - 0.6, 0.62, '不给一个拍脑袋的分数，而是给出在错误率 α 下“可能成立的结果集合”：', { size: 12.5, color: C.text1 });
-  const head = (t) => ({ text: t, options: { bold: true, color: 'FFFFFF', fill: { color: HEX.dk2 }, fontSize: 12.5, valign: 'middle' } });
-  const cell = (t, o = {}) => ({ text: t, options: { fontSize: 12.5, color: HEX.dk1, valign: 'middle', ...o } });
+  // ---------------- right: conformal decision
+  const rx = MX + lw + 0.3;
+  const rw = CW - lw - 0.3;
+  card(s, rx, top, rw, ch);
+  badge(s, rx + 0.3, top + 0.2, 3, C.accent1);
+  label(s, rx + 0.85, top + 0.17, rw - 1.1, 0.45, '共形三分判定', { size: 18, bold: true, color: C.text2, valign: 'middle' });
+  label(s, rx + 0.3, top + 0.8, rw - 0.6, 0.28, '背景', { size: 12.5, bold: true, color: C.accent1 });
+  label(s, rx + 0.3, top + 1.1, rw - 0.6, 0.95, '共形预测（Vovk 等）是一种统计方法：用一批已标注结果的历史假设做校准，保证“出错率不超过 α”。它不给分数，而是给出可能成立的结果集合：', { size: 11.5, color: C.text1 });
+  const head = (t) => ({ text: t, options: { bold: true, color: 'FFFFFF', fill: { color: HEX.dk2 }, fontSize: 11, valign: 'middle' } });
+  const cell = (t, o = {}) => ({ text: t, options: { fontSize: 11, color: HEX.dk1, valign: 'middle', ...o } });
   s.addTable(
     [
       [head('结果集合'), head('判定'), head('含义')],
-      [cell('{ 支持 }', { bold: true }), cell('支持', { color: HEX.accent1, bold: true }), cell('只有“支持”与校准数据相符')],
-      [cell('{ 反驳 }', { bold: true }), cell('反驳', { color: HEX.accent5, bold: true }), cell('只有“反驳”与校准数据相符')],
-      [cell('{ 支持，反驳 }', { bold: true }), cell('不确定', { color: HEX.accent3, bold: true }), cell('证据无法区分两种结果')],
-      [cell('{ }（空）', { bold: true }), cell('不确定', { color: HEX.accent3, bold: true }), cell('情况罕见，需人工复核')],
+      [cell('{ 支持 }', { bold: true }), cell('支持', { color: HEX.accent1, bold: true }), cell('只有“支持”说得通')],
+      [cell('{ 反驳 }', { bold: true }), cell('反驳', { color: HEX.accent5, bold: true }), cell('只有“反驳”说得通')],
+      [cell('{ 支持，反驳 }', { bold: true }), cell('不确定', { color: HEX.accent3, bold: true }), cell('证据分不出')],
+      [cell('{ }（空）', { bold: true }), cell('不确定', { color: HEX.accent3, bold: true }), cell('罕见，需人工复核')],
     ],
     {
-      x: rx + 0.3, y: 3.2, w: half - 0.6, colW: [1.55, 0.95, half - 0.6 - 2.5], rowH: [0.42, 0.42, 0.42, 0.42, 0.42],
-      border: { type: 'solid', pt: 0.75, color: 'D5DCE4' }, fill: { color: 'FFFFFF' }, margin: [0.04, 0.1, 0.04, 0.1], fontFace: THEME.bodyFontFace,
+      x: rx + 0.3, y: top + 2.1, w: rw - 0.6, colW: [1.42, 0.72, rw - 0.6 - 2.14], rowH: [0.36, 0.36, 0.36, 0.36, 0.36],
+      border: { type: 'solid', pt: 0.75, color: 'D5DCE4' }, fill: { color: 'FFFFFF' }, margin: [0.03, 0.07, 0.03, 0.07], fontFace: THEME.bodyFontFace,
       objectName: name('table'),
     }
   );
-  label(s, rx + 0.3, 5.6, half - 0.6, 1.0, '校准后每一类的出错率不超过 α（如 10%）；未校准时界面明确显示“未校准”，不声称覆盖率。评分只看证据，与靶点名称无关。', { size: 12.5, color: C.text1 });
+  label(s, rx + 0.3, top + 4.05, rw - 0.6, 0.8, '校准后每类出错率不超过 α（如 10%）；未校准时界面明确显示“未校准”。评分只看证据，与靶点名称无关。', { size: 11, color: C.text1 });
+
+  label(s, MX, top + ch + 0.08, CW, 0.3, '说明：结果概率表目前为人工设定的先验，正式实验前需用标注数据估计（已提供估计函数）；专家意见作为起点的接口已实现，目前每个假设分支从 50 / 50 起步。', { size: 10 });
   s.addNotes(
-    '左边：意见分歧时，不靠多轮辩论说服对方，而是挑“最能分出高下”的下一次查询。图里是一个例子，先查 ChEMBL 活性数据信息量最大；工具失败只扣预算，不会被当成反对意见。右边：结论以“可能结果的集合”给出，集合里只有一个答案才下结论；两个都可能就是证据不足，空集说明情况罕见。校准后错误率有理论保证，没校准时系统会明确说明，不给虚假的可信度。'
+    '左边是信息增益取证。背景：专家意见不一时，与其多轮辩论，不如先做最能分出对错的那次查询，这是贝叶斯实验设计的思路。分歧度：把意见汇成“支持”和“反驳”的概率，用熵除以最大熵，0 是已有定论，1 是五五开。信息增益：每个查询有一张结果概率表，比如 ChEMBL 在假设成立时有 60% 的机会查到强活性，不成立时只有 10%；用它算出查询前后不确定度的预期差值，就是预期信息增益。例子是“TYK2 抑制可用于治疗银屑病”：从五五开出发，ChEMBL 的增益最大，所以先查；查到强活性后支持概率升到 0.86，再查临床试验，升到 0.95，分歧度从 1.0 降到 0.28。UniProt 增益最低，因为无论假设对错靶点几乎都能查到序列。需要说明：概率表目前是人工设定的，正式实验前要用标注数据估计。右边是共形三分判定：用一批已知结果的历史假设校准，结论以“可能成立的结果集合”给出，集合里只有一个答案才下结论；两个都可能就是证据不足。校准后错误率有统计保证，没校准时系统会明确说明。'
   );
 }
 
