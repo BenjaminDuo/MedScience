@@ -17,8 +17,8 @@ import {
  * Evidence ledger: state machine, invariants, hash chain, admission gate,
  * retraction import and sweep. The identifiers in sections 1-7 are synthetic
  * (10.9999/... DOIs, 9xxxxxxx PMIDs) -- they exist to be matched against a
- * synthetic retraction file, not to refer to real papers. Section 8 replays a
- * real case with verified identifiers.
+ * synthetic retraction file, not to refer to real papers. Sections 8 and 9
+ * replay real cases with verified identifiers.
  */
 
 function assert(cond: unknown, message: string): void {
@@ -221,59 +221,66 @@ async function main() {
     console.log('  ✔ ingest maps EV-n to ledger ids, extracts identifiers, and is idempotent');
   }
 
-  console.log('[8] Case study: rofecoxib (Vioxx), 1999-2005');
+  // Sections 8 and 9 replay real events used as the worked examples in
+  // docs/presentation. Unlike the synthetic identifiers above, these were
+  // checked against PubMed.
+  const realEvidence = (ledger: EvidenceLedger, toolName: string, category: string, query: string, summary: string, identifiers?: Record<string, string[]>) =>
+    ledger.recordEvidence({ toolName, category, query, summary, identifiers, retrievedAt: T0.toISOString() }).entry;
+
+  console.log('[8] Case study: voxelotor (Oxbryta), 2019-2024 -- the cascade reaches only dependent claims');
   {
-    // Real events, used as the worked example in docs/presentation. Unlike the
-    // synthetic identifiers above, these were checked against PubMed/Crossref:
-    //   VIGOR trial, N Engl J Med 2000;343:1520-8, PMID 11087881,
-    //     DOI 10.1056/NEJM200011233432103 -- fewer upper-GI events than naproxen.
-    //   Expression of concern on VIGOR, N Engl J Med, 2005-12-29.
-    //   Market withdrawal by the manufacturer on 2004-09-30, after the APPROVe
-    //     trial (PMID 15713943) showed raised cardiovascular risk.
+    // HOPE trial, N Engl J Med 2019, PMID 31199090: voxelotor raised haemoglobin.
+    // Accelerated approval in 2019 on that surrogate endpoint; withdrawn
+    // worldwide on 2024-09-25 after post-marketing data showed more
+    // vaso-occlusive crises and deaths.
     const ledger = new EvidenceLedger({ persist: false, now: fixedNow });
-    const plainGate = new AdmissionGate({ now: fixedNow });
-    const label = ledger.recordEvidence({
-      toolName: 'openfda_lookup',
-      category: 'medical',
-      query: 'rofecoxib',
-      summary: 'Rofecoxib (Vioxx) marketed in the US under an FDA-approved label since 1999',
-      retrievedAt: T0.toISOString(),
-    }).entry;
-    const vigor = ledger.recordEvidence({
-      toolName: 'pubmed_search',
-      category: 'literature',
-      query: 'rofecoxib naproxen gastrointestinal toxicity',
-      summary: 'VIGOR: rofecoxib caused fewer upper-GI events than naproxen in rheumatoid arthritis',
-      identifiers: { pmid: ['11087881'], doi: ['10.1056/NEJM200011233432103'] },
-      retrievedAt: T0.toISOString(),
-    }).entry;
-    [label, vigor].forEach((e) => plainGate.admit(ledger, e.id));
-    const longTerm = ledger.createClaim({ statement: 'Rofecoxib is a long-term analgesic option for arthritis', supports: [label.id, vigor.id] }).entry;
-    const giSafety = ledger.createClaim({ statement: 'Rofecoxib causes fewer upper-GI events than naproxen', supports: [vigor.id] }).entry;
-    [longTerm, giSafety].forEach((c) => ledger.promoteClaim(c.id));
+    const gate = new AdmissionGate({ now: fixedNow });
+    const approval = realEvidence(ledger, 'openfda_lookup', 'medical', 'voxelotor', 'Voxelotor (Oxbryta) granted US accelerated approval for sickle cell disease in 2019');
+    const hope = realEvidence(ledger, 'pubmed_search', 'literature', 'voxelotor sickle cell phase 3', 'HOPE: voxelotor raised haemoglobin versus placebo in sickle cell disease', { pmid: ['31199090'], doi: ['10.1056/NEJMoa1903212'] });
+    [approval, hope].forEach((e) => gate.admit(ledger, e.id));
+    const treats = ledger.createClaim({ statement: 'Voxelotor is a treatment option for sickle cell disease', supports: [approval.id, hope.id] }).entry;
+    const haemoglobin = ledger.createClaim({ statement: 'Voxelotor raises haemoglobin in sickle cell disease', supports: [hope.id] }).entry;
+    [treats, haemoglobin].forEach((c) => ledger.promoteClaim(c.id));
     assert(ledger.list({ kind: 'claim', state: 'verified' }).length === 2, 'Both claims start verified');
 
-    // 2004: a reviewer revokes the label evidence from the ledger page.
-    const withdrawal = ledger.transition(label.id, 'revoked', 'Withdrawn from the market on 2004-09-30 after APPROVe (PMID 15713943) showed raised cardiovascular risk', 'reviewer');
-    assert(withdrawal.cascaded.map((c) => c.id).join() === longTerm.id, 'Withdrawal contests only the claim resting on the label');
-    assert(ledger.get(giSafety.id)!.state === 'verified', 'The GI-safety claim does not rest on the label and stands');
-
-    // 2005: the expression of concern on VIGOR arrives through the retraction index.
-    const index = new RetractionIndex({ file: path.join(tmpDir(), 'retractions.json') });
-    index.importCsv(
-      [
-        'Record ID,Title,RetractionDate,RetractionNature,Reason,OriginalPaperDOI,OriginalPaperPubMedID',
-        '1,VIGOR,12/29/2005 0:00,Expression of concern,+Concerns about data;,10.1056/NEJM200011233432103,11087881',
-      ].join('\r\n'),
-      'case-study.csv'
-    );
-    sweepRetractions(ledger, index);
-    assert(ledger.get(vigor.id)!.state === 'contested', 'The expression of concern contests the VIGOR evidence');
-    assert(ledger.get(giSafety.id)!.state === 'contested', 'and, through the cascade, the GI-safety claim');
-    assert(ledger.list({ kind: 'claim', state: 'verified' }).length === 0, 'No verified claim is left resting on withdrawn or questioned evidence');
+    const withdrawal = ledger.transition(approval.id, 'revoked', 'Withdrawn worldwide on 2024-09-25: post-marketing data showed more vaso-occlusive crises and deaths', 'reviewer');
+    assert(withdrawal.cascaded.map((c) => c.id).join() === treats.id, 'Withdrawal contests only the claim resting on the approval');
+    assert(ledger.get(treats.id)!.state === 'contested', 'The treatment claim is contested');
+    assert(ledger.get(haemoglobin.id)!.state === 'verified', 'The haemoglobin claim rests on HOPE alone and stands');
+    assert(/vaso-occlusive/.test(ledger.history(treats.id).at(-1)!.reason ?? ''), 'The claim history records why it was contested');
     assert(ledger.checkInvariants().length === 0, 'Invariants hold');
-    assert(/APPROVe/.test(ledger.history(longTerm.id).at(-1)!.reason ?? ''), 'The claim history records why it was contested');
-    console.log('  ✔ withdrawal contests 1 of 2 claims; the VIGOR concern contests the other; reasons are kept');
+    console.log('  ✔ withdrawal contests 1 of 2 claims; the surrogate-endpoint claim stands; the reason is kept');
+  }
+
+  console.log('[9] Case study: hydroxyprogesterone caproate (Makena), 2003-2023 -- refutation, then succession');
+  {
+    // Meis et al., N Engl J Med 2003, PMID 12802023: fewer recurrent preterm births.
+    // Accelerated approval in 2011. PROLONG, Am J Perinatol 2020, PMID 31652479:
+    // the confirmatory trial found no reduction. Approval withdrawn on 2023-04-06.
+    const ledger = new EvidenceLedger({ persist: false, now: fixedNow });
+    const gate = new AdmissionGate({ now: fixedNow });
+    const meis = realEvidence(ledger, 'pubmed_search', 'literature', '17-OHPC recurrent preterm delivery', 'Meis 2003: 17-OHPC reduced recurrent preterm delivery', { pmid: ['12802023'], doi: ['10.1056/NEJMoa035140'] });
+    const approval = realEvidence(ledger, 'openfda_lookup', 'medical', 'hydroxyprogesterone caproate', 'Makena granted US accelerated approval in 2011 to reduce the risk of recurrent preterm birth');
+    [meis, approval].forEach((e) => gate.admit(ledger, e.id));
+    const reduces = ledger.createClaim({ statement: '17-OHPC reduces the risk of recurrent preterm birth', supports: [meis.id, approval.id] }).entry;
+    ledger.promoteClaim(reduces.id);
+    assert(ledger.get(reduces.id)!.state === 'verified', 'The claim starts verified');
+
+    const prolong = realEvidence(ledger, 'pubmed_search', 'literature', '17-OHPC PROLONG', 'PROLONG: 17-OHPC did not reduce recurrent preterm birth', { pmid: ['31652479'], doi: ['10.1055/s-0039-3400227'] });
+    gate.admit(ledger, prolong.id);
+    ledger.addRefutation(reduces.id, prolong.id, 'reviewer');
+    assert(ledger.get(reduces.id)!.state === 'contested', 'A verified confirmatory trial against it contests the claim');
+    assert(ledger.get(meis.id)!.state === 'verified', 'The earlier trial itself is not erased: the disagreement is kept');
+
+    ledger.transition(approval.id, 'revoked', 'Approval withdrawn on 2023-04-06', 'reviewer');
+    const successor = ledger.createClaim({ statement: '17-OHPC did not reduce recurrent preterm birth in the confirmatory trial', supports: [prolong.id], supersedes: reduces.id }).entry;
+    ledger.promoteClaim(successor.id);
+    assert(ledger.get(successor.id)!.state === 'verified', 'The successor claim verifies on PROLONG');
+    assert(ledger.get(reduces.id)!.state === 'superseded', 'and retires the original claim');
+    const states = ledger.history(reduces.id).filter((e) => e.type === 'transition').map((e) => e.to);
+    assert(states.join() === 'verified,contested,superseded', `The full history stays readable, got ${states.join()}`);
+    assert(ledger.checkInvariants().length === 0, 'Invariants hold');
+    console.log('  ✔ PROLONG contests the claim, the earlier trial is kept, and a successor claim supersedes it');
   }
 
   console.log('\n✔ ALL EVIDENCE LEDGER TESTS PASSED\n');
