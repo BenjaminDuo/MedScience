@@ -1,0 +1,81 @@
+{
+ "questions": 24,
+ "H1_probability": {
+  "raw_vs_dedup": {
+   "n": 24,
+   "meanDiff": 0.04,
+   "ci95": [
+    -1.75,
+    1.71
+   ],
+   "pSignFlip": 1
+  },
+  "dose3_vs_dedup": {
+   "n": 16,
+   "meanDiff": 1.19,
+   "ci95": [
+    0.5,
+    2
+   ],
+   "pSignFlip": 0.004
+  },
+  "dose6_vs_dedup": {
+   "n": 7,
+   "meanDiff": 1,
+   "ci95": [
+    0.29,
+    1.86
+   ],
+   "pSignFlip": 0.1253
+  }
+ },
+ "H2_probability": {
+  "annotated_vs_raw": {
+   "n": 24,
+   "meanDiff": -1.42,
+   "ci95": [
+    -3.5,
+    0.21
+   ],
+   "pSignFlip": 0.1781
+  },
+  "annotated_vs_dedup": {
+   "n": 24,
+   "meanDiff": -1.38,
+   "ci95": [
+    -3.75,
+    0.63
+   ],
+   "pSignFlip": 0.3113
+  }
+ },
+ "H3_independent_studies_claimed": {
+  "raw_vs_dedup": {
+   "n": 24,
+   "meanDiff": 0.21,
+   "ci95": [
+    -0.33,
+    0.75
+   ],
+   "pSignFlip": 0.5737
+  },
+  "dose6_vs_dedup": {
+   "n": 7,
+   "meanDiff": -1.29,
+   "ci95": [
+    -3.43,
+    0.29
+   ],
+   "pSignFlip": 0.5005
+  },
+  "annotated_vs_raw": {
+   "n": 24,
+   "meanDiff": -0.29,
+   "ci95": [
+    -1.17,
+    0.46
+   ],
+   "pSignFlip": 0.5818
+  }
+ }
+}

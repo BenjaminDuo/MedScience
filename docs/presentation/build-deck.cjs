@@ -196,7 +196,7 @@ function shot(s, file, pxW, pxH, x, y, w, h, caption) {
 }
 
 // ================================================================ slides
-// Storyline (11 slides): why -> what -> how it flows -> key designs ->
+// Storyline (10 slides): why -> what -> how it flows -> key designs ->
 // supporting designs -> how to use -> status and the ask.
 
 const TEAL_TINT = 'E3F3F1';
@@ -231,8 +231,8 @@ pres.addSection({ title: '为什么' });
   const s = content('一页概要', '一句话：面向生物医学研究——让科研结论有证据、能撤回、说得清可信度，科研数据不出本机。', '为什么');
   const cards = [
     ['要解决的问题', C.accent3, 'AI 能很快给出科研结论，但依据哪些文献和数据、依据被新研究推翻后怎么办、可信度多高，往往说不清。'],
-    ['我们的做法', C.accent1, '三类设计：证据治理（实时核验依据是否已被推翻，标明同源证据）、多智能体协作（像课题组一样分工、审查把关）、本地运行（科研与临床数据留在本机）。'],
-    ['当前进展', C.accent2, 'v3.0.0 已发布：三平台安装包和本地 Web 版。实时核验已有原型；同源证据现象已实测，其影响待实验验证。'],
+    ['我们的做法', C.accent1, '三类设计：证据治理（实时核验依据是否已被推翻，引用可核查）、多智能体协作（像课题组一样分工、审查把关）、本地运行（科研与临床数据留在本机）。'],
+    ['当前进展', C.accent2, 'v3.0.0 已发布：三平台安装包和本地 Web 版。实时核验已有原型；“同源证据”经对照实验检验，影响很小，不再单列。'],
   ];
   const cw = (CW - 2 * 0.3) / 3;
   cards.forEach(([t, c, b], i) => {
@@ -254,7 +254,7 @@ pres.addSection({ title: '为什么' });
     label(s, MX + i * kw, 5.8, kw, 0.4, t, { size: 13, align: 'center' });
   });
   s.addNotes(
-    '这一页给出全貌：问题是什么、我们怎么做、做到哪一步。后面按“为什么、怎么设计、怎么用、下一步”的顺序展开，共 11 页。'
+    '这一页给出全貌：问题是什么、我们怎么做、做到哪一步。后面按“为什么、怎么设计、怎么用、下一步”的顺序展开，共 10 页。'
   );
 }
 
@@ -275,7 +275,7 @@ pres.addSection({ title: '为什么' });
       [
         cell('② 证据看似很多，其实同源\n同一试验衍生多篇论文，被重复计数'),
         cell('按篇列出引用\n（公开资料未见同源识别）'),
-        ours('来源可见：标明哪些论文来自同一试验'),
+        ours('先做实验：模型读到摘要能自行识别，系统只需附上摘要'),
       ],
       [
         cell('③ 引用难以核查\n编号可能不存在，或与内容张冠李戴'),
@@ -300,7 +300,7 @@ pres.addSection({ title: '为什么' });
   );
   label(s, MX, 6.55, CW, 0.35, '注：同类方案仅依据其公开发布的资料概括，不推断未公开的内部能力。', { size: 11 });
   s.addNotes(
-    '左列是四个痛点，中间是同类方案通常怎么做，右列是我们的回应。前三个对应证据治理设计，核心是第一个：大模型自己无法知道训练之后发生的撤稿、撤市；第二个是低成本的来源标注，其影响待实验验证；第四个对应本地运行时。同类方案只引用公开资料，不评价其未公开能力。'
+    '左列是四个痛点，中间是同类方案通常怎么做，右列是我们的回应。前三个对应证据治理设计，核心是第一个：大模型自己无法知道训练之后发生的撤稿、撤市；第二个我们没有直接做功能，而是先做了对照实验，结论是只需附上摘要；第四个对应本地运行时。同类方案只引用公开资料，不评价其未公开能力。'
   );
 }
 
@@ -331,7 +331,7 @@ pres.addSection({ title: '怎么设计' });
   const layers = [
     { n: '使用入口', k: 'C', items: ['桌面端（macOS / Windows / Linux）', '本地 Web（仅本机可访问）'] },
     { n: '协作层', k: 'B', items: ['队长规划', '成员并行执行', '审查员质量门', '写作专家综合'] },
-    { n: '证据治理层', k: 'A', items: ['实时状态核验', '来源可见', '可核查引用'], hi: true },
+    { n: '证据治理层', k: 'A', items: ['实时状态核验', '可核查引用'], hi: true },
     { n: '执行层', k: 'C', items: ['模型 API', '本地 CLI 运行时', '科研数据库连接器', '内核级沙盒'] },
     { n: '数据层', k: 'C', items: ['本机 ~/.medscience：会话 · 加密密钥库 · 配置 · 公开数据缓存'] },
   ];
@@ -358,7 +358,7 @@ pres.addSection({ title: '怎么设计' });
     box(s, hookX + 0.18, top + 0.95 + i * 0.72, hookW - 0.36, 0.56, t, { fill: '27466A', color: C.background1, size: 12 });
   });
   s.addNotes(
-    '这一页同时回答“有哪几类设计”和“它们在系统里的位置”。A 类证据治理是绿色这一层：实时状态核验（核心，已有原型）、来源可见（已实测现象，待验证影响）、可核查引用（已落地）；B 类是协作层，即科研小队的组织方式；C 类是运行与部署，包括使用入口、执行层和本机数据层，在 2.x 已具备。右侧防护钩子贯穿每一次工具调用。需要强调：这些都是智能体系统层面的设计，没有训练或修改大模型本身。'
+    '这一页同时回答“有哪几类设计”和“它们在系统里的位置”。A 类证据治理是绿色这一层：实时状态核验（核心，已有原型）和可核查引用（已落地）；B 类是协作层，即科研小队的组织方式；C 类是运行与部署，包括使用入口、执行层和本机数据层，在 2.x 已具备。右侧防护钩子贯穿每一次工具调用。需要强调：这些都是智能体系统层面的设计，没有训练或修改大模型本身。'
   );
 }
 
@@ -368,11 +368,11 @@ pres.addSection({ title: '怎么设计' });
   const steps = [
     ['提问', '研究问题'],
     ['规划分工', '任务清单'],
-    ['检索证据', '文献与数据库结果'],
+    ['检索证据', '标题 + 摘要'],
     ['数值核验', '会话证据 EV-n'],
-    ['来源标注', '同源关系'],
     ['状态核验', '撤稿 / 终止 / 撤市'],
     ['引用检查', '证据编号存在'],
+    ['综合判断', '审查员把关'],
     ['输出结论', '结论 + 证据编号'],
   ];
   const n = steps.length;
@@ -380,7 +380,7 @@ pres.addSection({ title: '怎么设计' });
   const bw = (CW - (n - 1) * g) / n;
   const y = 2.25;
   const bh = 0.95;
-  const gov = new Set([4, 5, 6]);
+  const gov = new Set([4, 5]);
   steps.forEach(([t, d], i) => {
     const x = MX + i * (bw + g);
     badge(s, x + bw / 2 - 0.19, y - 0.5, i + 1, gov.has(i) ? C.accent1 : C.accent2, 0.38);
@@ -404,7 +404,7 @@ pres.addSection({ title: '怎么设计' });
   });
   label(s, MX + 0.3, ly + 1.75, CW - 0.6, 0.3, '例：2024 年伏塞洛托（Oxbryta）因上市后数据显示死亡增多而撤市 → 核验发现“批准”已失效 → “可用于治疗镰状细胞病”的结论当场降级。', { size: 11.5 });
   s.addNotes(
-    '上排是一次科研提问的完整路径，每一步下面的小字是这一步产生的数据。绿色三步是证据治理层：标注每篇论文的上游试验，实时核验每个来源的当前状态，再检查每条结论引用的证据编号都确实来自工具返回的结果。下方是状态核验的回路：发现论文撤稿、试验因无效终止或药品撤市，依赖它的结论当场降级并提示复核。全部用公开数据库现查现算，不需要自建证据库。'
+    '上排是一次科研提问的完整路径，每一步下面的小字是这一步产生的数据。绿色两步是证据治理层：实时核验每个来源的当前状态，再检查每条结论引用的证据编号都确实来自工具返回的结果。检索结果会附上摘要，因为实验显示模型读到摘要就能自行识别同源论文。下方是状态核验的回路：发现论文撤稿、试验因无效终止或药品撤市，依赖它的结论当场降级并提示复核。全部用公开数据库现查现算，不需要自建证据库。'
   );
 }
 
@@ -458,102 +458,59 @@ pres.addSection({ title: '怎么设计' });
   );
 }
 
-// 7 -- source visibility: tell the reader which papers share a trial
-// Example and counts: packages/core/evaluation/source-redundancy (abemaciclib /
-// monarchE NCT03155997: 6 of the top 20 papers).
+// 7 -- same-source evidence: measured, then tested on a model
+// Numbers: packages/core/evaluation/source-redundancy/summary.json and
+// packages/core/evaluation/illusory-corroboration/analysis.json (first run).
 {
-  const s = content('来源可见：标明哪些论文来自同一个试验', '把每篇论文的上游试验编号随证据一起交给模型和用户；只标注，不定级，判断留给专家。', '怎么设计');
-  // ---- left: real example of same-source papers
-  const lw = 7.3;
-  card(s, MX, 1.75, lw, 4.95);
-  label(s, MX + 0.3, 1.9, lw - 0.6, 0.36, '真实例子：“阿贝西利能否用于乳腺癌”，系统检索到的前 20 篇论文', { size: 13.5, bold: true, color: C.text2 });
-  const px = MX + 0.3;
-  const pw = 1.55;
-  for (let i = 0; i < 6; i++) {
-    box(s, px, 2.45 + i * 0.37, pw, 0.3, `论文 ${i + 1}`, { fill: C.background1, line: HEX.accent3, size: 11, color: C.text1 });
-  }
-  box(s, px, 2.45 + 6 * 0.37 + 0.06, pw, 0.5, '其余 14 篇\n（各自独立或无法追溯）', { fill: C.background1, line: 'D5DCE4', size: 9.5, color: C.accent6 });
-  const tx = px + pw + 1.35;
-  const tw = 2.0;
-  const ty = 2.45 + 2.5 * 0.37 - 0.35 + 0.15;
-  for (let i = 0; i < 6; i++) arrow(s, px + pw + 0.03, 2.45 + i * 0.37 + 0.15, tx - 0.03, ty + 0.35, { color: C.accent3, width: 1 });
-  label(s, px + pw + 0.3, ty - 0.95, 2.2, 0.5, '来源标注\n（PubMed 试验关联）', { size: 10, align: 'center', color: C.accent3 });
-  box(s, tx, ty, tw, 0.7, 'monarchE 三期试验\nNCT03155997', { fill: C.accent3, color: C.background1, bold: true, size: 11.5 });
-  arrow(s, tx + tw + 0.03, ty + 0.35, tx + tw + 0.5, ty + 0.35, { color: C.text2, width: 1.5 });
-  box(s, tx + tw + 0.53, ty - 0.05, MX + lw - 0.3 - (tx + tw + 0.53), 0.8, '计为 1 条\n独立证据', { fill: TEAL_TINT, line: HEX.accent1, bold: true, size: 13, color: C.text2 });
-  label(s, tx - 0.2, ty + 0.85, MX + lw - 0.3 - tx + 0.2, 0.75, '同一批受试者的主结果、亚组分析、长期随访等 6 篇论文，只能算 1 条证据；按篇数计会被放大 6 倍。', { size: 11, color: C.text1 });
-  label(s, MX + 0.3, 5.45, lw - 0.6, 1.1, '系统只做标注：“以下 6 篇来自同一试验 NCT03155997”。证据强弱不由系统打分，由专家判断。', { size: 12, color: C.text2, bold: true });
-
-  // ---- right: three points
-  const rx = MX + lw + 0.35;
-  const rw = CW - lw - 0.35;
-  [
-    ['为什么要做', '系统现在只把标题交给模型；仅凭标题，粗略估计只有约 15% 的同源论文对能被看出来。'],
-    ['怎么做', '用 PubMed 的试验关联和摘要中的试验编号标注来源，现查现算；合并只是按编号分组，不需要模型推理。'],
-    ['定位', '一个低成本的小功能，不作为创新点；它是否真的改变模型结论，由下一页的实验来回答。'],
-  ].forEach(([t, b], i) => {
-    const y = 1.85 + i * 1.62;
-    badge(s, rx, y, i + 1, C.accent1);
-    label(s, rx + 0.58, y - 0.02, rw - 0.58, 0.45, t, { size: 16, bold: true, color: C.text2, valign: 'middle' });
-    label(s, rx + 0.58, y + 0.45, rw - 0.58, 1.1, b, { size: 12.5 });
-  });
-  s.addNotes(
-    '第二点是来源可见。检索结果里经常有多篇论文来自同一个试验，比如左边这个真实例子，问阿贝西利能否用于乳腺癌，前 20 篇里有 6 篇来自同一个三期试验 monarchE。我们的做法很简单：把每篇论文的上游试验编号查出来，随证据一起交给模型和用户，标明“这几篇来自同一试验”。为什么需要系统来做？因为系统目前只给模型标题，仅凭标题，大约只有 15% 的同源论文能被看出来。这一步只做标注、不打分，证据强弱仍由专家判断；它本身是一个低成本的小功能，不作为创新点。它是否真的会改变模型的结论，需要下一页的实验来回答。'
-  );
-
-}
-
-// 8 -- measured phenomenon and the experiment that decides whether it matters
-// Numbers: packages/core/evaluation/source-redundancy/summary.json; experiment:
-// packages/core/evaluation/illusory-corroboration.
-{
-  const s = content('实测现象与待验证假设：同源证据会不会造成“虚假共识”', '现象已实测；它是否真的影响大模型的结论，用一个无需人工标注的对照实验来回答。', '怎么设计');
-  const half = (CW - 0.3) / 2;
+  const s = content('实验结论：同源证据普遍存在，但模型读到摘要时能自行识别', '先实测现象，再用对照实验检验它是否改变模型结论；按事先定好的规则决定去留。', '怎么设计');
+  const lw = 4.6;
   const ax = MX;
-  card(s, ax, 1.75, half, 4.85);
-  badge(s, ax + 0.3, 1.95, 1, C.accent1);
-  label(s, ax + 0.85, 1.92, half - 1.1, 0.45, '现象（已实测）：同源证据普遍存在', { size: 15.5, bold: true, color: C.text2, valign: 'middle' });
-  label(s, ax + 0.3, 2.45, half - 0.6, 0.5, '94 个真实“药物–疾病”问题，系统自带文献检索取前 20 篇，共 1649 篇；按 PubMed 试验关联溯源。', { size: 11, color: C.text1 });
+  card(s, ax, 1.75, lw, 4.25);
+  badge(s, ax + 0.3, 1.95, 1, C.accent3);
+  label(s, ax + 0.85, 1.92, lw - 1.1, 0.45, '现象：同源证据普遍存在', { size: 15, bold: true, color: C.text2, valign: 'middle' });
+  label(s, ax + 0.3, 2.45, lw - 0.6, 0.6, '94 个真实问题，系统检索前 20 篇，共 1649 篇，按 PubMed 试验关联溯源。', { size: 10.5, color: C.text1 });
   [
-    ['40%', '含试验证据的问题中，\n存在同源论文的比例（25 / 62）'],
-    ['29%', '试验类论文中，\n属于重复计数的比例（60 / 207）'],
-    ['8 篇', '单个问题中，\n来自同一个试验的最多篇数'],
+    ['40%', '含试验证据的问题中，存在同源论文'],
+    ['29%', '试验类论文属于重复计数'],
+    ['6 篇', '例：阿贝西利前 20 篇中，来自同一试验 monarchE'],
   ].forEach(([n, t], i) => {
-    const y = 3.1 + i * 0.95;
-    label(s, ax + 0.3, y, 1.55, 0.7, n, { size: 30, bold: true, color: C.accent3, align: 'center', valign: 'middle' });
-    label(s, ax + 1.95, y + 0.05, half - 2.25, 0.65, t, { size: 11.5, color: C.text1, valign: 'middle' });
+    const y = 3.15 + i * 0.9;
+    label(s, ax + 0.3, y, 1.25, 0.65, n, { size: 24, bold: true, color: C.accent3, align: 'center', valign: 'middle' });
+    label(s, ax + 1.65, y + 0.03, lw - 1.95, 0.6, t, { size: 11, color: C.text1, valign: 'middle' });
   });
-  label(s, ax + 0.3, 5.95, half - 0.6, 0.55, '只识别了明确的试验编号，是下界。已获批药物的同源比例更高（49% vs 28%）：获批后二次分析论文增多，“论文多”部分是成功的结果。', { size: 10, color: C.accent6 });
 
-  const bx = MX + half + 0.3;
-  card(s, bx, 1.75, half, 4.85);
+  const bx = MX + lw + 0.3;
+  const bw = CW - lw - 0.3;
+  card(s, bx, 1.75, bw, 4.25);
   badge(s, bx + 0.3, 1.95, 2, C.accent2);
-  label(s, bx + 0.85, 1.92, half - 1.1, 0.45, '待验证：重复证据会不会改变模型结论', { size: 15.5, bold: true, color: C.text2, valign: 'middle' });
-  label(s, bx + 0.3, 2.45, half - 0.6, 0.5, '同一个问题、同一个模型，只改变证据包，比较模型给出的“有效概率”和“独立研究数”：', { size: 11, color: C.text1 });
+  label(s, bx + 0.85, 1.92, bw - 1.1, 0.45, '对照实验：会不会让模型产生“虚假共识”', { size: 15, bold: true, color: C.text2, valign: 'middle' });
+  label(s, bx + 0.3, 2.45, bw - 0.6, 0.5, '24 个问题、98 次调用；同一模型，只改变证据包，比较模型给出的“有效概率”（0–100）。', { size: 10.5, color: C.text1 });
   const head = (t) => ({ text: t, options: { bold: true, color: 'FFFFFF', fill: { color: HEX.dk2 }, fontSize: 10.5, valign: 'middle' } });
   const cell = (t, o = {}) => ({ text: t, options: { fontSize: 10.5, color: HEX.dk1, valign: 'middle', ...o } });
   s.addTable(
     [
-      [head('证据包'), head('内容'), head('若存在“虚假共识”')],
-      [cell('原始', { bold: true }), cell('检索结果原样'), cell('基准')],
-      [cell('标注来源', { bold: true }), cell('同上，标明同源论文'), cell('概率回落')],
-      [cell('去重', { bold: true }), cell('每个试验只留 1 篇'), cell('概率回落')],
-      [cell('加量', { bold: true }), cell('去重后再加 3 / 6 篇同一试验论文'), cell('篇数越多，概率越高')],
+      [head('证据包变化'), head('有效概率变化'), head('95% 置信区间'), head('判断')],
+      [cell('原始检索结果 vs 去重'), cell('+0.0 分', { bold: true }), cell('−1.8 ~ +1.7'), cell('无影响')],
+      [cell('再加 3 篇同一试验论文'), cell('+1.2 分', { bold: true }), cell('+0.5 ~ +2.0'), cell('可测出，但极小', { color: HEX.accent3, bold: true })],
+      [cell('再加 6 篇同一试验论文'), cell('+1.0 分', { bold: true }), cell('+0.3 ~ +1.9'), cell('不随篇数增加')],
+      [cell('标注来源 vs 原始'), cell('−1.4 分', { bold: true }), cell('−3.5 ~ +0.2'), cell('不显著')],
     ],
     {
-      x: bx + 0.3, y: 3.0, w: half - 0.6, colW: [1.05, 2.75, half - 0.6 - 3.8], rowH: [0.36, 0.38, 0.38, 0.38, 0.45],
+      x: bx + 0.3, y: 3.0, w: bw - 0.6, colW: [2.3, 1.35, 1.45, bw - 0.6 - 5.1], rowH: [0.36, 0.38, 0.38, 0.38, 0.38],
       border: { type: 'solid', pt: 0.75, color: 'D5DCE4' }, fill: { color: 'FFFFFF' }, margin: [0.03, 0.08, 0.03, 0.08], fontFace: THEME.bodyFontFace,
       objectName: name('table'),
     }
   );
-  box(s, bx + 0.3, 5.2, half - 0.6, 1.25, '结果决定去留：效应存在 → 来源标注接入系统，并可作为论文发现；效应不存在 → 放弃这一方向。所用论文全部真实，标签来自公开结局，无需人工标注；用本机已订阅的模型命令行工具运行。', { fill: TEAL_TINT, line: HEX.accent1, size: 10.5, align: 'left', margin: 0.1, color: C.text2 });
-  label(s, MX, 6.68, CW, 0.3, '实验脚本与证据包已存档（packages/core/evaluation/illusory-corroboration）；尚未运行，结果待补。', { size: 10 });
+  label(s, bx + 0.3, 5.05, bw - 0.6, 0.8, '原因：模型读到摘要时会自行识别同源——25 份原始条件的回答中，有 10 份主动指出“多篇来自同一试验，只计一次”。', { size: 11, color: C.text1 });
+
+  box(s, MX, 6.12, CW, 0.5, '结论：影响约 1 分（满分 100），不再单列为设计。实际要做的只有一件小事：检索结果附上摘要（目前只给标题）。', { fill: TEAL_TINT, line: HEX.accent1, size: 12.5, bold: true, align: 'left', margin: 0.12, color: C.text2 });
+  label(s, MX, 6.68, CW, 0.3, '局限：多数问题已有定论（84% 的回答 ≥ 90 或 ≤ 10），对结论尚不确定的问题未检验；单一模型、单次运行。数据与脚本已存档，可复现。', { size: 10 });
   s.addNotes(
-    '这一页分清“已知”和“未知”。左边是已实测的现象：94 个真实问题、1649 篇论文，有试验证据的问题中 40% 存在同源论文，试验类论文中 29% 是重复计数，最多一个问题里有 8 篇来自同一个试验。这是下界。还有一个值得注意的点：已获批药物的同源比例更高，因为获批后会出现大量二次分析，所以“论文多”在一定程度上是成功的结果，而不是证据。右边是未知的部分：这些重复会不会让大模型产生“虚假共识”。我们设计了一个对照实验：同一个问题、同一个模型，只改变证据包——原样、标注来源、去重、再额外加入同一试验的论文——看模型给出的有效概率是否随重复篇数上升。结果决定这个方向的去留：效应存在，就把来源标注接入系统，并作为论文发现；不存在，就放弃。实验用真实论文和公开结局，不需要人工标注，在本机用已订阅的模型工具运行，目前尚未运行。'
+    '这一页讲我们怎么用数据做取舍。左边是实测的现象：94 个真实问题、1649 篇论文，有试验证据的问题中 40% 存在同源论文，试验类论文中 29% 是重复计数；比如问阿贝西利能否用于乳腺癌，前 20 篇里有 6 篇来自同一个试验。现象确实存在，但它会不会让大模型产生“虚假共识”？我们事先写好假设和取舍规则，做了对照实验：24 个问题、98 次调用，同一个模型只改变证据包。结果是，原始检索结果和去重之后没有差别；额外加入 3 篇同一试验的论文，模型给出的有效概率只升高约 1 分，满分 100，加到 6 篇也不再上升；标注来源也没有显著影响。原因是模型读到摘要时会自己识别同源，25 份回答中有 10 份主动指出“这几篇来自同一试验，只计一次”。所以按事先定的规则，这一项不再作为设计点，实际只需要让检索结果附上摘要。需要说明局限：多数问题的答案已有定论，模型很确定，留给变化的空间小；对结论尚不确定的问题还没有检验，而且只用了一个模型、跑了一次。'
   );
 }
 
-// 9 -- collaboration and runtime
+// 8 -- collaboration and runtime
 {
   const s = content('支撑设计：多智能体协作与本地运行时', 'B 类管“谁来做、谁把关”，C 类管“在哪里跑、用谁的额度”；两者在 2.x 已具备，3.0 继续完善。', '怎么设计');
   const half = (CW - 0.3) / 2;
@@ -607,7 +564,7 @@ pres.addSection({ title: '怎么设计' });
   );
 }
 
-// 10 -- usage
+// 9 -- usage
 pres.addSection({ title: '怎么用' });
 {
   const s = content('使用说明：四步完成一次可追溯的研究', '截图来自真实运行的 v3.0 应用。', '怎么用');
@@ -638,14 +595,14 @@ pres.addSection({ title: '怎么用' });
   );
 }
 
-// 11 -- status and next steps
+// 10 -- status and next steps
 pres.addSection({ title: '下一步' });
 {
-  const s = content('当前进展与下一步', 'B、C 已落地；A 类实时核验已有原型，同源现象已实测，其影响待实验验证。', '下一步');
+  const s = content('当前进展与下一步', 'B、C 已落地；A 类实时核验已有原型；同源证据经实验检验，不再单列。', '下一步');
   const cols = [
-    ['已完成', C.accent1, ['v3.0.0 已发布：三平台安装包和本地 Web 版', '多智能体协作、本地运行时、可核查引用已落地', '实时状态核验原型已落地，两个真实案例写成自动化测试', '实测：40% 的问题存在同源证据']],
-    ['尚待完成', C.accent3, ['同源是否改变模型结论尚未验证', '实时核验尚未覆盖全部数据源（撤稿库、试验、药品）', '部分本地命令行工具仅为通用接入，待逐一验证']],
-    ['下一步 · 需要的支持', C.accent2, ['运行“虚假共识”对照实验（脚本与数据已备好，无需人工标注）', '按结果决定：来源标注接入系统，或放弃该方向', '实时状态核验接入正式流程，覆盖撤稿、试验、药品三类来源', '结果稳定后发布正式版，并整理成论文']],
+    ['已完成', C.accent1, ['v3.0.0 已发布：三平台安装包和本地 Web 版', '多智能体协作、本地运行时、可核查引用已落地', '实时状态核验原型已落地，两个真实案例写成自动化测试', '对照实验：同源证据对模型结论影响约 1 分，不单列设计']],
+    ['尚待完成', C.accent3, ['实时核验尚未覆盖全部数据源（撤稿库、试验、药品）', '文献检索目前只返回标题，需附上摘要', '部分本地命令行工具仅为通用接入，待逐一验证']],
+    ['下一步 · 需要的支持', C.accent2, ['实时状态核验接入正式流程，覆盖撤稿、试验、药品三类来源', '文献检索附上摘要（小改动）', '在结论不确定、药名脱敏的问题上复核同源影响', '结果稳定后发布正式版，并整理成论文']],
   ];
   const cw = (CW - 2 * 0.3) / 3;
   cols.forEach(([t, c, items], i) => {
@@ -656,9 +613,9 @@ pres.addSection({ title: '下一步' });
     bullets(s, x + 0.3, 2.75, cw - 0.55, 3.25, items, { size: 14, gap: 9 });
   });
   s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x: MX, y: 6.3, w: CW, h: 0.6, rectRadius: 0.08, fill: { color: C.text2 }, line: { color: C.text2 }, objectName: name('ask') });
-  label(s, MX + 0.3, 6.3, CW - 0.6, 0.6, '请审阅：是否支持开展“虚假共识”对照实验，并按结果决定来源标注的去留（下一步第 1、2 项）。', { size: 15, bold: true, color: C.background1, valign: 'middle' });
+  label(s, MX + 0.3, 6.3, CW - 0.6, 0.6, '请审阅：是否支持将实时状态核验接入正式流程（下一步第 1 项）。', { size: 15, bold: true, color: C.background1, valign: 'middle' });
   s.addNotes(
-    '最后是进展和请求。B、C 两类设计已经落地并发布；A 类中，实时状态核验已有原型，并用两个真实案例写成了自动化测试；同源证据的现象已经实测，但它会不会真的影响大模型的结论，还需要实验来回答。下一步先运行这个对照实验，脚本和数据都已备好，不需要人工标注；然后按结果决定来源标注是接入系统还是放弃；同时把实时状态核验接入正式流程。结果稳定后发布正式版，并整理成论文。'
+    '最后是进展和请求。B、C 两类设计已经落地并发布；A 类中，实时状态核验已有原型，并用两个真实案例写成了自动化测试。同源证据这一项，我们没有直接做功能，而是先做了对照实验，结果影响很小，所以不再单列，只需让文献检索附上摘要。下一步最重要的是把实时状态核验接入正式流程，覆盖撤稿、试验和药品三类来源；另外在结论尚不确定的问题上复核一次同源影响。结果稳定后发布正式版，并整理成论文。'
   );
 }
 
