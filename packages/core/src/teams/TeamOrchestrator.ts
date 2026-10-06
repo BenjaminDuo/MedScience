@@ -496,6 +496,7 @@ export class TeamOrchestrator {
       recommendedNextActions: result.raw.recommendedNextActions || [],
       confidence: result.raw.confidence ?? 0.5,
       createdAt: new Date().toISOString(),
+      origin: 'team',
     };
 
     state.record.handoffs.push(handoff);

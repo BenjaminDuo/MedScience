@@ -273,6 +273,10 @@ export interface ScientificHandoff {
   recommendedNextActions: string[];
   confidence: number;
   createdAt: string;
+  /** Shared handoff schema provenance; omitted on legacy persisted Team runs. */
+  origin?: 'team' | 'subagent';
+  parentSessionId?: string;
+  taskType?: string;
 }
 
 export type TeamLeaderDecision =

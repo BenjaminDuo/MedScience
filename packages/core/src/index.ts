@@ -24,6 +24,7 @@ export * from './core/SessionManager.js';
 export * from './core/WorkspaceManager.js';
 export * from './types/workspace.js';
 export * from './core/AgentLoop.js';
+export * from './agents/runtime/ScopedAgentRunner.js';
 
 // Agents & Skills & Tools
 export * from './agents/BaseAgent.js';
@@ -45,6 +46,12 @@ export * from './research-loop/AutonomousResearchEngine.js';
 export * from './research-loop/ChatEngine.js';
 export * from './research-loop/MemoryCompactor.js';
 export * from './research-loop/ResearchEngine.js';
+export * from './subagents/types.js';
+export * from './subagents/SubagentContextBuilder.js';
+export * from './subagents/SubagentOutputValidator.js';
+export * from './subagents/SubagentRunner.js';
+export * from './subagents/SubagentOrchestrator.js';
+export * from './subagents/tools/DelegateResearchTool.js';
 
 // Execution backends (API vs local Codex runtime)
 export * from './execution/types.js';

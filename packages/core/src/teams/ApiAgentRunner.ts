@@ -1,9 +1,10 @@
 import { ModelProvider } from '../client/ModelProvider.js';
-import { ModelMessage, ModelRequest } from '../types/model.js';
+import { ModelRequest } from '../types/model.js';
 import { ToolRegistry, globalToolRegistry } from '../tools/ToolRegistry.js';
 import { EvidenceTracker } from '../research-loop/EvidenceTracker.js';
 import { AgentDefinition, ResearchTeamDefinition, ResearchTeamMember, ScientificFinding, TeamTask, ScientificHandoff, StructuredRunError } from './types.js';
 import { RawPlanSubmission, buildPlanSubmitToolSpec } from './TeamPlanner.js';
+import { globalScopedAgentRunner } from '../agents/runtime/ScopedAgentRunner.js';
 
 /**
  * The scoped, single-task tool-calling loop a team member (or the leader,
@@ -104,7 +105,7 @@ interface ScopedLoopParams {
 }
 
 interface ScopedLoopResult {
-  submission?: any;
+  submission?: unknown;
   error?: StructuredRunError;
   turnsUsed: number;
 }
@@ -122,111 +123,34 @@ function resolveScopedTools(agentDef: AgentDefinition, member: ResearchTeamMembe
   });
 }
 
+/** Compatibility-shaped adapter over the shared ScopedAgentRunner. */
 async function runScopedLoop(params: ScopedLoopParams): Promise<ScopedLoopResult> {
-  const { agentDef, member, systemPrompt, userPrompt, forcedTool, modelProvider, model, sessionId, turnIndexBase, maxTurns, toolRegistry, evidenceTracker, allowDomainTools } = params;
+  const domainTools = params.allowDomainTools ? resolveScopedTools(params.agentDef, params.member, params.toolRegistry) : [];
+  const result = await globalScopedAgentRunner.run<unknown>({
+    modelProvider: params.modelProvider,
+    model: params.model,
+    systemPrompt: params.systemPrompt,
+    taskPrompt: params.userPrompt,
+    tools: domainTools,
+    toolRegistry: params.toolRegistry,
+    evidenceTracker: params.evidenceTracker,
+    sessionId: params.sessionId,
+    agentId: params.agentDef.id,
+    maxTurns: params.maxTurns,
+    submitTool: params.forcedTool,
+    allowedToolNames: new Set(domainTools.map((tool) => tool.name)),
+    turnIndexBase: params.turnIndexBase,
+    runtimeKind: 'team',
+  });
 
-  const domainTools = allowDomainTools ? resolveScopedTools(agentDef, member, toolRegistry) : [];
-  const messages: ModelMessage[] = [
-    { role: 'system', content: systemPrompt },
-    { role: 'user', content: userPrompt },
-  ];
-
-  let turnsUsed = 0;
-  let lastResponseContent = '';
-  // Without this the model can just keep answering in plain text and burn the
-  // whole turn budget in silence -- 'required' when other (domain) tools are
-  // also offered still lets it choose which tool, but it must call *something*;
-  // when the forced tool is the only tool on offer (e.g. leader planning), we
-  // pin it to that exact tool so the very first turn submits the plan.
-  const toolChoice: ModelRequest['toolChoice'] = allowDomainTools ? 'required' : { name: forcedTool.name };
-  while (turnsUsed < maxTurns) {
-    turnsUsed++;
-    const request: ModelRequest = {
-      model,
-      messages,
-      tools: [
-        ...domainTools.map((t) => ({ name: t.name, description: t.description, parameters: t.inputSchema })),
-        forcedTool,
-      ],
-      toolChoice,
-    };
-
-    let response;
-    try {
-      response = await modelProvider.generate(request);
-    } catch (err: any) {
-      return { error: { code: 'MODEL_REQUEST_FAILED', message: err?.message || String(err), cause: 'tool-failure' }, turnsUsed };
-    }
-
-    if (response.finishReason === 'tool_calls' && response.toolCalls && response.toolCalls.length > 0) {
-      messages.push({
-        role: 'assistant',
-        content: response.content || '',
-        toolCalls: response.toolCalls.map((c) => ({ id: c.id, name: c.name, arguments: c.arguments })),
-      });
-
-      let submission: any;
-      for (const call of response.toolCalls) {
-        if (call.name === forcedTool.name) {
-          submission = call.arguments;
-          continue;
-        }
-        const result = await toolRegistry.execute(call.name, call.arguments, sessionId, agentDef.id, turnIndexBase + turnsUsed);
-        if (result.success) {
-          const queryStr = call.arguments?.query || call.arguments?.accessionOrGene || call.arguments?.compoundNameOrCID || JSON.stringify(call.arguments);
-          try {
-            evidenceTracker.record(
-              call.name,
-              result.execution?.category || 'databases',
-              String(queryStr),
-              result.execution?.resultSummary || 'Tool executed successfully',
-              result.output,
-              result.citations,
-              result.artifacts,
-              result.evidenceVerification
-            );
-          } catch {
-            // Rejected evidence (EvidenceTracker throws on REJECTED verdict) -- treat like a tool failure below.
-          }
-          messages.push({
-            role: 'tool',
-            name: call.name,
-            content: typeof result.output === 'string' ? result.output : JSON.stringify(result.output || result.error),
-            toolCallId: call.id,
-          });
-        } else {
-          messages.push({
-            role: 'tool',
-            name: call.name,
-            content: `[Tool execution failed]: ${result.error || 'unknown error'}`,
-            toolCallId: call.id,
-          });
-        }
-      }
-
-      if (submission !== undefined) {
-        return { submission, turnsUsed };
-      }
-      continue;
-    }
-
-    // Model produced plain text instead of calling the required structured tool -- nudge and retry.
-    lastResponseContent = response.content || '';
-    messages.push({ role: 'assistant', content: lastResponseContent });
-    messages.push({
-      role: 'user',
-      content: `You must call the "${forcedTool.name}" tool to finish -- a plain-text answer is not accepted. Please call it now.`,
-    });
-  }
-
-  const lastReplySnippet = lastResponseContent ? ` Last model reply: "${lastResponseContent.slice(0, 300)}"` : ' The model never produced a tool call or reply text on its final turn.';
+  if (result.status === 'completed') return { submission: result.submission, turnsUsed: result.turns };
   return {
+    turnsUsed: result.turns,
     error: {
-      code: 'AGENT_TURN_BUDGET_EXHAUSTED',
-      message: `Exhausted ${maxTurns} turns without a "${forcedTool.name}" submission.${lastReplySnippet}`,
-      cause: 'tool-failure',
+      code: result.status === 'cancelled' ? 'AGENT_CANCELLED' : result.status === 'failed' ? 'MODEL_REQUEST_FAILED' : 'AGENT_TURN_BUDGET_EXHAUSTED',
+      message: result.error || 'Scoped agent run did not produce a structured submission.',
+      cause: result.status === 'cancelled' ? 'user-cancelled' : 'tool-failure',
     },
-    turnsUsed,
   };
 }
 

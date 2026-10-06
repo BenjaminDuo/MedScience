@@ -1,7 +1,7 @@
 import { ToolDefinition, ToolContext, ToolExecutionResult } from '../types/tools.js';
 import { globalPermissionManager } from '../sandbox/PermissionManager.js';
 import { globalEventBus } from '../core/EventBus.js';
-import { ToolExecution } from '../types/runtime.js';
+import { ToolCategory, ToolExecution } from '../types/runtime.js';
 import { globalHookRegistry } from '../hooks/HookRegistry.js';
 
 export class ToolRegistry {
@@ -28,7 +28,8 @@ export class ToolRegistry {
     input: any,
     sessionId: string,
     agentId: string,
-    turnIndex: number = 0
+    turnIndex: number = 0,
+    options?: ToolExecutionOptions
   ): Promise<ToolExecutionResult> {
     const tool = this.tools.get(name);
     if (!tool) {
@@ -49,6 +50,42 @@ export class ToolRegistry {
           toolName: name,
           category: 'execution',
           description: `Unknown tool "${name}"`,
+          status: 'failed',
+          logs: [errorMsg],
+        },
+      };
+    }
+
+    // Child agents can only narrow the parent's capabilities. Check the scope
+    // again here (not just while building model definitions) so a hallucinated
+    // tool call cannot escape the inherited capability boundary.
+    if (options?.allowedToolNames && !options.allowedToolNames.has(name)) {
+      const errorMsg = `Permission denied: tool '${name}' is outside the inherited capability scope.`;
+      return {
+        success: false,
+        output: null,
+        error: errorMsg,
+        execution: {
+          id: `tool-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`,
+          toolName: name,
+          category: tool.category,
+          description: tool.description,
+          status: 'failed',
+          logs: [errorMsg],
+        },
+      };
+    }
+    if (options?.allowedToolCategories && !options.allowedToolCategories.has(tool.category)) {
+      const errorMsg = `Permission denied: category '${tool.category}' is outside the inherited capability scope.`;
+      return {
+        success: false,
+        output: null,
+        error: errorMsg,
+        execution: {
+          id: `tool-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`,
+          toolName: name,
+          category: tool.category,
+          description: tool.description,
           status: 'failed',
           logs: [errorMsg],
         },
@@ -225,6 +262,11 @@ export class ToolRegistry {
       };
     }
   }
+}
+
+export interface ToolExecutionOptions {
+  allowedToolNames?: ReadonlySet<string>;
+  allowedToolCategories?: ReadonlySet<ToolCategory>;
 }
 
 export const globalToolRegistry = new ToolRegistry();

@@ -173,6 +173,36 @@ export type TeamRunCompletedEvent = BaseEvent<
   { teamRunId: string; status: 'completed' | 'failed' | 'cancelled'; error?: { code: string; message: string } }
 >;
 
+export type SubagentStartedEvent = BaseEvent<
+  'subagent.started',
+  { agentId: string; taskId: string; objective: string; parentSessionId: string }
+>;
+
+export type SubagentToolCalledEvent = BaseEvent<
+  'subagent.tool_called',
+  { agentId: string; toolCallId: string; toolName: string; turn: number }
+>;
+
+export type SubagentEvidenceRecordedEvent = BaseEvent<
+  'subagent.evidence_recorded',
+  { agentId: string; evidenceId: string; toolName: string }
+>;
+
+export type SubagentCompletedEvent = BaseEvent<
+  'subagent.completed',
+  { agentId: string; taskId: string; status: 'completed' | 'inconclusive' | 'failed' | 'cancelled'; evidenceIds: string[] }
+>;
+
+export type SubagentFailedEvent = BaseEvent<
+  'subagent.failed',
+  { agentId: string; taskId: string; error: string }
+>;
+
+export type SubagentCancelledEvent = BaseEvent<
+  'subagent.cancelled',
+  { agentId: string; taskId: string }
+>;
+
 export type RuntimeEvent =
   | SessionCreatedEvent
   | SessionResumedEvent
@@ -206,6 +236,12 @@ export type RuntimeEvent =
   | TeamPlanReadyEvent
   | TeamTaskStatusEvent
   | TeamHandoffSubmittedEvent
-  | TeamRunCompletedEvent;
+  | TeamRunCompletedEvent
+  | SubagentStartedEvent
+  | SubagentToolCalledEvent
+  | SubagentEvidenceRecordedEvent
+  | SubagentCompletedEvent
+  | SubagentFailedEvent
+  | SubagentCancelledEvent;
 
 export type EventType = RuntimeEvent['type'];
