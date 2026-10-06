@@ -80,6 +80,10 @@ export class ScopedAgentRunner {
     const tracker = config.evidenceTracker;
     const eventBus = config.eventBus || globalEventBus;
     const tools = (config.tools || []).filter((tool) => {
+      // Internal SubAgents are deliberately non-recursive. The specialized
+      // caller and this shared runner both enforce the boundary so a direct
+      // compatibility path cannot accidentally expose orchestration tools.
+      if (config.runtimeKind === 'subagent' && tool.category === 'orchestration') return false;
       if (config.allowedToolNames && !config.allowedToolNames.has(tool.name)) return false;
       if (config.allowedToolCategories && !config.allowedToolCategories.has(tool.category)) return false;
       return true;
@@ -188,7 +192,8 @@ export class ScopedAgentRunner {
           callRecord.success = result.success;
           callRecord.error = result.error;
           let evidenceId: string | undefined;
-          if (result.success && tracker) {
+          const selectedTool = tools.find((tool) => tool.name === call.name);
+          if (result.success && tracker && selectedTool?.producesEvidence !== false) {
             try {
               const evidence = tracker.record(
                 call.name,
@@ -217,10 +222,21 @@ export class ScopedAgentRunner {
             }
           }
 
+          const rawToolContent = result.success
+            ? typeof result.output === 'string'
+              ? result.output
+              : JSON.stringify(result.output)
+            : `[Tool execution failed]: ${result.error || 'unknown error'}`;
+          // Evidence IDs are part of the model-visible tool-result contract.
+          // Keep the original payload intact while adding an unambiguous,
+          // provider-neutral marker that a model can parse and cite.
+          const toolContent = evidenceId
+            ? `[Evidence recorded: ${evidenceId}]\n${rawToolContent}`
+            : rawToolContent;
           messages.push({
             role: 'tool',
             name: call.name,
-            content: result.success ? (typeof result.output === 'string' ? result.output : JSON.stringify(result.output)) : `[Tool execution failed]: ${result.error || 'unknown error'}`,
+            content: toolContent,
             toolCallId: call.id,
           });
           if (evidenceId) callRecord.evidenceId = evidenceId;

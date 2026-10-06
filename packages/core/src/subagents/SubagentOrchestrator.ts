@@ -7,7 +7,7 @@ import { ToolCategory } from '../types/runtime.js';
 import { ToolRegistry, globalToolRegistry } from '../tools/ToolRegistry.js';
 import { HookRegistry, globalHookRegistry } from '../hooks/HookRegistry.js';
 import { SubagentRunner } from './SubagentRunner.js';
-import { EvidenceAdoption, SubagentContext, SubagentFailure, SubagentHandoff, SubagentOrchestrationResult, SubagentTask } from './types.js';
+import { EvidenceAdoption, SUBAGENT_RUNTIME_LIMITS, SubagentContext, SubagentFailure, SubagentHandoff, SubagentOrchestrationResult, SubagentTask } from './types.js';
 
 export interface SubagentOrchestratorOptions {
   modelProvider: ModelProvider;
@@ -49,7 +49,7 @@ export class SubagentOrchestrator {
     this.eventBus = options.eventBus || globalEventBus;
     this.evidenceVerifier = options.evidenceVerifier || globalEvidenceVerifier;
     this.hookRegistry = options.hookRegistry || globalHookRegistry;
-    this.defaultMaxConcurrent = Math.max(1, options.maxConcurrentSubagents || 3);
+    this.defaultMaxConcurrent = this.boundConcurrent(options.maxConcurrentSubagents, 3);
   }
 
   public setModelProvider(provider: ModelProvider): void {
@@ -61,12 +61,13 @@ export class SubagentOrchestrator {
   }
 
   public async run(params: SubagentOrchestrationParams): Promise<SubagentOrchestrationResult> {
+    this.validateTasks(params.tasks);
     const pending = new Map(params.tasks.map((task) => [task.id, task]));
     const handoffs: SubagentHandoff[] = [];
     const failures: SubagentFailure[] = [];
     const evidenceAdoptions: EvidenceAdoption[] = [];
     const unresolvedQuestions: string[] = [];
-    const maxConcurrent = Math.max(1, params.maxConcurrentSubagents || this.defaultMaxConcurrent);
+    const maxConcurrent = this.boundConcurrent(params.maxConcurrentSubagents, this.defaultMaxConcurrent);
 
     while (pending.size > 0) {
       if (params.abortSignal?.aborted) {
@@ -130,5 +131,54 @@ export class SubagentOrchestrator {
     }
 
     return { handoffs, evidenceAdoptions, failures, unresolvedQuestions: Array.from(new Set(unresolvedQuestions)) };
+  }
+
+  private boundConcurrent(requested: number | undefined, fallback: number): number {
+    const candidate = typeof requested === 'number' && Number.isFinite(requested) ? Math.floor(requested) : fallback;
+    return Math.min(SUBAGENT_RUNTIME_LIMITS.maxConcurrentSubagents, Math.max(1, candidate));
+  }
+
+  /** Validate the one-parent dependency graph before any child starts. */
+  private validateTasks(tasks: SubagentTask[]): void {
+    if (!Array.isArray(tasks) || tasks.length === 0) {
+      throw new Error('Subagent delegation requires at least one task.');
+    }
+    if (tasks.length > SUBAGENT_RUNTIME_LIMITS.maxTasks) {
+      throw new Error(`Subagent delegation requested ${tasks.length} tasks; the runtime maximum is ${SUBAGENT_RUNTIME_LIMITS.maxTasks}.`);
+    }
+
+    const byId = new Map<string, SubagentTask>();
+    for (const task of tasks) {
+      if (!task || typeof task.id !== 'string' || task.id.trim() === '') {
+        throw new Error('Every Subagent task must have a non-empty id.');
+      }
+      if (byId.has(task.id)) {
+        throw new Error(`Duplicate Subagent task id '${task.id}'.`);
+      }
+      byId.set(task.id, task);
+    }
+
+    for (const task of tasks) {
+      if (!task.parentTaskId) continue;
+      if (task.parentTaskId === task.id) {
+        throw new Error(`Subagent task '${task.id}' cannot depend on itself.`);
+      }
+      if (!byId.has(task.parentTaskId)) {
+        throw new Error(`Subagent task '${task.id}' depends on missing task '${task.parentTaskId}'.`);
+      }
+    }
+
+    const visiting = new Set<string>();
+    const visited = new Set<string>();
+    const visit = (id: string): void => {
+      if (visited.has(id)) return;
+      if (visiting.has(id)) throw new Error(`Subagent task dependency cycle detected at '${id}'.`);
+      visiting.add(id);
+      const dependency = byId.get(id)?.parentTaskId;
+      if (dependency) visit(dependency);
+      visiting.delete(id);
+      visited.add(id);
+    };
+    for (const task of tasks) visit(task.id);
   }
 }

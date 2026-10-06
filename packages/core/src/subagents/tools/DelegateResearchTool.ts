@@ -1,7 +1,7 @@
 import { ToolDefinition, ToolExecutionResult } from '../../types/tools.js';
 import { ToolContext } from '../../types/tools.js';
 import { SubagentOrchestrationParams, SubagentOrchestrator } from '../SubagentOrchestrator.js';
-import { SubagentTask } from '../types.js';
+import { SUBAGENT_RUNTIME_LIMITS, SubagentTask } from '../types.js';
 
 export const DELEGATE_RESEARCH_TOOL_NAME = 'delegate_research';
 
@@ -29,12 +29,14 @@ export function createDelegateResearchTool(
     description: 'Delegate one or more independent, bounded research subtasks to isolated internal SubAgents. Use for parallel hypotheses, literature exploration, independent verification, or analysis that benefits from separate context.',
     category: 'orchestration',
     requiredPermission: 'READ',
+    producesEvidence: false,
     inputSchema: {
       type: 'object',
       properties: {
         tasks: {
           type: 'array',
           minItems: 1,
+          maxItems: SUBAGENT_RUNTIME_LIMITS.maxTasks,
           items: {
             type: 'object',
             properties: {
@@ -45,13 +47,13 @@ export function createDelegateResearchTool(
               acceptanceCriteria: { type: 'array', items: { type: 'string' } },
               allowedToolCategories: { type: 'array', items: { type: 'string' } },
               allowedToolNames: { type: 'array', items: { type: 'string' } },
-              maxTurns: { type: 'number' },
+              maxTurns: { type: 'number', minimum: 1, maximum: SUBAGENT_RUNTIME_LIMITS.maxTurns },
               parentTaskId: { type: 'string' },
             },
             required: ['id', 'type', 'objective'],
           },
         },
-        maxConcurrentSubagents: { type: 'number', minimum: 1, maximum: 8 },
+        maxConcurrentSubagents: { type: 'number', minimum: 1, maximum: SUBAGENT_RUNTIME_LIMITS.maxConcurrentSubagents },
       },
       required: ['tasks'],
     },

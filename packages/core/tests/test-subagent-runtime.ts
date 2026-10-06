@@ -10,6 +10,8 @@ import { SubagentTask } from '../src/subagents/types.js';
 import { createDelegateResearchTool } from '../src/subagents/tools/DelegateResearchTool.js';
 import { AutonomousResearchEngine } from '../src/research-loop/AutonomousResearchEngine.js';
 import { SessionManager } from '../src/core/SessionManager.js';
+import { SubagentTreeEngine } from '../src/research-loop/SubagentTreeEngine.js';
+import { globalEvidenceVerifier } from '../src/research-loop/EvidenceVerifier.js';
 
 function assertTrue(condition: boolean, message: string): void {
   if (!condition) throw new Error(`Assertion failed: ${message}`);
@@ -36,6 +38,8 @@ class DynamicProvider implements ModelProvider {
   public name = 'dynamic-subagent-test-provider';
   public readonly isExternal = false;
   public calls: string[] = [];
+  public offeredTools: string[][] = [];
+  public observedEvidenceIds: string[] = [];
 
   public async listModels(): Promise<string[]> { return ['test']; }
   public async stream(request: ModelRequest, onDelta: (chunk: string) => void): Promise<ModelResponse> {
@@ -49,8 +53,13 @@ class DynamicProvider implements ModelProvider {
     const promptText = typeof prompt === 'string' ? prompt : '';
     if (/FAIL_BRANCH/.test(promptText)) throw new Error('simulated branch failure');
     const names = (request.tools || []).map((entry) => (entry as { name: string }).name);
+    this.offeredTools.push(names);
     const hasPubmed = request.messages.some((message) => message.role === 'tool' && message.name === 'pubmed_test');
     const hasClinical = request.messages.some((message) => message.role === 'tool' && message.name === 'clinical_test');
+    const observedEvidenceIds = request.messages
+      .filter((message) => message.role === 'tool' && typeof message.content === 'string')
+      .flatMap((message) => Array.from(message.content.matchAll(/\[Evidence recorded: (EV-\d+)\]/g), (match) => match[1]));
+    this.observedEvidenceIds = Array.from(new Set([...this.observedEvidenceIds, ...observedEvidenceIds]));
     if (names.includes('subagent_submit_handoff') && hasClinical) {
       return {
         content: '',
@@ -58,7 +67,7 @@ class DynamicProvider implements ModelProvider {
         toolCalls: [{ id: `submit-${this.calls.length}`, name: 'subagent_submit_handoff', arguments: {
           summary: 'Dynamic literature-to-clinical verification completed.',
           methods: ['Selected PubMed first, then ClinicalTrials based on the first result.'],
-          findings: [{ kind: 'observation', statement: 'The second tool was selected after reviewing the first tool result.', evidenceIds: ['EV-1', 'EV-2'], confidence: 0.9 }],
+          findings: [{ kind: 'observation', statement: 'The second tool was selected after reviewing the first tool result.', evidenceIds: [...this.observedEvidenceIds], confidence: 0.9 }],
           limitations: [], unresolvedQuestions: [], recommendedNextActions: [], confidence: 0.9,
         }}],
       };
@@ -122,6 +131,8 @@ async function runTests(): Promise<void> {
   assertTrue(result.handoffs.length === 3, 'three independent SubAgents should return handoffs');
   assertTrue(parentTracker.count() === 6, 'branch evidence should be adopted only after handoff');
   assertTrue(result.evidenceAdoptions.every((adoption) => Object.keys(adoption.mapping).every((key) => key.includes(':EV-'))), 'adoption mapping must retain branch-local provenance');
+  assertTrue(provider.observedEvidenceIds.length >= 2, 'the mock model must observe runtime-injected evidence IDs from tool messages');
+  assertTrue(result.handoffs.every((handoff) => handoff.evidenceIds.every((id) => !!parentTracker.get(id))), 'handoff evidence IDs must be rewritten to parent scope IDs');
   assertTrue(provider.calls.includes('clinical_test'), 'the model must dynamically choose the second tool');
   assertTrue(eventBus.getHistory().some((event) => event.type === 'subagent.completed'), 'runtime completion events should be emitted');
 
@@ -139,13 +150,18 @@ async function runTests(): Promise<void> {
 
   const mainRegistry = new ToolRegistry();
   mainRegistry.register(tool('pubmed_test', 'literature'));
-  mainRegistry.register(tool('clinical_test', 'medical'));
+  // Keep both tools inside the default general-expert persona's scope so the
+  // main-agent delegation test exercises real child evidence adoption rather
+  // than an empty, permission-filtered branch.
+  mainRegistry.register(tool('clinical_test', 'literature'));
   const mainSessionManager = new SessionManager('/private/tmp/medscience-main-delegation-session');
   const mainEngine = new AutonomousResearchEngine({ modelProvider: new MainDelegatingProvider(), toolRegistry: mainRegistry, sessionManager: mainSessionManager, eventBus: new EventBus(), maxTurns: 4 });
   const mainSession = mainSessionManager.createSession('main delegation', 'proj-1', 'research', undefined, 'test-model');
   const mainTurn = await mainEngine.run(mainSession, 'Compare competing mechanisms and delegate independent verification.');
   assertTrue(mainTurn.toolCalls.some((call) => call.name === 'delegate_research'), 'Main Agent should be able to choose delegate_research through its normal tool loop');
   assertTrue(mainTurn.agentResponse.includes('[Evidence: EV-1]'), 'Main Agent synthesis should retain an adopted evidence anchor');
+  assertTrue((mainTurn.agentResponse.match(/\| \*\*EV-\d+\*\*/g) || []).length === 2, 'delegate_research must not create a duplicate scientific EvidenceRecord');
+  assertTrue(!mainTurn.agentResponse.includes('| `delegate_research` |'), 'orchestration metadata must stay out of the scientific Evidence Ledger');
 
   const beforePermissionClinical = provider.calls.filter((call) => call === 'clinical_test').length;
   const permissionResult = await orchestrator.run({

@@ -4,6 +4,13 @@ import { ToolCategory } from '../types/runtime.js';
 
 export type SubagentTaskType = string;
 
+/** Hard runtime ceilings; model-provided schemas are not security boundaries. */
+export const SUBAGENT_RUNTIME_LIMITS = {
+  maxTurns: 10,
+  maxConcurrentSubagents: 4,
+  maxTasks: 8,
+} as const;
+
 export interface SubagentTask {
   id: string;
   parentSessionId: string;

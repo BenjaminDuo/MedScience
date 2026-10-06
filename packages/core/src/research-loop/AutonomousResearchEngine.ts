@@ -424,18 +424,30 @@ SubAgent delegation rules:
             call.arguments?.scriptName ||
             JSON.stringify(call.arguments);
 
-          const recordedEv = evidenceTracker.record(
-            call.name,
-            result.execution?.category || 'databases',
-            String(queryStr),
-            result.execution?.resultSummary || 'Tool executed successfully',
-            result.output,
-            result.citations,
-            result.artifacts,
-            result.evidenceVerification
-          );
-          const evId = recordedEv.id;
-          this.planTracker.completeTask(sessionId, activeTaskId, [evId], recordedEv.summary);
+          const toolDefinition = this.toolRegistry.get(call.name);
+          let evidenceId: string | undefined;
+          let evidenceSummary = result.execution?.resultSummary || 'Tool executed successfully';
+          if (toolDefinition?.producesEvidence !== false) {
+            const recordedEv = evidenceTracker.record(
+              call.name,
+              result.execution?.category || 'databases',
+              String(queryStr),
+              evidenceSummary,
+              result.output,
+              result.citations,
+              result.artifacts,
+              result.evidenceVerification
+            );
+            evidenceId = recordedEv.id;
+            evidenceSummary = recordedEv.summary;
+            this.planTracker.completeTask(sessionId, activeTaskId, [recordedEv.id], recordedEv.summary);
+          } else {
+            // Control/orchestration results remain visible in tool/runtime
+            // events but are not scientific observations in the Evidence
+            // Ledger. Child evidence has already been adopted by the
+            // delegation tool itself.
+            this.planTracker.completeTask(sessionId, activeTaskId, [], evidenceSummary);
+          }
 
           // Register artifacts & citations in session
           if (result.artifacts) {
@@ -446,10 +458,14 @@ SubAgent delegation rules:
           }
 
           // Append tool result into model history for next turn
+          const rawToolContent = typeof result.output === 'string' ? result.output : JSON.stringify(result.output || result.error);
+          const toolContent = evidenceId
+            ? `[Evidence recorded: ${evidenceId}]\n${rawToolContent}`
+            : rawToolContent;
           messages.push({
             role: 'tool',
             name: call.name,
-            content: typeof result.output === 'string' ? result.output : JSON.stringify(result.output || result.error),
+            content: toolContent,
             toolCallId: call.id,
           });
         }

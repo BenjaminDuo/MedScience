@@ -9,7 +9,7 @@ import { SkillRegistry, globalSkillRegistry } from '../skills/SkillRegistry.js';
 import { ScopedAgentRunner, globalScopedAgentRunner, ScopedToolSpec, ScopedAgentRunResult } from '../agents/runtime/ScopedAgentRunner.js';
 import { SubagentContextBuilder, globalSubagentContextBuilder } from './SubagentContextBuilder.js';
 import { SubagentOutputValidator, globalSubagentOutputValidator, ValidatedSubagentSubmission } from './SubagentOutputValidator.js';
-import { SubagentContext, SubagentHandoff, SubagentTask } from './types.js';
+import { SUBAGENT_RUNTIME_LIMITS, SubagentContext, SubagentHandoff, SubagentTask } from './types.js';
 
 export interface SubagentRunnerOptions {
   modelProvider: ModelProvider;
@@ -66,6 +66,11 @@ function buildSubmitTool(availableEvidenceIds: string[]): ScopedToolSpec {
   };
 }
 
+function boundedTurns(requested: number | undefined, fallback: number): number {
+  const candidate = typeof requested === 'number' && Number.isFinite(requested) ? Math.floor(requested) : fallback;
+  return Math.min(SUBAGENT_RUNTIME_LIMITS.maxTurns, Math.max(1, candidate));
+}
+
 export class SubagentRunner {
   private readonly options: Required<Pick<SubagentRunnerOptions, 'toolRegistry' | 'skillRegistry' | 'eventBus' | 'evidenceVerifier' | 'scopedRunner' | 'contextBuilder' | 'outputValidator'>> & SubagentRunnerOptions;
 
@@ -107,9 +112,10 @@ export class SubagentRunner {
     const registeredTools = typeof (this.options.toolRegistry as unknown as { list?: () => unknown[] }).list === 'function' ? this.options.toolRegistry.list() : [];
     const effectiveCategories = new Set<ToolCategory>(
       (task.allowedToolCategories || Array.from(parentAllowedToolCategories || new Set(registeredTools.map((tool) => tool.category))))
-        .filter((category) => !parentAllowedToolCategories || parentAllowedToolCategories.has(category))
+        .filter((category) => category !== 'orchestration' && (!parentAllowedToolCategories || parentAllowedToolCategories.has(category)))
     );
     const domainTools = registeredTools.filter((tool) => {
+      if (tool.category === 'orchestration') return false;
       if (!effectiveCategories.has(tool.category)) return false;
       if (task.allowedToolNames && !task.allowedToolNames.includes(tool.name)) return false;
       if (parentAllowedToolNames && !parentAllowedToolNames.has(tool.name)) return false;
@@ -134,7 +140,7 @@ export class SubagentRunner {
       evidenceTracker: branchTracker,
       sessionId: `${task.parentSessionId}:${task.id}`,
       agentId,
-      maxTurns: task.maxTurns || this.options.defaultMaxTurns || 8,
+      maxTurns: boundedTurns(task.maxTurns, this.options.defaultMaxTurns || 8),
       submitTool: buildSubmitTool(branchTracker.list().map((record) => record.id)),
       allowedToolNames: allowedNames,
       allowedToolCategories: effectiveCategories,
