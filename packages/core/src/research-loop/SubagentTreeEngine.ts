@@ -7,7 +7,7 @@ import { HypothesisTree, HypothesisNode, HypothesisStatus } from './HypothesisTr
 import { SessionManager, globalSessionManager } from '../core/SessionManager.js';
 import { EventBus, globalEventBus } from '../core/EventBus.js';
 import { SubagentOrchestrator } from '../subagents/SubagentOrchestrator.js';
-import { SubagentTask } from '../subagents/types.js';
+import { SUBAGENT_RUNTIME_LIMITS, SubagentTask } from '../subagents/types.js';
 import { ToolCategory } from '../types/runtime.js';
 
 export interface SubagentBranchResult {
@@ -69,6 +69,10 @@ export class SubagentTreeEngine {
   ): Promise<{ hypothesisTree: HypothesisTree; branchResults: SubagentBranchResult[]; comparisonMatrix: string }> {
     const tree = new HypothesisTree(hypotheses);
     const branchResults: SubagentBranchResult[] = [];
+    const effectiveConcurrency = Math.min(
+      SUBAGENT_RUNTIME_LIMITS.maxConcurrentSubagents,
+      Math.max(1, Number.isFinite(maxConcurrency) ? Math.floor(maxConcurrency) : 1)
+    );
     this.eventBus.emit({
       type: 'agent.thinking',
       sessionId: parentSessionId,
@@ -79,8 +83,8 @@ export class SubagentTreeEngine {
       },
     });
 
-    for (let i = 0; i < hypotheses.length; i += Math.max(1, maxConcurrency)) {
-      const batch = hypotheses.slice(i, i + Math.max(1, maxConcurrency));
+    for (let i = 0; i < hypotheses.length; i += effectiveConcurrency) {
+      const batch = hypotheses.slice(i, i + effectiveConcurrency);
       const results = await Promise.all(batch.map((hypothesis) => this.runSingleBranch(parentSessionId, hypothesis, parentEvidenceTracker, onBranchProgress)));
       for (const result of results) {
         branchResults.push(result);

@@ -33,11 +33,10 @@ export interface SubagentRunResult {
   error?: string;
 }
 
-function buildSubmitTool(availableEvidenceIds: string[]): ScopedToolSpec {
-  const evidenceHint = availableEvidenceIds.length > 0 ? `Available evidence ids from this branch: ${availableEvidenceIds.join(', ')}` : 'No branch evidence has been recorded yet.';
+function buildSubmitTool(): ScopedToolSpec {
   return {
     name: 'subagent_submit_handoff',
-    description: `Submit a structured scientific handoff and finish the task. ${evidenceHint} Non-hypothesis findings must cite ids returned by your own tool calls. Tool/network failures must be execution_error findings.`,
+    description: 'Submit a structured scientific handoff and finish the task. For observation, inference, and negative_result findings, cite only Evidence IDs explicitly returned in tool-result messages during this branch. Hypothesis findings may omit Evidence IDs. Execution errors may omit Evidence IDs when no scientific EvidenceRecord was created for the failed tool call. Never invent Evidence IDs. Tool/network failures must be execution_error findings, never negative_result findings.',
     parameters: {
       type: 'object',
       properties: {
@@ -141,7 +140,7 @@ export class SubagentRunner {
       sessionId: `${task.parentSessionId}:${task.id}`,
       agentId,
       maxTurns: boundedTurns(task.maxTurns, this.options.defaultMaxTurns || 8),
-      submitTool: buildSubmitTool(branchTracker.list().map((record) => record.id)),
+      submitTool: buildSubmitTool(),
       allowedToolNames: allowedNames,
       allowedToolCategories: effectiveCategories,
       abortSignal,

@@ -12,6 +12,7 @@ export interface ValidatedSubagentSubmission {
 }
 
 const findingKinds: ScientificFindingKind[] = ['observation', 'inference', 'hypothesis', 'negative_result', 'execution_error'];
+const evidenceRequiredKinds: ScientificFindingKind[] = ['observation', 'inference', 'negative_result'];
 
 export class SubagentOutputValidator {
   public validate(input: unknown, task: SubagentTask, availableEvidenceIds: ReadonlySet<string>): { valid: true; value: ValidatedSubagentSubmission } | { valid: false; errors: string[] } {
@@ -39,7 +40,9 @@ export class SubagentOutputValidator {
       ids.forEach((id) => {
         if (typeof id !== 'string' || !availableEvidenceIds.has(id)) errors.push(`findings[${index}] cites unavailable evidence '${String(id)}'`);
       });
-      if (finding.kind !== 'hypothesis' && ids.length === 0) errors.push(`findings[${index}] requires evidenceIds unless it is a hypothesis`);
+      if (evidenceRequiredKinds.includes(finding.kind as ScientificFindingKind) && ids.length === 0) {
+        errors.push(`findings[${index}] requires evidenceIds for ${finding.kind} findings`);
+      }
       if (finding.confidence !== undefined && (typeof finding.confidence !== 'number' || !Number.isFinite(finding.confidence) || finding.confidence < 0 || finding.confidence > 1)) {
         errors.push(`findings[${index}].confidence must be a number in [0, 1]`);
       }

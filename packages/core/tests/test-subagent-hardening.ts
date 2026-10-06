@@ -47,6 +47,31 @@ function makeTool(
   };
 }
 
+function makeFailingTool(name: string): ToolDefinition {
+  return {
+    name,
+    description: name,
+    category: 'literature',
+    requiredPermission: 'READ',
+    inputSchema: { type: 'object', properties: { query: { type: 'string' } } },
+    async execute(): Promise<ToolExecutionResult> {
+      return {
+        success: false,
+        output: null,
+        error: 'simulated network timeout',
+        execution: {
+          id: `execution-${name}`,
+          toolName: name,
+          category: 'literature',
+          description: name,
+          status: 'failed',
+          logs: [],
+        },
+      };
+    },
+  };
+}
+
 abstract class TestProvider implements ModelProvider {
   public abstract name: string;
   public readonly isExternal = false;
@@ -119,10 +144,13 @@ class DynamicHypothesisProvider extends TestProvider {
 class ScopeProbeProvider extends TestProvider {
   public name = 'scope-probe-provider';
   public offeredTools: string[][] = [];
+  public submitDescriptions: string[] = [];
 
   public async generate(request: ModelRequest): Promise<ModelResponse> {
     const names = toolNames(request);
     this.offeredTools.push(names);
+    const submitTool = (request.tools || []).find((tool) => (tool as { name?: string }).name === 'subagent_submit_handoff') as { description?: string } | undefined;
+    if (submitTool?.description) this.submitDescriptions.push(submitTool.description);
     if (names.includes('subagent_submit_handoff')) {
       return { content: '', finishReason: 'tool_calls', toolCalls: [{ id: 'scope-submit', name: 'subagent_submit_handoff', arguments: {
         summary: 'Scoped branch completed.', methods: [], findings: [{ kind: 'hypothesis', statement: 'No recursive delegation occurred.', evidenceIds: [] }], limitations: [], unresolvedQuestions: [], recommendedNextActions: [], confidence: 0.4,
@@ -167,6 +195,32 @@ class SimpleLookupProvider extends TestProvider {
   }
 }
 
+class FailedToolHandoffProvider extends TestProvider {
+  public name = 'failed-tool-handoff-provider';
+
+  public constructor(private readonly evidenceIds: string[] = []) { super(); }
+
+  public async generate(request: ModelRequest): Promise<ModelResponse> {
+    const failed = request.messages.some((message) => message.role === 'tool' && message.name === 'failing_tool');
+    if (failed) {
+      return {
+        content: '',
+        finishReason: 'tool_calls',
+        toolCalls: [{ id: 'failure-submit', name: 'subagent_submit_handoff', arguments: {
+          summary: 'The requested tool failed before producing scientific evidence.',
+          methods: ['Attempted the failing tool and recorded the execution failure.'],
+          findings: [{ kind: 'execution_error', statement: 'The literature request timed out.', evidenceIds: [...this.evidenceIds] }],
+          limitations: ['The source was unavailable.'],
+          unresolvedQuestions: ['The underlying literature question remains unresolved.'],
+          recommendedNextActions: ['Retry the request when the source is available.'],
+          confidence: 0,
+        }}],
+      };
+    }
+    return { content: '', finishReason: 'tool_calls', toolCalls: [{ id: 'failure-call', name: 'failing_tool', arguments: { query: 'unavailable source' } }] };
+  }
+}
+
 async function expectReject(action: () => Promise<unknown>, expected: string): Promise<void> {
   let rejected = false;
   try {
@@ -180,7 +234,7 @@ async function expectReject(action: () => Promise<unknown>, expected: string): P
 async function runTests(): Promise<void> {
   console.log('=== SubAgent Hardening Tests ===');
 
-  console.log('[1/6] Runtime turn and concurrency limits');
+  console.log('[1/8] Runtime turn and concurrency limits');
   const budgetRegistry = new ToolRegistry();
   budgetRegistry.register(makeTool('budget_tool'));
   const timedOut = await new SubagentRunner({ modelProvider: new LoopingProvider(), toolRegistry: budgetRegistry, defaultMaxTurns: 999 }).run(
@@ -201,7 +255,8 @@ async function runTests(): Promise<void> {
     await new Promise((resolve) => setTimeout(resolve, 10));
     active -= 1;
   }));
-  const concurrencyOrchestrator = new SubagentOrchestrator({ modelProvider: new ConcurrencyProvider(), toolRegistry: concurrencyRegistry, maxConcurrentSubagents: 100 });
+  const concurrencyProvider = new ConcurrencyProvider();
+  const concurrencyOrchestrator = new SubagentOrchestrator({ modelProvider: concurrencyProvider, toolRegistry: concurrencyRegistry, maxConcurrentSubagents: 100 });
   const concurrencyResult = await concurrencyOrchestrator.run({
     parentSessionId: 'concurrency-parent',
     tasks: Array.from({ length: SUBAGENT_RUNTIME_LIMITS.maxTasks }, (_, index) => ({ id: `c-${index}`, parentSessionId: 'concurrency-parent', type: 'verification', objective: `branch ${index}` })),
@@ -213,7 +268,7 @@ async function runTests(): Promise<void> {
   assertTrue(concurrencyResult.handoffs.length === SUBAGENT_RUNTIME_LIMITS.maxTasks, 'the allowed task count should still execute');
   assertTrue(maxActive <= SUBAGENT_RUNTIME_LIMITS.maxConcurrentSubagents, 'actual concurrency must respect the hard maximum');
 
-  console.log('[2/6] Task count, duplicate ID, dependency, and cycle validation');
+  console.log('[2/8] Task count, duplicate ID, dependency, and cycle validation');
   const validationOrchestrator = new SubagentOrchestrator({ modelProvider: new ScopeProbeProvider(), toolRegistry: budgetRegistry });
   const baseContext = { originalInquiry: 'validation', objective: 'validation' };
   const task = (id: string, parentTaskId?: string): SubagentTask => ({ id, parentSessionId: 'validation-parent', type: 'verification', objective: id, parentTaskId });
@@ -223,7 +278,7 @@ async function runTests(): Promise<void> {
   await expectReject(() => validationOrchestrator.run({ parentSessionId: 'validation-parent', tasks: [task('a', 'b'), task('b', 'a')], context: baseContext }), 'cycle');
   await expectReject(() => validationOrchestrator.run({ parentSessionId: 'validation-parent', tasks: Array.from({ length: SUBAGENT_RUNTIME_LIMITS.maxTasks + 1 }, (_, index) => task(`too-many-${index}`)), context: baseContext }), 'maximum');
 
-  console.log('[3/6] Orchestration tools are hidden from SubAgents');
+  console.log('[3/8] Orchestration tools are hidden from SubAgents');
   const scopeRegistry = new ToolRegistry();
   scopeRegistry.register(makeTool('pubmed_test'));
   scopeRegistry.register(makeTool('delegate_research', 'orchestration'));
@@ -237,8 +292,10 @@ async function runTests(): Promise<void> {
   );
   assertTrue(scopeResult.status === 'completed', 'scope probe should complete');
   assertTrue(scopeProvider.offeredTools.every((names) => !names.includes('delegate_research')), 'SubAgents must not receive orchestration tools by default');
+  assertTrue(scopeProvider.submitDescriptions.every((description) => !description.includes('No branch evidence has been recorded yet.')), 'submit_handoff must not contain a stale evidence snapshot');
+  assertTrue(scopeProvider.submitDescriptions.some((description) => description.includes('explicitly returned in tool-result messages')), 'submit_handoff must instruct the model to cite runtime-returned evidence IDs');
 
-  console.log('[4/6] Hypothesis Tree uses dynamic SubAgent tool selection');
+  console.log('[4/8] Hypothesis Tree uses dynamic SubAgent tool selection');
   const hypothesisRegistry = new ToolRegistry();
   hypothesisRegistry.register(makeTool('pubmed_test', 'literature'));
   hypothesisRegistry.register(makeTool('python_test', 'analysis'));
@@ -265,7 +322,34 @@ async function runTests(): Promise<void> {
   assertTrue(hypothesisProvider.selectedTools.join('>') === 'pubmed_test>python_test', 'hypothesis branch must choose tools based on prior results');
   assertTrue(hypothesisProvider.offeredTools.every((names) => !names.includes('delegate_research')), 'Hypothesis Tree branches must not receive recursive delegation capability');
 
-  console.log('[5/6] Simple Main Agent work does not delegate');
+  console.log('[5/8] Hypothesis Tree compatibility concurrency is globally bounded');
+  maxActive = 0;
+  const boundedHypothesisEngine = new SubagentTreeEngine(
+    concurrencyRegistry,
+    new SessionManager('/private/tmp/medscience-hardening-hypothesis-concurrency'),
+    new EventBus(),
+    globalEvidenceVerifier,
+    new ConcurrencyProvider()
+  );
+  const boundedHypotheses = Array.from({ length: SUBAGENT_RUNTIME_LIMITS.maxTasks }, (_, index) => ({
+    id: `bounded-${index}`,
+    title: `Bounded hypothesis ${index}`,
+    statement: `Exercise compatibility branch ${index}.`,
+    targetEntity: 'TEST',
+    status: 'pending' as const,
+    confidenceScore: 0,
+    evidenceIds: [],
+  }));
+  const boundedResult = await boundedHypothesisEngine.exploreHypothesesParallel(
+    'bounded-hypothesis-parent',
+    boundedHypotheses,
+    new EvidenceTracker(undefined, 'bounded-hypothesis-parent'),
+    100
+  );
+  assertTrue(boundedResult.branchResults.length === boundedHypotheses.length, 'all compatibility branches should complete');
+  assertTrue(maxActive <= SUBAGENT_RUNTIME_LIMITS.maxConcurrentSubagents, 'Hypothesis Tree maxConcurrency=100 must still respect the global runtime maximum');
+
+  console.log('[6/8] Simple Main Agent work does not delegate');
   const simpleRegistry = new ToolRegistry();
   simpleRegistry.register(makeTool('uniprot_test', 'databases'));
   const simpleProvider = new SimpleLookupProvider();
@@ -282,13 +366,35 @@ async function runTests(): Promise<void> {
   assertTrue(simpleProvider.calls.length === 1 && simpleProvider.calls[0] === 'uniprot_test', 'simple lookup should use its normal domain tool');
   assertTrue(!simpleTurn.toolCalls.some((call) => call.name === 'delegate_research'), 'simple lookup must not call delegate_research');
 
-  console.log('[6/6] Shared evidence adoption and orchestration auditability');
+  console.log('[7/8] Shared evidence adoption and orchestration auditability');
   const branch = new EvidenceTracker(undefined, 'branch-harden');
   branch.record('pubmed_test', 'literature', 'query', 'branch evidence', { result: 'grounded' });
   const parent = new EvidenceTracker(undefined, 'parent-harden');
   const adoption = parent.adoptFrom(branch);
   assertTrue(parent.count() === 1, 'branch evidence should be adopted exactly once');
   assertTrue(adoption.mapping['branch-harden:EV-1'] === 'EV-1', 'adoption should preserve branch-to-parent provenance mapping');
+
+  console.log('[8/8] Tool failures produce execution_error handoffs without scientific evidence');
+  const failureRegistry = new ToolRegistry();
+  failureRegistry.register(makeFailingTool('failing_tool'));
+  const failedBranch = await new SubagentRunner({ modelProvider: new FailedToolHandoffProvider(), toolRegistry: failureRegistry }).run(
+    { id: 'execution-error', parentSessionId: 'execution-error-parent', type: 'verification', objective: 'Handle a failed source request' },
+    { originalInquiry: 'failure', objective: 'failure' },
+    new Set<ToolCategory>(['literature']),
+    new Set(['failing_tool'])
+  );
+  assertTrue(failedBranch.status === 'completed', 'execution_error with zero evidence IDs should be a valid handoff');
+  assertTrue(failedBranch.evidenceTracker.count() === 0, 'failed tool calls must not create scientific evidence');
+  assertTrue(failedBranch.handoff?.findings[0]?.kind === 'execution_error', 'failed tool calls must remain execution_error findings');
+
+  const fakeEvidenceBranch = await new SubagentRunner({ modelProvider: new FailedToolHandoffProvider(['EV-999']), toolRegistry: failureRegistry }).run(
+    { id: 'fake-execution-error', parentSessionId: 'execution-error-parent', type: 'verification', objective: 'Reject fabricated failure evidence' },
+    { originalInquiry: 'fake failure evidence', objective: 'fake failure evidence' },
+    new Set<ToolCategory>(['literature']),
+    new Set(['failing_tool'])
+  );
+  assertTrue(fakeEvidenceBranch.status === 'failed', 'execution_error must still reject fabricated evidence IDs');
+  assertTrue(fakeEvidenceBranch.error?.includes("unavailable evidence 'EV-999'"), 'fake evidence rejection should identify the unavailable ID');
 
   console.log('✔ SubAgent hardening tests passed.');
 }
