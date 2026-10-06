@@ -21,6 +21,38 @@ function assertTrue(cond: boolean, message: string) {
   if (!cond) throw new Error(`Assertion failed: ${message}`);
 }
 
+interface ProcessResourceInspection {
+  _getActiveHandles?: () => unknown[];
+  _getActiveRequests?: () => unknown[];
+}
+
+function describeActiveResource(resource: unknown): string {
+  if (!resource || typeof resource !== 'object') return typeof resource;
+  const value = resource as { constructor?: { name?: string }; pid?: number; exitCode?: number | null; destroyed?: boolean; readable?: boolean; writable?: boolean };
+  const type = value.constructor?.name || 'object';
+  const details = [
+    value.pid !== undefined ? `pid=${value.pid}` : undefined,
+    value.exitCode !== undefined ? `exitCode=${value.exitCode}` : undefined,
+    value.destroyed !== undefined ? `destroyed=${value.destroyed}` : undefined,
+    value.readable !== undefined ? `readable=${value.readable}` : undefined,
+    value.writable !== undefined ? `writable=${value.writable}` : undefined,
+  ].filter((detail): detail is string => detail !== undefined);
+  return details.length > 0 ? `${type}(${details.join(',')})` : type;
+}
+
+async function debugActiveResources(label: string): Promise<void> {
+  if (process.env.MEDSCIENCE_DEBUG_ACTIVE_HANDLES !== '1') return;
+  // ChildProcess objects can remain visible in Node's diagnostic snapshot for
+  // one or two event-loop turns after the close event; let that bookkeeping
+  // settle so this opt-in report describes persistent resources, not a stale
+  // same-tick object reference.
+  await new Promise<void>((resolve) => setTimeout(resolve, 50));
+  const inspection = process as unknown as ProcessResourceInspection;
+  const handles = inspection._getActiveHandles?.() || [];
+  const requests = inspection._getActiveRequests?.() || [];
+  console.log(`[active-resources:${label}] handles=${handles.map(describeActiveResource).join(', ') || '(none)'} requests=${requests.map(describeActiveResource).join(', ') || '(none)'}`);
+}
+
 /** Fresh, isolated ExecutionRouter (+ backing managers) so tests never touch a real ~/.medscience. */
 function makeRig(testDir: string) {
   const executionProfileManager = new ExecutionProfileManager(path.join(testDir, 'exec-config'));
@@ -94,6 +126,7 @@ async function runTests() {
         assertTrue(turnCompletedEvents.length === 1, `Expected exactly 1 runtime.turn.completed event, got ${turnCompletedEvents.length}`);
       } finally {
         await codexBackend.dispose();
+        assertTrue(codexBackend.listActiveSessions().length === 0, 'dispose() should release the happy-path runtime handle');
       }
     }
 
@@ -110,6 +143,7 @@ async function runTests() {
         // simulating an app restart mid-session; thread/resume should carry the
         // previously-assigned thread id across that boundary.
         await codexBackend.dispose();
+        assertTrue(codexBackend.listActiveSessions().length === 0, 'dispose() should release the first resumable runtime handle');
 
         const second = await router.execute({ prompt: 'Second turn', sessionId, cwd: dir });
         assertTrue(
@@ -118,6 +152,7 @@ async function runTests() {
         );
       } finally {
         await codexBackend.dispose();
+        assertTrue(codexBackend.listActiveSessions().length === 0, 'dispose() should release the resumed runtime handle');
       }
     }
 
@@ -150,6 +185,7 @@ async function runTests() {
         );
       } finally {
         await codexBackend.dispose();
+        assertTrue(codexBackend.listActiveSessions().length === 0, 'dispose() should release the approval runtime handle');
         delete process.env.FAKE_CODEX_MODE;
       }
     }
@@ -180,11 +216,14 @@ async function runTests() {
 
         const cancelled = await router.cancel(runIdSeen!);
         assertTrue(cancelled === true, 'cancel() should report true for a run that was actually torn down');
+        assertTrue(codexBackend.listActiveSessions().length === 0, 'cancellation should release the owned runtime handle');
 
         const outcome = (await execPromise) as any;
         assertTrue(outcome?.rejected === true, 'The hung execute() call should reject once its process is terminated mid-handshake');
+        await debugActiveResources('after-cancellation');
       } finally {
         await codexBackend.dispose();
+        assertTrue(codexBackend.listActiveSessions().length === 0, 'final cancellation cleanup should leave no active runtime sessions');
         delete process.env.FAKE_CODEX_MODE;
       }
     }
@@ -204,6 +243,8 @@ async function runTests() {
           firstError = error as Error;
         }
         assertTrue(!!firstError, 'The first call should surface the crash as a rejection, not silently succeed');
+        assertTrue(codexBackend.listActiveSessions().length === 0, 'fatal handshake cleanup should remove the dead runtime handle');
+        await debugActiveResources('after-crash-recovery');
 
         // Recovering: switch back to the happy path and confirm a retry for the
         // *same* sessionId spawns a fresh process rather than reusing a dead handle
@@ -216,6 +257,7 @@ async function runTests() {
         );
       } finally {
         await codexBackend.dispose();
+        assertTrue(codexBackend.listActiveSessions().length === 0, 'final crash-recovery cleanup should leave no active runtime sessions');
         delete process.env.FAKE_CODEX_MODE;
       }
     }
@@ -234,6 +276,7 @@ async function runTests() {
         assertTrue(persisted!.status === 'error', `Expected session status "error", got ${persisted!.status}`);
       } finally {
         await codexBackend.dispose();
+        assertTrue(codexBackend.listActiveSessions().length === 0, 'failed-turn dispose should release the runtime handle');
         delete process.env.FAKE_CODEX_MODE;
       }
 
@@ -255,6 +298,8 @@ async function runTests() {
         assertTrue(threw, 'A malformed line from the server should surface as a rejected run, not hang or crash the test process');
       } finally {
         await rig2.codexBackend.dispose();
+        assertTrue(rig2.codexBackend.listActiveSessions().length === 0, 'fatal bad-json cleanup should remove the dead runtime handle');
+        await debugActiveResources('after-bad-json');
         delete process.env.FAKE_CODEX_MODE;
       }
     }

@@ -55,12 +55,16 @@ export class JsonlRpcClient {
   private serverRequestHandler?: ServerRequestHandler;
   private fatalErrorHandler?: FatalErrorHandler;
 
+  private readonly handleStdoutData = (chunk: Buffer): void => this.onData(chunk);
+  private readonly handleStdoutError = (err: Error): void => this.fail(err);
+  private readonly handleStdoutClose = (): void => {
+    if (!this.closed) this.fail(new Error('Codex app-server stdout closed unexpectedly.'));
+  };
+
   constructor(private stdout: Readable, private stdin: Writable) {
-    this.stdout.on('data', (chunk: Buffer) => this.onData(chunk));
-    this.stdout.on('error', (err) => this.fail(err instanceof Error ? err : new Error(String(err))));
-    this.stdout.on('close', () => {
-      if (!this.closed) this.fail(new Error('Codex app-server stdout closed unexpectedly.'));
-    });
+    this.stdout.on('data', this.handleStdoutData);
+    this.stdout.on('error', this.handleStdoutError);
+    this.stdout.on('close', this.handleStdoutClose);
   }
 
   public onNotification(handler: NotificationHandler): void {
@@ -191,18 +195,42 @@ export class JsonlRpcClient {
     return this.writeRaw(payload);
   }
 
-  private fail(error: Error): void {
+  private detachStreamListeners(): void {
+    this.stdout.removeListener('data', this.handleStdoutData);
+    this.stdout.removeListener('error', this.handleStdoutError);
+    this.stdout.removeListener('close', this.handleStdoutClose);
+  }
+
+  private close(error: Error, notifyFatal: boolean): void {
     if (this.closed) return;
     this.closed = true;
+    this.detachStreamListeners();
+    this.buffer = '';
     this.pending.forEach((entry) => {
       clearTimeout(entry.timer);
       entry.reject(error);
     });
     this.pending.clear();
-    this.fatalErrorHandler?.(error);
+    if (notifyFatal) this.fatalErrorHandler?.(error);
+  }
+
+  private fail(error: Error): void {
+    this.close(error, true);
   }
 
   public dispose(): void {
-    this.fail(new Error('JSON-RPC transport disposed.'));
+    // Intentional teardown must not re-enter CodexRuntimeBackend's fatal-error
+    // callback. Unexpected transport failure uses fail(), while backend-owned
+    // disposal closes the transport quietly and lets the supervisor own the
+    // child-process termination.
+    this.close(new Error('JSON-RPC transport disposed.'), false);
+    this.notificationHandler = undefined;
+    this.serverRequestHandler = undefined;
+    this.fatalErrorHandler = undefined;
+    try {
+      this.stdin.destroy();
+    } catch {
+      // best effort
+    }
   }
 }
