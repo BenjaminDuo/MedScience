@@ -1,0 +1,41 @@
+{
+ "all": {
+  "questions": 94,
+  "papers": 1649,
+  "trialLinkedPapers": 207,
+  "distinctTrialSources": 147,
+  "redundantPapers": 60,
+  "shareOfTrialPapersRedundant": 0.29,
+  "trialPapersPerSource": 1.41,
+  "questionsWithTrialEvidence": 62,
+  "questionsWithDuplicates": 25,
+  "shareOfQuestionsWithTrialEvidenceHavingDuplicates": 0.403,
+  "maxPapersFromOneTrialSource": 8
+ },
+ "supported (approved)": {
+  "questions": 52,
+  "papers": 979,
+  "trialLinkedPapers": 137,
+  "distinctTrialSources": 97,
+  "redundantPapers": 40,
+  "shareOfTrialPapersRedundant": 0.292,
+  "trialPapersPerSource": 1.41,
+  "questionsWithTrialEvidence": 37,
+  "questionsWithDuplicates": 18,
+  "shareOfQuestionsWithTrialEvidenceHavingDuplicates": 0.486,
+  "maxPapersFromOneTrialSource": 8
+ },
+ "refuted (failed)": {
+  "questions": 42,
+  "papers": 670,
+  "trialLinkedPapers": 70,
+  "distinctTrialSources": 50,
+  "redundantPapers": 20,
+  "shareOfTrialPapersRedundant": 0.286,
+  "trialPapersPerSource": 1.4,
+  "questionsWithTrialEvidence": 25,
+  "questionsWithDuplicates": 7,
+  "shareOfQuestionsWithTrialEvidenceHavingDuplicates": 0.28,
+  "maxPapersFromOneTrialSource": 8
+ }
+}

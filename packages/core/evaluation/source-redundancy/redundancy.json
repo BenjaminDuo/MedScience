@@ -1,0 +1,1191 @@
+[
+ {
+  "query": "bremelanotide physiological sexual disorder",
+  "label": "supported",
+  "papers": 20,
+  "trialLinked": 2,
+  "trialSources": 2,
+  "redundant": 0,
+  "independentUnits": 20,
+  "largestCluster": 1,
+  "largestClusterTrials": [
+   "NCT02333071",
+   "NCT02338960"
+  ]
+ },
+ {
+  "query": "etanercept psoriatic arthritis",
+  "label": "supported",
+  "papers": 20,
+  "trialLinked": 0,
+  "trialSources": 0,
+  "redundant": 0,
+  "independentUnits": 20,
+  "largestCluster": 0,
+  "largestClusterTrials": []
+ },
+ {
+  "query": "capmatinib cancer",
+  "label": "supported",
+  "papers": 19,
+  "trialLinked": 3,
+  "trialSources": 1,
+  "redundant": 2,
+  "independentUnits": 17,
+  "largestCluster": 3,
+  "largestClusterTrials": [
+   "NCT02414139"
+  ]
+ },
+ {
+  "query": "follitropin male infertility",
+  "label": "supported",
+  "papers": 20,
+  "trialLinked": 0,
+  "trialSources": 0,
+  "redundant": 0,
+  "independentUnits": 20,
+  "largestCluster": 0,
+  "largestClusterTrials": []
+ },
+ {
+  "query": "ezetimibe hyperlipidemia",
+  "label": "supported",
+  "papers": 19,
+  "trialLinked": 4,
+  "trialSources": 4,
+  "redundant": 0,
+  "independentUnits": 19,
+  "largestCluster": 1,
+  "largestClusterTrials": [
+   "NCT03337308"
+  ]
+ },
+ {
+  "query": "levoketoconazole Cushing syndrome",
+  "label": "supported",
+  "papers": 20,
+  "trialLinked": 3,
+  "trialSources": 1,
+  "redundant": 2,
+  "independentUnits": 18,
+  "largestCluster": 3,
+  "largestClusterTrials": [
+   "NCT01838551"
+  ]
+ },
+ {
+  "query": "resmetirom metabolic dysfunction-associated steatotic liver disease",
+  "label": "supported",
+  "papers": 20,
+  "trialLinked": 2,
+  "trialSources": 2,
+  "redundant": 0,
+  "independentUnits": 20,
+  "largestCluster": 1,
+  "largestClusterTrials": [
+   "NCT03900429"
+  ]
+ },
+ {
+  "query": "vadadustat chronic kidney disease",
+  "label": "supported",
+  "papers": 19,
+  "trialLinked": 4,
+  "trialSources": 3,
+  "redundant": 1,
+  "independentUnits": 18,
+  "largestCluster": 2,
+  "largestClusterTrials": [
+   "NCT02865850",
+   "NCT02892149"
+  ]
+ },
+ {
+  "query": "exemestane neoplasm",
+  "label": "supported",
+  "papers": 20,
+  "trialLinked": 3,
+  "trialSources": 3,
+  "redundant": 0,
+  "independentUnits": 20,
+  "largestCluster": 1,
+  "largestClusterTrials": [
+   "NCT00863655"
+  ]
+ },
+ {
+  "query": "ramucirumab non-small cell lung carcinoma",
+  "label": "supported",
+  "papers": 20,
+  "trialLinked": 4,
+  "trialSources": 3,
+  "redundant": 1,
+  "independentUnits": 19,
+  "largestCluster": 2,
+  "largestClusterTrials": [
+   "NCT02411448"
+  ]
+ },
+ {
+  "query": "brodalumab immune system disease",
+  "label": "supported",
+  "papers": 20,
+  "trialLinked": 0,
+  "trialSources": 0,
+  "redundant": 0,
+  "independentUnits": 20,
+  "largestCluster": 0,
+  "largestClusterTrials": []
+ },
+ {
+  "query": "enasidenib acute myeloid leukemia",
+  "label": "supported",
+  "papers": 20,
+  "trialLinked": 2,
+  "trialSources": 2,
+  "redundant": 0,
+  "independentUnits": 20,
+  "largestCluster": 1,
+  "largestClusterTrials": [
+   "NCT01915498"
+  ]
+ },
+ {
+  "query": "imetelstat anemia",
+  "label": "supported",
+  "papers": 19,
+  "trialLinked": 3,
+  "trialSources": 1,
+  "redundant": 2,
+  "independentUnits": 17,
+  "largestCluster": 3,
+  "largestClusterTrials": [
+   "NCT02598661"
+  ]
+ },
+ {
+  "query": "eptotermin alfa bone disease",
+  "label": "supported",
+  "papers": 9,
+  "trialLinked": 1,
+  "trialSources": 1,
+  "redundant": 0,
+  "independentUnits": 9,
+  "largestCluster": 1,
+  "largestClusterTrials": [
+   "NCT00456157"
+  ]
+ },
+ {
+  "query": "voclosporin lupus nephritis",
+  "label": "supported",
+  "papers": 19,
+  "trialLinked": 2,
+  "trialSources": 1,
+  "redundant": 1,
+  "independentUnits": 18,
+  "largestCluster": 2,
+  "largestClusterTrials": [
+   "NCT03021499"
+  ]
+ },
+ {
+  "query": "cedazuridine myelodysplastic syndrome",
+  "label": "supported",
+  "papers": 19,
+  "trialLinked": 4,
+  "trialSources": 4,
+  "redundant": 0,
+  "independentUnits": 19,
+  "largestCluster": 1,
+  "largestClusterTrials": [
+   "NCT03306264"
+  ]
+ },
+ {
+  "query": "tirzepatide obesity",
+  "label": "supported",
+  "papers": 20,
+  "trialLinked": 12,
+  "trialSources": 10,
+  "redundant": 2,
+  "independentUnits": 18,
+  "largestCluster": 2,
+  "largestClusterTrials": [
+   "NCT04184622"
+  ]
+ },
+ {
+  "query": "finasteride androgenetic alopecia",
+  "label": "supported",
+  "papers": 20,
+  "trialLinked": 0,
+  "trialSources": 0,
+  "redundant": 0,
+  "independentUnits": 20,
+  "largestCluster": 0,
+  "largestClusterTrials": []
+ },
+ {
+  "query": "onasemnogene abeparvovec proximal spinal muscular atrophy",
+  "label": "supported",
+  "papers": 14,
+  "trialLinked": 0,
+  "trialSources": 0,
+  "redundant": 0,
+  "independentUnits": 14,
+  "largestCluster": 0,
+  "largestClusterTrials": []
+ },
+ {
+  "query": "ranolazine cardiovascular disease",
+  "label": "supported",
+  "papers": 20,
+  "trialLinked": 0,
+  "trialSources": 0,
+  "redundant": 0,
+  "independentUnits": 20,
+  "largestCluster": 0,
+  "largestClusterTrials": []
+ },
+ {
+  "query": "vorinostat neoplasm",
+  "label": "supported",
+  "papers": 20,
+  "trialLinked": 4,
+  "trialSources": 4,
+  "redundant": 0,
+  "independentUnits": 20,
+  "largestCluster": 1,
+  "largestClusterTrials": [
+   "NCT01728805"
+  ]
+ },
+ {
+  "query": "filgrastim neoplasm",
+  "label": "supported",
+  "papers": 20,
+  "trialLinked": 2,
+  "trialSources": 2,
+  "redundant": 0,
+  "independentUnits": 20,
+  "largestCluster": 1,
+  "largestClusterTrials": [
+   "NCT04174599"
+  ]
+ },
+ {
+  "query": "gemfibrozil Abdominal pain",
+  "label": "supported",
+  "papers": 20,
+  "trialLinked": 0,
+  "trialSources": 0,
+  "redundant": 0,
+  "independentUnits": 20,
+  "largestCluster": 0,
+  "largestClusterTrials": []
+ },
+ {
+  "query": "acoramidis amyloidosis",
+  "label": "supported",
+  "papers": 18,
+  "trialLinked": 8,
+  "trialSources": 1,
+  "redundant": 7,
+  "independentUnits": 11,
+  "largestCluster": 8,
+  "largestClusterTrials": [
+   "NCT03458130",
+   "NCT03536767",
+   "NCT03860935",
+   "NCT04988386"
+  ]
+ },
+ {
+  "query": "rosiglitazone diabetes mellitus",
+  "label": "supported",
+  "papers": 20,
+  "trialLinked": 1,
+  "trialSources": 1,
+  "redundant": 0,
+  "independentUnits": 20,
+  "largestCluster": 1,
+  "largestClusterTrials": [
+   "NCT00006305"
+  ]
+ },
+ {
+  "query": "atropine Parkinson disease",
+  "label": "supported",
+  "papers": 18,
+  "trialLinked": 0,
+  "trialSources": 0,
+  "redundant": 0,
+  "independentUnits": 18,
+  "largestCluster": 0,
+  "largestClusterTrials": []
+ },
+ {
+  "query": "leflunomide psoriatic arthritis",
+  "label": "supported",
+  "papers": 18,
+  "trialLinked": 1,
+  "trialSources": 1,
+  "redundant": 0,
+  "independentUnits": 18,
+  "largestCluster": 1,
+  "largestClusterTrials": [
+   "NCT04929210"
+  ]
+ },
+ {
+  "query": "menthol burn",
+  "label": "supported",
+  "papers": 20,
+  "trialLinked": 1,
+  "trialSources": 1,
+  "redundant": 0,
+  "independentUnits": 20,
+  "largestCluster": 1,
+  "largestClusterTrials": [
+   "NCT01989156"
+  ]
+ },
+ {
+  "query": "vorinostat T-cell non-Hodgkin lymphoma",
+  "label": "supported",
+  "papers": 19,
+  "trialLinked": 1,
+  "trialSources": 1,
+  "redundant": 0,
+  "independentUnits": 19,
+  "largestCluster": 1,
+  "largestClusterTrials": [
+   "NCT01728805"
+  ]
+ },
+ {
+  "query": "pentostatin neoplasm",
+  "label": "supported",
+  "papers": 20,
+  "trialLinked": 1,
+  "trialSources": 1,
+  "redundant": 0,
+  "independentUnits": 20,
+  "largestCluster": 1,
+  "largestClusterTrials": [
+   "NCT01059786"
+  ]
+ },
+ {
+  "query": "miglitol diabetes mellitus",
+  "label": "supported",
+  "papers": 20,
+  "trialLinked": 0,
+  "trialSources": 0,
+  "redundant": 0,
+  "independentUnits": 20,
+  "largestCluster": 0,
+  "largestClusterTrials": []
+ },
+ {
+  "query": "omidenepag isopropyl open-angle glaucoma",
+  "label": "supported",
+  "papers": 20,
+  "trialLinked": 7,
+  "trialSources": 6,
+  "redundant": 1,
+  "independentUnits": 19,
+  "largestCluster": 2,
+  "largestClusterTrials": [
+   "NCT01868126",
+   "NCT02179008",
+   "NCT02623738"
+  ]
+ },
+ {
+  "query": "thyrotropin alfa thyroid cancer",
+  "label": "supported",
+  "papers": 19,
+  "trialLinked": 1,
+  "trialSources": 1,
+  "redundant": 0,
+  "independentUnits": 19,
+  "largestCluster": 1,
+  "largestClusterTrials": [
+   "NCT00415233"
+  ]
+ },
+ {
+  "query": "metoclopramide post operative nausea and vomiting",
+  "label": "supported",
+  "papers": 20,
+  "trialLinked": 0,
+  "trialSources": 0,
+  "redundant": 0,
+  "independentUnits": 20,
+  "largestCluster": 0,
+  "largestClusterTrials": []
+ },
+ {
+  "query": "alemtuzumab chronic lymphocytic leukemia",
+  "label": "supported",
+  "papers": 20,
+  "trialLinked": 0,
+  "trialSources": 0,
+  "redundant": 0,
+  "independentUnits": 20,
+  "largestCluster": 0,
+  "largestClusterTrials": []
+ },
+ {
+  "query": "regorafenib neoplasm",
+  "label": "supported",
+  "papers": 20,
+  "trialLinked": 7,
+  "trialSources": 6,
+  "redundant": 1,
+  "independentUnits": 19,
+  "largestCluster": 2,
+  "largestClusterTrials": [
+   "NCT01103323",
+   "NCT01584830"
+  ]
+ },
+ {
+  "query": "avacopan anti-neutrophil antibody associated vasculitis",
+  "label": "supported",
+  "papers": 20,
+  "trialLinked": 2,
+  "trialSources": 1,
+  "redundant": 1,
+  "independentUnits": 19,
+  "largestCluster": 2,
+  "largestClusterTrials": [
+   "NCT02994927"
+  ]
+ },
+ {
+  "query": "pasireotide diaspartate acromegaly",
+  "label": "supported",
+  "papers": 5,
+  "trialLinked": 0,
+  "trialSources": 0,
+  "redundant": 0,
+  "independentUnits": 5,
+  "largestCluster": 0,
+  "largestClusterTrials": []
+ },
+ {
+  "query": "alendronate osteitis deformans",
+  "label": "supported",
+  "papers": 19,
+  "trialLinked": 0,
+  "trialSources": 0,
+  "redundant": 0,
+  "independentUnits": 19,
+  "largestCluster": 0,
+  "largestClusterTrials": []
+ },
+ {
+  "query": "tagraxofusp acute myeloid leukemia",
+  "label": "supported",
+  "papers": 20,
+  "trialLinked": 2,
+  "trialSources": 2,
+  "redundant": 0,
+  "independentUnits": 20,
+  "largestCluster": 1,
+  "largestClusterTrials": [
+   "NCT03113643"
+  ]
+ },
+ {
+  "query": "gemtuzumab ozogamicin acute myeloid leukemia",
+  "label": "supported",
+  "papers": 20,
+  "trialLinked": 0,
+  "trialSources": 0,
+  "redundant": 0,
+  "independentUnits": 20,
+  "largestCluster": 0,
+  "largestClusterTrials": []
+ },
+ {
+  "query": "atorvastatin congestive heart failure",
+  "label": "supported",
+  "papers": 20,
+  "trialLinked": 3,
+  "trialSources": 3,
+  "redundant": 0,
+  "independentUnits": 20,
+  "largestCluster": 1,
+  "largestClusterTrials": [
+   "NCT02943590"
+  ]
+ },
+ {
+  "query": "tocilizumab systemic scleroderma",
+  "label": "supported",
+  "papers": 20,
+  "trialLinked": 5,
+  "trialSources": 3,
+  "redundant": 2,
+  "independentUnits": 18,
+  "largestCluster": 3,
+  "largestClusterTrials": [
+   "NCT02453256"
+  ]
+ },
+ {
+  "query": "idarubicin acute myeloid leukemia",
+  "label": "supported",
+  "papers": 20,
+  "trialLinked": 5,
+  "trialSources": 5,
+  "redundant": 0,
+  "independentUnits": 20,
+  "largestCluster": 1,
+  "largestClusterTrials": [
+   "NCT03214562"
+  ]
+ },
+ {
+  "query": "allopurinol gout",
+  "label": "supported",
+  "papers": 20,
+  "trialLinked": 0,
+  "trialSources": 0,
+  "redundant": 0,
+  "independentUnits": 20,
+  "largestCluster": 0,
+  "largestClusterTrials": []
+ },
+ {
+  "query": "tenecteplase Recurrent thrombophlebitis",
+  "label": "supported",
+  "papers": 8,
+  "trialLinked": 1,
+  "trialSources": 1,
+  "redundant": 0,
+  "independentUnits": 8,
+  "largestCluster": 1,
+  "largestClusterTrials": [
+   "NCT00496639",
+   "NCT06051032"
+  ]
+ },
+ {
+  "query": "abemaciclib breast carcinoma",
+  "label": "supported",
+  "papers": 20,
+  "trialLinked": 13,
+  "trialSources": 7,
+  "redundant": 6,
+  "independentUnits": 14,
+  "largestCluster": 6,
+  "largestClusterTrials": [
+   "NCT03155997"
+  ]
+ },
+ {
+  "query": "teplizumab type 1 diabetes mellitus",
+  "label": "supported",
+  "papers": 20,
+  "trialLinked": 6,
+  "trialSources": 5,
+  "redundant": 1,
+  "independentUnits": 19,
+  "largestCluster": 2,
+  "largestClusterTrials": [
+   "NCT01030861"
+  ]
+ },
+ {
+  "query": "levoketoconazole Cushing syndrome",
+  "label": "supported",
+  "papers": 20,
+  "trialLinked": 3,
+  "trialSources": 1,
+  "redundant": 2,
+  "independentUnits": 18,
+  "largestCluster": 3,
+  "largestClusterTrials": [
+   "NCT01838551"
+  ]
+ },
+ {
+  "query": "mirvetuximab soravtansine neoplasm",
+  "label": "supported",
+  "papers": 20,
+  "trialLinked": 9,
+  "trialSources": 3,
+  "redundant": 6,
+  "independentUnits": 14,
+  "largestCluster": 7,
+  "largestClusterTrials": [
+   "NCT01609556",
+   "NCT02631876",
+   "NCT04209855",
+   "NCT04296890"
+  ]
+ },
+ {
+  "query": "lanreotide carcinoid syndrome",
+  "label": "supported",
+  "papers": 19,
+  "trialLinked": 3,
+  "trialSources": 2,
+  "redundant": 1,
+  "independentUnits": 18,
+  "largestCluster": 2,
+  "largestClusterTrials": [
+   "NCT00774930"
+  ]
+ },
+ {
+  "query": "omaveloxolone Friedreich ataxia",
+  "label": "supported",
+  "papers": 19,
+  "trialLinked": 2,
+  "trialSources": 1,
+  "redundant": 1,
+  "independentUnits": 18,
+  "largestCluster": 2,
+  "largestClusterTrials": [
+   "NCT02255435"
+  ]
+ },
+ {
+  "query": "PRO95780 Chondrosarcoma",
+  "label": "refuted",
+  "papers": 17,
+  "trialLinked": 1,
+  "trialSources": 1,
+  "redundant": 0,
+  "independentUnits": 17,
+  "largestCluster": 1,
+  "largestClusterTrials": [
+   "NCT03715933",
+   "NCT04950075"
+  ]
+ },
+ {
+  "query": "BIIB092 Alzheimer's Disease",
+  "label": "refuted",
+  "papers": 20,
+  "trialLinked": 1,
+  "trialSources": 1,
+  "redundant": 0,
+  "independentUnits": 20,
+  "largestCluster": 1,
+  "largestClusterTrials": [
+   "NCT03352557"
+  ]
+ },
+ {
+  "query": "LY2382770 Diabetic Kidney Disease",
+  "label": "refuted",
+  "papers": 20,
+  "trialLinked": 0,
+  "trialSources": 0,
+  "redundant": 0,
+  "independentUnits": 20,
+  "largestCluster": 0,
+  "largestClusterTrials": []
+ },
+ {
+  "query": "PF-06649751 Parkinson Disease",
+  "label": "refuted",
+  "papers": 16,
+  "trialLinked": 4,
+  "trialSources": 3,
+  "redundant": 1,
+  "independentUnits": 15,
+  "largestCluster": 2,
+  "largestClusterTrials": [
+   "NCT02224664",
+   "NCT02373072"
+  ]
+ },
+ {
+  "query": "CB-839 Melanoma",
+  "label": "refuted",
+  "papers": 11,
+  "trialLinked": 0,
+  "trialSources": 0,
+  "redundant": 0,
+  "independentUnits": 11,
+  "largestCluster": 0,
+  "largestClusterTrials": []
+ },
+ {
+  "query": "Azeliragon Alzheimer's Disease",
+  "label": "refuted",
+  "papers": 15,
+  "trialLinked": 1,
+  "trialSources": 1,
+  "redundant": 0,
+  "independentUnits": 15,
+  "largestCluster": 1,
+  "largestClusterTrials": [
+   "NCT05635734"
+  ]
+ },
+ {
+  "query": "Brensocatib Hidradenitis Suppurativa",
+  "label": "refuted",
+  "papers": 8,
+  "trialLinked": 1,
+  "trialSources": 1,
+  "redundant": 0,
+  "independentUnits": 8,
+  "largestCluster": 1,
+  "largestClusterTrials": [
+   "NCT05517525"
+  ]
+ },
+ {
+  "query": "SCH 900435 Alcoholism",
+  "label": "refuted",
+  "papers": 5,
+  "trialLinked": 0,
+  "trialSources": 0,
+  "redundant": 0,
+  "independentUnits": 5,
+  "largestCluster": 0,
+  "largestClusterTrials": []
+ },
+ {
+  "query": "ASM-024 Asthma",
+  "label": "refuted",
+  "papers": 15,
+  "trialLinked": 0,
+  "trialSources": 0,
+  "redundant": 0,
+  "independentUnits": 15,
+  "largestCluster": 0,
+  "largestClusterTrials": []
+ },
+ {
+  "query": "defactinib Malignant Pleural Mesothelioma",
+  "label": "refuted",
+  "papers": 12,
+  "trialLinked": 2,
+  "trialSources": 2,
+  "redundant": 0,
+  "independentUnits": 12,
+  "largestCluster": 1,
+  "largestClusterTrials": [
+   "NCT01870609"
+  ]
+ },
+ {
+  "query": "LY2140023 Schizophrenia",
+  "label": "refuted",
+  "papers": 20,
+  "trialLinked": 2,
+  "trialSources": 2,
+  "redundant": 0,
+  "independentUnits": 20,
+  "largestCluster": 1,
+  "largestClusterTrials": [
+   "NCT01086748"
+  ]
+ },
+ {
+  "query": "Etrolizumab Ulcerative Colitis",
+  "label": "refuted",
+  "papers": 20,
+  "trialLinked": 5,
+  "trialSources": 2,
+  "redundant": 3,
+  "independentUnits": 17,
+  "largestCluster": 4,
+  "largestClusterTrials": [
+   "NCT02100696",
+   "NCT02118584",
+   "NCT02136069",
+   "NCT02163759",
+   "NCT02165215",
+   "NCT02171429",
+   "NCT02394028",
+   "NCT02403323"
+  ]
+ },
+ {
+  "query": "enzastaurin Lung Cancer",
+  "label": "refuted",
+  "papers": 20,
+  "trialLinked": 1,
+  "trialSources": 1,
+  "redundant": 0,
+  "independentUnits": 20,
+  "largestCluster": 1,
+  "largestClusterTrials": [
+   "NCT00308750"
+  ]
+ },
+ {
+  "query": "LY2590443 Migraine Headache",
+  "label": "refuted",
+  "papers": 20,
+  "trialLinked": 0,
+  "trialSources": 0,
+  "redundant": 0,
+  "independentUnits": 20,
+  "largestCluster": 0,
+  "largestClusterTrials": []
+ },
+ {
+  "query": "Rivipansel Sickle Cell Anemia",
+  "label": "refuted",
+  "papers": 20,
+  "trialLinked": 4,
+  "trialSources": 4,
+  "redundant": 0,
+  "independentUnits": 20,
+  "largestCluster": 1,
+  "largestClusterTrials": [
+   "NCT02187003",
+   "NCT02433158"
+  ]
+ },
+ {
+  "query": "AFQ056 Fragile X Syndrome",
+  "label": "refuted",
+  "papers": 19,
+  "trialLinked": 5,
+  "trialSources": 3,
+  "redundant": 2,
+  "independentUnits": 17,
+  "largestCluster": 2,
+  "largestClusterTrials": [
+   "NCT02920892",
+   "NCT02920892."
+  ]
+ },
+ {
+  "query": "PF-06252616 Duchenne Muscular Dystrophy",
+  "label": "refuted",
+  "papers": 18,
+  "trialLinked": 9,
+  "trialSources": 2,
+  "redundant": 7,
+  "independentUnits": 11,
+  "largestCluster": 8,
+  "largestClusterTrials": [
+   "NCT01616277",
+   "NCT02310763",
+   "NCT02907619"
+  ]
+ },
+ {
+  "query": "A-002, varespladib methyl Acute Coronary Syndrome",
+  "label": "refuted",
+  "papers": 20,
+  "trialLinked": 7,
+  "trialSources": 3,
+  "redundant": 4,
+  "independentUnits": 16,
+  "largestCluster": 4,
+  "largestClusterTrials": [
+   "NCT01130246"
+  ]
+ },
+ {
+  "query": "IMR-687 Sickle Cell Disease",
+  "label": "refuted",
+  "papers": 15,
+  "trialLinked": 0,
+  "trialSources": 0,
+  "redundant": 0,
+  "independentUnits": 15,
+  "largestCluster": 0,
+  "largestClusterTrials": []
+ },
+ {
+  "query": "BN83495 Endometrial Cancer",
+  "label": "refuted",
+  "papers": 17,
+  "trialLinked": 0,
+  "trialSources": 0,
+  "redundant": 0,
+  "independentUnits": 17,
+  "largestCluster": 0,
+  "largestClusterTrials": []
+ },
+ {
+  "query": "Evacetrapib Hypercholesterolemia",
+  "label": "refuted",
+  "papers": 18,
+  "trialLinked": 2,
+  "trialSources": 2,
+  "redundant": 0,
+  "independentUnits": 18,
+  "largestCluster": 1,
+  "largestClusterTrials": [
+   "NCT01105975"
+  ]
+ },
+ {
+  "query": "Xilonix Metastatic Colorectal Cancer",
+  "label": "refuted",
+  "papers": 17,
+  "trialLinked": 1,
+  "trialSources": 1,
+  "redundant": 0,
+  "independentUnits": 17,
+  "largestCluster": 1,
+  "largestClusterTrials": [
+   "NCT02138422"
+  ]
+ },
+ {
+  "query": "IMGN901 Small Cell Lung Cancer",
+  "label": "refuted",
+  "papers": 17,
+  "trialLinked": 0,
+  "trialSources": 0,
+  "redundant": 0,
+  "independentUnits": 17,
+  "largestCluster": 0,
+  "largestClusterTrials": []
+ },
+ {
+  "query": "MORAb-004 Metastatic Colorectal Cancer",
+  "label": "refuted",
+  "papers": 17,
+  "trialLinked": 0,
+  "trialSources": 0,
+  "redundant": 0,
+  "independentUnits": 17,
+  "largestCluster": 0,
+  "largestClusterTrials": []
+ },
+ {
+  "query": "Simtuzumab Idiopathic Pulmonary Fibrosis",
+  "label": "refuted",
+  "papers": 18,
+  "trialLinked": 1,
+  "trialSources": 1,
+  "redundant": 0,
+  "independentUnits": 18,
+  "largestCluster": 1,
+  "largestClusterTrials": [
+   "NCT01769196"
+  ]
+ },
+ {
+  "query": "Magrolimab Acute Myeloid Leukemia",
+  "label": "refuted",
+  "papers": 20,
+  "trialLinked": 3,
+  "trialSources": 3,
+  "redundant": 0,
+  "independentUnits": 20,
+  "largestCluster": 1,
+  "largestClusterTrials": [
+   "NCT04778397"
+  ]
+ },
+ {
+  "query": "JNJ-38518168 Rheumatoid Arthritis",
+  "label": "refuted",
+  "papers": 10,
+  "trialLinked": 0,
+  "trialSources": 0,
+  "redundant": 0,
+  "independentUnits": 10,
+  "largestCluster": 0,
+  "largestClusterTrials": []
+ },
+ {
+  "query": "Rivipansel Sickle Cell Anemia",
+  "label": "refuted",
+  "papers": 20,
+  "trialLinked": 4,
+  "trialSources": 4,
+  "redundant": 0,
+  "independentUnits": 20,
+  "largestCluster": 1,
+  "largestClusterTrials": [
+   "NCT02187003",
+   "NCT02433158"
+  ]
+ },
+ {
+  "query": "E6201 AML",
+  "label": "refuted",
+  "papers": 10,
+  "trialLinked": 1,
+  "trialSources": 1,
+  "redundant": 0,
+  "independentUnits": 10,
+  "largestCluster": 1,
+  "largestClusterTrials": [
+   "NCT02014558"
+  ]
+ },
+ {
+  "query": "Cenicriviroc Nonalcoholic Steatohepatitis",
+  "label": "refuted",
+  "papers": 20,
+  "trialLinked": 4,
+  "trialSources": 3,
+  "redundant": 1,
+  "independentUnits": 19,
+  "largestCluster": 2,
+  "largestClusterTrials": [
+   "NCT03028740"
+  ]
+ },
+ {
+  "query": "Ezutromid Duchenne Muscular Dystrophy",
+  "label": "refuted",
+  "papers": 15,
+  "trialLinked": 0,
+  "trialSources": 0,
+  "redundant": 0,
+  "independentUnits": 15,
+  "largestCluster": 0,
+  "largestClusterTrials": []
+ },
+ {
+  "query": "Vixarelimab Ulcerative Colitis",
+  "label": "refuted",
+  "papers": 9,
+  "trialLinked": 0,
+  "trialSources": 0,
+  "redundant": 0,
+  "independentUnits": 9,
+  "largestCluster": 0,
+  "largestClusterTrials": []
+ },
+ {
+  "query": "REGN3500 Atopic Dermatitis",
+  "label": "refuted",
+  "papers": 18,
+  "trialLinked": 2,
+  "trialSources": 2,
+  "redundant": 0,
+  "independentUnits": 18,
+  "largestCluster": 1,
+  "largestClusterTrials": [
+   "NCT03736967",
+   "NCT03738423"
+  ]
+ },
+ {
+  "query": "hLL1-DOX Multiple Myeloma",
+  "label": "refuted",
+  "papers": 18,
+  "trialLinked": 0,
+  "trialSources": 0,
+  "redundant": 0,
+  "independentUnits": 18,
+  "largestCluster": 0,
+  "largestClusterTrials": []
+ },
+ {
+  "query": "CE-224535 Osteoarthritis",
+  "label": "refuted",
+  "papers": 11,
+  "trialLinked": 0,
+  "trialSources": 0,
+  "redundant": 0,
+  "independentUnits": 11,
+  "largestCluster": 0,
+  "largestClusterTrials": []
+ },
+ {
+  "query": "Lanabecestat Alzheimer's Disease",
+  "label": "refuted",
+  "papers": 20,
+  "trialLinked": 4,
+  "trialSources": 2,
+  "redundant": 2,
+  "independentUnits": 18,
+  "largestCluster": 3,
+  "largestClusterTrials": [
+   "NCT01953601",
+   "NCT02245737",
+   "NCT02783573",
+   "NCT02972658"
+  ]
+ },
+ {
+  "query": "LY2140023 Schizophrenia",
+  "label": "refuted",
+  "papers": 20,
+  "trialLinked": 2,
+  "trialSources": 2,
+  "redundant": 0,
+  "independentUnits": 20,
+  "largestCluster": 1,
+  "largestClusterTrials": [
+   "NCT01086748"
+  ]
+ },
+ {
+  "query": "JI-101 Cancer",
+  "label": "refuted",
+  "papers": 19,
+  "trialLinked": 0,
+  "trialSources": 0,
+  "redundant": 0,
+  "independentUnits": 19,
+  "largestCluster": 0,
+  "largestClusterTrials": []
+ },
+ {
+  "query": "selonsertib Nonalcoholic Steatohepatitis",
+  "label": "refuted",
+  "papers": 20,
+  "trialLinked": 1,
+  "trialSources": 1,
+  "redundant": 0,
+  "independentUnits": 20,
+  "largestCluster": 1,
+  "largestClusterTrials": [
+   "NCT03053050",
+   "NCT03053063"
+  ]
+ },
+ {
+  "query": "defactinib Malignant Pleural Mesothelioma",
+  "label": "refuted",
+  "papers": 12,
+  "trialLinked": 2,
+  "trialSources": 2,
+  "redundant": 0,
+  "independentUnits": 12,
+  "largestCluster": 1,
+  "largestClusterTrials": [
+   "NCT01870609"
+  ]
+ },
+ {
+  "query": "IMO-8400 Waldenstrom's Macroglobulinemia",
+  "label": "refuted",
+  "papers": 11,
+  "trialLinked": 0,
+  "trialSources": 0,
+  "redundant": 0,
+  "independentUnits": 11,
+  "largestCluster": 0,
+  "largestClusterTrials": []
+ },
+ {
+  "query": "GSK249320 100/mg Cerebrovascular Accident",
+  "label": "refuted",
+  "papers": 2,
+  "trialLinked": 0,
+  "trialSources": 0,
+  "redundant": 0,
+  "independentUnits": 2,
+  "largestCluster": 0,
+  "largestClusterTrials": []
+ }
+]

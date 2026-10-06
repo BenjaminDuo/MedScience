@@ -1,0 +1,660 @@
+[
+ {
+  "symbol": "MC4R",
+  "label": "supported",
+  "drug": "bremelanotide acetate",
+  "disease": "physiological sexual disorder",
+  "query": "bremelanotide acetate physiological sexual disorder"
+ },
+ {
+  "symbol": "TNF",
+  "label": "supported",
+  "drug": "etanercept",
+  "disease": "psoriatic arthritis",
+  "query": "etanercept psoriatic arthritis"
+ },
+ {
+  "symbol": "MET",
+  "label": "supported",
+  "drug": "capmatinib",
+  "disease": "cancer",
+  "query": "capmatinib cancer"
+ },
+ {
+  "symbol": "FSHR",
+  "label": "supported",
+  "drug": "follitropin",
+  "disease": "male infertility",
+  "query": "follitropin male infertility"
+ },
+ {
+  "symbol": "NPC1L1",
+  "label": "supported",
+  "drug": "ezetimibe",
+  "disease": "hyperlipidemia",
+  "query": "ezetimibe hyperlipidemia"
+ },
+ {
+  "symbol": "CYP11B2",
+  "label": "supported",
+  "drug": "levoketoconazole",
+  "disease": "Cushing syndrome",
+  "query": "levoketoconazole Cushing syndrome"
+ },
+ {
+  "symbol": "THRB",
+  "label": "supported",
+  "drug": "resmetirom",
+  "disease": "metabolic dysfunction-associated steatotic liver disease",
+  "query": "resmetirom metabolic dysfunction-associated steatotic liver disease"
+ },
+ {
+  "symbol": "EGLN2",
+  "label": "supported",
+  "drug": "vadadustat",
+  "disease": "chronic kidney disease",
+  "query": "vadadustat chronic kidney disease"
+ },
+ {
+  "symbol": "CYP19A1",
+  "label": "supported",
+  "drug": "exemestane",
+  "disease": "neoplasm",
+  "query": "exemestane neoplasm"
+ },
+ {
+  "symbol": "KDR",
+  "label": "supported",
+  "drug": "ramucirumab",
+  "disease": "non-small cell lung carcinoma",
+  "query": "ramucirumab non-small cell lung carcinoma"
+ },
+ {
+  "symbol": "IL17RA",
+  "label": "supported",
+  "drug": "brodalumab",
+  "disease": "immune system disease",
+  "query": "brodalumab immune system disease"
+ },
+ {
+  "symbol": "IDH2",
+  "label": "supported",
+  "drug": "enasidenib mesylate",
+  "disease": "acute myeloid leukemia",
+  "query": "enasidenib mesylate acute myeloid leukemia"
+ },
+ {
+  "symbol": "TERT",
+  "label": "supported",
+  "drug": "imetelstat sodium",
+  "disease": "anemia",
+  "query": "imetelstat sodium anemia"
+ },
+ {
+  "symbol": "ACVR1",
+  "label": "supported",
+  "drug": "eptotermin alfa",
+  "disease": "bone disease",
+  "query": "eptotermin alfa bone disease"
+ },
+ {
+  "symbol": "PPP3CA",
+  "label": "supported",
+  "drug": "voclosporin",
+  "disease": "lupus nephritis",
+  "query": "voclosporin lupus nephritis"
+ },
+ {
+  "symbol": "CDA",
+  "label": "supported",
+  "drug": "cedazuridine",
+  "disease": "myelodysplastic syndrome",
+  "query": "cedazuridine myelodysplastic syndrome"
+ },
+ {
+  "symbol": "GLP1R",
+  "label": "supported",
+  "drug": "tirzepatide",
+  "disease": "obesity",
+  "query": "tirzepatide obesity"
+ },
+ {
+  "symbol": "SRD5A2",
+  "label": "supported",
+  "drug": "finasteride",
+  "disease": "androgenetic alopecia",
+  "query": "finasteride androgenetic alopecia"
+ },
+ {
+  "symbol": "SMN1",
+  "label": "supported",
+  "drug": "onasemnogene abeparvovec",
+  "disease": "proximal spinal muscular atrophy",
+  "query": "onasemnogene abeparvovec proximal spinal muscular atrophy"
+ },
+ {
+  "symbol": "SCN5A",
+  "label": "supported",
+  "drug": "ranolazine",
+  "disease": "cardiovascular disease",
+  "query": "ranolazine cardiovascular disease"
+ },
+ {
+  "symbol": "HDAC6",
+  "label": "supported",
+  "drug": "vorinostat",
+  "disease": "neoplasm",
+  "query": "vorinostat neoplasm"
+ },
+ {
+  "symbol": "CSF3R",
+  "label": "supported",
+  "drug": "filgrastim",
+  "disease": "neoplasm",
+  "query": "filgrastim neoplasm"
+ },
+ {
+  "symbol": "PPARA",
+  "label": "supported",
+  "drug": "gemfibrozil",
+  "disease": "Abdominal pain",
+  "query": "gemfibrozil Abdominal pain"
+ },
+ {
+  "symbol": "TTR",
+  "label": "supported",
+  "drug": "acoramidis hydrochloride",
+  "disease": "amyloidosis",
+  "query": "acoramidis hydrochloride amyloidosis"
+ },
+ {
+  "symbol": "PPARG",
+  "label": "supported",
+  "drug": "rosiglitazone",
+  "disease": "diabetes mellitus",
+  "query": "rosiglitazone diabetes mellitus"
+ },
+ {
+  "symbol": "CHRM1",
+  "label": "supported",
+  "drug": "atropine sulfate",
+  "disease": "Parkinson disease",
+  "query": "atropine sulfate Parkinson disease"
+ },
+ {
+  "symbol": "DHODH",
+  "label": "supported",
+  "drug": "leflunomide",
+  "disease": "psoriatic arthritis",
+  "query": "leflunomide psoriatic arthritis"
+ },
+ {
+  "symbol": "TRPM8",
+  "label": "supported",
+  "drug": "menthol",
+  "disease": "burn",
+  "query": "menthol burn"
+ },
+ {
+  "symbol": "HDAC3",
+  "label": "supported",
+  "drug": "vorinostat",
+  "disease": "T-cell non-Hodgkin lymphoma",
+  "query": "vorinostat T-cell non-Hodgkin lymphoma"
+ },
+ {
+  "symbol": "ADA",
+  "label": "supported",
+  "drug": "pentostatin",
+  "disease": "neoplasm",
+  "query": "pentostatin neoplasm"
+ },
+ {
+  "symbol": "GAA",
+  "label": "supported",
+  "drug": "miglitol",
+  "disease": "diabetes mellitus",
+  "query": "miglitol diabetes mellitus"
+ },
+ {
+  "symbol": "PTGER2",
+  "label": "supported",
+  "drug": "omidenepag isopropyl",
+  "disease": "open-angle glaucoma",
+  "query": "omidenepag isopropyl open-angle glaucoma"
+ },
+ {
+  "symbol": "TSHR",
+  "label": "supported",
+  "drug": "thyrotropin alfa",
+  "disease": "thyroid cancer",
+  "query": "thyrotropin alfa thyroid cancer"
+ },
+ {
+  "symbol": "HTR4",
+  "label": "supported",
+  "drug": "metoclopramide hydrochloride",
+  "disease": "post operative nausea and vomiting",
+  "query": "metoclopramide hydrochloride post operative nausea and vomiting"
+ },
+ {
+  "symbol": "CD52",
+  "label": "supported",
+  "drug": "alemtuzumab",
+  "disease": "chronic lymphocytic leukemia",
+  "query": "alemtuzumab chronic lymphocytic leukemia"
+ },
+ {
+  "symbol": "FGFR1",
+  "label": "supported",
+  "drug": "regorafenib",
+  "disease": "neoplasm",
+  "query": "regorafenib neoplasm"
+ },
+ {
+  "symbol": "C5AR1",
+  "label": "supported",
+  "drug": "avacopan",
+  "disease": "anti-neutrophil antibody associated vasculitis",
+  "query": "avacopan anti-neutrophil antibody associated vasculitis"
+ },
+ {
+  "symbol": "SSTR2",
+  "label": "supported",
+  "drug": "pasireotide diaspartate",
+  "disease": "acromegaly",
+  "query": "pasireotide diaspartate acromegaly"
+ },
+ {
+  "symbol": "FDPS",
+  "label": "supported",
+  "drug": "alendronate sodium",
+  "disease": "osteitis deformans",
+  "query": "alendronate sodium osteitis deformans"
+ },
+ {
+  "symbol": "IL3RA",
+  "label": "supported",
+  "drug": "tagraxofusp",
+  "disease": "acute myeloid leukemia",
+  "query": "tagraxofusp acute myeloid leukemia"
+ },
+ {
+  "symbol": "CD33",
+  "label": "supported",
+  "drug": "gemtuzumab ozogamicin",
+  "disease": "acute myeloid leukemia",
+  "query": "gemtuzumab ozogamicin acute myeloid leukemia"
+ },
+ {
+  "symbol": "HMGCR",
+  "label": "supported",
+  "drug": "atorvastatin calcium",
+  "disease": "congestive heart failure",
+  "query": "atorvastatin calcium congestive heart failure"
+ },
+ {
+  "symbol": "IL6R",
+  "label": "supported",
+  "drug": "tocilizumab",
+  "disease": "systemic scleroderma",
+  "query": "tocilizumab systemic scleroderma"
+ },
+ {
+  "symbol": "TOP2A",
+  "label": "supported",
+  "drug": "idarubicin hydrochloride",
+  "disease": "acute myeloid leukemia",
+  "query": "idarubicin hydrochloride acute myeloid leukemia"
+ },
+ {
+  "symbol": "XDH",
+  "label": "supported",
+  "drug": "allopurinol",
+  "disease": "gout",
+  "query": "allopurinol gout"
+ },
+ {
+  "symbol": "PLAT",
+  "label": "supported",
+  "drug": "tenecteplase",
+  "disease": "Recurrent thrombophlebitis",
+  "query": "tenecteplase Recurrent thrombophlebitis"
+ },
+ {
+  "symbol": "CDK6",
+  "label": "supported",
+  "drug": "abemaciclib",
+  "disease": "breast carcinoma",
+  "query": "abemaciclib breast carcinoma"
+ },
+ {
+  "symbol": "CD3E",
+  "label": "supported",
+  "drug": "teplizumab",
+  "disease": "type 1 diabetes mellitus",
+  "query": "teplizumab type 1 diabetes mellitus"
+ },
+ {
+  "symbol": "CYP11B1",
+  "label": "supported",
+  "drug": "levoketoconazole",
+  "disease": "Cushing syndrome",
+  "query": "levoketoconazole Cushing syndrome"
+ },
+ {
+  "symbol": "FOLR1",
+  "label": "supported",
+  "drug": "mirvetuximab soravtansine",
+  "disease": "neoplasm",
+  "query": "mirvetuximab soravtansine neoplasm"
+ },
+ {
+  "symbol": "SSTR5",
+  "label": "supported",
+  "drug": "lanreotide acetate",
+  "disease": "carcinoid syndrome",
+  "query": "lanreotide acetate carcinoid syndrome"
+ },
+ {
+  "symbol": "NFE2L2",
+  "label": "supported",
+  "drug": "omaveloxolone",
+  "disease": "Friedreich ataxia",
+  "query": "omaveloxolone Friedreich ataxia"
+ },
+ {
+  "symbol": "TNFRSF10B",
+  "label": "refuted",
+  "drug": "PRO95780",
+  "disease": "Chondrosarcoma",
+  "query": "PRO95780 Chondrosarcoma"
+ },
+ {
+  "symbol": "MAPT",
+  "label": "refuted",
+  "drug": "BIIB092",
+  "disease": "Alzheimer's Disease",
+  "query": "BIIB092 Alzheimer's Disease"
+ },
+ {
+  "symbol": "TGFB1",
+  "label": "refuted",
+  "drug": "LY2382770",
+  "disease": "Diabetic Kidney Disease",
+  "query": "LY2382770 Diabetic Kidney Disease"
+ },
+ {
+  "symbol": "DRD5",
+  "label": "refuted",
+  "drug": "PF-06649751",
+  "disease": "Parkinson Disease",
+  "query": "PF-06649751 Parkinson Disease"
+ },
+ {
+  "symbol": "GLS",
+  "label": "refuted",
+  "drug": "CB-839",
+  "disease": "Melanoma",
+  "query": "CB-839 Melanoma"
+ },
+ {
+  "symbol": "AGER",
+  "label": "refuted",
+  "drug": "Azeliragon 5mg",
+  "disease": "Alzheimer's Disease",
+  "query": "Azeliragon 5mg Alzheimer's Disease"
+ },
+ {
+  "symbol": "CTSC",
+  "label": "refuted",
+  "drug": "Brensocatib",
+  "disease": "Hidradenitis Suppurativa",
+  "query": "Brensocatib Hidradenitis Suppurativa"
+ },
+ {
+  "symbol": "SLC6A9",
+  "label": "refuted",
+  "drug": "SCH 900435",
+  "disease": "Alcoholism",
+  "query": "SCH 900435 Alcoholism"
+ },
+ {
+  "symbol": "CHRNA7",
+  "label": "refuted",
+  "drug": "ASM-024",
+  "disease": "Asthma",
+  "query": "ASM-024 Asthma"
+ },
+ {
+  "symbol": "PTK2",
+  "label": "refuted",
+  "drug": "defactinib (VS-6063)",
+  "disease": "Malignant Pleural Mesothelioma",
+  "query": "defactinib (VS-6063) Malignant Pleural Mesothelioma"
+ },
+ {
+  "symbol": "GRM3",
+  "label": "refuted",
+  "drug": "LY2140023",
+  "disease": "Schizophrenia",
+  "query": "LY2140023 Schizophrenia"
+ },
+ {
+  "symbol": "ITGB7",
+  "label": "refuted",
+  "drug": "Etrolizumab",
+  "disease": "Ulcerative Colitis",
+  "query": "Etrolizumab Ulcerative Colitis"
+ },
+ {
+  "symbol": "PRKCB",
+  "label": "refuted",
+  "drug": "enzastaurin",
+  "disease": "Lung Cancer",
+  "query": "enzastaurin Lung Cancer"
+ },
+ {
+  "symbol": "HTR7",
+  "label": "refuted",
+  "drug": "LY2590443",
+  "disease": "Migraine Headache",
+  "query": "LY2590443 Migraine Headache"
+ },
+ {
+  "symbol": "SELL",
+  "label": "refuted",
+  "drug": "Rivipansel",
+  "disease": "Sickle Cell Anemia",
+  "query": "Rivipansel Sickle Cell Anemia"
+ },
+ {
+  "symbol": "GRM5",
+  "label": "refuted",
+  "drug": "AFQ056",
+  "disease": "Fragile X Syndrome",
+  "query": "AFQ056 Fragile X Syndrome"
+ },
+ {
+  "symbol": "MSTN",
+  "label": "refuted",
+  "drug": "PF-06252616",
+  "disease": "Duchenne Muscular Dystrophy",
+  "query": "PF-06252616 Duchenne Muscular Dystrophy"
+ },
+ {
+  "symbol": "PLA2G2A",
+  "label": "refuted",
+  "drug": "A-002, varespladib methyl",
+  "disease": "Acute Coronary Syndrome",
+  "query": "A-002, varespladib methyl Acute Coronary Syndrome"
+ },
+ {
+  "symbol": "PDE9A",
+  "label": "refuted",
+  "drug": "IMR-687",
+  "disease": "Sickle Cell Disease",
+  "query": "IMR-687 Sickle Cell Disease"
+ },
+ {
+  "symbol": "STS",
+  "label": "refuted",
+  "drug": "BN83495",
+  "disease": "Endometrial Cancer",
+  "query": "BN83495 Endometrial Cancer"
+ },
+ {
+  "symbol": "CETP",
+  "label": "refuted",
+  "drug": "Evacetrapib",
+  "disease": "Hypercholesterolemia",
+  "query": "Evacetrapib Hypercholesterolemia"
+ },
+ {
+  "symbol": "IL1A",
+  "label": "refuted",
+  "drug": "Xilonix",
+  "disease": "Metastatic Colorectal Cancer",
+  "query": "Xilonix Metastatic Colorectal Cancer"
+ },
+ {
+  "symbol": "NCAM1",
+  "label": "refuted",
+  "drug": "IMGN901",
+  "disease": "Small Cell Lung Cancer",
+  "query": "IMGN901 Small Cell Lung Cancer"
+ },
+ {
+  "symbol": "CD248",
+  "label": "refuted",
+  "drug": "MORAb-004",
+  "disease": "Metastatic Colorectal Cancer",
+  "query": "MORAb-004 Metastatic Colorectal Cancer"
+ },
+ {
+  "symbol": "LOXL2",
+  "label": "refuted",
+  "drug": "Simtuzumab",
+  "disease": "Idiopathic Pulmonary Fibrosis",
+  "query": "Simtuzumab Idiopathic Pulmonary Fibrosis"
+ },
+ {
+  "symbol": "CD47",
+  "label": "refuted",
+  "drug": "Magrolimab",
+  "disease": "Acute Myeloid Leukemia",
+  "query": "Magrolimab Acute Myeloid Leukemia"
+ },
+ {
+  "symbol": "HRH4",
+  "label": "refuted",
+  "drug": "JNJ-38518168",
+  "disease": "Rheumatoid Arthritis",
+  "query": "JNJ-38518168 Rheumatoid Arthritis"
+ },
+ {
+  "symbol": "SELE",
+  "label": "refuted",
+  "drug": "Rivipansel",
+  "disease": "Sickle Cell Anemia",
+  "query": "Rivipansel Sickle Cell Anemia"
+ },
+ {
+  "symbol": "MAP3K1",
+  "label": "refuted",
+  "drug": "E6201",
+  "disease": "AML",
+  "query": "E6201 AML"
+ },
+ {
+  "symbol": "CCR2",
+  "label": "refuted",
+  "drug": "Cenicriviroc",
+  "disease": "Nonalcoholic Steatohepatitis",
+  "query": "Cenicriviroc Nonalcoholic Steatohepatitis"
+ },
+ {
+  "symbol": "UTRN",
+  "label": "refuted",
+  "drug": "Ezutromid",
+  "disease": "Duchenne Muscular Dystrophy",
+  "query": "Ezutromid Duchenne Muscular Dystrophy"
+ },
+ {
+  "symbol": "OSMR",
+  "label": "refuted",
+  "drug": "Vixarelimab",
+  "disease": "Ulcerative Colitis",
+  "query": "Vixarelimab Ulcerative Colitis"
+ },
+ {
+  "symbol": "IL33",
+  "label": "refuted",
+  "drug": "REGN3500",
+  "disease": "Atopic Dermatitis",
+  "query": "REGN3500 Atopic Dermatitis"
+ },
+ {
+  "symbol": "CD74",
+  "label": "refuted",
+  "drug": "hLL1-DOX (the doxorubicin conjugate of milatuzumab)",
+  "disease": "Multiple Myeloma",
+  "query": "hLL1-DOX (the doxorubicin conjugate of milatuzumab) Multiple Myeloma"
+ },
+ {
+  "symbol": "P2RX7",
+  "label": "refuted",
+  "drug": "CE-224535",
+  "disease": "Osteoarthritis",
+  "query": "CE-224535 Osteoarthritis"
+ },
+ {
+  "symbol": "BACE1",
+  "label": "refuted",
+  "drug": "Lanabecestat",
+  "disease": "Alzheimer's Disease",
+  "query": "Lanabecestat Alzheimer's Disease"
+ },
+ {
+  "symbol": "GRM2",
+  "label": "refuted",
+  "drug": "LY2140023",
+  "disease": "Schizophrenia",
+  "query": "LY2140023 Schizophrenia"
+ },
+ {
+  "symbol": "EPHB4",
+  "label": "refuted",
+  "drug": "JI-101",
+  "disease": "Cancer",
+  "query": "JI-101 Cancer"
+ },
+ {
+  "symbol": "MAP3K5",
+  "label": "refuted",
+  "drug": "selonsertib",
+  "disease": "Nonalcoholic Steatohepatitis",
+  "query": "selonsertib Nonalcoholic Steatohepatitis"
+ },
+ {
+  "symbol": "PTK2B",
+  "label": "refuted",
+  "drug": "defactinib (VS-6063)",
+  "disease": "Malignant Pleural Mesothelioma",
+  "query": "defactinib (VS-6063) Malignant Pleural Mesothelioma"
+ },
+ {
+  "symbol": "TLR8",
+  "label": "refuted",
+  "drug": "IMO-8400",
+  "disease": "Waldenstrom's Macroglobulinemia",
+  "query": "IMO-8400 Waldenstrom's Macroglobulinemia"
+ },
+ {
+  "symbol": "MAG",
+  "label": "refuted",
+  "drug": "GSK249320 100/mg",
+  "disease": "Cerebrovascular Accident",
+  "query": "GSK249320 100/mg Cerebrovascular Accident"
+ }
+]
