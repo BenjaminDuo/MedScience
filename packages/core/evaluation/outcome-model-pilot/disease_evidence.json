@@ -1,0 +1,1206 @@
+[
+ {
+  "symbol": "MC4R",
+  "label": "supported",
+  "diseaseId": "MONDO_0002134",
+  "diseaseName": "physiological sexual disorder",
+  "queryOk": true,
+  "overall": 0.280302605071004,
+  "datatypes": {
+   "literature": 0.08905848445678242,
+   "clinical": 0.4566235768727287
+  }
+ },
+ {
+  "symbol": "TNF",
+  "label": "supported",
+  "diseaseId": "MONDO_0011849",
+  "diseaseName": "psoriatic arthritis",
+  "queryOk": true,
+  "overall": 0.71131260162244,
+  "datatypes": {
+   "rna_expression": 0.017449329563606883,
+   "genetic_literature": 0.607930797611621,
+   "clinical": 0.9920292621729251,
+   "literature": 0.9704049847407479,
+   "animal_model": 0.34712848543623565
+  }
+ },
+ {
+  "symbol": "MET",
+  "label": "supported",
+  "diseaseId": "MONDO_0004992",
+  "diseaseName": "cancer",
+  "queryOk": true,
+  "overall": 0.9253109003333967,
+  "datatypes": {
+   "genetic_literature": 0.812551407539435,
+   "clinical": 0.991083554340151,
+   "affected_pathway": 0.8675051082800209,
+   "literature": 0.9989603909916184,
+   "genetic_association": 0.9522280215520534,
+   "somatic_mutation": 0.9386491054056497,
+   "animal_model": 0.8178139827464111
+  }
+ },
+ {
+  "symbol": "FSHR",
+  "label": "supported",
+  "diseaseId": "MONDO_0005372",
+  "diseaseName": "male infertility",
+  "queryOk": true,
+  "overall": 0.48938301585333244,
+  "datatypes": {
+   "literature": 0.28832398865904124,
+   "animal_model": 0.7397701457170678,
+   "clinical": 0.7616021936745586
+  }
+ },
+ {
+  "symbol": "NPC1L1",
+  "label": "supported",
+  "diseaseId": "MONDO_0021187",
+  "diseaseName": "hyperlipidemia",
+  "queryOk": true,
+  "overall": 0.7242541683268657,
+  "datatypes": {
+   "literature": 0.2926932223184704,
+   "animal_model": 0.624025194767844,
+   "genetic_association": 0.7919676443020254,
+   "clinical": 0.9758253091273484
+  }
+ },
+ {
+  "symbol": "CYP11B2",
+  "label": "supported",
+  "diseaseId": "MONDO_0018912",
+  "diseaseName": "Cushing syndrome",
+  "queryOk": true,
+  "overall": 0.4961561208033598,
+  "datatypes": {
+   "literature": 0.0721415782198627,
+   "animal_model": 0.5267366359117501,
+   "clinical": 0.788199166070067
+  }
+ },
+ {
+  "symbol": "THRB",
+  "label": "supported",
+  "diseaseId": "EFO_1001248",
+  "diseaseName": "non-alcoholic fatty liver",
+  "queryOk": true,
+  "overall": 0.5521890984154045,
+  "datatypes": {
+   "literature": 0.7337799705603554,
+   "clinical": 0.8716201389343232
+  }
+ },
+ {
+  "symbol": "EGLN2",
+  "label": "supported",
+  "diseaseId": "MONDO_0005300",
+  "diseaseName": "chronic kidney disease",
+  "queryOk": true,
+  "overall": 0.648403722271128,
+  "datatypes": {
+   "literature": 0.030396539880581056,
+   "genetic_association": 0.4334911475549362,
+   "clinical": 0.9575266222774352
+  }
+ },
+ {
+  "symbol": "CYP19A1",
+  "label": "supported",
+  "diseaseId": "MONDO_0045024",
+  "diseaseName": "cancer or benign tumor",
+  "queryOk": true,
+  "overall": 0.7416816628890913,
+  "datatypes": {
+   "literature": 0.9908747507142851,
+   "animal_model": 0.585489463952439,
+   "genetic_association": 0.6188829355557502,
+   "clinical": 0.997271042698036
+  }
+ },
+ {
+  "symbol": "KDR",
+  "label": "supported",
+  "diseaseId": "MONDO_0005233",
+  "diseaseName": "non-small cell lung carcinoma",
+  "queryOk": true,
+  "overall": 0.7057857954754004,
+  "datatypes": {
+   "literature": 0.941159384341449,
+   "rna_expression": 0.10404735601122893,
+   "somatic_mutation": 0.6357125878933086,
+   "clinical": 0.9286211522218308
+  }
+ },
+ {
+  "symbol": "IL17RA",
+  "label": "supported",
+  "diseaseId": "MONDO_0005046",
+  "diseaseName": "immune system disorder",
+  "queryOk": true,
+  "overall": 0.8508380303220757,
+  "datatypes": {
+   "clinical": 0.9814061159437022,
+   "genetic_literature": 0.8451230626879266,
+   "literature": 0.9181779522596412,
+   "genetic_association": 0.8057416077825542,
+   "animal_model": 0.7637369773729098
+  }
+ },
+ {
+  "symbol": "IDH2",
+  "label": "supported",
+  "diseaseId": "MONDO_0018874",
+  "diseaseName": "acute myeloid leukemia",
+  "queryOk": true,
+  "overall": 0.7460771195276444,
+  "datatypes": {
+   "clinical": 0.8550652511288787,
+   "affected_pathway": 0.607930797611621,
+   "literature": 0.9892241883220821,
+   "genetic_association": 0.3244721967385699,
+   "somatic_mutation": 0.8722771794784341
+  }
+ },
+ {
+  "symbol": "TERT",
+  "label": "supported",
+  "diseaseId": "MONDO_0002280",
+  "diseaseName": "anemia",
+  "queryOk": true,
+  "overall": 0.8068817632237756,
+  "datatypes": {
+   "genetic_literature": 0.8753073858589862,
+   "clinical": 0.7599134970145264,
+   "literature": 0.31558324648657393,
+   "genetic_association": 0.8779336267631337,
+   "somatic_mutation": 0.012158615952232422
+  }
+ },
+ {
+  "symbol": "ACVR1",
+  "label": "supported",
+  "diseaseId": "MONDO_0005381",
+  "diseaseName": "bone disorder",
+  "queryOk": true,
+  "overall": 0.687777683184192,
+  "datatypes": {
+   "clinical": 0.9663722547623342,
+   "literature": 0.4242030637087604,
+   "genetic_association": 0.04434508731114485,
+   "somatic_mutation": 0.565713381110814,
+   "animal_model": 0.7209751969456861
+  }
+ },
+ {
+  "symbol": "PPP3CA",
+  "label": "supported",
+  "diseaseId": "MONDO_0005556",
+  "diseaseName": "lupus nephritis",
+  "queryOk": true,
+  "overall": 0.5614848339548179,
+  "datatypes": {
+   "clinical": 0.9235999165706432
+  }
+ },
+ {
+  "symbol": "CDA",
+  "label": "supported",
+  "diseaseId": "MONDO_0018881",
+  "diseaseName": "myelodysplastic syndrome",
+  "queryOk": true,
+  "overall": 0.5113076696263232,
+  "datatypes": {
+   "literature": 0.6554833620774682,
+   "clinical": 0.808288123254121
+  }
+ },
+ {
+  "symbol": "GLP1R",
+  "label": "supported",
+  "diseaseId": "MONDO_0011122",
+  "diseaseName": "obesity disorder",
+  "queryOk": true,
+  "overall": 0.7369817945434964,
+  "datatypes": {
+   "literature": 0.9623379953277098,
+   "animal_model": 0.41182245448207233,
+   "genetic_association": 0.7653607935502944,
+   "clinical": 0.9944058228567932
+  }
+ },
+ {
+  "symbol": "SRD5A2",
+  "label": "supported",
+  "diseaseId": "MONDO_0005339",
+  "diseaseName": "androgenetic alopecia",
+  "queryOk": true,
+  "overall": 0.6962028186202897,
+  "datatypes": {
+   "literature": 0.07927382738728837,
+   "genetic_association": 0.6711064392282965,
+   "clinical": 0.9756625213752256
+  }
+ },
+ {
+  "symbol": "SMN1",
+  "label": "supported",
+  "diseaseId": "MONDO_0019079",
+  "diseaseName": "proximal spinal muscular atrophy",
+  "queryOk": true,
+  "overall": 0.8696466818004184,
+  "datatypes": {
+   "genetic_literature": 0.9560332969450199,
+   "clinical": 0.44750461490855437,
+   "literature": 0.9894993524689721,
+   "genetic_association": 0.9520540626906107,
+   "animal_model": 0.48281268935387006
+  }
+ },
+ {
+  "symbol": "SCN5A",
+  "label": "supported",
+  "diseaseId": "HP_0001626",
+  "diseaseName": "Abnormality of the cardiovascular system",
+  "queryOk": true,
+  "overall": 0.9299075779613385,
+  "datatypes": {
+   "clinical": 0.993632994009357,
+   "genetic_literature": 0.960157408329626,
+   "literature": 0.9263448125116337,
+   "genetic_association": 0.9677184108236456,
+   "animal_model": 0.9793884674254958
+  }
+ },
+ {
+  "symbol": "HDAC6",
+  "label": "supported",
+  "diseaseId": "MONDO_0045024",
+  "diseaseName": "cancer or benign tumor",
+  "queryOk": true,
+  "overall": 0.6293109040239482,
+  "datatypes": {
+   "literature": 0.9945692567211446,
+   "genetic_association": 0,
+   "clinical": 0.9854401887544251
+  }
+ },
+ {
+  "symbol": "CSF3R",
+  "label": "supported",
+  "diseaseId": "MONDO_0045024",
+  "diseaseName": "cancer or benign tumor",
+  "queryOk": true,
+  "overall": 0.8265922757178357,
+  "datatypes": {
+   "clinical": 0.9931655350764937,
+   "affected_pathway": 0.607930797611621,
+   "literature": 0.9820260062818713,
+   "genetic_association": 0.13105048058033178,
+   "somatic_mutation": 0.8704261297742283,
+   "animal_model": 0.7387590614390234
+  }
+ },
+ {
+  "symbol": "PPARA",
+  "label": "supported",
+  "diseaseId": "HP_0002027",
+  "diseaseName": "Abdominal pain",
+  "queryOk": true,
+  "overall": 0.3695798546847018,
+  "datatypes": {
+   "clinical": 0.607930797611621
+  }
+ },
+ {
+  "symbol": "TTR",
+  "label": "supported",
+  "diseaseId": "MONDO_0019065",
+  "diseaseName": "amyloidosis",
+  "queryOk": true,
+  "overall": 0.9086762213607877,
+  "datatypes": {
+   "genetic_literature": 0.8634382779664433,
+   "clinical": 0.9848413240124028,
+   "affected_pathway": 0.7599134970145264,
+   "literature": 0.9512775246494708,
+   "genetic_association": 0.9317332601117595,
+   "somatic_mutation": 0.57753425773104,
+   "animal_model": 0.3001962278606185
+  }
+ },
+ {
+  "symbol": "PPARG",
+  "label": "supported",
+  "diseaseId": "MONDO_0005015",
+  "diseaseName": "diabetes mellitus",
+  "queryOk": true,
+  "overall": 0.8624820545665264,
+  "datatypes": {
+   "genetic_literature": 0.9190679877429972,
+   "clinical": 0.9973750872174068,
+   "literature": 0.9635353374893134,
+   "genetic_association": 0.9031050802424168,
+   "animal_model": 0.6851476470941515
+  }
+ },
+ {
+  "symbol": "CHRM1",
+  "label": "supported",
+  "diseaseId": "MONDO_0005180",
+  "diseaseName": "Parkinson disease",
+  "queryOk": true,
+  "overall": 0.6651920814477192,
+  "datatypes": {
+   "literature": 0.24512011987082413,
+   "affected_pathway": 0.3930092977161846,
+   "clinical": 0.9904910256795358
+  }
+ },
+ {
+  "symbol": "DHODH",
+  "label": "supported",
+  "diseaseId": "MONDO_0011849",
+  "diseaseName": "psoriatic arthritis",
+  "queryOk": true,
+  "overall": 0.5227378497661862,
+  "datatypes": {
+   "literature": 0.11611467895422818,
+   "clinical": 0.854058335811326
+  }
+ },
+ {
+  "symbol": "TRPM8",
+  "label": "supported",
+  "diseaseId": "EFO_0009516",
+  "diseaseName": "burn",
+  "queryOk": true,
+  "overall": 0.4619748183558772,
+  "datatypes": {
+   "clinical": 0.7599134970145264
+  }
+ },
+ {
+  "symbol": "HDAC3",
+  "label": "supported",
+  "diseaseId": "MONDO_0015760",
+  "diseaseName": "T-cell non-Hodgkin lymphoma",
+  "queryOk": true,
+  "overall": 0.5694401106880446,
+  "datatypes": {
+   "literature": 0.10021570328961568,
+   "clinical": 0.9316749575634827
+  }
+ },
+ {
+  "symbol": "ADA",
+  "label": "supported",
+  "diseaseId": "MONDO_0045024",
+  "diseaseName": "cancer or benign tumor",
+  "queryOk": true,
+  "overall": 0.5464279784999811,
+  "datatypes": {
+   "literature": 0.9698237937932462,
+   "animal_model": 0.5060705953827362,
+   "genetic_association": 0,
+   "clinical": 0.8390953297407845
+  }
+ },
+ {
+  "symbol": "GAA",
+  "label": "supported",
+  "diseaseId": "MONDO_0005015",
+  "diseaseName": "diabetes mellitus",
+  "queryOk": true,
+  "overall": 0.604600767432826,
+  "datatypes": {
+   "literature": 0.25912811817543996,
+   "animal_model": 0.6211595074710895,
+   "clinical": 0.9577059752157271
+  }
+ },
+ {
+  "symbol": "PTGER2",
+  "label": "supported",
+  "diseaseId": "MONDO_0005338",
+  "diseaseName": "open-angle glaucoma",
+  "queryOk": true,
+  "overall": 0.5017503960804184,
+  "datatypes": {
+   "literature": 0.06383273374922022,
+   "clinical": 0.8221496654009447
+  }
+ },
+ {
+  "symbol": "TSHR",
+  "label": "supported",
+  "diseaseId": "MONDO_0002108",
+  "diseaseName": "thyroid cancer",
+  "queryOk": true,
+  "overall": 0.6321475044532218,
+  "datatypes": {
+   "clinical": 0.8657290572389086,
+   "literature": 0.9628986155253534,
+   "genetic_association": 0,
+   "somatic_mutation": 0.4338922656114897,
+   "animal_model": 0.792729932362737
+  }
+ },
+ {
+  "symbol": "HTR4",
+  "label": "supported",
+  "diseaseId": "EFO_0004888",
+  "diseaseName": "post operative nausea and vomiting",
+  "queryOk": true,
+  "overall": 0.5614187173274132,
+  "datatypes": {
+   "clinical": 0.9234911597390032
+  }
+ },
+ {
+  "symbol": "CD52",
+  "label": "supported",
+  "diseaseId": "MONDO_0004948",
+  "diseaseName": "B-cell chronic lymphocytic leukemia",
+  "queryOk": true,
+  "overall": 0.571591557745602,
+  "datatypes": {
+   "literature": 0.8216334720126836,
+   "clinical": 0.8991430361709629
+  }
+ },
+ {
+  "symbol": "FGFR1",
+  "label": "supported",
+  "diseaseId": "MONDO_0045024",
+  "diseaseName": "cancer or benign tumor",
+  "queryOk": true,
+  "overall": 0.9187479897761827,
+  "datatypes": {
+   "clinical": 0.9936190763762067,
+   "genetic_literature": 0.7195915563566126,
+   "affected_pathway": 0.9168388838228011,
+   "literature": 0.99728159328954,
+   "genetic_association": 0.864306165274335,
+   "somatic_mutation": 0.9481946935179089,
+   "animal_model": 0.6756229622983642
+  }
+ },
+ {
+  "symbol": "C5AR1",
+  "label": "supported",
+  "diseaseId": "MONDO_0005435",
+  "diseaseName": "anti-neutrophil antibody associated vasculitis",
+  "queryOk": true,
+  "overall": 0,
+  "datatypes": {}
+ },
+ {
+  "symbol": "SSTR2",
+  "label": "supported",
+  "diseaseId": "MONDO_0019933",
+  "diseaseName": "acromegaly",
+  "queryOk": true,
+  "overall": 0.6087258139346783,
+  "datatypes": {
+   "literature": 0.2647255360822475,
+   "clinical": 0.9880714646792613
+  }
+ },
+ {
+  "symbol": "FDPS",
+  "label": "supported",
+  "diseaseId": "MONDO_0005382",
+  "diseaseName": "bone Paget disease",
+  "queryOk": true,
+  "overall": 0.5963288012624796,
+  "datatypes": {
+   "clinical": 0.9809155969812317
+  }
+ },
+ {
+  "symbol": "IL3RA",
+  "label": "supported",
+  "diseaseId": "MONDO_0018874",
+  "diseaseName": "acute myeloid leukemia",
+  "queryOk": true,
+  "overall": 0.5367754312795121,
+  "datatypes": {
+   "literature": 0.9716662222712361,
+   "clinical": 0.8343715143177912
+  }
+ },
+ {
+  "symbol": "CD33",
+  "label": "supported",
+  "diseaseId": "MONDO_0018874",
+  "diseaseName": "acute myeloid leukemia",
+  "queryOk": true,
+  "overall": 0.613476730080992,
+  "datatypes": {
+   "literature": 0.9891601375508647,
+   "genetic_association": 0,
+   "clinical": 0.9596646309147174
+  }
+ },
+ {
+  "symbol": "HMGCR",
+  "label": "supported",
+  "diseaseId": "MONDO_0005009",
+  "diseaseName": "congestive heart failure",
+  "queryOk": true,
+  "overall": 0.6069358337997464,
+  "datatypes": {
+   "literature": 0.1516002870826437,
+   "clinical": 0.9907833457260223
+  }
+ },
+ {
+  "symbol": "IL6R",
+  "label": "supported",
+  "diseaseId": "MONDO_0005100",
+  "diseaseName": "systemic sclerosis",
+  "queryOk": true,
+  "overall": 0.4911614287506581,
+  "datatypes": {
+   "literature": 0.3458473124714062,
+   "clinical": 0.7906308892605135
+  }
+ },
+ {
+  "symbol": "TOP2A",
+  "label": "supported",
+  "diseaseId": "MONDO_0018874",
+  "diseaseName": "acute myeloid leukemia",
+  "queryOk": true,
+  "overall": 0.6118881092756899,
+  "datatypes": {
+   "literature": 0.4558640068661975,
+   "genetic_association": 0,
+   "clinical": 0.9837162768531341
+  }
+ },
+ {
+  "symbol": "XDH",
+  "label": "supported",
+  "diseaseId": "MONDO_0005393",
+  "diseaseName": "gout",
+  "queryOk": true,
+  "overall": 0.6979173915170694,
+  "datatypes": {
+   "literature": 0.5439029745601233,
+   "genetic_association": 0.5721169683401275,
+   "clinical": 0.992905139160236
+  }
+ },
+ {
+  "symbol": "PLAT",
+  "label": "supported",
+  "diseaseId": "HP_0004419",
+  "diseaseName": "Recurrent thrombophlebitis",
+  "queryOk": true,
+  "overall": 0.5030392466541774,
+  "datatypes": {
+   "clinical": 0.8274613634158176
+  }
+ },
+ {
+  "symbol": "CDK6",
+  "label": "supported",
+  "diseaseId": "MONDO_0004989",
+  "diseaseName": "breast carcinoma",
+  "queryOk": true,
+  "overall": 0.6950617637372952,
+  "datatypes": {
+   "literature": 0.7116565172216714,
+   "rna_expression": 0.0628044653054016,
+   "somatic_mutation": 0.8699743018321302,
+   "clinical": 0.9092306026062741
+  }
+ },
+ {
+  "symbol": "CD3E",
+  "label": "supported",
+  "diseaseId": "MONDO_0005147",
+  "diseaseName": "type 1 diabetes mellitus",
+  "queryOk": true,
+  "overall": 0.5643229127251665,
+  "datatypes": {
+   "literature": 0.0874813212331279,
+   "clinical": 0.9238942745820864
+  }
+ },
+ {
+  "symbol": "CYP11B1",
+  "label": "supported",
+  "diseaseId": "MONDO_0018912",
+  "diseaseName": "Cushing syndrome",
+  "queryOk": true,
+  "overall": 0.5830153609183492,
+  "datatypes": {
+   "literature": 0.16156763906518934,
+   "animal_model": 0.5267366359117501,
+   "clinical": 0.9290887747711435
+  }
+ },
+ {
+  "symbol": "FOLR1",
+  "label": "supported",
+  "diseaseId": "MONDO_0045024",
+  "diseaseName": "cancer or benign tumor",
+  "queryOk": true,
+  "overall": 0.6346424071420753,
+  "datatypes": {
+   "literature": 0.9930491358688978,
+   "animal_model": 0.30974074138312097,
+   "genetic_association": 0.18237923928348632,
+   "clinical": 0.9701499934011114
+  }
+ },
+ {
+  "symbol": "SSTR5",
+  "label": "supported",
+  "diseaseId": "MONDO_0100347",
+  "diseaseName": "carcinoid syndrome",
+  "queryOk": true,
+  "overall": 0.48882177083656886,
+  "datatypes": {
+   "literature": 0.030396539880581056,
+   "clinical": 0.8025548682788604
+  }
+ },
+ {
+  "symbol": "NFE2L2",
+  "label": "supported",
+  "diseaseId": "MONDO_0100339",
+  "diseaseName": "Friedreich ataxia",
+  "queryOk": true,
+  "overall": 0.5474581492643877,
+  "datatypes": {
+   "literature": 0.792449932211531,
+   "clinical": 0.860904588733985
+  }
+ },
+ {
+  "symbol": "TNFRSF10B",
+  "label": "refuted",
+  "diseaseId": "MONDO_0008977",
+  "diseaseName": "chondrosarcoma",
+  "queryOk": true,
+  "overall": 0.04833278856949111,
+  "datatypes": {
+   "literature": 0.32152748598984837,
+   "clinical": 0.06079307976116211
+  }
+ },
+ {
+  "symbol": "MAPT",
+  "label": "refuted",
+  "diseaseId": "MONDO_0004975",
+  "diseaseName": "Alzheimer disease",
+  "queryOk": true,
+  "overall": 0.3498737378998527,
+  "datatypes": {
+   "literature": 0.9996267178647409,
+   "animal_model": 0.597533616774102,
+   "genetic_association": 0.4293351355879821,
+   "clinical": 0.1896418618285458
+  }
+ },
+ {
+  "symbol": "TGFB1",
+  "label": "refuted",
+  "diseaseId": "MONDO_0005016",
+  "diseaseName": "diabetic kidney disease",
+  "queryOk": true,
+  "overall": 0.13050421614226126,
+  "datatypes": {
+   "literature": 0.8749257722666852,
+   "clinical": 0.1587374860430344
+  }
+ },
+ {
+  "symbol": "DRD5",
+  "label": "refuted",
+  "diseaseId": "MONDO_0005180",
+  "diseaseName": "Parkinson disease",
+  "queryOk": true,
+  "overall": 0.5469536900663823,
+  "datatypes": {
+   "literature": 0.12381531857038247,
+   "animal_model": 0.5827677137574218,
+   "clinical": 0.8678074510573369
+  }
+ },
+ {
+  "symbol": "GLS",
+  "label": "refuted",
+  "diseaseId": "MONDO_0005105",
+  "diseaseName": "melanoma",
+  "queryOk": true,
+  "overall": 0.11303860127896455,
+  "datatypes": {
+   "literature": 0.7852754855088154,
+   "animal_model": 0.47637457300846625,
+   "genetic_association": 0,
+   "clinical": 0.04559480982087158
+  }
+ },
+ {
+  "symbol": "AGER",
+  "label": "refuted",
+  "diseaseId": "MONDO_0004975",
+  "diseaseName": "Alzheimer disease",
+  "queryOk": true,
+  "overall": 0.20706527847627468,
+  "datatypes": {
+   "literature": 0.9057477615633116,
+   "clinical": 0.29531927190644525
+  }
+ },
+ {
+  "symbol": "CTSC",
+  "label": "refuted",
+  "diseaseId": "MONDO_0006559",
+  "diseaseName": "hidradenitis suppurativa",
+  "queryOk": true,
+  "overall": 0.03917546459657839,
+  "datatypes": {
+   "literature": 0.07295169571339452,
+   "clinical": 0.06079307976116211
+  }
+ },
+ {
+  "symbol": "SLC6A9",
+  "label": "refuted",
+  "diseaseId": "MONDO_0002046",
+  "diseaseName": "alcohol abuse",
+  "queryOk": true,
+  "overall": 0,
+  "datatypes": {}
+ },
+ {
+  "symbol": "CHRNA7",
+  "label": "refuted",
+  "diseaseId": "MONDO_0004979",
+  "diseaseName": "asthma",
+  "queryOk": true,
+  "overall": 0.12907137642426245,
+  "datatypes": {
+   "literature": 0.6871551878749985,
+   "clinical": 0.17795485403420175
+  }
+ },
+ {
+  "symbol": "PTK2",
+  "label": "refuted",
+  "diseaseId": "MONDO_0005112",
+  "diseaseName": "malignant pleural mesothelioma",
+  "queryOk": true,
+  "overall": 0.12547607657404033,
+  "datatypes": {
+   "literature": 0.8525690707545985,
+   "clinical": 0.14353921610274387
+  }
+ },
+ {
+  "symbol": "GRM3",
+  "label": "refuted",
+  "diseaseId": "MONDO_0005090",
+  "diseaseName": "schizophrenia",
+  "queryOk": true,
+  "overall": 0.6120482030297064,
+  "datatypes": {
+   "literature": 0.8312708866199754,
+   "genetic_association": 0.8552663842878999,
+   "clinical": 0.5321349944326125
+  }
+ },
+ {
+  "symbol": "ITGB7",
+  "label": "refuted",
+  "diseaseId": "MONDO_0005101",
+  "diseaseName": "ulcerative colitis",
+  "queryOk": true,
+  "overall": 0.5996338506415554,
+  "datatypes": {
+   "literature": 0.04897220314093614,
+   "clinical": 0.9839035420901137
+  }
+ },
+ {
+  "symbol": "PRKCB",
+  "label": "refuted",
+  "diseaseId": "MONDO_0005138",
+  "diseaseName": "lung carcinoma",
+  "queryOk": true,
+  "overall": 0.3163135746342045,
+  "datatypes": {
+   "rna_expression": 0.099498229415143,
+   "clinical": 0.1841431518712843,
+   "literature": 0.7469995337245703,
+   "genetic_association": 0,
+   "somatic_mutation": 0.45643230612858215
+  }
+ },
+ {
+  "symbol": "HTR7",
+  "label": "refuted",
+  "diseaseId": "MONDO_0005277",
+  "diseaseName": "migraine disorder",
+  "queryOk": true,
+  "overall": 0.08527064467516797,
+  "datatypes": {
+   "literature": 0.0695861232699502,
+   "clinical": 0.13678442946261474
+  }
+ },
+ {
+  "symbol": "SELL",
+  "label": "refuted",
+  "diseaseId": "MONDO_0011382",
+  "diseaseName": "sickle cell disease",
+  "queryOk": true,
+  "overall": 0.012614581728954837,
+  "datatypes": {
+   "literature": 0.10375014539906326
+  }
+ },
+ {
+  "symbol": "GRM5",
+  "label": "refuted",
+  "diseaseId": "MONDO_0010383",
+  "diseaseName": "fragile X syndrome",
+  "queryOk": true,
+  "overall": 0.2823846976329187,
+  "datatypes": {
+   "literature": 0.91776229165216,
+   "clinical": 0.4186132706775631
+  }
+ },
+ {
+  "symbol": "MSTN",
+  "label": "refuted",
+  "diseaseId": "MONDO_0010679",
+  "diseaseName": "Duchenne muscular dystrophy",
+  "queryOk": true,
+  "overall": 0.11482529830091544,
+  "datatypes": {
+   "literature": 0.8073423954364984,
+   "animal_model": 0.25982962289920686,
+   "clinical": 0.08654570382665439
+  }
+ },
+ {
+  "symbol": "PLA2G2A",
+  "label": "refuted",
+  "diseaseId": "MONDO_0005542",
+  "diseaseName": "acute coronary syndrome",
+  "queryOk": true,
+  "overall": 0.14957674062432197,
+  "datatypes": {
+   "literature": 0.05740122912989585,
+   "clinical": 0.24317231904464842
+  }
+ },
+ {
+  "symbol": "PDE9A",
+  "label": "refuted",
+  "diseaseId": "MONDO_0011382",
+  "diseaseName": "sickle cell disease",
+  "queryOk": true,
+  "overall": 0.10768376363198631,
+  "datatypes": {
+   "literature": 0.10478362775500302,
+   "clinical": 0.17189243302468582
+  }
+ },
+ {
+  "symbol": "STS",
+  "label": "refuted",
+  "diseaseId": "MONDO_0002447",
+  "diseaseName": "endometrial carcinoma",
+  "queryOk": true,
+  "overall": 0.027855009469329454,
+  "datatypes": {
+   "literature": 0.22909687729889225,
+   "genetic_association": 0
+  }
+ },
+ {
+  "symbol": "CETP",
+  "label": "refuted",
+  "diseaseId": "HP_0003124",
+  "diseaseName": "Hypercholesterolemia",
+  "queryOk": true,
+  "overall": 0.5181225185967051,
+  "datatypes": {
+   "literature": 0.19440834119894293,
+   "genetic_association": 0.693816485911208,
+   "clinical": 0.6165421166818713
+  }
+ },
+ {
+  "symbol": "IL1A",
+  "label": "refuted",
+  "diseaseId": "EFO_1001480",
+  "diseaseName": "metastatic colorectal cancer",
+  "queryOk": true,
+  "overall": 0.005985140424477256,
+  "datatypes": {
+   "literature": 0.04922550763994099
+  }
+ },
+ {
+  "symbol": "NCAM1",
+  "label": "refuted",
+  "diseaseId": "MONDO_0008433",
+  "diseaseName": "small cell lung carcinoma",
+  "queryOk": true,
+  "overall": 0.10951731367353791,
+  "datatypes": {
+   "literature": 0.7725029223970309,
+   "clinical": 0.10258832209696105
+  }
+ },
+ {
+  "symbol": "CD248",
+  "label": "refuted",
+  "diseaseId": "EFO_1001480",
+  "diseaseName": "metastatic colorectal cancer",
+  "queryOk": true,
+  "overall": 0.0044349582562164215,
+  "datatypes": {
+   "literature": 0.03647584785669726
+  }
+ },
+ {
+  "symbol": "LOXL2",
+  "label": "refuted",
+  "diseaseId": "EFO_0000768",
+  "diseaseName": "idiopathic pulmonary fibrosis",
+  "queryOk": true,
+  "overall": 0.05426965073203866,
+  "datatypes": {
+   "literature": 0.13046636499420927,
+   "clinical": 0.08274613634158175
+  }
+ },
+ {
+  "symbol": "CD47",
+  "label": "refuted",
+  "diseaseId": "MONDO_0018874",
+  "diseaseName": "acute myeloid leukemia",
+  "queryOk": true,
+  "overall": 0.35345471698662007,
+  "datatypes": {
+   "literature": 0.9291203786728043,
+   "animal_model": 0.6195455399245524,
+   "genetic_association": 0,
+   "clinical": 0.521182472931368
+  }
+ },
+ {
+  "symbol": "HRH4",
+  "label": "refuted",
+  "diseaseId": "MONDO_0008383",
+  "diseaseName": "rheumatoid arthritis",
+  "queryOk": true,
+  "overall": 0.10981896734357376,
+  "datatypes": {
+   "literature": 0.6661015759508022,
+   "clinical": 0.1473387835878165
+  }
+ },
+ {
+  "symbol": "SELE",
+  "label": "refuted",
+  "diseaseId": "MONDO_0011382",
+  "diseaseName": "sickle cell disease",
+  "queryOk": true,
+  "overall": 0.0133429389711488,
+  "datatypes": {
+   "literature": 0.10974060718398565
+  }
+ },
+ {
+  "symbol": "MAP3K1",
+  "label": "refuted",
+  "diseaseId": "MONDO_0018874",
+  "diseaseName": "acute myeloid leukemia",
+  "queryOk": true,
+  "overall": 0.34405609646591007,
+  "datatypes": {
+   "literature": 0.5788123109914699,
+   "genetic_association": 0,
+   "somatic_mutation": 0.5319394479101685,
+   "clinical": 0.04559480982087158
+  }
+ },
+ {
+  "symbol": "CCR2",
+  "label": "refuted",
+  "diseaseId": "MONDO_0007027",
+  "diseaseName": "metabolic dysfunction-associated steatohepatitis",
+  "queryOk": true,
+  "overall": 0.16849471339969085,
+  "datatypes": {
+   "literature": 0.333590988125879,
+   "clinical": 0.2604814598099793
+  }
+ },
+ {
+  "symbol": "UTRN",
+  "label": "refuted",
+  "diseaseId": "MONDO_0010679",
+  "diseaseName": "Duchenne muscular dystrophy",
+  "queryOk": true,
+  "overall": 0.29713176917863615,
+  "datatypes": {
+   "literature": 0.837100174651204,
+   "genetic_association": 0.4377101742803672,
+   "clinical": 0.08274613634158175
+  }
+ },
+ {
+  "symbol": "OSMR",
+  "label": "refuted",
+  "diseaseId": "MONDO_0005101",
+  "diseaseName": "ulcerative colitis",
+  "queryOk": true,
+  "overall": 0.39071741664640003,
+  "datatypes": {
+   "literature": 0.1311027061603447,
+   "rna_expression": 0.2486822977454119,
+   "genetic_association": 0.6089384524922272,
+   "clinical": 0.10638788958203368
+  }
+ },
+ {
+  "symbol": "IL33",
+  "label": "refuted",
+  "diseaseId": "MONDO_0004980",
+  "diseaseName": "atopic eczema",
+  "queryOk": true,
+  "overall": 0.4282881979367074,
+  "datatypes": {
+   "literature": 0.9192516883105281,
+   "genetic_association": 0.5390105604110952,
+   "clinical": 0.1649687767185535
+  }
+ },
+ {
+  "symbol": "CD74",
+  "label": "refuted",
+  "diseaseId": "MONDO_0009693",
+  "diseaseName": "plasma cell myeloma",
+  "queryOk": true,
+  "overall": 0.08610468104840903,
+  "datatypes": {
+   "literature": 0.4516509519369835,
+   "clinical": 0.1190531145322758
+  }
+ },
+ {
+  "symbol": "P2RX7",
+  "label": "refuted",
+  "diseaseId": "MONDO_0005178",
+  "diseaseName": "osteoarthritis",
+  "queryOk": true,
+  "overall": 0.06380191175518486,
+  "datatypes": {
+   "literature": 0.44875515109965464,
+   "clinical": 0.06079307976116211
+  }
+ },
+ {
+  "symbol": "BACE1",
+  "label": "refuted",
+  "diseaseId": "MONDO_0004975",
+  "diseaseName": "Alzheimer disease",
+  "queryOk": true,
+  "overall": 0.4223313017853209,
+  "datatypes": {
+   "literature": 0.9921047406449517,
+   "animal_model": 0.46914526260686806,
+   "clinical": 0.6346722351987387
+  }
+ },
+ {
+  "symbol": "GRM2",
+  "label": "refuted",
+  "diseaseId": "MONDO_0005090",
+  "diseaseName": "schizophrenia",
+  "queryOk": true,
+  "overall": 0.3350347857415041,
+  "datatypes": {
+   "literature": 0.3588336583812781,
+   "clinical": 0.5331650993952322
+  }
+ },
+ {
+  "symbol": "EPHB4",
+  "label": "refuted",
+  "diseaseId": "MONDO_0004992",
+  "diseaseName": "cancer",
+  "queryOk": true,
+  "overall": 0.6113631347901574,
+  "datatypes": {
+   "literature": 0.9886680423621486,
+   "genetic_association": 0.18237923928348632,
+   "clinical": 0.9359481719921893
+  }
+ },
+ {
+  "symbol": "MAP3K5",
+  "label": "refuted",
+  "diseaseId": "MONDO_0007027",
+  "diseaseName": "metabolic dysfunction-associated steatohepatitis",
+  "queryOk": true,
+  "overall": 0.19750927851694686,
+  "datatypes": {
+   "literature": 0.6589177416370633,
+   "clinical": 0.2919418785863807
+  }
+ },
+ {
+  "symbol": "PTK2B",
+  "label": "refuted",
+  "diseaseId": "MONDO_0005112",
+  "diseaseName": "malignant pleural mesothelioma",
+  "queryOk": true,
+  "overall": 0.08892501947996909,
+  "datatypes": {
+   "literature": 0.0547137717850459,
+   "clinical": 0.14353921610274387
+  }
+ },
+ {
+  "symbol": "TLR8",
+  "label": "refuted",
+  "diseaseId": "MONDO_0100280",
+  "diseaseName": "Waldenstrom macroglobulinemia",
+  "queryOk": true,
+  "overall": 0.0723760548757541,
+  "datatypes": {
+   "clinical": 0.1190531145322758
+  }
+ },
+ {
+  "symbol": "MAG",
+  "label": "refuted",
+  "diseaseId": "MONDO_0011057",
+  "diseaseName": "cerebrovascular disorder",
+  "queryOk": true,
+  "overall": 0.11126540058143844,
+  "datatypes": {
+   "literature": 0.1993175270605707,
+   "animal_model": 0.39712741614647146,
+   "clinical": 0.1587374860430344
+  }
+ }
+]

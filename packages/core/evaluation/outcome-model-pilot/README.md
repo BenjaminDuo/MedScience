@@ -51,3 +51,37 @@ Limitations: 57 per class; labels are target-level and disease-agnostic, as are 
 lookups; a refuted label means "failed for efficacy at least once with no approval", not
 "never effective". A different reference class (e.g. targets never taken to the clinic)
 would give different tables.
+
+## Part 2: disease-aware evidence (target, disease)
+
+The three lookups above ignore the disease. Part 2 asks whether evidence about the
+*pair* separates the groups.
+
+- `build6.py` gives every target a disease. supported: an approved indication
+  (ChEMBL `drug_indication`, `max_phase_for_ind = 4`) of an approved drug acting on
+  it. refuted: a condition of the trial stopped for lack of efficacy. Both are mapped
+  to Open Targets disease ids by name. 94 pairs (52 / 42) mapped; `pairs.json`.
+- `build7.py` reads Open Targets datatype scores for each pair, with ontology
+  propagation; `disease_evidence.json`. The `clinical` and `literature` datatypes
+  are recorded but never used as lookups: they contain the approvals and trials that
+  define the labels.
+- `analyze_disease.mts` fits the tables and bootstraps EIG; `estimate_disease.json`.
+
+| Lookup on (target, disease) | supported | refuted | Fisher exact p | EIG (bits) | 95% CI |
+|---|---|---|---|---|---|
+| human genetic association | 18/52 (35%) | 7/42 (17%) | 0.062 | 0.027 | 0.001-0.114 |
+| animal model phenotype | 20/52 (38%) | 7/42 (17%) | 0.023 | 0.039 | 0.002-0.129 |
+| somatic mutation (cancer) | 10/52 (19%) | 2/42 (5%) | 0.059 | 0.029 | 0.001-0.096 |
+
+Excluding the two pairs whose disease is a top-level term (e.g. "cancer") changes
+the gains by at most 0.006 bits.
+
+Findings: evidence about the target-disease pair carries information that the
+target-only lookups do not (about twice as common in the supported group), in line
+with Minikel et al., Nature 2024 (PMID 38632401), who estimate a 2.6-fold higher
+probability of success for genetically supported mechanisms. The effect is modest
+and the sample small: only the animal-model difference reaches p < 0.05.
+
+Caveats: Open Targets evidence is today's, not as of the approval or trial, so part
+of it may postdate the outcome; positives and negatives come from different sources
+(approved indications vs. trial conditions).

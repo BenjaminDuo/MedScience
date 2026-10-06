@@ -1,0 +1,1288 @@
+[
+ {
+  "target": "CHEMBL259",
+  "symbol": "MC4R",
+  "accession": "P32245",
+  "label": "supported",
+  "ensemblId": "ENSG00000166603",
+  "diseaseId": "MONDO_0002134",
+  "diseaseName": "physiological sexual disorder",
+  "condition": "physiological sexual disorder",
+  "basis": "approved: CHEMBL4297533"
+ },
+ {
+  "target": "CHEMBL1825",
+  "symbol": "TNF",
+  "accession": "P01375",
+  "label": "supported",
+  "ensemblId": "ENSG00000232810",
+  "diseaseId": "MONDO_0011849",
+  "diseaseName": "psoriatic arthritis",
+  "condition": "psoriatic arthritis",
+  "basis": "approved: CHEMBL1201572"
+ },
+ {
+  "target": "CHEMBL3717",
+  "symbol": "MET",
+  "accession": "P08581",
+  "label": "supported",
+  "ensemblId": "ENSG00000105976",
+  "diseaseId": "MONDO_0004992",
+  "diseaseName": "cancer",
+  "condition": "cancer",
+  "basis": "approved: CHEMBL3188267"
+ },
+ {
+  "target": "CHEMBL2024",
+  "symbol": "FSHR",
+  "accession": "P23945",
+  "label": "supported",
+  "ensemblId": "ENSG00000170820",
+  "diseaseId": "MONDO_0005372",
+  "diseaseName": "male infertility",
+  "condition": "male infertility",
+  "basis": "approved: CHEMBL4297955"
+ },
+ {
+  "target": "CHEMBL2027",
+  "symbol": "NPC1L1",
+  "accession": "Q9UHC9",
+  "label": "supported",
+  "ensemblId": "ENSG00000015520",
+  "diseaseId": "MONDO_0021187",
+  "diseaseName": "hyperlipidemia",
+  "condition": "hyperlipidemia",
+  "basis": "approved: CHEMBL1138"
+ },
+ {
+  "target": "CHEMBL2722",
+  "symbol": "CYP11B2",
+  "accession": "P19099",
+  "label": "supported",
+  "ensemblId": "ENSG00000179142",
+  "diseaseId": "MONDO_0018912",
+  "diseaseName": "Cushing syndrome",
+  "condition": "Cushing syndrome",
+  "basis": "approved: CHEMBL295698"
+ },
+ {
+  "target": "CHEMBL1947",
+  "symbol": "THRB",
+  "accession": "P10828",
+  "label": "supported",
+  "ensemblId": "ENSG00000151090",
+  "diseaseId": "EFO_1001248",
+  "diseaseName": "non-alcoholic fatty liver",
+  "condition": "metabolic dysfunction-associated steatotic liver disease",
+  "basis": "approved: CHEMBL3261331"
+ },
+ {
+  "target": "CHEMBL3028",
+  "symbol": "EGLN2",
+  "accession": "Q96KS0",
+  "label": "supported",
+  "ensemblId": "ENSG00000269858",
+  "diseaseId": "MONDO_0005300",
+  "diseaseName": "chronic kidney disease",
+  "condition": "chronic kidney disease",
+  "basis": "approved: CHEMBL3646221"
+ },
+ {
+  "target": "CHEMBL1978",
+  "symbol": "CYP19A1",
+  "accession": "P11511",
+  "label": "supported",
+  "ensemblId": "ENSG00000137869",
+  "diseaseId": "MONDO_0045024",
+  "diseaseName": "cancer or benign tumor",
+  "condition": "neoplasm",
+  "basis": "approved: CHEMBL1200374"
+ },
+ {
+  "target": "CHEMBL279",
+  "symbol": "KDR",
+  "accession": "P35968",
+  "label": "supported",
+  "ensemblId": "ENSG00000128052",
+  "diseaseId": "MONDO_0005233",
+  "diseaseName": "non-small cell lung carcinoma",
+  "condition": "non-small cell lung carcinoma",
+  "basis": "approved: CHEMBL1743062"
+ },
+ {
+  "target": "CHEMBL3580485",
+  "symbol": "IL17RA",
+  "accession": "Q96F46",
+  "label": "supported",
+  "ensemblId": "ENSG00000177663",
+  "diseaseId": "MONDO_0005046",
+  "diseaseName": "immune system disorder",
+  "condition": "immune system disease",
+  "basis": "approved: CHEMBL1742996"
+ },
+ {
+  "target": "CHEMBL3991501",
+  "symbol": "IDH2",
+  "accession": "P48735",
+  "label": "supported",
+  "ensemblId": "ENSG00000182054",
+  "diseaseId": "MONDO_0018874",
+  "diseaseName": "acute myeloid leukemia",
+  "condition": "acute myeloid leukemia",
+  "basis": "approved: CHEMBL3989931"
+ },
+ {
+  "target": "CHEMBL2916",
+  "symbol": "TERT",
+  "accession": "O14746",
+  "label": "supported",
+  "ensemblId": "ENSG00000164362",
+  "diseaseId": "MONDO_0002280",
+  "diseaseName": "anemia",
+  "condition": "anemia",
+  "basis": "approved: CHEMBL2108702"
+ },
+ {
+  "target": "CHEMBL5903",
+  "symbol": "ACVR1",
+  "accession": "Q04771",
+  "label": "supported",
+  "ensemblId": "ENSG00000115170",
+  "diseaseId": "MONDO_0005381",
+  "diseaseName": "bone disorder",
+  "condition": "bone disease",
+  "basis": "approved: CHEMBL2108594"
+ },
+ {
+  "target": "CHEMBL4445",
+  "symbol": "PPP3CA",
+  "accession": "Q08209",
+  "label": "supported",
+  "ensemblId": "ENSG00000138814",
+  "diseaseId": "MONDO_0005556",
+  "diseaseName": "lupus nephritis",
+  "condition": "lupus nephritis",
+  "basis": "approved: CHEMBL5314379"
+ },
+ {
+  "target": "CHEMBL4502",
+  "symbol": "CDA",
+  "accession": "P32320",
+  "label": "supported",
+  "ensemblId": "ENSG00000158825",
+  "diseaseId": "MONDO_0018881",
+  "diseaseName": "myelodysplastic syndrome",
+  "condition": "myelodysplastic syndrome",
+  "basis": "approved: CHEMBL3237547"
+ },
+ {
+  "target": "CHEMBL1784",
+  "symbol": "GLP1R",
+  "accession": "P43220",
+  "label": "supported",
+  "ensemblId": "ENSG00000112164",
+  "diseaseId": "MONDO_0011122",
+  "diseaseName": "obesity disorder",
+  "condition": "obesity",
+  "basis": "approved: CHEMBL4297839"
+ },
+ {
+  "target": "CHEMBL1856",
+  "symbol": "SRD5A2",
+  "accession": "P31213",
+  "label": "supported",
+  "ensemblId": "ENSG00000277893",
+  "diseaseId": "MONDO_0005339",
+  "diseaseName": "androgenetic alopecia",
+  "condition": "androgenetic alopecia",
+  "basis": "approved: CHEMBL710"
+ },
+ {
+  "target": "CHEMBL1293232",
+  "symbol": "SMN1",
+  "accession": "Q16637",
+  "label": "supported",
+  "ensemblId": "ENSG00000172062",
+  "diseaseId": "MONDO_0019079",
+  "diseaseName": "proximal spinal muscular atrophy",
+  "condition": "proximal spinal muscular atrophy",
+  "basis": "approved: CHEMBL4297240"
+ },
+ {
+  "target": "CHEMBL1980",
+  "symbol": "SCN5A",
+  "accession": "Q14524",
+  "label": "supported",
+  "ensemblId": "ENSG00000183873",
+  "diseaseId": "HP_0001626",
+  "diseaseName": "Abnormality of the cardiovascular system",
+  "condition": "cardiovascular disease",
+  "basis": "approved: CHEMBL1404"
+ },
+ {
+  "target": "CHEMBL1865",
+  "symbol": "HDAC6",
+  "accession": "Q9UBN7",
+  "label": "supported",
+  "ensemblId": "ENSG00000094631",
+  "diseaseId": "MONDO_0045024",
+  "diseaseName": "cancer or benign tumor",
+  "condition": "neoplasm",
+  "basis": "approved: CHEMBL98"
+ },
+ {
+  "target": "CHEMBL1996",
+  "symbol": "CSF3R",
+  "accession": "Q99062",
+  "label": "supported",
+  "ensemblId": "ENSG00000119535",
+  "diseaseId": "MONDO_0045024",
+  "diseaseName": "cancer or benign tumor",
+  "condition": "neoplasm",
+  "basis": "approved: CHEMBL1201567"
+ },
+ {
+  "target": "CHEMBL239",
+  "symbol": "PPARA",
+  "accession": "Q07869",
+  "label": "supported",
+  "ensemblId": "ENSG00000186951",
+  "diseaseId": "HP_0002027",
+  "diseaseName": "Abdominal pain",
+  "condition": "Abdominal pain",
+  "basis": "approved: CHEMBL457"
+ },
+ {
+  "target": "CHEMBL3194",
+  "symbol": "TTR",
+  "accession": "P02766",
+  "label": "supported",
+  "ensemblId": "ENSG00000118271",
+  "diseaseId": "MONDO_0019065",
+  "diseaseName": "amyloidosis",
+  "condition": "amyloidosis",
+  "basis": "approved: CHEMBL4650226"
+ },
+ {
+  "target": "CHEMBL235",
+  "symbol": "PPARG",
+  "accession": "P37231",
+  "label": "supported",
+  "ensemblId": "ENSG00000132170",
+  "diseaseId": "MONDO_0005015",
+  "diseaseName": "diabetes mellitus",
+  "condition": "diabetes mellitus",
+  "basis": "approved: CHEMBL121"
+ },
+ {
+  "target": "CHEMBL216",
+  "symbol": "CHRM1",
+  "accession": "P11229",
+  "label": "supported",
+  "ensemblId": "ENSG00000168539",
+  "diseaseId": "MONDO_0005180",
+  "diseaseName": "Parkinson disease",
+  "condition": "Parkinson disease",
+  "basis": "approved: CHEMBL2146146"
+ },
+ {
+  "target": "CHEMBL1966",
+  "symbol": "DHODH",
+  "accession": "Q02127",
+  "label": "supported",
+  "ensemblId": "ENSG00000102967",
+  "diseaseId": "MONDO_0011849",
+  "diseaseName": "psoriatic arthritis",
+  "condition": "psoriatic arthritis",
+  "basis": "approved: CHEMBL960"
+ },
+ {
+  "target": "CHEMBL1075319",
+  "symbol": "TRPM8",
+  "accession": "Q7Z2W7",
+  "label": "supported",
+  "ensemblId": "ENSG00000144481",
+  "diseaseId": "EFO_0009516",
+  "diseaseName": "burn",
+  "condition": "burn",
+  "basis": "approved: CHEMBL256087"
+ },
+ {
+  "target": "CHEMBL1829",
+  "symbol": "HDAC3",
+  "accession": "O15379",
+  "label": "supported",
+  "ensemblId": "ENSG00000171720",
+  "diseaseId": "MONDO_0015760",
+  "diseaseName": "T-cell non-Hodgkin lymphoma",
+  "condition": "T-cell non-Hodgkin lymphoma",
+  "basis": "approved: CHEMBL98"
+ },
+ {
+  "target": "CHEMBL1910",
+  "symbol": "ADA",
+  "accession": "P00813",
+  "label": "supported",
+  "ensemblId": "ENSG00000196839",
+  "diseaseId": "MONDO_0045024",
+  "diseaseName": "cancer or benign tumor",
+  "condition": "neoplasm",
+  "basis": "approved: CHEMBL1580"
+ },
+ {
+  "target": "CHEMBL2608",
+  "symbol": "GAA",
+  "accession": "P10253",
+  "label": "supported",
+  "ensemblId": "ENSG00000171298",
+  "diseaseId": "MONDO_0005015",
+  "diseaseName": "diabetes mellitus",
+  "condition": "diabetes mellitus",
+  "basis": "approved: CHEMBL1561"
+ },
+ {
+  "target": "CHEMBL1881",
+  "symbol": "PTGER2",
+  "accession": "P43116",
+  "label": "supported",
+  "ensemblId": "ENSG00000125384",
+  "diseaseId": "MONDO_0005338",
+  "diseaseName": "open-angle glaucoma",
+  "condition": "open-angle glaucoma",
+  "basis": "approved: CHEMBL4297666"
+ },
+ {
+  "target": "CHEMBL1963",
+  "symbol": "TSHR",
+  "accession": "P16473",
+  "label": "supported",
+  "ensemblId": "ENSG00000165409",
+  "diseaseId": "MONDO_0002108",
+  "diseaseName": "thyroid cancer",
+  "condition": "thyroid cancer",
+  "basis": "approved: CHEMBL1201533"
+ },
+ {
+  "target": "CHEMBL1875",
+  "symbol": "HTR4",
+  "accession": "Q13639",
+  "label": "supported",
+  "ensemblId": "ENSG00000164270",
+  "diseaseId": "EFO_0004888",
+  "diseaseName": "post operative nausea and vomiting",
+  "condition": "post operative nausea and vomiting",
+  "basis": "approved: CHEMBL1200940"
+ },
+ {
+  "target": "CHEMBL1912",
+  "symbol": "CD52",
+  "accession": "P31358",
+  "label": "supported",
+  "ensemblId": "ENSG00000169442",
+  "diseaseId": "MONDO_0004948",
+  "diseaseName": "B-cell chronic lymphocytic leukemia",
+  "condition": "chronic lymphocytic leukemia",
+  "basis": "approved: CHEMBL1201587"
+ },
+ {
+  "target": "CHEMBL3650",
+  "symbol": "FGFR1",
+  "accession": "P11362",
+  "label": "supported",
+  "ensemblId": "ENSG00000077782",
+  "diseaseId": "MONDO_0045024",
+  "diseaseName": "cancer or benign tumor",
+  "condition": "neoplasm",
+  "basis": "approved: CHEMBL1946170"
+ },
+ {
+  "target": "CHEMBL2373",
+  "symbol": "C5AR1",
+  "accession": "P21730",
+  "label": "supported",
+  "ensemblId": "ENSG00000197405",
+  "diseaseId": "MONDO_0005435",
+  "diseaseName": "anti-neutrophil antibody associated vasculitis",
+  "condition": "anti-neutrophil antibody associated vasculitis",
+  "basis": "approved: CHEMBL3989871"
+ },
+ {
+  "target": "CHEMBL1804",
+  "symbol": "SSTR2",
+  "accession": "P30874",
+  "label": "supported",
+  "ensemblId": "ENSG00000180616",
+  "diseaseId": "MONDO_0019933",
+  "diseaseName": "acromegaly",
+  "condition": "acromegaly",
+  "basis": "approved: CHEMBL5314380"
+ },
+ {
+  "target": "CHEMBL1782",
+  "symbol": "FDPS",
+  "accession": "P14324",
+  "label": "supported",
+  "ensemblId": "ENSG00000160752",
+  "diseaseId": "MONDO_0005382",
+  "diseaseName": "bone Paget disease",
+  "condition": "osteitis deformans",
+  "basis": "approved: CHEMBL675"
+ },
+ {
+  "target": "CHEMBL3712987",
+  "symbol": "IL3RA",
+  "accession": "P26951",
+  "label": "supported",
+  "ensemblId": "ENSG00000185291",
+  "diseaseId": "MONDO_0018874",
+  "diseaseName": "acute myeloid leukemia",
+  "condition": "acute myeloid leukemia",
+  "basis": "approved: CHEMBL4297573"
+ },
+ {
+  "target": "CHEMBL1842",
+  "symbol": "CD33",
+  "accession": "P20138",
+  "label": "supported",
+  "ensemblId": "ENSG00000105383",
+  "diseaseId": "MONDO_0018874",
+  "diseaseName": "acute myeloid leukemia",
+  "condition": "acute myeloid leukemia",
+  "basis": "approved: CHEMBL1201506"
+ },
+ {
+  "target": "CHEMBL402",
+  "symbol": "HMGCR",
+  "accession": "P04035",
+  "label": "supported",
+  "ensemblId": "ENSG00000113161",
+  "diseaseId": "MONDO_0005009",
+  "diseaseName": "congestive heart failure",
+  "condition": "congestive heart failure",
+  "basis": "approved: CHEMBL393220"
+ },
+ {
+  "target": "CHEMBL2364155",
+  "symbol": "IL6R",
+  "accession": "P08887",
+  "label": "supported",
+  "ensemblId": "ENSG00000160712",
+  "diseaseId": "MONDO_0005100",
+  "diseaseName": "systemic sclerosis",
+  "condition": "systemic scleroderma",
+  "basis": "approved: CHEMBL1237022"
+ },
+ {
+  "target": "CHEMBL1806",
+  "symbol": "TOP2A",
+  "accession": "P11388",
+  "label": "supported",
+  "ensemblId": "ENSG00000131747",
+  "diseaseId": "MONDO_0018874",
+  "diseaseName": "acute myeloid leukemia",
+  "condition": "acute myeloid leukemia",
+  "basis": "approved: CHEMBL1200976"
+ },
+ {
+  "target": "CHEMBL1929",
+  "symbol": "XDH",
+  "accession": "P47989",
+  "label": "supported",
+  "ensemblId": "ENSG00000158125",
+  "diseaseId": "MONDO_0005393",
+  "diseaseName": "gout",
+  "condition": "gout",
+  "basis": "approved: CHEMBL1467"
+ },
+ {
+  "target": "CHEMBL1873",
+  "symbol": "PLAT",
+  "accession": "P00750",
+  "label": "supported",
+  "ensemblId": "ENSG00000104368",
+  "diseaseId": "HP_0004419",
+  "diseaseName": "Recurrent thrombophlebitis",
+  "condition": "Recurrent thrombophlebitis",
+  "basis": "approved: CHEMBL2108791"
+ },
+ {
+  "target": "CHEMBL2508",
+  "symbol": "CDK6",
+  "accession": "Q00534",
+  "label": "supported",
+  "ensemblId": "ENSG00000105810",
+  "diseaseId": "MONDO_0004989",
+  "diseaseName": "breast carcinoma",
+  "condition": "breast carcinoma",
+  "basis": "approved: CHEMBL3301610"
+ },
+ {
+  "target": "CHEMBL1975",
+  "symbol": "CD3E",
+  "accession": "P07766",
+  "label": "supported",
+  "ensemblId": "ENSG00000198851",
+  "diseaseId": "MONDO_0005147",
+  "diseaseName": "type 1 diabetes mellitus",
+  "condition": "type 1 diabetes mellitus",
+  "basis": "approved: CHEMBL1743078"
+ },
+ {
+  "target": "CHEMBL1908",
+  "symbol": "CYP11B1",
+  "accession": "P15538",
+  "label": "supported",
+  "ensemblId": "ENSG00000160882",
+  "diseaseId": "MONDO_0018912",
+  "diseaseName": "Cushing syndrome",
+  "condition": "Cushing syndrome",
+  "basis": "approved: CHEMBL295698"
+ },
+ {
+  "target": "CHEMBL2121",
+  "symbol": "FOLR1",
+  "accession": "P15328",
+  "label": "supported",
+  "ensemblId": "ENSG00000110195",
+  "diseaseId": "MONDO_0045024",
+  "diseaseName": "cancer or benign tumor",
+  "condition": "neoplasm",
+  "basis": "approved: CHEMBL3545132"
+ },
+ {
+  "target": "CHEMBL1792",
+  "symbol": "SSTR5",
+  "accession": "P35346",
+  "label": "supported",
+  "ensemblId": "ENSG00000162009",
+  "diseaseId": "MONDO_0100347",
+  "diseaseName": "carcinoid syndrome",
+  "condition": "carcinoid syndrome",
+  "basis": "approved: CHEMBL1201184"
+ },
+ {
+  "target": "CHEMBL1075094",
+  "symbol": "NFE2L2",
+  "accession": "Q16236",
+  "label": "supported",
+  "ensemblId": "ENSG00000116044",
+  "diseaseId": "MONDO_0100339",
+  "diseaseName": "Friedreich ataxia",
+  "condition": "Friedreich ataxia",
+  "basis": "approved: CHEMBL4303525"
+ },
+ {
+  "target": "CHEMBL1075153",
+  "symbol": "TNFRSF10B",
+  "accession": "O14763",
+  "label": "refuted",
+  "evidence": {
+   "nct": "NCT00543712",
+   "drug": "PRO95780",
+   "molecule": "CHEMBL2109248",
+   "whyStopped": "Efficacy not evident in this population."
+  },
+  "ensemblId": "ENSG00000120889",
+  "diseaseId": "MONDO_0008977",
+  "diseaseName": "chondrosarcoma",
+  "condition": "Chondrosarcoma",
+  "basis": "stopped: NCT00543712"
+ },
+ {
+  "target": "CHEMBL1293224",
+  "symbol": "MAPT",
+  "accession": "P10636",
+  "label": "refuted",
+  "evidence": {
+   "nct": "NCT03352557",
+   "drug": "BIIB092",
+   "molecule": "CHEMBL3990042",
+   "whyStopped": "The study (NCT03352557) was terminated based on lack of efficacy following the placebo-controlled period readout."
+  },
+  "ensemblId": "ENSG00000186868",
+  "diseaseId": "MONDO_0004975",
+  "diseaseName": "Alzheimer disease",
+  "condition": "Alzheimer's Disease",
+  "basis": "stopped: NCT03352557"
+ },
+ {
+  "target": "CHEMBL1795178",
+  "symbol": "TGFB1",
+  "accession": "P01137",
+  "label": "refuted",
+  "evidence": {
+   "nct": "NCT01113801",
+   "drug": "LY2382770",
+   "molecule": "CHEMBL2109585",
+   "whyStopped": "Interim Assessment: Lack of Efficacy"
+  },
+  "ensemblId": "ENSG00000105329",
+  "diseaseId": "MONDO_0005016",
+  "diseaseName": "diabetic kidney disease",
+  "condition": "Diabetic Kidney Disease",
+  "basis": "stopped: NCT01113801"
+ },
+ {
+  "target": "CHEMBL1850",
+  "symbol": "DRD5",
+  "accession": "P21918",
+  "label": "refuted",
+  "evidence": {
+   "nct": "NCT02847650",
+   "drug": "PF-06649751",
+   "molecule": "CHEMBL3697617",
+   "whyStopped": "Study B7601011 was terminated on 29 Jan 2018 due to lack of efficacy in moderate/advanced Parkinson's disease."
+  },
+  "ensemblId": "ENSG00000169676",
+  "diseaseId": "MONDO_0005180",
+  "diseaseName": "Parkinson disease",
+  "condition": "Parkinson Disease",
+  "basis": "stopped: NCT02847650"
+ },
+ {
+  "target": "CHEMBL2146302",
+  "symbol": "GLS",
+  "accession": "O94925",
+  "label": "refuted",
+  "evidence": {
+   "nct": "NCT02771626",
+   "drug": "CB-839",
+   "molecule": "CHEMBL3639788",
+   "whyStopped": "lack of efficacy"
+  },
+  "ensemblId": "ENSG00000115419",
+  "diseaseId": "MONDO_0005105",
+  "diseaseName": "melanoma",
+  "condition": "Melanoma",
+  "basis": "stopped: NCT02771626"
+ },
+ {
+  "target": "CHEMBL2176846",
+  "symbol": "AGER",
+  "accession": "Q15109",
+  "label": "refuted",
+  "evidence": {
+   "nct": "NCT02916056",
+   "drug": "Azeliragon 5mg",
+   "molecule": "CHEMBL3989929",
+   "whyStopped": "Not due to safety but due to a lack of efficacy at the 5 mg azeliragon dose."
+  },
+  "ensemblId": "ENSG00000204305",
+  "diseaseId": "MONDO_0004975",
+  "diseaseName": "Alzheimer disease",
+  "condition": "Alzheimer's Disease",
+  "basis": "stopped: NCT02916056"
+ },
+ {
+  "target": "CHEMBL2252",
+  "symbol": "CTSC",
+  "accession": "P53634",
+  "label": "refuted",
+  "evidence": {
+   "nct": "NCT06685835",
+   "drug": "Brensocatib",
+   "molecule": "CHEMBL3900409",
+   "whyStopped": "Lack of Efficacy"
+  },
+  "ensemblId": "ENSG00000109861",
+  "diseaseId": "MONDO_0006559",
+  "diseaseName": "hidradenitis suppurativa",
+  "condition": "Hidradenitis Suppurativa",
+  "basis": "stopped: NCT06685835"
+ },
+ {
+  "target": "CHEMBL2337",
+  "symbol": "SLC6A9",
+  "accession": "P48067",
+  "label": "refuted",
+  "evidence": {
+   "nct": "NCT00764660",
+   "drug": "SCH 900435",
+   "molecule": "CHEMBL4228124",
+   "whyStopped": "Based on the outcome of a planned interim analysis, the study was stopped early due to futility."
+  },
+  "ensemblId": "ENSG00000196517",
+  "diseaseId": "MONDO_0002046",
+  "diseaseName": "alcohol abuse",
+  "condition": "Alcoholism",
+  "basis": "stopped: NCT00764660"
+ },
+ {
+  "target": "CHEMBL2492",
+  "symbol": "CHRNA7",
+  "accession": "P36544",
+  "label": "refuted",
+  "evidence": {
+   "nct": "NCT01793298",
+   "drug": "ASM-024",
+   "molecule": "CHEMBL3707249",
+   "whyStopped": "Lack of efficacy"
+  },
+  "ensemblId": "ENSG00000175344",
+  "diseaseId": "MONDO_0004979",
+  "diseaseName": "asthma",
+  "condition": "Asthma",
+  "basis": "stopped: NCT01793298"
+ },
+ {
+  "target": "CHEMBL2695",
+  "symbol": "PTK2",
+  "accession": "Q05397",
+  "label": "refuted",
+  "evidence": {
+   "nct": "NCT01870609",
+   "drug": "defactinib (VS-6063)",
+   "molecule": "CHEMBL3137331",
+   "whyStopped": "Interim analysis-DSMB stated good safety profile but lack of efficacy"
+  },
+  "ensemblId": "ENSG00000169398",
+  "diseaseId": "MONDO_0005112",
+  "diseaseName": "malignant pleural mesothelioma",
+  "condition": "Malignant Pleural Mesothelioma",
+  "basis": "stopped: NCT01870609"
+ },
+ {
+  "target": "CHEMBL2888",
+  "symbol": "GRM3",
+  "accession": "Q14832",
+  "label": "refuted",
+  "evidence": {
+   "nct": "NCT01125358",
+   "drug": "LY2140023",
+   "molecule": "CHEMBL2110730",
+   "whyStopped": "The decision to stop the trial was based on efficacy results in the overall schizophrenia participant population."
+  },
+  "ensemblId": "ENSG00000198822",
+  "diseaseId": "MONDO_0005090",
+  "diseaseName": "schizophrenia",
+  "condition": "Schizophrenia",
+  "basis": "stopped: NCT01125358"
+ },
+ {
+  "target": "CHEMBL2979",
+  "symbol": "ITGB7",
+  "accession": "P26010",
+  "label": "refuted",
+  "evidence": {
+   "nct": "NCT02118584",
+   "drug": "Etrolizumab",
+   "molecule": "CHEMBL1743015",
+   "whyStopped": "The study was terminated due to program discontinuation, based on mixed efficacy results in the parent studies. There were no safety concerns."
+  },
+  "ensemblId": "ENSG00000139626",
+  "diseaseId": "MONDO_0005101",
+  "diseaseName": "ulcerative colitis",
+  "condition": "Ulcerative Colitis",
+  "basis": "stopped: NCT02118584"
+ },
+ {
+  "target": "CHEMBL3045",
+  "symbol": "PRKCB",
+  "accession": "P05771",
+  "label": "refuted",
+  "evidence": {
+   "nct": "NCT00538681",
+   "drug": "enzastaurin",
+   "molecule": "CHEMBL300138",
+   "whyStopped": "Terminated due to lack of efficacy demonstrated in relevant participant population in other clinical trials."
+  },
+  "ensemblId": "ENSG00000166501",
+  "diseaseId": "MONDO_0005138",
+  "diseaseName": "lung carcinoma",
+  "condition": "Lung Cancer",
+  "basis": "stopped: NCT00538681"
+ },
+ {
+  "target": "CHEMBL3155",
+  "symbol": "HTR7",
+  "accession": "P34969",
+  "label": "refuted",
+  "evidence": {
+   "nct": "NCT00804973",
+   "drug": "LY2590443",
+   "molecule": "CHEMBL3545220",
+   "whyStopped": "Due to efficacy results of interim analysis"
+  },
+  "ensemblId": "ENSG00000148680",
+  "diseaseId": "MONDO_0005277",
+  "diseaseName": "migraine disorder",
+  "condition": "Migraine Headache",
+  "basis": "stopped: NCT00804973"
+ },
+ {
+  "target": "CHEMBL3161",
+  "symbol": "SELL",
+  "accession": "P14151",
+  "label": "refuted",
+  "evidence": {
+   "nct": "NCT02433158",
+   "drug": "Rivipansel",
+   "molecule": "CHEMBL3707446",
+   "whyStopped": "The B5201003 OLE study was terminated based on the failure of the 'parent\" B5201002 study to meet its efficacy endpoints. Termination was not due to safety."
+  },
+  "ensemblId": "ENSG00000188404",
+  "diseaseId": "MONDO_0011382",
+  "diseaseName": "sickle cell disease",
+  "condition": "Sickle Cell Anemia",
+  "basis": "stopped: NCT02433158"
+ },
+ {
+  "target": "CHEMBL3227",
+  "symbol": "GRM5",
+  "accession": "P41594",
+  "label": "refuted",
+  "evidence": {
+   "nct": "NCT01433354",
+   "drug": "AFQ056",
+   "molecule": "CHEMBL3087515",
+   "whyStopped": "The study treatment failed to demonstrate efficacy in target population in two other clinical studies (CAFQ056B2214 and CAFQ056A2212)."
+  },
+  "ensemblId": "ENSG00000168959",
+  "diseaseId": "MONDO_0010383",
+  "diseaseName": "fragile X syndrome",
+  "condition": "Fragile X Syndrome",
+  "basis": "stopped: NCT01433354"
+ },
+ {
+  "target": "CHEMBL3407325",
+  "symbol": "MSTN",
+  "accession": "O14793",
+  "label": "refuted",
+  "evidence": {
+   "nct": "NCT02310763",
+   "drug": "PF-06252616",
+   "molecule": "CHEMBL3544991",
+   "whyStopped": "Termination Date 30AUG2018: Reason for termination: Lack of Efficacy"
+  },
+  "ensemblId": "ENSG00000138379",
+  "diseaseId": "MONDO_0010679",
+  "diseaseName": "Duchenne muscular dystrophy",
+  "condition": "Duchenne Muscular Dystrophy",
+  "basis": "stopped: NCT02310763"
+ },
+ {
+  "target": "CHEMBL3474",
+  "symbol": "PLA2G2A",
+  "accession": "P14555",
+  "label": "refuted",
+  "evidence": {
+   "nct": "NCT01130246",
+   "drug": "A-002, varespladib methyl",
+   "molecule": "CHEMBL148674",
+   "whyStopped": "Lack of efficacy"
+  },
+  "ensemblId": "ENSG00000188257",
+  "diseaseId": "MONDO_0005542",
+  "diseaseName": "acute coronary syndrome",
+  "condition": "Acute Coronary Syndrome",
+  "basis": "stopped: NCT01130246"
+ },
+ {
+  "target": "CHEMBL3535",
+  "symbol": "PDE9A",
+  "accession": "O76083",
+  "label": "refuted",
+  "evidence": {
+   "nct": "NCT04474314",
+   "drug": "IMR-687",
+   "molecule": "CHEMBL4297290",
+   "whyStopped": "A recently conducted Interim analysis of IMR-SCD-301 demonstrated that while IMR-687 was generally well-tolerated, it failed to meet its primary efficacy endpoint. So, the sponsor has decided to disco"
+  },
+  "ensemblId": "ENSG00000160191",
+  "diseaseId": "MONDO_0011382",
+  "diseaseName": "sickle cell disease",
+  "condition": "Sickle Cell Disease",
+  "basis": "stopped: NCT04474314"
+ },
+ {
+  "target": "CHEMBL3559",
+  "symbol": "STS",
+  "accession": "P08842",
+  "label": "refuted",
+  "evidence": {
+   "nct": "NCT01251354",
+   "drug": "BN83495",
+   "molecule": "CHEMBL286738",
+   "whyStopped": "The futility analysis of study NCT00910091 in patients with endometrial cancer shows that the primary endpoint will not be reached."
+  },
+  "ensemblId": "ENSG00000101846",
+  "diseaseId": "MONDO_0002447",
+  "diseaseName": "endometrial carcinoma",
+  "condition": "Endometrial Cancer",
+  "basis": "stopped: NCT01251354"
+ },
+ {
+  "target": "CHEMBL3572",
+  "symbol": "CETP",
+  "accession": "P11597",
+  "label": "refuted",
+  "evidence": {
+   "nct": "NCT02260635",
+   "drug": "Evacetrapib",
+   "molecule": "CHEMBL2017179",
+   "whyStopped": "Study termination due to insufficient efficacy."
+  },
+  "ensemblId": "ENSG00000087237",
+  "diseaseId": "HP_0003124",
+  "diseaseName": "Hypercholesterolemia",
+  "condition": "Hypercholesterolemia",
+  "basis": "stopped: NCT02260635"
+ },
+ {
+  "target": "CHEMBL3580496",
+  "symbol": "IL1A",
+  "accession": "P01583",
+  "label": "refuted",
+  "evidence": {
+   "nct": "NCT01767857",
+   "drug": "Xilonix",
+   "molecule": "CHEMBL2109653",
+   "whyStopped": "The study crossed the prospective futility boundary of primary endpoint"
+  },
+  "ensemblId": "ENSG00000115008",
+  "diseaseId": "EFO_1001480",
+  "diseaseName": "metastatic colorectal cancer",
+  "condition": "Metastatic Colorectal Cancer",
+  "basis": "stopped: NCT01767857"
+ },
+ {
+  "target": "CHEMBL3712938",
+  "symbol": "NCAM1",
+  "accession": "P13591",
+  "label": "refuted",
+  "evidence": {
+   "nct": "NCT01237678",
+   "drug": "IMGN901",
+   "molecule": "CHEMBL1743037",
+   "whyStopped": "Study was stopped early due to lack of efficacy signal and safety concerns"
+  },
+  "ensemblId": "ENSG00000149294",
+  "diseaseId": "MONDO_0008433",
+  "diseaseName": "small cell lung carcinoma",
+  "condition": "Small Cell Lung Cancer",
+  "basis": "stopped: NCT01237678"
+ },
+ {
+  "target": "CHEMBL3712975",
+  "symbol": "CD248",
+  "accession": "Q9HCU0",
+  "label": "refuted",
+  "evidence": {
+   "nct": "NCT01507545",
+   "drug": "MORAb-004",
+   "molecule": "CHEMBL2364659",
+   "whyStopped": "By the sponsor at the end of Stage 1 due to futility."
+  },
+  "ensemblId": "ENSG00000174807",
+  "diseaseId": "EFO_1001480",
+  "diseaseName": "metastatic colorectal cancer",
+  "condition": "Metastatic Colorectal Cancer",
+  "basis": "stopped: NCT01507545"
+ },
+ {
+  "target": "CHEMBL3714029",
+  "symbol": "LOXL2",
+  "accession": "Q9Y4K0",
+  "label": "refuted",
+  "evidence": {
+   "nct": "NCT01769196",
+   "drug": "Simtuzumab",
+   "molecule": "CHEMBL2109667",
+   "whyStopped": "The Study was terminated due to lack of efficacy."
+  },
+  "ensemblId": "ENSG00000134013",
+  "diseaseId": "EFO_0000768",
+  "diseaseName": "idiopathic pulmonary fibrosis",
+  "condition": "Idiopathic Pulmonary Fibrosis",
+  "basis": "stopped: NCT01769196"
+ },
+ {
+  "target": "CHEMBL3714583",
+  "symbol": "CD47",
+  "accession": "Q08722",
+  "label": "refuted",
+  "evidence": {
+   "nct": "NCT04778397",
+   "drug": "Magrolimab",
+   "molecule": "CHEMBL4297985",
+   "whyStopped": "Study discontinued due to futility."
+  },
+  "ensemblId": "ENSG00000196776",
+  "diseaseId": "MONDO_0018874",
+  "diseaseName": "acute myeloid leukemia",
+  "condition": "Acute Myeloid Leukemia",
+  "basis": "stopped: NCT04778397"
+ },
+ {
+  "target": "CHEMBL3759",
+  "symbol": "HRH4",
+  "accession": "Q9H3N8",
+  "label": "refuted",
+  "evidence": {
+   "nct": "NCT01862224",
+   "drug": "JNJ-38518168",
+   "molecule": "CHEMBL3301609",
+   "whyStopped": "The study was stopped due to lack of efficacy in a study conducted in a similar population,38518168ARA2002-NCT01679951."
+  },
+  "ensemblId": "ENSG00000134489",
+  "diseaseId": "MONDO_0008383",
+  "diseaseName": "rheumatoid arthritis",
+  "condition": "Rheumatoid Arthritis",
+  "basis": "stopped: NCT01862224"
+ },
+ {
+  "target": "CHEMBL3890",
+  "symbol": "SELE",
+  "accession": "P16581",
+  "label": "refuted",
+  "evidence": {
+   "nct": "NCT02433158",
+   "drug": "Rivipansel",
+   "molecule": "CHEMBL3707446",
+   "whyStopped": "The B5201003 OLE study was terminated based on the failure of the 'parent\" B5201002 study to meet its efficacy endpoints. Termination was not due to safety."
+  },
+  "ensemblId": "ENSG00000007908",
+  "diseaseId": "MONDO_0011382",
+  "diseaseName": "sickle cell disease",
+  "condition": "Sickle Cell Anemia",
+  "basis": "stopped: NCT02433158"
+ },
+ {
+  "target": "CHEMBL3956",
+  "symbol": "MAP3K1",
+  "accession": "Q13233",
+  "label": "refuted",
+  "evidence": {
+   "nct": "NCT02418000",
+   "drug": "E6201",
+   "molecule": "CHEMBL1097999",
+   "whyStopped": "Insufficient efficacy in Phase 1 dose-escalation portion of study"
+  },
+  "ensemblId": "ENSG00000095015",
+  "diseaseId": "MONDO_0018874",
+  "diseaseName": "acute myeloid leukemia",
+  "condition": "AML",
+  "basis": "stopped: NCT02418000"
+ },
+ {
+  "target": "CHEMBL4015",
+  "symbol": "CCR2",
+  "accession": "P41597",
+  "label": "refuted",
+  "evidence": {
+   "nct": "NCT03059446",
+   "drug": "Cenicriviroc",
+   "molecule": "CHEMBL2110727",
+   "whyStopped": "This study was terminated early due to lack of efficacy based on the results of Part I of the AURORA study."
+  },
+  "ensemblId": "ENSG00000121807",
+  "diseaseId": "MONDO_0007027",
+  "diseaseName": "metabolic dysfunction-associated steatohepatitis",
+  "condition": "Nonalcoholic Steatohepatitis",
+  "basis": "stopped: NCT03059446"
+ },
+ {
+  "target": "CHEMBL4523230",
+  "symbol": "UTRN",
+  "accession": "P46939",
+  "label": "refuted",
+  "evidence": {
+   "nct": "NCT02858362",
+   "drug": "Ezutromid",
+   "molecule": "CHEMBL1773683",
+   "whyStopped": "The study was terminated due to lack of efficacy in Cohorts 1 and 2."
+  },
+  "ensemblId": "ENSG00000152818",
+  "diseaseId": "MONDO_0010679",
+  "diseaseName": "Duchenne muscular dystrophy",
+  "condition": "Duchenne Muscular Dystrophy",
+  "basis": "stopped: NCT02858362"
+ },
+ {
+  "target": "CHEMBL4630885",
+  "symbol": "OSMR",
+  "accession": "Q99650",
+  "label": "refuted",
+  "evidence": {
+   "nct": "NCT06137183",
+   "drug": "Vixarelimab",
+   "molecule": "CHEMBL4594341",
+   "whyStopped": "Based on a futility analysis, which suggested that the Moonglow study was unlikely to meet its primary endpoint."
+  },
+  "ensemblId": "ENSG00000145623",
+  "diseaseId": "MONDO_0005101",
+  "diseaseName": "ulcerative colitis",
+  "condition": "Ulcerative Colitis",
+  "basis": "stopped: NCT06137183"
+ },
+ {
+  "target": "CHEMBL4630890",
+  "symbol": "IL33",
+  "accession": "O95760",
+  "label": "refuted",
+  "evidence": {
+   "nct": "NCT03738423",
+   "drug": "REGN3500",
+   "molecule": "CHEMBL4594594",
+   "whyStopped": "Lack of efficacy"
+  },
+  "ensemblId": "ENSG00000137033",
+  "diseaseId": "MONDO_0004980",
+  "diseaseName": "atopic eczema",
+  "condition": "Atopic Dermatitis",
+  "basis": "stopped: NCT03738423"
+ },
+ {
+  "target": "CHEMBL4692",
+  "symbol": "CD74",
+  "accession": "P04233",
+  "label": "refuted",
+  "evidence": {
+   "nct": "NCT01101594",
+   "drug": "hLL1-DOX (the doxorubicin conjugate of milatuzumab)",
+   "molecule": "CHEMBL1743040",
+   "whyStopped": "Study was terminated due to lack of efficacy"
+  },
+  "ensemblId": "ENSG00000019582",
+  "diseaseId": "MONDO_0009693",
+  "diseaseName": "plasma cell myeloma",
+  "condition": "Multiple Myeloma",
+  "basis": "stopped: NCT01101594"
+ },
+ {
+  "target": "CHEMBL4805",
+  "symbol": "P2RX7",
+  "accession": "Q99572",
+  "label": "refuted",
+  "evidence": {
+   "nct": "NCT00418782",
+   "drug": "CE-224535",
+   "molecule": "CHEMBL1823817",
+   "whyStopped": "Results of interim analysis indicate lack of efficacy when compared to placebo."
+  },
+  "ensemblId": "ENSG00000089041",
+  "diseaseId": "MONDO_0005178",
+  "diseaseName": "osteoarthritis",
+  "condition": "Osteoarthritis",
+  "basis": "stopped: NCT00418782"
+ },
+ {
+  "target": "CHEMBL4822",
+  "symbol": "BACE1",
+  "accession": "P56817",
+  "label": "refuted",
+  "evidence": {
+   "nct": "NCT02783573",
+   "drug": "Lanabecestat",
+   "molecule": "CHEMBL3989948",
+   "whyStopped": "An independent assessment concluded the trial was not likely to meet the primary endpoint upon completion and therefore, trial stopped for futility."
+  },
+  "ensemblId": "ENSG00000186318",
+  "diseaseId": "MONDO_0004975",
+  "diseaseName": "Alzheimer disease",
+  "condition": "Alzheimer's Disease",
+  "basis": "stopped: NCT02783573"
+ },
+ {
+  "target": "CHEMBL5137",
+  "symbol": "GRM2",
+  "accession": "Q14416",
+  "label": "refuted",
+  "evidence": {
+   "nct": "NCT01125358",
+   "drug": "LY2140023",
+   "molecule": "CHEMBL2110730",
+   "whyStopped": "The decision to stop the trial was based on efficacy results in the overall schizophrenia participant population."
+  },
+  "ensemblId": "ENSG00000164082",
+  "diseaseId": "MONDO_0005090",
+  "diseaseName": "schizophrenia",
+  "condition": "Schizophrenia",
+  "basis": "stopped: NCT01125358"
+ },
+ {
+  "target": "CHEMBL5147",
+  "symbol": "EPHB4",
+  "accession": "P54760",
+  "label": "refuted",
+  "evidence": {
+   "nct": "NCT01149434",
+   "drug": "JI-101",
+   "molecule": "CHEMBL3545155",
+   "whyStopped": "Lack of drug efficacy"
+  },
+  "ensemblId": "ENSG00000196411",
+  "diseaseId": "MONDO_0004992",
+  "diseaseName": "cancer",
+  "condition": "Cancer",
+  "basis": "stopped: NCT01149434"
+ },
+ {
+  "target": "CHEMBL5285",
+  "symbol": "MAP3K5",
+  "accession": "Q99683",
+  "label": "refuted",
+  "evidence": {
+   "nct": "NCT03053050",
+   "drug": "selonsertib",
+   "molecule": "CHEMBL3916717",
+   "whyStopped": "This study was terminated early due to lack of efficacy based on the results of the Week 48 analysis as prespecified in the clinical study protocol."
+  },
+  "ensemblId": "ENSG00000197442",
+  "diseaseId": "MONDO_0007027",
+  "diseaseName": "metabolic dysfunction-associated steatohepatitis",
+  "condition": "Nonalcoholic Steatohepatitis",
+  "basis": "stopped: NCT03053050"
+ },
+ {
+  "target": "CHEMBL5469",
+  "symbol": "PTK2B",
+  "accession": "Q14289",
+  "label": "refuted",
+  "evidence": {
+   "nct": "NCT01870609",
+   "drug": "defactinib (VS-6063)",
+   "molecule": "CHEMBL3137331",
+   "whyStopped": "Interim analysis-DSMB stated good safety profile but lack of efficacy"
+  },
+  "ensemblId": "ENSG00000120899",
+  "diseaseId": "MONDO_0005112",
+  "diseaseName": "malignant pleural mesothelioma",
+  "condition": "Malignant Pleural Mesothelioma",
+  "basis": "stopped: NCT01870609"
+ },
+ {
+  "target": "CHEMBL5805",
+  "symbol": "TLR8",
+  "accession": "Q9NR97",
+  "label": "refuted",
+  "evidence": {
+   "nct": "NCT02092909",
+   "drug": "IMO-8400",
+   "molecule": "CHEMBL4297995",
+   "whyStopped": "Lack of efficacy"
+  },
+  "ensemblId": "ENSG00000101916",
+  "diseaseId": "MONDO_0100280",
+  "diseaseName": "Waldenstrom macroglobulinemia",
+  "condition": "Waldenstrom's Macroglobulinemia",
+  "basis": "stopped: NCT02092909"
+ },
+ {
+  "target": "CHEMBL5807",
+  "symbol": "MAG",
+  "accession": "P20916",
+  "label": "refuted",
+  "evidence": {
+   "nct": "NCT01808261",
+   "drug": "GSK249320 100/mg",
+   "molecule": "CHEMBL3545317",
+   "whyStopped": "This study was terminated for futility."
+  },
+  "ensemblId": "ENSG00000105695",
+  "diseaseId": "MONDO_0011057",
+  "diseaseName": "cerebrovascular disorder",
+  "condition": "Cerebrovascular Accident",
+  "basis": "stopped: NCT01808261"
+ }
+]
