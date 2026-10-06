@@ -541,65 +541,59 @@ pres.addSection({ title: '怎么设计' });
 }
 
 // 8 -- design points 2 and 3
-// Every gain and posterior on this slide is computed by packages/core/src/epistemic/
-// InformationGainPlanner.ts with DEFAULT_HYPOTHESIS_TOOL_MODELS from a 50/50 start.
-// The facts in the walk-through: semaglutide GLP-1R affinity 0.38 nM (Lau et al.,
-// J Med Chem 2015, PMID 26308095); STEP 1 is NCT03548935, phase 3, completed.
 {
-  const s = content('设计点②③：分歧时先查什么，结论何时能下', 'A 类设计点 ② 与 ③：用信息论量化分歧、挑选查询；用统计校准决定能否下结论。', '怎么设计');
+  const s = content('设计点②③：分歧时先查什么，结论何时能下', 'A 类设计点 ② 与 ③：用实测数据决定先查什么；用统计校准决定能否下结论。', '怎么设计');
   const top = 1.7;
   const ch = 4.95;
-  // ---------------- left: information gain
+  // ---------------- left: information gain, measured
+  // Numbers: packages/core/evaluation/outcome-model-pilot (estimate.json,
+  // estimate_improved.json, estimate_disease.json).
   const lw = 7.55;
   const lx = MX;
   card(s, lx, top, lw, ch);
   badge(s, lx + 0.3, top + 0.2, 2, C.accent1);
-  label(s, lx + 0.85, top + 0.17, 4, 0.45, '信息增益取证', { size: 18, bold: true, color: C.text2, valign: 'middle' });
+  label(s, lx + 0.85, top + 0.17, lw - 1.1, 0.45, '信息增益取证：用实测数据决定先查什么', { size: 17, bold: true, color: C.text2, valign: 'middle' });
   const iw = lw - 0.6;
-  box(s, lx + 0.3, top + 0.72, iw, 0.78,
-    '类比：医生分辨流感和感冒——量体温没用，两种病都发烧；流感抗原检测结果差别大，所以先做它。信息增益就是给“这项查询能把两种可能分开多少”打分。',
+  box(s, lx + 0.3, top + 0.7, iw, 0.42,
+    '类比：量体温分不开流感和感冒，抗原检测才分得开。信息增益衡量的就是“能分开多少”。',
     { fill: C.background1, line: 'D5DCE4', size: 11.5, align: 'left', margin: 0.1 });
-  label(s, lx + 0.3, top + 1.6, iw, 0.3, '例：假设“GLP-1 受体激动剂（如司美格鲁肽）可用于减重”，起点五五开', { size: 12, bold: true, color: C.text2 });
+  label(s, lx + 0.3, top + 1.2, iw, 0.3, '实测：真实靶点，已获批（成立）vs 因疗效不足而失败（不成立）', { size: 12, bold: true, color: C.text2 });
 
-  const head = (t) => ({ text: t, options: { bold: true, color: 'FFFFFF', fill: { color: HEX.dk2 }, fontSize: 11, valign: 'middle', align: 'center' } });
-  const cell = (t, o = {}) => ({ text: t, options: { fontSize: 11, color: HEX.dk1, valign: 'middle', align: 'center', ...o } });
-  const rows = [
-    ['查强活性药物（ChEMBL）', '60%', '10%', 0.259, '差别最大，先查', '0.26'],
-    ['查临床试验登记', '50%', '15%', 0.105, '', '0.11'],
-    ['查靶点序列（UniProt）', '95%', '80%', 0.039, '像“量体温”', '0.04'],
+  const groups = [
+    ['只看靶点本身', [
+      ['查靶点序列', '100% vs 100%', 0, '0'],
+      ['查临床试验登记', '100% vs 100%', 0, '0'],
+      ['查强活性化合物', '88% vs 81%', 0.006, '0.006'],
+    ], 'B4BFCC'],
+    ['看靶点与疾病的关系', [
+      ['动物模型证据', '38% vs 17%', 0.039, '0.039'],
+      ['人类遗传学证据', '35% vs 17%', 0.027, '0.027'],
+    ], HEX.accent1],
   ];
-  const tY = top + 1.95;
-  const tW = 4.35;
-  s.addTable(
-    [[head('系统可做的查询'), head('假设成立时\n查到的概率'), head('不成立时\n查到的概率')], ...rows.map(([q, a, b]) => [cell(q, { align: 'left' }), cell(a, { bold: true }), cell(b, { bold: true })])],
-    {
-      x: lx + 0.3, y: tY, w: tW, colW: [2.15, 1.1, 1.1], rowH: [0.46, 0.38, 0.38, 0.38],
-      border: { type: 'solid', pt: 0.75, color: 'D5DCE4' }, fill: { color: 'FFFFFF' }, margin: [0.03, 0.07, 0.03, 0.07], fontFace: THEME.bodyFontFace,
-      objectName: name('table'),
-    }
-  );
-  // gain bars, one per table row
-  const gx = lx + 0.3 + tW + 0.15;
-  const gw = iw - tW - 0.15;
-  label(s, gx, tY, gw, 0.46, '能分开多少\n（信息增益）', { size: 11, bold: true, color: C.text2, valign: 'middle' });
-  rows.forEach(([, , , g, tag, shown], i) => {
-    const y = tY + 0.46 + i * 0.38;
-    const bw = (g / 0.259) * (gw - 0.55);
-    s.addShape(pres.shapes.RECTANGLE, { x: gx, y: y + 0.08, w: Math.max(bw, 0.05), h: 0.22, fill: { color: i === 0 ? HEX.accent1 : '8FC9C2' }, line: { color: i === 0 ? HEX.accent1 : '8FC9C2' }, objectName: name('bar') });
-    label(s, gx + Math.max(bw, 0.05) + 0.06, y + 0.04, 0.5, 0.3, shown, { size: 10.5, bold: true, color: C.text1, valign: 'middle' });
-    if (tag) label(s, i === 0 ? gx + 0.08 : gx + bw + 0.5, y + 0.04, i === 0 ? bw - 0.12 : gw - bw - 0.5, 0.3, tag, { size: 10, bold: i === 0, color: i === 0 ? C.background1 : C.accent6, valign: 'middle' });
+  const c1 = lx + 0.3;                // query label
+  const c2 = c1 + 1.75;               // rates
+  const c3 = c2 + 1.45;               // bar
+  const barMax = lx + lw - 0.3 - 0.6 - c3;
+  label(s, c2, top + 1.5, 1.45, 0.26, '成立 vs 不成立', { size: 9.5, align: 'center' });
+  label(s, c3, top + 1.5, barMax + 0.6, 0.26, '信息增益（比特）', { size: 9.5 });
+  let y = top + 1.76;
+  groups.forEach(([g, rows, color]) => {
+    label(s, c1, y, iw, 0.26, g, { size: 11, bold: true, color: color === HEX.accent1 ? C.accent1 : C.accent6 });
+    y += 0.27;
+    rows.forEach(([q, rate, v, shown]) => {
+      label(s, c1 + 0.15, y, 1.6, 0.27, q, { size: 11, color: C.text1, valign: 'middle' });
+      label(s, c2, y, 1.45, 0.27, rate, { size: 11, color: C.text1, align: 'center', valign: 'middle' });
+      const bw = (v / 0.039) * barMax;
+      if (bw > 0.01) s.addShape(pres.shapes.RECTANGLE, { x: c3, y: y + 0.05, w: bw, h: 0.17, fill: { color }, line: { color }, objectName: name('bar') });
+      label(s, c3 + Math.max(bw, 0) + 0.06, y, 0.6, 0.27, shown, { size: 10.5, bold: true, color: C.text1, valign: 'middle' });
+      y += 0.29;
+    });
+    y += 0.04;
   });
-
-  label(s, lx + 0.3, top + 3.72, iw, 0.28, '实际过程（分歧度：0 = 已有定论，1 = 五五开）', { size: 11.5, bold: true, color: C.text2 });
-  [
-    ['查到强活性：司美格鲁肽对 GLP-1 受体亲和力 0.38 nM', '支持概率 0.50 → 0.86'],
-    ['再查到三期试验 STEP 1（NCT03548935）', '0.86 → 0.95，分歧度 1.0 → 0.28'],
-  ].forEach(([a, b], i) => {
-    const y = top + 4.04 + i * 0.42;
-    badge(s, lx + 0.3, y + 0.03, i + 1, C.accent2, 0.3);
-    label(s, lx + 0.72, y, 3.95, 0.36, a, { size: 10.5, color: C.text1, valign: 'middle' });
-    label(s, lx + 4.7, y, iw - 4.4, 0.36, b, { size: 10.5, bold: true, color: C.accent1, valign: 'middle' });
-  });
+  box(s, lx + 0.3, y + 0.04, iw, 0.58,
+    '结论：只看靶点本身分不出有效与否；靶点与疾病之间的证据才有区分力——与 Nature 2024 一致（有遗传学支持的药物机制，成功率高 2.6 倍）。',
+    { fill: TEAL_TINT, line: HEX.accent1, size: 11, align: 'left', margin: 0.1, color: C.text2 });
+  label(s, lx + 0.3, y + 0.7, iw, 0.3, '普适性：方法通用，数字随问题类型而定——换一类问题，用该类已知答案的案例重测一次。', { size: 10.5, bold: true, color: C.accent6 });
 
   // ---------------- right: conformal decision
   const rx = MX + lw + 0.3;
@@ -627,9 +621,9 @@ pres.addSection({ title: '怎么设计' });
   );
   label(s, rx + 0.3, top + 4.05, rw - 0.6, 0.8, '校准后每类出错率不超过 α（如 10%）；未校准时界面明确显示“未校准”。评分只看证据，与靶点名称无关。', { size: 11, color: C.text1 });
 
-  label(s, MX, top + ch + 0.08, CW, 0.3, '说明：结果概率表目前为人工设定的先验，正式实验前需用标注数据估计（已提供估计函数）；专家意见作为起点的接口已实现，目前每个假设分支从 50 / 50 起步。', { size: 10 });
+  label(s, MX, top + ch + 0.08, CW, 0.3, '说明：靶点本身 114 例、靶点–疾病 94 例；动物模型差异 p = 0.023，遗传学 p = 0.062。系统目前仍按靶点查询，按“靶点–疾病”查询将在下一版接入。数据与脚本已存档，可复现。', { size: 10 });
   s.addNotes(
-    '左边是信息增益取证。先用类比：医生分辨流感和感冒，量体温没用，因为两种病都发烧；流感抗原检测结果差别大，所以先做。信息增益就是给每项查询“能把两种可能分开多少”打分。例子是“GLP-1 受体激动剂可用于减重”，起点五五开。看表格：查靶点序列，假设成立时 95% 能查到，不成立时也有 80%，差别很小，相当于量体温；查强活性药物，成立时 60%、不成立时只有 10%，差别最大，所以先查。实际过程：查到司美格鲁肽对 GLP-1 受体亲和力 0.38 纳摩尔，支持概率从 0.50 升到 0.86；再查到三期试验 STEP 1，升到 0.95，分歧度从 1.0 降到 0.28。技术上，分歧度是当前判断的熵除以最大熵，信息增益是查询前的熵减去查询后平均剩余的熵，单位是比特；概率表目前是人工设定的先验，正式实验前要用标注数据估计，所以第一步的增益与具体药物无关。右边是共形三分判定：用一批已知结果的历史假设校准，结论以“可能成立的结果集合”给出，集合里只有一个答案才下结论；两个都可能就是证据不足。校准后错误率有统计保证，没校准时系统会明确说明。'
+    '左边是信息增益取证。先用类比：量体温分不开流感和感冒，抗原检测才分得开；信息增益就是给每项查询“能把有效和无效分开多少”打分。原来的概率表是人工设定的，我们用真实数据做了实测：一组是已有获批药物的靶点，一组是药物因疗效不足在二、三期试验中失败、至今没有获批药物的靶点。结果是，只看靶点本身的三种查询——查序列、查临床试验、查化合物活性——两组几乎一样，信息增益接近 0。原因不难理解：能走到二、三期的靶点本来就都有强效化合物，活性说明能不能成药，不说明有没有效。看靶点和这个疾病之间的关系就不一样了：有动物模型证据的比例是 38% 对 17%，有人类遗传学证据的是 35% 对 17%，这和 Nature 2024 的结论一致，有遗传学支持的药物机制成功率高 2.6 倍。所以改进方向是把查询从“按靶点”改成“按靶点和疾病”。需要说明两点：第一，样本还小，动物模型差异显著，遗传学接近显著；第二，系统目前还是按靶点查询，这项改进放在下一版。关于普适性：计算方法是通用的，但概率表和具体该查什么，随问题类型而定；换一类问题，比如生物标志物的诊断价值，需要用这一类已知答案的案例重新实测一次，流程和代码不变。右边是共形三分判定：用一批已知结果的历史假设校准，结论以“可能成立的结果集合”给出，集合里只有一个答案才下结论；两个都可能就是证据不足。校准后错误率有统计保证，没校准时系统会明确说明。'
   );
 }
 
@@ -725,7 +719,7 @@ pres.addSection({ title: '下一步' });
   const cols = [
     ['已完成', C.accent1, ['v3.0.0 已发布：macOS、Windows、Linux 安装包和本地 Web 版', '三类设计全部落地，并接入桌面端界面', '自动化测试在三个平台持续通过', '评分只看证据，不再受靶点名称影响']],
     ['尚待验证', C.accent3, ['尚未在真实科研任务上做对照实验', '判定目前处于“未校准”状态，尚无覆盖率保证', '部分本地命令行工具仅为通用接入，待逐一验证']],
-    ['下一步 · 需要的支持', C.accent2, ['组织领域专家标注一批真实假设（支持 / 反驳），用于校准与评测', '开展同等预算的对照实验：与扁平记忆、多智能体辩论比较', '结果稳定后发布正式版，并整理成论文']],
+    ['下一步 · 需要的支持', C.accent2, ['组织领域专家标注一批真实假设（支持 / 反驳），用于校准与评测', '开展同等预算的对照实验：与扁平记忆、多智能体辩论比较', '查询改为按“靶点–疾病”，优先遗传学与动物模型证据', '结果稳定后发布正式版，并整理成论文']],
   ];
   const cw = (CW - 2 * 0.3) / 3;
   cols.forEach(([t, c, items], i) => {
@@ -733,12 +727,12 @@ pres.addSection({ title: '下一步' });
     card(s, x, 1.8, cw, 4.3);
     badge(s, x + 0.3, 2.05, i + 1, c);
     label(s, x + 0.85, 2.05, cw - 1.1, 0.42, t, { size: 18, bold: true, color: C.text2, valign: 'middle' });
-    bullets(s, x + 0.3, 2.75, cw - 0.55, 3.2, items, { size: 15, gap: 12 });
+    bullets(s, x + 0.3, 2.75, cw - 0.55, 3.25, items, { size: 14, gap: 9 });
   });
   s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x: MX, y: 6.3, w: CW, h: 0.6, rectRadius: 0.08, fill: { color: C.text2 }, line: { color: C.text2 }, objectName: name('ask') });
   label(s, MX + 0.3, 6.3, CW - 0.6, 0.6, '请审阅：是否支持开展专家标注与同等预算对照实验（下一步第 1、2 项）。', { size: 15, bold: true, color: C.background1, valign: 'middle' });
   s.addNotes(
-    '最后是进展和请求。设计已全部落地并发布，可以下载试用；尚待验证的是有效性。最需要的支持是领域专家标注一批真实假设，用于校准和评测，然后做同等预算的对照实验，结果稳定后发布正式版并整理论文。'
+    '最后是进展和请求。设计已全部落地并发布，可以下载试用；尚待验证的是有效性。最需要的支持是领域专家标注一批真实假设，用于校准和评测，然后做同等预算的对照实验；同时把查询改为按“靶点–疾病”进行，优先取遗传学和动物模型证据，这一点已有实测数据支持。结果稳定后发布正式版并整理论文。'
   );
 }
 
