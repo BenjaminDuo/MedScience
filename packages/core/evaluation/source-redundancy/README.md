@@ -13,7 +13,7 @@ A small, annotation-free measurement for the "independent lines of evidence" des
 4. `analyze.py` -- within each question, papers sharing a trial are merged
    (union-find); `redundancy.json`, `summary.json`.
 
-## Results (2026-10-07)
+## Results (2026-10-06)
 
 | | all | approved | failed |
 |---|---|---|---|
