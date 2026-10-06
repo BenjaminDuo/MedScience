@@ -1,0 +1,914 @@
+[
+ {
+  "symbol": "MC4R",
+  "label": "supported",
+  "chembl": "potent",
+  "best": 0.015,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "TNF",
+  "label": "supported",
+  "chembl": "potent",
+  "best": 0.03,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "MET",
+  "label": "supported",
+  "chembl": "potent",
+  "best": 0.019,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "FSHR",
+  "label": "supported",
+  "chembl": "potent",
+  "best": 1.0,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "NPC1L1",
+  "label": "supported",
+  "chembl": "potent",
+  "best": 4.0,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "CYP11B2",
+  "label": "supported",
+  "chembl": "potent",
+  "best": 0.0001,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "THRB",
+  "label": "supported",
+  "chembl": "potent",
+  "best": 0.019,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "P2RY6",
+  "label": "supported",
+  "chembl": "potent",
+  "best": 5.914,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "EGLN2",
+  "label": "supported",
+  "chembl": "potent",
+  "best": 0.2,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "CYP19A1",
+  "label": "supported",
+  "chembl": "potent",
+  "best": 1.259e-09,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "KDR",
+  "label": "supported",
+  "chembl": "potent",
+  "best": 0.02,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "IL17RA",
+  "label": "supported",
+  "chembl": "none",
+  "best": null,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "IDH2",
+  "label": "supported",
+  "chembl": "potent",
+  "best": 1.871,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "TERT",
+  "label": "supported",
+  "chembl": "potent",
+  "best": 0.64,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "ACVR1",
+  "label": "supported",
+  "chembl": "potent",
+  "best": 0.85,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "PPP3CA",
+  "label": "supported",
+  "chembl": "potent",
+  "best": 2.8,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "CDA",
+  "label": "supported",
+  "chembl": "potent",
+  "best": 0.0012,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "GLP1R",
+  "label": "supported",
+  "chembl": "potent",
+  "best": 0.00013,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "SRD5A2",
+  "label": "supported",
+  "chembl": "potent",
+  "best": 0.04,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "SMN1",
+  "label": "supported",
+  "chembl": "potent",
+  "best": 4.0,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "SCN5A",
+  "label": "supported",
+  "chembl": "potent",
+  "best": 0.28,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "HDAC6",
+  "label": "supported",
+  "chembl": "potent",
+  "best": 0.001,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "PNP",
+  "label": "supported",
+  "chembl": "potent",
+  "best": 0.0019,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "CSF3R",
+  "label": "supported",
+  "chembl": "inactive",
+  "best": 20000.0,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "PPARA",
+  "label": "supported",
+  "chembl": "potent",
+  "best": 5e-05,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "TTR",
+  "label": "supported",
+  "chembl": "potent",
+  "best": 0.2,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "PPARG",
+  "label": "supported",
+  "chembl": "potent",
+  "best": 0.0001,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "CHRM1",
+  "label": "supported",
+  "chembl": "potent",
+  "best": 0.001,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "DHODH",
+  "label": "supported",
+  "chembl": "potent",
+  "best": 0.12,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "TRPM8",
+  "label": "supported",
+  "chembl": "potent",
+  "best": 0.001,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "HDAC3",
+  "label": "supported",
+  "chembl": "potent",
+  "best": 0.04,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "ADA",
+  "label": "supported",
+  "chembl": "potent",
+  "best": 0.0001,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "GAA",
+  "label": "supported",
+  "chembl": "potent",
+  "best": 4.7,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "PTGER2",
+  "label": "supported",
+  "chembl": "potent",
+  "best": 0.068,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "TSHR",
+  "label": "supported",
+  "chembl": "potent",
+  "best": 4.2,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "HTR4",
+  "label": "supported",
+  "chembl": "potent",
+  "best": 0.001259,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "CD52",
+  "label": "supported",
+  "chembl": "none",
+  "best": null,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "KCNN4",
+  "label": "supported",
+  "chembl": "potent",
+  "best": 6.0,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "FGFR1",
+  "label": "supported",
+  "chembl": "potent",
+  "best": 0.1,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "C5AR1",
+  "label": "supported",
+  "chembl": "potent",
+  "best": 0.5,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "SSTR2",
+  "label": "supported",
+  "chembl": "potent",
+  "best": 0.001,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "FDPS",
+  "label": "supported",
+  "chembl": "potent",
+  "best": 0.07,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "IL3RA",
+  "label": "supported",
+  "chembl": "none",
+  "best": null,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "CD33",
+  "label": "supported",
+  "chembl": "none",
+  "best": null,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "HMGCR",
+  "label": "supported",
+  "chembl": "potent",
+  "best": 0.002,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "IL6R",
+  "label": "supported",
+  "chembl": "none",
+  "best": null,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "TOP2A",
+  "label": "supported",
+  "chembl": "potent",
+  "best": 0.21,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "XDH",
+  "label": "supported",
+  "chembl": "potent",
+  "best": 0.015,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "RARB",
+  "label": "supported",
+  "chembl": "potent",
+  "best": 0.3,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "PLAT",
+  "label": "supported",
+  "chembl": "potent",
+  "best": 0.29,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "ADRA1D",
+  "label": "supported",
+  "chembl": "potent",
+  "best": 0.015,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "CDK6",
+  "label": "supported",
+  "chembl": "potent",
+  "best": 0.1,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "CD3E",
+  "label": "supported",
+  "chembl": "none",
+  "best": null,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "CYP11B1",
+  "label": "supported",
+  "chembl": "potent",
+  "best": 0.001,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "FOLR1",
+  "label": "supported",
+  "chembl": "potent",
+  "best": 0.0005,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "SSTR5",
+  "label": "supported",
+  "chembl": "potent",
+  "best": 0.047,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "NFE2L2",
+  "label": "supported",
+  "chembl": "potent",
+  "best": 9.2,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "TNFRSF10B",
+  "label": "refuted",
+  "chembl": "potent",
+  "best": 0.05,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "CD40",
+  "label": "refuted",
+  "chembl": "potent",
+  "best": 50.0,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "MAPT",
+  "label": "refuted",
+  "chembl": "potent",
+  "best": 0.13,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "TGFB1",
+  "label": "refuted",
+  "chembl": "potent",
+  "best": 12.9,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "DRD5",
+  "label": "refuted",
+  "chembl": "potent",
+  "best": 0.053,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "GLS",
+  "label": "refuted",
+  "chembl": "potent",
+  "best": 0.1,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "CXCL8",
+  "label": "refuted",
+  "chembl": "potent",
+  "best": 2.8,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "AGER",
+  "label": "refuted",
+  "chembl": "potent",
+  "best": 0.1,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "CTSC",
+  "label": "refuted",
+  "chembl": "potent",
+  "best": 0.2,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "SLC6A9",
+  "label": "refuted",
+  "chembl": "potent",
+  "best": 0.1,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "CXCR2",
+  "label": "refuted",
+  "chembl": "potent",
+  "best": 0.049,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "CHRNA7",
+  "label": "refuted",
+  "chembl": "potent",
+  "best": 0.03,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "PTK2",
+  "label": "refuted",
+  "chembl": "potent",
+  "best": 0.07,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "GRM3",
+  "label": "refuted",
+  "chembl": "potent",
+  "best": 0.11,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "ITGB7",
+  "label": "refuted",
+  "chembl": "inactive",
+  "best": 280000.0,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "PRKCB",
+  "label": "refuted",
+  "chembl": "potent",
+  "best": 0.1,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "HTR7",
+  "label": "refuted",
+  "chembl": "potent",
+  "best": 0.1,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "SELL",
+  "label": "refuted",
+  "chembl": "potent",
+  "best": 700.0,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "GRM5",
+  "label": "refuted",
+  "chembl": "potent",
+  "best": 0.2,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "MSTN",
+  "label": "refuted",
+  "chembl": "potent",
+  "best": 0.89,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "ENPEP",
+  "label": "refuted",
+  "chembl": "potent",
+  "best": 0.873,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "PLA2G2A",
+  "label": "refuted",
+  "chembl": "potent",
+  "best": 1.4,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "PDE9A",
+  "label": "refuted",
+  "chembl": "potent",
+  "best": 0.01,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "STS",
+  "label": "refuted",
+  "chembl": "potent",
+  "best": 0.01,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "CETP",
+  "label": "refuted",
+  "chembl": "potent",
+  "best": 0.77,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "IL1A",
+  "label": "refuted",
+  "chembl": "inactive",
+  "best": 99000.0,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "NCAM1",
+  "label": "refuted",
+  "chembl": "none",
+  "best": null,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "CSF2",
+  "label": "refuted",
+  "chembl": "none",
+  "best": null,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "CD248",
+  "label": "refuted",
+  "chembl": "none",
+  "best": null,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "MUC5AC",
+  "label": "refuted",
+  "chembl": "none",
+  "best": null,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "LOXL2",
+  "label": "refuted",
+  "chembl": "potent",
+  "best": 3.981,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "CD47",
+  "label": "refuted",
+  "chembl": "potent",
+  "best": 190.0,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "HRH4",
+  "label": "refuted",
+  "chembl": "potent",
+  "best": 0.00631,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "SELE",
+  "label": "refuted",
+  "chembl": "potent",
+  "best": 0.7,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "MAP3K1",
+  "label": "refuted",
+  "chembl": "potent",
+  "best": 8.0,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "TNFRSF4",
+  "label": "refuted",
+  "chembl": "none",
+  "best": null,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "CCR2",
+  "label": "refuted",
+  "chembl": "potent",
+  "best": 0.03,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "CXCR1",
+  "label": "refuted",
+  "chembl": "potent",
+  "best": 0.1,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "SCN9A",
+  "label": "refuted",
+  "chembl": "potent",
+  "best": 0.01,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "UTRN",
+  "label": "refuted",
+  "chembl": "potent",
+  "best": 4.0,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "TIGIT",
+  "label": "refuted",
+  "chembl": "none",
+  "best": null,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "HAVCR2",
+  "label": "refuted",
+  "chembl": "potent",
+  "best": 0.58,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "OSMR",
+  "label": "refuted",
+  "chembl": "none",
+  "best": null,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "IL33",
+  "label": "refuted",
+  "chembl": "inactive",
+  "best": 42000.0,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "MC3R",
+  "label": "refuted",
+  "chembl": "potent",
+  "best": 0.02188,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "MAGEA3",
+  "label": "refuted",
+  "chembl": "none",
+  "best": null,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "IDO1",
+  "label": "refuted",
+  "chembl": "potent",
+  "best": 0.018,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "CD74",
+  "label": "refuted",
+  "chembl": "potent",
+  "best": 410.0,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "P2RX7",
+  "label": "refuted",
+  "chembl": "potent",
+  "best": 0.01,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "BACE1",
+  "label": "refuted",
+  "chembl": "potent",
+  "best": 0.0002,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "GRM2",
+  "label": "refuted",
+  "chembl": "potent",
+  "best": 0.089,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "EPHB4",
+  "label": "refuted",
+  "chembl": "potent",
+  "best": 0.13,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "MAP3K5",
+  "label": "refuted",
+  "chembl": "potent",
+  "best": 0.1,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "PTK2B",
+  "label": "refuted",
+  "chembl": "potent",
+  "best": 0.2,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "TLR8",
+  "label": "refuted",
+  "chembl": "potent",
+  "best": 0.05,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "MAG",
+  "label": "refuted",
+  "chembl": "potent",
+  "best": 9.0,
+  "uniprot": "resolved",
+  "trials": "trial"
+ },
+ {
+  "symbol": "ERBB3",
+  "label": "refuted",
+  "chembl": "potent",
+  "best": 0.77,
+  "uniprot": "resolved",
+  "trials": "trial"
+ }
+]

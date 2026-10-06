@@ -1,0 +1,137 @@
+{
+ "n": {
+  "supported": 57,
+  "refuted": 57
+ },
+ "actions": {
+  "chembl_lookup": {
+   "failedCalls": 0,
+   "counts": {
+    "supported": {
+     "potent": 50,
+     "weak": 0,
+     "inactive": 1,
+     "none": 6
+    },
+    "refuted": {
+     "potent": 46,
+     "weak": 0,
+     "inactive": 3,
+     "none": 8
+    }
+   },
+   "likelihood": {
+    "supported": [
+     0.8360655737704918,
+     0.01639344262295082,
+     0.03278688524590164,
+     0.11475409836065574
+    ],
+    "refuted": [
+     0.7704918032786885,
+     0.01639344262295082,
+     0.06557377049180328,
+     0.14754098360655737
+    ]
+   },
+   "handSet": {
+    "supported": [
+     0.6,
+     0.15,
+     0.05,
+     0.2
+    ],
+    "refuted": [
+     0.1,
+     0.15,
+     0.35,
+     0.4
+    ]
+   },
+   "eig": 0.006,
+   "eigCI95": [
+    0,
+    0.047
+   ],
+   "eigHandSet": 0.259
+  },
+  "clinical_trials_lookup": {
+   "failedCalls": 0,
+   "counts": {
+    "supported": {
+     "trial": 57,
+     "none": 0
+    },
+    "refuted": {
+     "trial": 57,
+     "none": 0
+    }
+   },
+   "likelihood": {
+    "supported": [
+     0.9830508474576272,
+     0.01694915254237288
+    ],
+    "refuted": [
+     0.9830508474576272,
+     0.01694915254237288
+    ]
+   },
+   "handSet": {
+    "supported": [
+     0.5,
+     0.5
+    ],
+    "refuted": [
+     0.15,
+     0.85
+    ]
+   },
+   "eig": 0,
+   "eigCI95": [
+    0,
+    0
+   ],
+   "eigHandSet": 0.105
+  },
+  "uniprot_lookup": {
+   "failedCalls": 0,
+   "counts": {
+    "supported": {
+     "resolved": 57,
+     "unresolved": 0
+    },
+    "refuted": {
+     "resolved": 57,
+     "unresolved": 0
+    }
+   },
+   "likelihood": {
+    "supported": [
+     0.9830508474576272,
+     0.01694915254237288
+    ],
+    "refuted": [
+     0.9830508474576272,
+     0.01694915254237288
+    ]
+   },
+   "handSet": {
+    "supported": [
+     0.95,
+     0.05
+    ],
+    "refuted": [
+     0.8,
+     0.2
+    ]
+   },
+   "eig": 0,
+   "eigCI95": [
+    0,
+    0
+   ],
+   "eigHandSet": 0.039
+  }
+ }
+}

@@ -1,0 +1,1028 @@
+[
+ {
+  "target": "CHEMBL259",
+  "symbol": "MC4R",
+  "accession": "P32245",
+  "label": "supported"
+ },
+ {
+  "target": "CHEMBL1825",
+  "symbol": "TNF",
+  "accession": "P01375",
+  "label": "supported"
+ },
+ {
+  "target": "CHEMBL3717",
+  "symbol": "MET",
+  "accession": "P08581",
+  "label": "supported"
+ },
+ {
+  "target": "CHEMBL2024",
+  "symbol": "FSHR",
+  "accession": "P23945",
+  "label": "supported"
+ },
+ {
+  "target": "CHEMBL2027",
+  "symbol": "NPC1L1",
+  "accession": "Q9UHC9",
+  "label": "supported"
+ },
+ {
+  "target": "CHEMBL2722",
+  "symbol": "CYP11B2",
+  "accession": "P19099",
+  "label": "supported"
+ },
+ {
+  "target": "CHEMBL1947",
+  "symbol": "THRB",
+  "accession": "P10828",
+  "label": "supported"
+ },
+ {
+  "target": "CHEMBL4714",
+  "symbol": "P2RY6",
+  "accession": "Q15077",
+  "label": "supported"
+ },
+ {
+  "target": "CHEMBL3028",
+  "symbol": "EGLN2",
+  "accession": "Q96KS0",
+  "label": "supported"
+ },
+ {
+  "target": "CHEMBL1978",
+  "symbol": "CYP19A1",
+  "accession": "P11511",
+  "label": "supported"
+ },
+ {
+  "target": "CHEMBL279",
+  "symbol": "KDR",
+  "accession": "P35968",
+  "label": "supported"
+ },
+ {
+  "target": "CHEMBL3580485",
+  "symbol": "IL17RA",
+  "accession": "Q96F46",
+  "label": "supported"
+ },
+ {
+  "target": "CHEMBL3991501",
+  "symbol": "IDH2",
+  "accession": "P48735",
+  "label": "supported"
+ },
+ {
+  "target": "CHEMBL2916",
+  "symbol": "TERT",
+  "accession": "O14746",
+  "label": "supported"
+ },
+ {
+  "target": "CHEMBL5903",
+  "symbol": "ACVR1",
+  "accession": "Q04771",
+  "label": "supported"
+ },
+ {
+  "target": "CHEMBL4445",
+  "symbol": "PPP3CA",
+  "accession": "Q08209",
+  "label": "supported"
+ },
+ {
+  "target": "CHEMBL4502",
+  "symbol": "CDA",
+  "accession": "P32320",
+  "label": "supported"
+ },
+ {
+  "target": "CHEMBL1784",
+  "symbol": "GLP1R",
+  "accession": "P43220",
+  "label": "supported"
+ },
+ {
+  "target": "CHEMBL1856",
+  "symbol": "SRD5A2",
+  "accession": "P31213",
+  "label": "supported"
+ },
+ {
+  "target": "CHEMBL1293232",
+  "symbol": "SMN1",
+  "accession": "Q16637",
+  "label": "supported"
+ },
+ {
+  "target": "CHEMBL1980",
+  "symbol": "SCN5A",
+  "accession": "Q14524",
+  "label": "supported"
+ },
+ {
+  "target": "CHEMBL1865",
+  "symbol": "HDAC6",
+  "accession": "Q9UBN7",
+  "label": "supported"
+ },
+ {
+  "target": "CHEMBL4338",
+  "symbol": "PNP",
+  "accession": "P00491",
+  "label": "supported"
+ },
+ {
+  "target": "CHEMBL1996",
+  "symbol": "CSF3R",
+  "accession": "Q99062",
+  "label": "supported"
+ },
+ {
+  "target": "CHEMBL239",
+  "symbol": "PPARA",
+  "accession": "Q07869",
+  "label": "supported"
+ },
+ {
+  "target": "CHEMBL3194",
+  "symbol": "TTR",
+  "accession": "P02766",
+  "label": "supported"
+ },
+ {
+  "target": "CHEMBL235",
+  "symbol": "PPARG",
+  "accession": "P37231",
+  "label": "supported"
+ },
+ {
+  "target": "CHEMBL216",
+  "symbol": "CHRM1",
+  "accession": "P11229",
+  "label": "supported"
+ },
+ {
+  "target": "CHEMBL1966",
+  "symbol": "DHODH",
+  "accession": "Q02127",
+  "label": "supported"
+ },
+ {
+  "target": "CHEMBL1075319",
+  "symbol": "TRPM8",
+  "accession": "Q7Z2W7",
+  "label": "supported"
+ },
+ {
+  "target": "CHEMBL1829",
+  "symbol": "HDAC3",
+  "accession": "O15379",
+  "label": "supported"
+ },
+ {
+  "target": "CHEMBL1910",
+  "symbol": "ADA",
+  "accession": "P00813",
+  "label": "supported"
+ },
+ {
+  "target": "CHEMBL2608",
+  "symbol": "GAA",
+  "accession": "P10253",
+  "label": "supported"
+ },
+ {
+  "target": "CHEMBL1881",
+  "symbol": "PTGER2",
+  "accession": "P43116",
+  "label": "supported"
+ },
+ {
+  "target": "CHEMBL1963",
+  "symbol": "TSHR",
+  "accession": "P16473",
+  "label": "supported"
+ },
+ {
+  "target": "CHEMBL1875",
+  "symbol": "HTR4",
+  "accession": "Q13639",
+  "label": "supported"
+ },
+ {
+  "target": "CHEMBL1912",
+  "symbol": "CD52",
+  "accession": "P31358",
+  "label": "supported"
+ },
+ {
+  "target": "CHEMBL4305",
+  "symbol": "KCNN4",
+  "accession": "O15554",
+  "label": "supported"
+ },
+ {
+  "target": "CHEMBL3650",
+  "symbol": "FGFR1",
+  "accession": "P11362",
+  "label": "supported"
+ },
+ {
+  "target": "CHEMBL2373",
+  "symbol": "C5AR1",
+  "accession": "P21730",
+  "label": "supported"
+ },
+ {
+  "target": "CHEMBL1804",
+  "symbol": "SSTR2",
+  "accession": "P30874",
+  "label": "supported"
+ },
+ {
+  "target": "CHEMBL1782",
+  "symbol": "FDPS",
+  "accession": "P14324",
+  "label": "supported"
+ },
+ {
+  "target": "CHEMBL3712987",
+  "symbol": "IL3RA",
+  "accession": "P26951",
+  "label": "supported"
+ },
+ {
+  "target": "CHEMBL1842",
+  "symbol": "CD33",
+  "accession": "P20138",
+  "label": "supported"
+ },
+ {
+  "target": "CHEMBL402",
+  "symbol": "HMGCR",
+  "accession": "P04035",
+  "label": "supported"
+ },
+ {
+  "target": "CHEMBL2364155",
+  "symbol": "IL6R",
+  "accession": "P08887",
+  "label": "supported"
+ },
+ {
+  "target": "CHEMBL1806",
+  "symbol": "TOP2A",
+  "accession": "P11388",
+  "label": "supported"
+ },
+ {
+  "target": "CHEMBL1929",
+  "symbol": "XDH",
+  "accession": "P47989",
+  "label": "supported"
+ },
+ {
+  "target": "CHEMBL2008",
+  "symbol": "RARB",
+  "accession": "P10826",
+  "label": "supported"
+ },
+ {
+  "target": "CHEMBL1873",
+  "symbol": "PLAT",
+  "accession": "P00750",
+  "label": "supported"
+ },
+ {
+  "target": "CHEMBL223",
+  "symbol": "ADRA1D",
+  "accession": "P25100",
+  "label": "supported"
+ },
+ {
+  "target": "CHEMBL2508",
+  "symbol": "CDK6",
+  "accession": "Q00534",
+  "label": "supported"
+ },
+ {
+  "target": "CHEMBL1975",
+  "symbol": "CD3E",
+  "accession": "P07766",
+  "label": "supported"
+ },
+ {
+  "target": "CHEMBL1908",
+  "symbol": "CYP11B1",
+  "accession": "P15538",
+  "label": "supported"
+ },
+ {
+  "target": "CHEMBL2121",
+  "symbol": "FOLR1",
+  "accession": "P15328",
+  "label": "supported"
+ },
+ {
+  "target": "CHEMBL1792",
+  "symbol": "SSTR5",
+  "accession": "P35346",
+  "label": "supported"
+ },
+ {
+  "target": "CHEMBL1075094",
+  "symbol": "NFE2L2",
+  "accession": "Q16236",
+  "label": "supported"
+ },
+ {
+  "target": "CHEMBL1075153",
+  "symbol": "TNFRSF10B",
+  "accession": "O14763",
+  "label": "refuted",
+  "evidence": {
+   "nct": "NCT00543712",
+   "drug": "PRO95780",
+   "molecule": "CHEMBL2109248",
+   "whyStopped": "Efficacy not evident in this population."
+  }
+ },
+ {
+  "target": "CHEMBL1250358",
+  "symbol": "CD40",
+  "accession": "P25942",
+  "label": "refuted",
+  "evidence": {
+   "nct": "NCT00006113",
+   "drug": "recombinant CD40-ligand",
+   "molecule": "CHEMBL4297718",
+   "whyStopped": "Lack of efficacy"
+  }
+ },
+ {
+  "target": "CHEMBL1293224",
+  "symbol": "MAPT",
+  "accession": "P10636",
+  "label": "refuted",
+  "evidence": {
+   "nct": "NCT03352557",
+   "drug": "BIIB092",
+   "molecule": "CHEMBL3990042",
+   "whyStopped": "The study (NCT03352557) was terminated based on lack of efficacy following the placebo-controlled period readout."
+  }
+ },
+ {
+  "target": "CHEMBL1795178",
+  "symbol": "TGFB1",
+  "accession": "P01137",
+  "label": "refuted",
+  "evidence": {
+   "nct": "NCT01113801",
+   "drug": "LY2382770",
+   "molecule": "CHEMBL2109585",
+   "whyStopped": "Interim Assessment: Lack of Efficacy"
+  }
+ },
+ {
+  "target": "CHEMBL1850",
+  "symbol": "DRD5",
+  "accession": "P21918",
+  "label": "refuted",
+  "evidence": {
+   "nct": "NCT02847650",
+   "drug": "PF-06649751",
+   "molecule": "CHEMBL3697617",
+   "whyStopped": "Study B7601011 was terminated on 29 Jan 2018 due to lack of efficacy in moderate/advanced Parkinson's disease."
+  }
+ },
+ {
+  "target": "CHEMBL2146302",
+  "symbol": "GLS",
+  "accession": "O94925",
+  "label": "refuted",
+  "evidence": {
+   "nct": "NCT02771626",
+   "drug": "CB-839",
+   "molecule": "CHEMBL3639788",
+   "whyStopped": "lack of efficacy"
+  }
+ },
+ {
+  "target": "CHEMBL2157",
+  "symbol": "CXCL8",
+  "accession": "P10145",
+  "label": "refuted",
+  "evidence": {
+   "nct": "NCT04347226",
+   "drug": "BMS-986253",
+   "molecule": "CHEMBL5314551",
+   "whyStopped": "Interim analysis indicated that futility boundary was reached."
+  }
+ },
+ {
+  "target": "CHEMBL2176846",
+  "symbol": "AGER",
+  "accession": "Q15109",
+  "label": "refuted",
+  "evidence": {
+   "nct": "NCT02916056",
+   "drug": "Azeliragon 5mg",
+   "molecule": "CHEMBL3989929",
+   "whyStopped": "Not due to safety but due to a lack of efficacy at the 5 mg azeliragon dose."
+  }
+ },
+ {
+  "target": "CHEMBL2252",
+  "symbol": "CTSC",
+  "accession": "P53634",
+  "label": "refuted",
+  "evidence": {
+   "nct": "NCT06685835",
+   "drug": "Brensocatib",
+   "molecule": "CHEMBL3900409",
+   "whyStopped": "Lack of Efficacy"
+  }
+ },
+ {
+  "target": "CHEMBL2337",
+  "symbol": "SLC6A9",
+  "accession": "P48067",
+  "label": "refuted",
+  "evidence": {
+   "nct": "NCT00764660",
+   "drug": "SCH 900435",
+   "molecule": "CHEMBL4228124",
+   "whyStopped": "Based on the outcome of a planned interim analysis, the study was stopped early due to futility."
+  }
+ },
+ {
+  "target": "CHEMBL2434",
+  "symbol": "CXCR2",
+  "accession": "P25025",
+  "label": "refuted",
+  "evidence": {
+   "nct": "NCT05254990",
+   "drug": "Reparixin",
+   "molecule": "CHEMBL191413",
+   "whyStopped": "The study was stopped due to futility as per protocol"
+  }
+ },
+ {
+  "target": "CHEMBL2492",
+  "symbol": "CHRNA7",
+  "accession": "P36544",
+  "label": "refuted",
+  "evidence": {
+   "nct": "NCT01793298",
+   "drug": "ASM-024",
+   "molecule": "CHEMBL3707249",
+   "whyStopped": "Lack of efficacy"
+  }
+ },
+ {
+  "target": "CHEMBL2695",
+  "symbol": "PTK2",
+  "accession": "Q05397",
+  "label": "refuted",
+  "evidence": {
+   "nct": "NCT01870609",
+   "drug": "defactinib (VS-6063)",
+   "molecule": "CHEMBL3137331",
+   "whyStopped": "Interim analysis-DSMB stated good safety profile but lack of efficacy"
+  }
+ },
+ {
+  "target": "CHEMBL2888",
+  "symbol": "GRM3",
+  "accession": "Q14832",
+  "label": "refuted",
+  "evidence": {
+   "nct": "NCT01125358",
+   "drug": "LY2140023",
+   "molecule": "CHEMBL2110730",
+   "whyStopped": "The decision to stop the trial was based on efficacy results in the overall schizophrenia participant population."
+  }
+ },
+ {
+  "target": "CHEMBL2979",
+  "symbol": "ITGB7",
+  "accession": "P26010",
+  "label": "refuted",
+  "evidence": {
+   "nct": "NCT02118584",
+   "drug": "Etrolizumab",
+   "molecule": "CHEMBL1743015",
+   "whyStopped": "The study was terminated due to program discontinuation, based on mixed efficacy results in the parent studies. There were no safety concerns."
+  }
+ },
+ {
+  "target": "CHEMBL3045",
+  "symbol": "PRKCB",
+  "accession": "P05771",
+  "label": "refuted",
+  "evidence": {
+   "nct": "NCT00538681",
+   "drug": "enzastaurin",
+   "molecule": "CHEMBL300138",
+   "whyStopped": "Terminated due to lack of efficacy demonstrated in relevant participant population in other clinical trials."
+  }
+ },
+ {
+  "target": "CHEMBL3155",
+  "symbol": "HTR7",
+  "accession": "P34969",
+  "label": "refuted",
+  "evidence": {
+   "nct": "NCT00804973",
+   "drug": "LY2590443",
+   "molecule": "CHEMBL3545220",
+   "whyStopped": "Due to efficacy results of interim analysis"
+  }
+ },
+ {
+  "target": "CHEMBL3161",
+  "symbol": "SELL",
+  "accession": "P14151",
+  "label": "refuted",
+  "evidence": {
+   "nct": "NCT02433158",
+   "drug": "Rivipansel",
+   "molecule": "CHEMBL3707446",
+   "whyStopped": "The B5201003 OLE study was terminated based on the failure of the 'parent\" B5201002 study to meet its efficacy endpoints. Termination was not due to safety."
+  }
+ },
+ {
+  "target": "CHEMBL3227",
+  "symbol": "GRM5",
+  "accession": "P41594",
+  "label": "refuted",
+  "evidence": {
+   "nct": "NCT01433354",
+   "drug": "AFQ056",
+   "molecule": "CHEMBL3087515",
+   "whyStopped": "The study treatment failed to demonstrate efficacy in target population in two other clinical studies (CAFQ056B2214 and CAFQ056A2212)."
+  }
+ },
+ {
+  "target": "CHEMBL3407325",
+  "symbol": "MSTN",
+  "accession": "O14793",
+  "label": "refuted",
+  "evidence": {
+   "nct": "NCT02310763",
+   "drug": "PF-06252616",
+   "molecule": "CHEMBL3544991",
+   "whyStopped": "Termination Date 30AUG2018: Reason for termination: Lack of Efficacy"
+  }
+ },
+ {
+  "target": "CHEMBL3439",
+  "symbol": "ENPEP",
+  "accession": "Q07075",
+  "label": "refuted",
+  "evidence": {
+   "nct": "NCT04857840",
+   "drug": "Firibastat (QGC001) Period 1",
+   "molecule": "CHEMBL4297511",
+   "whyStopped": "No Efficacy demonstrated inn the QGC001-3QG1 study"
+  }
+ },
+ {
+  "target": "CHEMBL3474",
+  "symbol": "PLA2G2A",
+  "accession": "P14555",
+  "label": "refuted",
+  "evidence": {
+   "nct": "NCT01130246",
+   "drug": "A-002, varespladib methyl",
+   "molecule": "CHEMBL148674",
+   "whyStopped": "Lack of efficacy"
+  }
+ },
+ {
+  "target": "CHEMBL3535",
+  "symbol": "PDE9A",
+  "accession": "O76083",
+  "label": "refuted",
+  "evidence": {
+   "nct": "NCT04474314",
+   "drug": "IMR-687",
+   "molecule": "CHEMBL4297290",
+   "whyStopped": "A recently conducted Interim analysis of IMR-SCD-301 demonstrated that while IMR-687 was generally well-tolerated, it failed to meet its primary efficacy endpoint. So, the sponsor has decided to disco"
+  }
+ },
+ {
+  "target": "CHEMBL3559",
+  "symbol": "STS",
+  "accession": "P08842",
+  "label": "refuted",
+  "evidence": {
+   "nct": "NCT01251354",
+   "drug": "BN83495",
+   "molecule": "CHEMBL286738",
+   "whyStopped": "The futility analysis of study NCT00910091 in patients with endometrial cancer shows that the primary endpoint will not be reached."
+  }
+ },
+ {
+  "target": "CHEMBL3572",
+  "symbol": "CETP",
+  "accession": "P11597",
+  "label": "refuted",
+  "evidence": {
+   "nct": "NCT02260635",
+   "drug": "Evacetrapib",
+   "molecule": "CHEMBL2017179",
+   "whyStopped": "Study termination due to insufficient efficacy."
+  }
+ },
+ {
+  "target": "CHEMBL3580496",
+  "symbol": "IL1A",
+  "accession": "P01583",
+  "label": "refuted",
+  "evidence": {
+   "nct": "NCT01767857",
+   "drug": "Xilonix",
+   "molecule": "CHEMBL2109653",
+   "whyStopped": "The study crossed the prospective futility boundary of primary endpoint"
+  }
+ },
+ {
+  "target": "CHEMBL3712938",
+  "symbol": "NCAM1",
+  "accession": "P13591",
+  "label": "refuted",
+  "evidence": {
+   "nct": "NCT01237678",
+   "drug": "IMGN901",
+   "molecule": "CHEMBL1743037",
+   "whyStopped": "Study was stopped early due to lack of efficacy signal and safety concerns"
+  }
+ },
+ {
+  "target": "CHEMBL3712955",
+  "symbol": "CSF2",
+  "accession": "P04141",
+  "label": "refuted",
+  "evidence": {
+   "nct": "NCT04333147",
+   "drug": "Otilimab (GSK3196165)",
+   "molecule": "CHEMBL2109433",
+   "whyStopped": "Study is early terminated due to Limited efficacy demonstrated in the contRAst program does not support a suitable benefit/risk profile for otilimab as a potential treatment for RA. GSK has decided no"
+  }
+ },
+ {
+  "target": "CHEMBL3712975",
+  "symbol": "CD248",
+  "accession": "Q9HCU0",
+  "label": "refuted",
+  "evidence": {
+   "nct": "NCT01507545",
+   "drug": "MORAb-004",
+   "molecule": "CHEMBL2364659",
+   "whyStopped": "By the sponsor at the end of Stage 1 due to futility."
+  }
+ },
+ {
+  "target": "CHEMBL3713020",
+  "symbol": "MUC5AC",
+  "accession": "P98088",
+  "label": "refuted",
+  "evidence": {
+   "nct": "NCT01834235",
+   "drug": "NPC-1C",
+   "molecule": "CHEMBL1743013",
+   "whyStopped": "DSMB terminated the trial for futility."
+  }
+ },
+ {
+  "target": "CHEMBL3714029",
+  "symbol": "LOXL2",
+  "accession": "Q9Y4K0",
+  "label": "refuted",
+  "evidence": {
+   "nct": "NCT01769196",
+   "drug": "Simtuzumab",
+   "molecule": "CHEMBL2109667",
+   "whyStopped": "The Study was terminated due to lack of efficacy."
+  }
+ },
+ {
+  "target": "CHEMBL3714583",
+  "symbol": "CD47",
+  "accession": "Q08722",
+  "label": "refuted",
+  "evidence": {
+   "nct": "NCT04778397",
+   "drug": "Magrolimab",
+   "molecule": "CHEMBL4297985",
+   "whyStopped": "Study discontinued due to futility."
+  }
+ },
+ {
+  "target": "CHEMBL3759",
+  "symbol": "HRH4",
+  "accession": "Q9H3N8",
+  "label": "refuted",
+  "evidence": {
+   "nct": "NCT01862224",
+   "drug": "JNJ-38518168",
+   "molecule": "CHEMBL3301609",
+   "whyStopped": "The study was stopped due to lack of efficacy in a study conducted in a similar population,38518168ARA2002-NCT01679951."
+  }
+ },
+ {
+  "target": "CHEMBL3890",
+  "symbol": "SELE",
+  "accession": "P16581",
+  "label": "refuted",
+  "evidence": {
+   "nct": "NCT02433158",
+   "drug": "Rivipansel",
+   "molecule": "CHEMBL3707446",
+   "whyStopped": "The B5201003 OLE study was terminated based on the failure of the 'parent\" B5201002 study to meet its efficacy endpoints. Termination was not due to safety."
+  }
+ },
+ {
+  "target": "CHEMBL3956",
+  "symbol": "MAP3K1",
+  "accession": "Q13233",
+  "label": "refuted",
+  "evidence": {
+   "nct": "NCT02418000",
+   "drug": "E6201",
+   "molecule": "CHEMBL1097999",
+   "whyStopped": "Insufficient efficacy in Phase 1 dose-escalation portion of study"
+  }
+ },
+ {
+  "target": "CHEMBL3989383",
+  "symbol": "TNFRSF4",
+  "accession": "P43489",
+  "label": "refuted",
+  "evidence": {
+   "nct": "NCT06160609",
+   "drug": "GSK3174998",
+   "molecule": "CHEMBL4297968",
+   "whyStopped": "The study was terminated due to lack of efficacy."
+  }
+ },
+ {
+  "target": "CHEMBL4015",
+  "symbol": "CCR2",
+  "accession": "P41597",
+  "label": "refuted",
+  "evidence": {
+   "nct": "NCT03059446",
+   "drug": "Cenicriviroc",
+   "molecule": "CHEMBL2110727",
+   "whyStopped": "This study was terminated early due to lack of efficacy based on the results of Part I of the AURORA study."
+  }
+ },
+ {
+  "target": "CHEMBL4029",
+  "symbol": "CXCR1",
+  "accession": "P25024",
+  "label": "refuted",
+  "evidence": {
+   "nct": "NCT05254990",
+   "drug": "Reparixin",
+   "molecule": "CHEMBL191413",
+   "whyStopped": "The study was stopped due to futility as per protocol"
+  }
+ },
+ {
+  "target": "CHEMBL4296",
+  "symbol": "SCN9A",
+  "accession": "Q15858",
+  "label": "refuted",
+  "evidence": {
+   "nct": "NCT02957617",
+   "drug": "BIIB074",
+   "molecule": "CHEMBL3544913",
+   "whyStopped": "The parent study did not meet its primary or secondary efficacy endpoints and therefore Sponsor decision to discontinue development in this indication."
+  }
+ },
+ {
+  "target": "CHEMBL4523230",
+  "symbol": "UTRN",
+  "accession": "P46939",
+  "label": "refuted",
+  "evidence": {
+   "nct": "NCT02858362",
+   "drug": "Ezutromid",
+   "molecule": "CHEMBL1773683",
+   "whyStopped": "The study was terminated due to lack of efficacy in Cohorts 1 and 2."
+  }
+ },
+ {
+  "target": "CHEMBL4630878",
+  "symbol": "TIGIT",
+  "accession": "Q495A1",
+  "label": "refuted",
+  "evidence": {
+   "nct": "NCT05226598",
+   "drug": "Pembrolizumab/Vibostolimab",
+   "molecule": "CHEMBL4297785",
+   "whyStopped": "MK-7684A-007 was terminated early due to futility. A non-submission CSR, not intended to support any registration, was issued; therefore, an abbreviated CSR was generated."
+  }
+ },
+ {
+  "target": "CHEMBL4630879",
+  "symbol": "HAVCR2",
+  "accession": "Q8TDQ0",
+  "label": "refuted",
+  "evidence": {
+   "nct": "NCT04878432",
+   "drug": "MBG453",
+   "molecule": "CHEMBL4594575",
+   "whyStopped": "Lack of efficacy in the program as demonstrated in the earlier CMBG453B12301 (STIMULUS MDS-2) study."
+  }
+ },
+ {
+  "target": "CHEMBL4630885",
+  "symbol": "OSMR",
+  "accession": "Q99650",
+  "label": "refuted",
+  "evidence": {
+   "nct": "NCT06137183",
+   "drug": "Vixarelimab",
+   "molecule": "CHEMBL4594341",
+   "whyStopped": "Based on a futility analysis, which suggested that the Moonglow study was unlikely to meet its primary endpoint."
+  }
+ },
+ {
+  "target": "CHEMBL4630890",
+  "symbol": "IL33",
+  "accession": "O95760",
+  "label": "refuted",
+  "evidence": {
+   "nct": "NCT03738423",
+   "drug": "REGN3500",
+   "molecule": "CHEMBL4594594",
+   "whyStopped": "Lack of efficacy"
+  }
+ },
+ {
+  "target": "CHEMBL4644",
+  "symbol": "MC3R",
+  "accession": "P41968",
+  "label": "refuted",
+  "evidence": {
+   "nct": "NCT01897519",
+   "drug": "ABT-719",
+   "molecule": "CHEMBL3545104",
+   "whyStopped": "Topline results from study M13-796 showed an overall lack of efficacy. There were no safety concerns."
+  }
+ },
+ {
+  "target": "CHEMBL4662941",
+  "symbol": "MAGEA3",
+  "accession": "P43357",
+  "label": "refuted",
+  "evidence": {
+   "nct": "NCT00480025",
+   "drug": "GSK1572932A Antigen-Specific Cancer Immunotherapeutic",
+   "molecule": "CHEMBL2108705",
+   "whyStopped": "The study was terminated following assessment of the lack of efficacy of the study product by the Independent Data monitoring Committee for the study."
+  }
+ },
+ {
+  "target": "CHEMBL4685",
+  "symbol": "IDO1",
+  "accession": "P14902",
+  "label": "refuted",
+  "evidence": {
+   "nct": "NCT03823131",
+   "drug": "Epacadostat",
+   "molecule": "CHEMBL3545369",
+   "whyStopped": "Treatment Ineffective"
+  }
+ },
+ {
+  "target": "CHEMBL4692",
+  "symbol": "CD74",
+  "accession": "P04233",
+  "label": "refuted",
+  "evidence": {
+   "nct": "NCT01101594",
+   "drug": "hLL1-DOX (the doxorubicin conjugate of milatuzumab)",
+   "molecule": "CHEMBL1743040",
+   "whyStopped": "Study was terminated due to lack of efficacy"
+  }
+ },
+ {
+  "target": "CHEMBL4805",
+  "symbol": "P2RX7",
+  "accession": "Q99572",
+  "label": "refuted",
+  "evidence": {
+   "nct": "NCT00418782",
+   "drug": "CE-224535",
+   "molecule": "CHEMBL1823817",
+   "whyStopped": "Results of interim analysis indicate lack of efficacy when compared to placebo."
+  }
+ },
+ {
+  "target": "CHEMBL4822",
+  "symbol": "BACE1",
+  "accession": "P56817",
+  "label": "refuted",
+  "evidence": {
+   "nct": "NCT02783573",
+   "drug": "Lanabecestat",
+   "molecule": "CHEMBL3989948",
+   "whyStopped": "An independent assessment concluded the trial was not likely to meet the primary endpoint upon completion and therefore, trial stopped for futility."
+  }
+ },
+ {
+  "target": "CHEMBL5137",
+  "symbol": "GRM2",
+  "accession": "Q14416",
+  "label": "refuted",
+  "evidence": {
+   "nct": "NCT01125358",
+   "drug": "LY2140023",
+   "molecule": "CHEMBL2110730",
+   "whyStopped": "The decision to stop the trial was based on efficacy results in the overall schizophrenia participant population."
+  }
+ },
+ {
+  "target": "CHEMBL5147",
+  "symbol": "EPHB4",
+  "accession": "P54760",
+  "label": "refuted",
+  "evidence": {
+   "nct": "NCT01149434",
+   "drug": "JI-101",
+   "molecule": "CHEMBL3545155",
+   "whyStopped": "Lack of drug efficacy"
+  }
+ },
+ {
+  "target": "CHEMBL5285",
+  "symbol": "MAP3K5",
+  "accession": "Q99683",
+  "label": "refuted",
+  "evidence": {
+   "nct": "NCT03053050",
+   "drug": "selonsertib",
+   "molecule": "CHEMBL3916717",
+   "whyStopped": "This study was terminated early due to lack of efficacy based on the results of the Week 48 analysis as prespecified in the clinical study protocol."
+  }
+ },
+ {
+  "target": "CHEMBL5469",
+  "symbol": "PTK2B",
+  "accession": "Q14289",
+  "label": "refuted",
+  "evidence": {
+   "nct": "NCT01870609",
+   "drug": "defactinib (VS-6063)",
+   "molecule": "CHEMBL3137331",
+   "whyStopped": "Interim analysis-DSMB stated good safety profile but lack of efficacy"
+  }
+ },
+ {
+  "target": "CHEMBL5805",
+  "symbol": "TLR8",
+  "accession": "Q9NR97",
+  "label": "refuted",
+  "evidence": {
+   "nct": "NCT02092909",
+   "drug": "IMO-8400",
+   "molecule": "CHEMBL4297995",
+   "whyStopped": "Lack of efficacy"
+  }
+ },
+ {
+  "target": "CHEMBL5807",
+  "symbol": "MAG",
+  "accession": "P20916",
+  "label": "refuted",
+  "evidence": {
+   "nct": "NCT01808261",
+   "drug": "GSK249320 100/mg",
+   "molecule": "CHEMBL3545317",
+   "whyStopped": "This study was terminated for futility."
+  }
+ },
+ {
+  "target": "CHEMBL5838",
+  "symbol": "ERBB3",
+  "accession": "P21860",
+  "label": "refuted",
+  "evidence": {
+   "nct": "NCT02633800",
+   "drug": "Patritumab",
+   "molecule": "CHEMBL2109406",
+   "whyStopped": "Trial was terminated by sponsor due to lack of efficacy."
+  }
+ }
+]

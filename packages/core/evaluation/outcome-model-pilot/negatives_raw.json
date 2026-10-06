@@ -1,0 +1,1976 @@
+{
+ "CHEMBL4523230": [
+  {
+   "nct": "NCT02858362",
+   "drug": "Ezutromid",
+   "molecule": "CHEMBL1773683",
+   "whyStopped": "The study was terminated due to lack of efficacy in Cohorts 1 and 2."
+  },
+  {
+   "nct": "NCT02858362",
+   "drug": "Ezutromid",
+   "molecule": "CHEMBL1773683",
+   "whyStopped": "The study was terminated due to lack of efficacy in Cohorts 1 and 2."
+  },
+  {
+   "nct": "NCT02858362",
+   "drug": "SMT C1100",
+   "molecule": "CHEMBL1773683",
+   "whyStopped": "The study was terminated due to lack of efficacy in Cohorts 1 and 2."
+  }
+ ],
+ "CHEMBL3407325": [
+  {
+   "nct": "NCT02310763",
+   "drug": "PF-06252616",
+   "molecule": "CHEMBL3544991",
+   "whyStopped": "Termination Date 30AUG2018: Reason for termination: Lack of Efficacy"
+  },
+  {
+   "nct": "NCT02907619",
+   "drug": "PF-06252616",
+   "molecule": "CHEMBL3544991",
+   "whyStopped": "Termination Date: 30Aug2018; Reason for termination: Lack of Efficacy"
+  }
+ ],
+ "CHEMBL3712955": [
+  {
+   "nct": "NCT04333147",
+   "drug": "Otilimab (GSK3196165)",
+   "molecule": "CHEMBL2109433",
+   "whyStopped": "Study is early terminated due to Limited efficacy demonstrated in the contRAst program does not support a suitable benefit/risk profile for otilimab as a potential treatment for RA. GSK has decided no"
+  },
+  {
+   "nct": "NCT04333147",
+   "drug": "Otilimab (GSK3196165)",
+   "molecule": "CHEMBL2109433",
+   "whyStopped": "Study is early terminated due to Limited efficacy demonstrated in the contRAst program does not support a suitable benefit/risk profile for otilimab as a potential treatment for RA. GSK has decided no"
+  },
+  {
+   "nct": "NCT03970837",
+   "drug": "GSK3196165 (Otilimab)",
+   "molecule": "CHEMBL2109433",
+   "whyStopped": "Only Asia cohort is early terminated.Limited efficacy demonstrated in the contRAst program does not support a suitable benefit/risk profile for otilimab as a potential treatment for RA. GSK has decide"
+  },
+  {
+   "nct": "NCT03970837",
+   "drug": "GSK3196165 (Otilimab)",
+   "molecule": "CHEMBL2109433",
+   "whyStopped": "Only Asia cohort is early terminated.Limited efficacy demonstrated in the contRAst program does not support a suitable benefit/risk profile for otilimab as a potential treatment for RA. GSK has decide"
+  }
+ ],
+ "CHEMBL5285": [
+  {
+   "nct": "NCT03053050",
+   "drug": "selonsertib",
+   "molecule": "CHEMBL3916717",
+   "whyStopped": "This study was terminated early due to lack of efficacy based on the results of the Week 48 analysis as prespecified in the clinical study protocol."
+  },
+  {
+   "nct": "NCT03053050",
+   "drug": "selonsertib",
+   "molecule": "CHEMBL3916717",
+   "whyStopped": "This study was terminated early due to lack of efficacy based on the results of the Week 48 analysis as prespecified in the clinical study protocol."
+  },
+  {
+   "nct": "NCT03053050",
+   "drug": "GS-4997",
+   "molecule": "CHEMBL3916717",
+   "whyStopped": "This study was terminated early due to lack of efficacy based on the results of the Week 48 analysis as prespecified in the clinical study protocol."
+  },
+  {
+   "nct": "NCT03053063",
+   "drug": "selonsertib",
+   "molecule": "CHEMBL3916717",
+   "whyStopped": "This study was terminated early due to lack of efficacy based on the results of the Week 48 analysis as prespecified in the clinical study protocol."
+  },
+  {
+   "nct": "NCT03053063",
+   "drug": "selonsertib",
+   "molecule": "CHEMBL3916717",
+   "whyStopped": "This study was terminated early due to lack of efficacy based on the results of the Week 48 analysis as prespecified in the clinical study protocol."
+  },
+  {
+   "nct": "NCT03053063",
+   "drug": "GS-4997",
+   "molecule": "CHEMBL3916717",
+   "whyStopped": "This study was terminated early due to lack of efficacy based on the results of the Week 48 analysis as prespecified in the clinical study protocol."
+  }
+ ],
+ "CHEMBL3759": [
+  {
+   "nct": "NCT01862224",
+   "drug": "JNJ-38518168",
+   "molecule": "CHEMBL3301609",
+   "whyStopped": "The study was stopped due to lack of efficacy in a study conducted in a similar population,38518168ARA2002-NCT01679951."
+  }
+ ],
+ "CHEMBL2888": [
+  {
+   "nct": "NCT01125358",
+   "drug": "LY2140023",
+   "molecule": "CHEMBL2110730",
+   "whyStopped": "The decision to stop the trial was based on efficacy results in the overall schizophrenia participant population."
+  },
+  {
+   "nct": "NCT01125358",
+   "drug": "LY2140023",
+   "molecule": "CHEMBL2110730",
+   "whyStopped": "The decision to stop the trial was based on efficacy results in the overall schizophrenia participant population."
+  },
+  {
+   "nct": "NCT01328093",
+   "drug": "LY2140023",
+   "molecule": "CHEMBL2110730",
+   "whyStopped": "The decision to stop the trial was based on efficacy results in the overall schizophrenia participant population."
+  },
+  {
+   "nct": "NCT01328093",
+   "drug": "LY2140023",
+   "molecule": "CHEMBL2110730",
+   "whyStopped": "The decision to stop the trial was based on efficacy results in the overall schizophrenia participant population."
+  },
+  {
+   "nct": "NCT01129674",
+   "drug": "LY2140023",
+   "molecule": "CHEMBL2110730",
+   "whyStopped": "The decision to stop the trial was based on efficacy results in the overall schizophrenia participant population."
+  },
+  {
+   "nct": "NCT01129674",
+   "drug": "LY2140023",
+   "molecule": "CHEMBL2110730",
+   "whyStopped": "The decision to stop the trial was based on efficacy results in the overall schizophrenia participant population."
+  },
+  {
+   "nct": "NCT01307800",
+   "drug": "LY2140023",
+   "molecule": "CHEMBL2110730",
+   "whyStopped": "The decision to stop the trial was based on efficacy results in the overall schizophrenia participant population."
+  },
+  {
+   "nct": "NCT01307800",
+   "drug": "LY2140023",
+   "molecule": "CHEMBL2110730",
+   "whyStopped": "The decision to stop the trial was based on efficacy results in the overall schizophrenia participant population."
+  },
+  {
+   "nct": "NCT01307800",
+   "drug": "pomaglumetad methionil",
+   "molecule": "CHEMBL375611",
+   "whyStopped": "The decision to stop the trial was based on efficacy results in the overall schizophrenia participant population."
+  },
+  {
+   "nct": "NCT01487083",
+   "drug": "Pomaglumetad methionil",
+   "molecule": "CHEMBL375611",
+   "whyStopped": "The decision to stop the trial was based on efficacy results in the overall schizophrenia participant population."
+  },
+  {
+   "nct": "NCT01487083",
+   "drug": "LY2140023",
+   "molecule": "CHEMBL2110730",
+   "whyStopped": "The decision to stop the trial was based on efficacy results in the overall schizophrenia participant population."
+  },
+  {
+   "nct": "NCT01487083",
+   "drug": "LY2140023",
+   "molecule": "CHEMBL2110730",
+   "whyStopped": "The decision to stop the trial was based on efficacy results in the overall schizophrenia participant population."
+  }
+ ],
+ "CHEMBL5137": [
+  {
+   "nct": "NCT01125358",
+   "drug": "LY2140023",
+   "molecule": "CHEMBL2110730",
+   "whyStopped": "The decision to stop the trial was based on efficacy results in the overall schizophrenia participant population."
+  },
+  {
+   "nct": "NCT01125358",
+   "drug": "LY2140023",
+   "molecule": "CHEMBL2110730",
+   "whyStopped": "The decision to stop the trial was based on efficacy results in the overall schizophrenia participant population."
+  },
+  {
+   "nct": "NCT01328093",
+   "drug": "LY2140023",
+   "molecule": "CHEMBL2110730",
+   "whyStopped": "The decision to stop the trial was based on efficacy results in the overall schizophrenia participant population."
+  },
+  {
+   "nct": "NCT01328093",
+   "drug": "LY2140023",
+   "molecule": "CHEMBL2110730",
+   "whyStopped": "The decision to stop the trial was based on efficacy results in the overall schizophrenia participant population."
+  },
+  {
+   "nct": "NCT01129674",
+   "drug": "LY2140023",
+   "molecule": "CHEMBL2110730",
+   "whyStopped": "The decision to stop the trial was based on efficacy results in the overall schizophrenia participant population."
+  },
+  {
+   "nct": "NCT01129674",
+   "drug": "LY2140023",
+   "molecule": "CHEMBL2110730",
+   "whyStopped": "The decision to stop the trial was based on efficacy results in the overall schizophrenia participant population."
+  },
+  {
+   "nct": "NCT03044249",
+   "drug": "LY2979165",
+   "molecule": "CHEMBL4303379",
+   "whyStopped": "Statistical futility; totality of evidence suggests study unlikely to meet endpoint"
+  },
+  {
+   "nct": "NCT03044249",
+   "drug": "LY2979165",
+   "molecule": "CHEMBL4303379",
+   "whyStopped": "Statistical futility; totality of evidence suggests study unlikely to meet endpoint"
+  },
+  {
+   "nct": "NCT01307800",
+   "drug": "LY2140023",
+   "molecule": "CHEMBL2110730",
+   "whyStopped": "The decision to stop the trial was based on efficacy results in the overall schizophrenia participant population."
+  },
+  {
+   "nct": "NCT01307800",
+   "drug": "LY2140023",
+   "molecule": "CHEMBL2110730",
+   "whyStopped": "The decision to stop the trial was based on efficacy results in the overall schizophrenia participant population."
+  },
+  {
+   "nct": "NCT01307800",
+   "drug": "pomaglumetad methionil",
+   "molecule": "CHEMBL375611",
+   "whyStopped": "The decision to stop the trial was based on efficacy results in the overall schizophrenia participant population."
+  },
+  {
+   "nct": "NCT01487083",
+   "drug": "Pomaglumetad methionil",
+   "molecule": "CHEMBL375611",
+   "whyStopped": "The decision to stop the trial was based on efficacy results in the overall schizophrenia participant population."
+  },
+  {
+   "nct": "NCT01487083",
+   "drug": "LY2140023",
+   "molecule": "CHEMBL2110730",
+   "whyStopped": "The decision to stop the trial was based on efficacy results in the overall schizophrenia participant population."
+  },
+  {
+   "nct": "NCT01487083",
+   "drug": "LY2140023",
+   "molecule": "CHEMBL2110730",
+   "whyStopped": "The decision to stop the trial was based on efficacy results in the overall schizophrenia participant population."
+  }
+ ],
+ "CHEMBL5805": [
+  {
+   "nct": "NCT02092909",
+   "drug": "IMO-8400",
+   "molecule": "CHEMBL4297995",
+   "whyStopped": "Lack of efficacy"
+  },
+  {
+   "nct": "NCT05650567",
+   "drug": "M5049 dose",
+   "molecule": "CHEMBL4802159",
+   "whyStopped": "Based on interim analyses for futility"
+  },
+  {
+   "nct": "NCT05650567",
+   "drug": "Enpatoran",
+   "molecule": "CHEMBL4802159",
+   "whyStopped": "Based on interim analyses for futility"
+  },
+  {
+   "nct": "NCT05650567",
+   "drug": "Enpatoran",
+   "molecule": "CHEMBL4802159",
+   "whyStopped": "Based on interim analyses for futility"
+  }
+ ],
+ "CHEMBL4296": [
+  {
+   "nct": "NCT02957617",
+   "drug": "BIIB074",
+   "molecule": "CHEMBL3544913",
+   "whyStopped": "The parent study did not meet its primary or secondary efficacy endpoints and therefore Sponsor decision to discontinue development in this indication."
+  },
+  {
+   "nct": "NCT02957617",
+   "drug": "BIIB074",
+   "molecule": "CHEMBL3544913",
+   "whyStopped": "The parent study did not meet its primary or secondary efficacy endpoints and therefore Sponsor decision to discontinue development in this indication."
+  },
+  {
+   "nct": "NCT02957617",
+   "drug": "CNV1014802",
+   "molecule": "CHEMBL3544913",
+   "whyStopped": "The parent study did not meet its primary or secondary efficacy endpoints and therefore Sponsor decision to discontinue development in this indication."
+  },
+  {
+   "nct": "NCT02957617",
+   "drug": "CNV1014802",
+   "molecule": "CHEMBL3544913",
+   "whyStopped": "The parent study did not meet its primary or secondary efficacy endpoints and therefore Sponsor decision to discontinue development in this indication."
+  }
+ ],
+ "CHEMBL4015": [
+  {
+   "nct": "NCT03059446",
+   "drug": "Cenicriviroc",
+   "molecule": "CHEMBL2110727",
+   "whyStopped": "This study was terminated early due to lack of efficacy based on the results of Part I of the AURORA study."
+  },
+  {
+   "nct": "NCT03059446",
+   "drug": "Cenicriviroc",
+   "molecule": "CHEMBL2110727",
+   "whyStopped": "This study was terminated early due to lack of efficacy based on the results of Part I of the AURORA study."
+  },
+  {
+   "nct": "NCT02732938",
+   "drug": "PF-04136309",
+   "molecule": "CHEMBL2029422",
+   "whyStopped": "Pfizer made a business-related decision on 04May2017 to terminate study based on change in portfolio prioritization, and is not due to safety or efficacy."
+  },
+  {
+   "nct": "NCT03028740",
+   "drug": "Cenicriviroc",
+   "molecule": "CHEMBL2110727",
+   "whyStopped": "This study was terminated early due to lack of efficacy based on the results of the planned interim analysis of Part 1 data."
+  },
+  {
+   "nct": "NCT03028740",
+   "drug": "Cenicriviroc",
+   "molecule": "CHEMBL2110727",
+   "whyStopped": "This study was terminated early due to lack of efficacy based on the results of the planned interim analysis of Part 1 data."
+  }
+ ],
+ "CHEMBL3474": [
+  {
+   "nct": "NCT01130246",
+   "drug": "A-002, varespladib methyl",
+   "molecule": "CHEMBL148674",
+   "whyStopped": "Lack of efficacy"
+  }
+ ],
+ "CHEMBL3439": [
+  {
+   "nct": "NCT04857840",
+   "drug": "Firibastat (QGC001) Period 1",
+   "molecule": "CHEMBL4297511",
+   "whyStopped": "No Efficacy demonstrated inn the QGC001-3QG1 study"
+  },
+  {
+   "nct": "NCT04857840",
+   "drug": "Firibastat (QGC001) Period 1",
+   "molecule": "CHEMBL4297511",
+   "whyStopped": "No Efficacy demonstrated inn the QGC001-3QG1 study"
+  },
+  {
+   "nct": "NCT04857840",
+   "drug": "Firibastat (QGC001) Open label",
+   "molecule": "CHEMBL4297511",
+   "whyStopped": "No Efficacy demonstrated inn the QGC001-3QG1 study"
+  },
+  {
+   "nct": "NCT04857840",
+   "drug": "Firibastat (QGC001) Open label",
+   "molecule": "CHEMBL4297511",
+   "whyStopped": "No Efficacy demonstrated inn the QGC001-3QG1 study"
+  }
+ ],
+ "CHEMBL4630885": [
+  {
+   "nct": "NCT06137183",
+   "drug": "Vixarelimab",
+   "molecule": "CHEMBL4594341",
+   "whyStopped": "Based on a futility analysis, which suggested that the Moonglow study was unlikely to meet its primary endpoint."
+  },
+  {
+   "nct": "NCT06137183",
+   "drug": "Vixarelimab",
+   "molecule": "CHEMBL4594341",
+   "whyStopped": "Based on a futility analysis, which suggested that the Moonglow study was unlikely to meet its primary endpoint."
+  },
+  {
+   "nct": "NCT05785624",
+   "drug": "Vixarelimab",
+   "molecule": "CHEMBL4594341",
+   "whyStopped": "Sponsor decided to discontinue the study after review of clinical data by the iDMC. This decision was based on unblinded evaluation of clinical efficacy which showed a trend towards futility \\& was no"
+  },
+  {
+   "nct": "NCT05785624",
+   "drug": "Vixarelimab",
+   "molecule": "CHEMBL4594341",
+   "whyStopped": "Sponsor decided to discontinue the study after review of clinical data by the iDMC. This decision was based on unblinded evaluation of clinical efficacy which showed a trend towards futility \\& was no"
+  },
+  {
+   "nct": "NCT05785624",
+   "drug": "KPL-716",
+   "molecule": "CHEMBL4594341",
+   "whyStopped": "Sponsor decided to discontinue the study after review of clinical data by the iDMC. This decision was based on unblinded evaluation of clinical efficacy which showed a trend towards futility \\& was no"
+  }
+ ],
+ "CHEMBL5255": [
+  {
+   "nct": "NCT00633477",
+   "drug": "Resatorvid",
+   "molecule": "CHEMBL225157",
+   "whyStopped": "Business Decision; No Safety Or Efficacy Concerns."
+  },
+  {
+   "nct": "NCT00633477",
+   "drug": "Resatorvid",
+   "molecule": "CHEMBL225157",
+   "whyStopped": "Business Decision; No Safety Or Efficacy Concerns."
+  },
+  {
+   "nct": "NCT00633477",
+   "drug": "TAK-242",
+   "molecule": "CHEMBL225157",
+   "whyStopped": "Business Decision; No Safety Or Efficacy Concerns."
+  }
+ ],
+ "CHEMBL3155": [
+  {
+   "nct": "NCT00804973",
+   "drug": "LY2590443",
+   "molecule": "CHEMBL3545220",
+   "whyStopped": "Due to efficacy results of interim analysis"
+  },
+  {
+   "nct": "NCT00804973",
+   "drug": "LY2590443",
+   "molecule": "CHEMBL3545220",
+   "whyStopped": "Due to efficacy results of interim analysis"
+  }
+ ],
+ "CHEMBL5807": [
+  {
+   "nct": "NCT01808261",
+   "drug": "GSK249320 100/mg",
+   "molecule": "CHEMBL3545317",
+   "whyStopped": "This study was terminated for futility."
+  }
+ ],
+ "CHEMBL3559": [
+  {
+   "nct": "NCT01251354",
+   "drug": "BN83495",
+   "molecule": "CHEMBL286738",
+   "whyStopped": "The futility analysis of study NCT00910091 in patients with endometrial cancer shows that the primary endpoint will not be reached."
+  },
+  {
+   "nct": "NCT01251354",
+   "drug": "BN83495",
+   "molecule": "CHEMBL286738",
+   "whyStopped": "The futility analysis of study NCT00910091 in patients with endometrial cancer shows that the primary endpoint will not be reached."
+  },
+  {
+   "nct": "NCT01230970",
+   "drug": "BN83495",
+   "molecule": "CHEMBL286738",
+   "whyStopped": "The futility analysis of study NCT00910091 in patients with endometrial cancer shows that the primary endpoint will not be reached."
+  },
+  {
+   "nct": "NCT01230970",
+   "drug": "BN83495",
+   "molecule": "CHEMBL286738",
+   "whyStopped": "The futility analysis of study NCT00910091 in patients with endometrial cancer shows that the primary endpoint will not be reached."
+  }
+ ],
+ "CHEMBL1741208": [
+  {
+   "nct": "NCT03595371",
+   "drug": "dapansutrile",
+   "molecule": "CHEMBL3989943",
+   "whyStopped": "The study was terminated due to study design issues that did not allow for determination of efficacy and safety in subjects with Schnitzler Syndrome who are currently well controlled on anakinra thera"
+  },
+  {
+   "nct": "NCT03595371",
+   "drug": "dapansutrile",
+   "molecule": "CHEMBL3989943",
+   "whyStopped": "The study was terminated due to study design issues that did not allow for determination of efficacy and safety in subjects with Schnitzler Syndrome who are currently well controlled on anakinra thera"
+  },
+  {
+   "nct": "NCT03595371",
+   "drug": "OLT1177 capsules",
+   "molecule": "CHEMBL3989943",
+   "whyStopped": "The study was terminated due to study design issues that did not allow for determination of efficacy and safety in subjects with Schnitzler Syndrome who are currently well controlled on anakinra thera"
+  }
+ ],
+ "CHEMBL3989383": [
+  {
+   "nct": "NCT06160609",
+   "drug": "GSK3174998",
+   "molecule": "CHEMBL4297968",
+   "whyStopped": "The study was terminated due to lack of efficacy."
+  },
+  {
+   "nct": "NCT06160609",
+   "drug": "GSK3174998",
+   "molecule": "CHEMBL4297968",
+   "whyStopped": "The study was terminated due to lack of efficacy."
+  },
+  {
+   "nct": "NCT02554812",
+   "drug": "PF-04518600",
+   "molecule": "CHEMBL4297883",
+   "whyStopped": "The study was terminated since there was no need for further safety or efficacy data to be collected. The participants having benefit from the Investigational treatments have been moved to a continuat"
+  }
+ ],
+ "CHEMBL3714029": [
+  {
+   "nct": "NCT01769196",
+   "drug": "Simtuzumab",
+   "molecule": "CHEMBL2109667",
+   "whyStopped": "The Study was terminated due to lack of efficacy."
+  },
+  {
+   "nct": "NCT01769196",
+   "drug": "Simtuzumab",
+   "molecule": "CHEMBL2109667",
+   "whyStopped": "The Study was terminated due to lack of efficacy."
+  },
+  {
+   "nct": "NCT01769196",
+   "drug": "GS-6624",
+   "molecule": "CHEMBL2109667",
+   "whyStopped": "The Study was terminated due to lack of efficacy."
+  },
+  {
+   "nct": "NCT01769196",
+   "drug": "Simtuzumab placebo",
+   "molecule": "CHEMBL2109667",
+   "whyStopped": "The Study was terminated due to lack of efficacy."
+  },
+  {
+   "nct": "NCT01759511",
+   "drug": "Simtuzumab",
+   "molecule": "CHEMBL2109667",
+   "whyStopped": "The Study was terminated due to lack of efficacy."
+  },
+  {
+   "nct": "NCT01759511",
+   "drug": "Simtuzumab",
+   "molecule": "CHEMBL2109667",
+   "whyStopped": "The Study was terminated due to lack of efficacy."
+  },
+  {
+   "nct": "NCT01759511",
+   "drug": "GS-6624",
+   "molecule": "CHEMBL2109667",
+   "whyStopped": "The Study was terminated due to lack of efficacy."
+  }
+ ],
+ "CHEMBL1293224": [
+  {
+   "nct": "NCT03352557",
+   "drug": "BIIB092",
+   "molecule": "CHEMBL3990042",
+   "whyStopped": "The study (NCT03352557) was terminated based on lack of efficacy following the placebo-controlled period readout."
+  },
+  {
+   "nct": "NCT03352557",
+   "drug": "BIIB092",
+   "molecule": "CHEMBL3990042",
+   "whyStopped": "The study (NCT03352557) was terminated based on lack of efficacy following the placebo-controlled period readout."
+  },
+  {
+   "nct": "NCT03712787",
+   "drug": "Tilavonemab",
+   "molecule": "CHEMBL4297860",
+   "whyStopped": "Discontinued because of lack of efficacy in the parent study (Study M15-566; NCT02880956)."
+  },
+  {
+   "nct": "NCT03712787",
+   "drug": "Tilavonemab",
+   "molecule": "CHEMBL4297860",
+   "whyStopped": "Discontinued because of lack of efficacy in the parent study (Study M15-566; NCT02880956)."
+  },
+  {
+   "nct": "NCT03712787",
+   "drug": "ABBV-8E12",
+   "molecule": "CHEMBL4297860",
+   "whyStopped": "Discontinued because of lack of efficacy in the parent study (Study M15-566; NCT02880956)."
+  },
+  {
+   "nct": "NCT02985879",
+   "drug": "ABBV-8E12",
+   "molecule": "CHEMBL4297860",
+   "whyStopped": "This study was prematurely discontinued because the program for progressive supranuclear palsy was discontinued due to lack of efficacy of study drug."
+  },
+  {
+   "nct": "NCT02985879",
+   "drug": "Tilavonemab",
+   "molecule": "CHEMBL4297860",
+   "whyStopped": "This study was prematurely discontinued because the program for progressive supranuclear palsy was discontinued due to lack of efficacy of study drug."
+  },
+  {
+   "nct": "NCT02985879",
+   "drug": "Tilavonemab",
+   "molecule": "CHEMBL4297860",
+   "whyStopped": "This study was prematurely discontinued because the program for progressive supranuclear palsy was discontinued due to lack of efficacy of study drug."
+  },
+  {
+   "nct": "NCT03391765",
+   "drug": "ABBV-8E12",
+   "molecule": "CHEMBL4297860",
+   "whyStopped": "This study was prematurely discontinued because the program for progressive supranuclear palsy was discontinued due to lack of efficacy."
+  },
+  {
+   "nct": "NCT03391765",
+   "drug": "Tilavonemab",
+   "molecule": "CHEMBL4297860",
+   "whyStopped": "This study was prematurely discontinued because the program for progressive supranuclear palsy was discontinued due to lack of efficacy."
+  },
+  {
+   "nct": "NCT03391765",
+   "drug": "Tilavonemab",
+   "molecule": "CHEMBL4297860",
+   "whyStopped": "This study was prematurely discontinued because the program for progressive supranuclear palsy was discontinued due to lack of efficacy."
+  },
+  {
+   "nct": "NCT03289143",
+   "drug": "Semorinemab",
+   "molecule": "CHEMBL4298093",
+   "whyStopped": "Study was terminated during Open Label Extension period because analyses of placebo-controlled Blinded portion of study did not show any evidence of clinical efficacy or modulation of accumulation of "
+  },
+  {
+   "nct": "NCT03289143",
+   "drug": "Semorinemab",
+   "molecule": "CHEMBL4298093",
+   "whyStopped": "Study was terminated during Open Label Extension period because analyses of placebo-controlled Blinded portion of study did not show any evidence of clinical efficacy or modulation of accumulation of "
+  },
+  {
+   "nct": "NCT03289143",
+   "drug": "MTAU9937A",
+   "molecule": "CHEMBL4298093",
+   "whyStopped": "Study was terminated during Open Label Extension period because analyses of placebo-controlled Blinded portion of study did not show any evidence of clinical efficacy or modulation of accumulation of "
+  },
+  {
+   "nct": "NCT03289143",
+   "drug": "MTAU9937A",
+   "molecule": "CHEMBL4298093",
+   "whyStopped": "Study was terminated during Open Label Extension period because analyses of placebo-controlled Blinded portion of study did not show any evidence of clinical efficacy or modulation of accumulation of "
+  },
+  {
+   "nct": "NCT03289143",
+   "drug": "RO7105705",
+   "molecule": "CHEMBL4298093",
+   "whyStopped": "Study was terminated during Open Label Extension period because analyses of placebo-controlled Blinded portion of study did not show any evidence of clinical efficacy or modulation of accumulation of "
+  },
+  {
+   "nct": "NCT03289143",
+   "drug": "RO7105705",
+   "molecule": "CHEMBL4298093",
+   "whyStopped": "Study was terminated during Open Label Extension period because analyses of placebo-controlled Blinded portion of study did not show any evidence of clinical efficacy or modulation of accumulation of "
+  }
+ ],
+ "CHEMBL260": [
+  {
+   "nct": "NCT02366637",
+   "drug": "PF-03715455",
+   "molecule": "CHEMBL1938400",
+   "whyStopped": "Study terminated on 7 April 2015 for business reasons. No safety and/or efficacy concerns contributed to the termination of the study"
+  },
+  {
+   "nct": "NCT02219048",
+   "drug": "PF-03715455",
+   "molecule": "CHEMBL1938400",
+   "whyStopped": "The termination was due to business reasons. No safety or efficacy concerns contributed to the termination of the study"
+  }
+ ],
+ "CHEMBL2492": [
+  {
+   "nct": "NCT01793298",
+   "drug": "ASM-024",
+   "molecule": "CHEMBL3707249",
+   "whyStopped": "Lack of efficacy"
+  }
+ ],
+ "CHEMBL2252": [
+  {
+   "nct": "NCT06685835",
+   "drug": "Brensocatib",
+   "molecule": "CHEMBL3900409",
+   "whyStopped": "Lack of Efficacy"
+  },
+  {
+   "nct": "NCT06685835",
+   "drug": "Brensocatib",
+   "molecule": "CHEMBL3900409",
+   "whyStopped": "Lack of Efficacy"
+  },
+  {
+   "nct": "NCT06685835",
+   "drug": "INS1007",
+   "molecule": "CHEMBL3900409",
+   "whyStopped": "Lack of Efficacy"
+  },
+  {
+   "nct": "NCT06685835",
+   "drug": "INS1007",
+   "molecule": "CHEMBL3900409",
+   "whyStopped": "Lack of Efficacy"
+  }
+ ],
+ "CHEMBL3714583": [
+  {
+   "nct": "NCT04778397",
+   "drug": "Magrolimab",
+   "molecule": "CHEMBL4297985",
+   "whyStopped": "Study discontinued due to futility."
+  },
+  {
+   "nct": "NCT04778397",
+   "drug": "Magrolimab",
+   "molecule": "CHEMBL4297985",
+   "whyStopped": "Study discontinued due to futility."
+  },
+  {
+   "nct": "NCT04313881",
+   "drug": "Magrolimab",
+   "molecule": "CHEMBL4297985",
+   "whyStopped": "Study discontinued due to futility based on a planned analysis"
+  },
+  {
+   "nct": "NCT04313881",
+   "drug": "Magrolimab",
+   "molecule": "CHEMBL4297985",
+   "whyStopped": "Study discontinued due to futility based on a planned analysis"
+  },
+  {
+   "nct": "NCT04313881",
+   "drug": "Hu5F9-G4",
+   "molecule": "CHEMBL4297985",
+   "whyStopped": "Study discontinued due to futility based on a planned analysis"
+  },
+  {
+   "nct": "NCT05079230",
+   "drug": "Magrolimab",
+   "molecule": "CHEMBL4297985",
+   "whyStopped": "Study was terminated due to futility"
+  },
+  {
+   "nct": "NCT05079230",
+   "drug": "Magrolimab",
+   "molecule": "CHEMBL4297985",
+   "whyStopped": "Study was terminated due to futility"
+  }
+ ],
+ "CHEMBL2176846": [
+  {
+   "nct": "NCT02916056",
+   "drug": "Azeliragon 5mg",
+   "molecule": "CHEMBL3989929",
+   "whyStopped": "Not due to safety but due to a lack of efficacy at the 5 mg azeliragon dose."
+  },
+  {
+   "nct": "NCT02916056",
+   "drug": "TTP488",
+   "molecule": "CHEMBL3989929",
+   "whyStopped": "Not due to safety but due to a lack of efficacy at the 5 mg azeliragon dose."
+  },
+  {
+   "nct": "NCT02916056",
+   "drug": "TTP488",
+   "molecule": "CHEMBL3989929",
+   "whyStopped": "Not due to safety but due to a lack of efficacy at the 5 mg azeliragon dose."
+  },
+  {
+   "nct": "NCT02080364",
+   "drug": "Azeliragon",
+   "molecule": "CHEMBL3989929",
+   "whyStopped": "Not due to safety but due to a lack of efficacy at the 5 mg azeliragon dose."
+  },
+  {
+   "nct": "NCT02080364",
+   "drug": "Azeliragon",
+   "molecule": "CHEMBL3989929",
+   "whyStopped": "Not due to safety but due to a lack of efficacy at the 5 mg azeliragon dose."
+  },
+  {
+   "nct": "NCT02080364",
+   "drug": "TTP488",
+   "molecule": "CHEMBL3989929",
+   "whyStopped": "Not due to safety but due to a lack of efficacy at the 5 mg azeliragon dose."
+  },
+  {
+   "nct": "NCT02080364",
+   "drug": "TTP488",
+   "molecule": "CHEMBL3989929",
+   "whyStopped": "Not due to safety but due to a lack of efficacy at the 5 mg azeliragon dose."
+  }
+ ],
+ "CHEMBL3045": [
+  {
+   "nct": "NCT00538681",
+   "drug": "enzastaurin",
+   "molecule": "CHEMBL300138",
+   "whyStopped": "Terminated due to lack of efficacy demonstrated in relevant participant population in other clinical trials."
+  },
+  {
+   "nct": "NCT00538681",
+   "drug": "enzastaurin",
+   "molecule": "CHEMBL300138",
+   "whyStopped": "Terminated due to lack of efficacy demonstrated in relevant participant population in other clinical trials."
+  },
+  {
+   "nct": "NCT00538681",
+   "drug": "LY317615",
+   "molecule": "CHEMBL300138",
+   "whyStopped": "Terminated due to lack of efficacy demonstrated in relevant participant population in other clinical trials."
+  },
+  {
+   "nct": "NCT00538681",
+   "drug": "LY317615",
+   "molecule": "CHEMBL300138",
+   "whyStopped": "Terminated due to lack of efficacy demonstrated in relevant participant population in other clinical trials."
+  },
+  {
+   "nct": "NCT00437294",
+   "drug": "enzastaurin",
+   "molecule": "CHEMBL300138",
+   "whyStopped": "Lack of efficacy"
+  },
+  {
+   "nct": "NCT00437294",
+   "drug": "enzastaurin",
+   "molecule": "CHEMBL300138",
+   "whyStopped": "Lack of efficacy"
+  },
+  {
+   "nct": "NCT00437294",
+   "drug": "LY317615",
+   "molecule": "CHEMBL300138",
+   "whyStopped": "Lack of efficacy"
+  },
+  {
+   "nct": "NCT00437294",
+   "drug": "LY317615",
+   "molecule": "CHEMBL300138",
+   "whyStopped": "Lack of efficacy"
+  }
+ ],
+ "CHEMBL3535": [
+  {
+   "nct": "NCT04474314",
+   "drug": "IMR-687",
+   "molecule": "CHEMBL4297290",
+   "whyStopped": "A recently conducted Interim analysis of IMR-SCD-301 demonstrated that while IMR-687 was generally well-tolerated, it failed to meet its primary efficacy endpoint. So, the sponsor has decided to disco"
+  }
+ ],
+ "CHEMBL4683": [
+  {
+   "nct": "NCT03386721",
+   "drug": "simlukafusp alfa",
+   "molecule": "CHEMBL4298090",
+   "whyStopped": "The Sponsor discontinued the development of Simlukafusp alfa due to portfolio prioritization, not due to any safety, efficacy, or quality issues."
+  },
+  {
+   "nct": "NCT03386721",
+   "drug": "RO6874281",
+   "molecule": "CHEMBL4298090",
+   "whyStopped": "The Sponsor discontinued the development of Simlukafusp alfa due to portfolio prioritization, not due to any safety, efficacy, or quality issues."
+  },
+  {
+   "nct": "NCT03386721",
+   "drug": "RO6874281",
+   "molecule": "CHEMBL4298090",
+   "whyStopped": "The Sponsor discontinued the development of Simlukafusp alfa due to portfolio prioritization, not due to any safety, efficacy, or quality issues."
+  }
+ ],
+ "CHEMBL3572": [
+  {
+   "nct": "NCT02260635",
+   "drug": "Evacetrapib",
+   "molecule": "CHEMBL2017179",
+   "whyStopped": "Study termination due to insufficient efficacy."
+  },
+  {
+   "nct": "NCT02260635",
+   "drug": "Evacetrapib",
+   "molecule": "CHEMBL2017179",
+   "whyStopped": "Study termination due to insufficient efficacy."
+  },
+  {
+   "nct": "NCT02260635",
+   "drug": "LY2484595",
+   "molecule": "CHEMBL2017179",
+   "whyStopped": "Study termination due to insufficient efficacy."
+  },
+  {
+   "nct": "NCT02260635",
+   "drug": "LY2484595",
+   "molecule": "CHEMBL2017179",
+   "whyStopped": "Study termination due to insufficient efficacy."
+  },
+  {
+   "nct": "NCT01687998",
+   "drug": "Evacetrapib",
+   "molecule": "CHEMBL2017179",
+   "whyStopped": "Study termination due to insufficient efficacy."
+  },
+  {
+   "nct": "NCT01687998",
+   "drug": "Evacetrapib",
+   "molecule": "CHEMBL2017179",
+   "whyStopped": "Study termination due to insufficient efficacy."
+  },
+  {
+   "nct": "NCT01687998",
+   "drug": "LY2484595",
+   "molecule": "CHEMBL2017179",
+   "whyStopped": "Study termination due to insufficient efficacy."
+  },
+  {
+   "nct": "NCT01687998",
+   "drug": "LY2484595",
+   "molecule": "CHEMBL2017179",
+   "whyStopped": "Study termination due to insufficient efficacy."
+  },
+  {
+   "nct": "NCT02260648",
+   "drug": "Evacetrapib",
+   "molecule": "CHEMBL2017179",
+   "whyStopped": "Study termination due to insufficient efficacy."
+  },
+  {
+   "nct": "NCT02260648",
+   "drug": "Evacetrapib",
+   "molecule": "CHEMBL2017179",
+   "whyStopped": "Study termination due to insufficient efficacy."
+  },
+  {
+   "nct": "NCT02260648",
+   "drug": "LY2484595",
+   "molecule": "CHEMBL2017179",
+   "whyStopped": "Study termination due to insufficient efficacy."
+  },
+  {
+   "nct": "NCT02260648",
+   "drug": "LY2484595",
+   "molecule": "CHEMBL2017179",
+   "whyStopped": "Study termination due to insufficient efficacy."
+  }
+ ],
+ "CHEMBL4822": [
+  {
+   "nct": "NCT02783573",
+   "drug": "Lanabecestat",
+   "molecule": "CHEMBL3989948",
+   "whyStopped": "An independent assessment concluded the trial was not likely to meet the primary endpoint upon completion and therefore, trial stopped for futility."
+  },
+  {
+   "nct": "NCT02783573",
+   "drug": "Lanabecestat",
+   "molecule": "CHEMBL3989948",
+   "whyStopped": "An independent assessment concluded the trial was not likely to meet the primary endpoint upon completion and therefore, trial stopped for futility."
+  },
+  {
+   "nct": "NCT02783573",
+   "drug": "LY3314814",
+   "molecule": "CHEMBL3989948",
+   "whyStopped": "An independent assessment concluded the trial was not likely to meet the primary endpoint upon completion and therefore, trial stopped for futility."
+  },
+  {
+   "nct": "NCT02783573",
+   "drug": "LY3314814",
+   "molecule": "CHEMBL3989948",
+   "whyStopped": "An independent assessment concluded the trial was not likely to meet the primary endpoint upon completion and therefore, trial stopped for futility."
+  },
+  {
+   "nct": "NCT02783573",
+   "drug": "AZD3293",
+   "molecule": "CHEMBL3989948",
+   "whyStopped": "An independent assessment concluded the trial was not likely to meet the primary endpoint upon completion and therefore, trial stopped for futility."
+  },
+  {
+   "nct": "NCT02783573",
+   "drug": "AZD3293",
+   "molecule": "CHEMBL3989948",
+   "whyStopped": "An independent assessment concluded the trial was not likely to meet the primary endpoint upon completion and therefore, trial stopped for futility."
+  },
+  {
+   "nct": "NCT02972658",
+   "drug": "Lanabecestat",
+   "molecule": "CHEMBL3989948",
+   "whyStopped": "As the feeder study (AZES) was stopped for futility after an independent assessment, this trial was also stopped."
+  },
+  {
+   "nct": "NCT02972658",
+   "drug": "Lanabecestat",
+   "molecule": "CHEMBL3989948",
+   "whyStopped": "As the feeder study (AZES) was stopped for futility after an independent assessment, this trial was also stopped."
+  },
+  {
+   "nct": "NCT02972658",
+   "drug": "LY3314814",
+   "molecule": "CHEMBL3989948",
+   "whyStopped": "As the feeder study (AZES) was stopped for futility after an independent assessment, this trial was also stopped."
+  },
+  {
+   "nct": "NCT02972658",
+   "drug": "LY3314814",
+   "molecule": "CHEMBL3989948",
+   "whyStopped": "As the feeder study (AZES) was stopped for futility after an independent assessment, this trial was also stopped."
+  },
+  {
+   "nct": "NCT02972658",
+   "drug": "AZD3293",
+   "molecule": "CHEMBL3989948",
+   "whyStopped": "As the feeder study (AZES) was stopped for futility after an independent assessment, this trial was also stopped."
+  },
+  {
+   "nct": "NCT02972658",
+   "drug": "AZD3293",
+   "molecule": "CHEMBL3989948",
+   "whyStopped": "As the feeder study (AZES) was stopped for futility after an independent assessment, this trial was also stopped."
+  },
+  {
+   "nct": "NCT02956486",
+   "drug": "Elenbecestat",
+   "molecule": "CHEMBL4204869",
+   "whyStopped": "Due to an unfavorable risk-benefit ratio including no evidence of potential efficacy, and the adverse event profile of E2609 being worse than placebo."
+  },
+  {
+   "nct": "NCT02956486",
+   "drug": "Elenbecestat",
+   "molecule": "CHEMBL4204869",
+   "whyStopped": "Due to an unfavorable risk-benefit ratio including no evidence of potential efficacy, and the adverse event profile of E2609 being worse than placebo."
+  },
+  {
+   "nct": "NCT02956486",
+   "drug": "E2609",
+   "molecule": "CHEMBL4204869",
+   "whyStopped": "Due to an unfavorable risk-benefit ratio including no evidence of potential efficacy, and the adverse event profile of E2609 being worse than placebo."
+  },
+  {
+   "nct": "NCT02956486",
+   "drug": "E2609",
+   "molecule": "CHEMBL4204869",
+   "whyStopped": "Due to an unfavorable risk-benefit ratio including no evidence of potential efficacy, and the adverse event profile of E2609 being worse than placebo."
+  },
+  {
+   "nct": "NCT02245737",
+   "drug": "Lanabecestat",
+   "molecule": "CHEMBL3989948",
+   "whyStopped": "An independent assessment concluded the trial was not likely to meet the primary endpoint upon completion and therefore, trial stopped for futility"
+  },
+  {
+   "nct": "NCT02245737",
+   "drug": "Lanabecestat",
+   "molecule": "CHEMBL3989948",
+   "whyStopped": "An independent assessment concluded the trial was not likely to meet the primary endpoint upon completion and therefore, trial stopped for futility"
+  },
+  {
+   "nct": "NCT02245737",
+   "drug": "LY3314814",
+   "molecule": "CHEMBL3989948",
+   "whyStopped": "An independent assessment concluded the trial was not likely to meet the primary endpoint upon completion and therefore, trial stopped for futility"
+  },
+  {
+   "nct": "NCT02245737",
+   "drug": "LY3314814",
+   "molecule": "CHEMBL3989948",
+   "whyStopped": "An independent assessment concluded the trial was not likely to meet the primary endpoint upon completion and therefore, trial stopped for futility"
+  },
+  {
+   "nct": "NCT02245737",
+   "drug": "AZD3293",
+   "molecule": "CHEMBL3989948",
+   "whyStopped": "An independent assessment concluded the trial was not likely to meet the primary endpoint upon completion and therefore, trial stopped for futility"
+  },
+  {
+   "nct": "NCT02245737",
+   "drug": "AZD3293",
+   "molecule": "CHEMBL3989948",
+   "whyStopped": "An independent assessment concluded the trial was not likely to meet the primary endpoint upon completion and therefore, trial stopped for futility"
+  }
+ ],
+ "CHEMBL3956": [
+  {
+   "nct": "NCT02418000",
+   "drug": "E6201",
+   "molecule": "CHEMBL1097999",
+   "whyStopped": "Insufficient efficacy in Phase 1 dose-escalation portion of study"
+  },
+  {
+   "nct": "NCT02418000",
+   "drug": "E6201",
+   "molecule": "CHEMBL1097999",
+   "whyStopped": "Insufficient efficacy in Phase 1 dose-escalation portion of study"
+  }
+ ],
+ "CHEMBL3580496": [
+  {
+   "nct": "NCT01767857",
+   "drug": "Xilonix",
+   "molecule": "CHEMBL2109653",
+   "whyStopped": "The study crossed the prospective futility boundary of primary endpoint"
+  },
+  {
+   "nct": "NCT01767857",
+   "drug": "Xilonix",
+   "molecule": "CHEMBL2109653",
+   "whyStopped": "The study crossed the prospective futility boundary of primary endpoint"
+  },
+  {
+   "nct": "NCT01767857",
+   "drug": "MABp1, CA-18C3",
+   "molecule": "CHEMBL2109653",
+   "whyStopped": "The study crossed the prospective futility boundary of primary endpoint"
+  },
+  {
+   "nct": "NCT04988308",
+   "drug": "Bermekimab",
+   "molecule": "CHEMBL2109653",
+   "whyStopped": "Study has been prematurely terminated as the Interim Analysis 1 efficacy results met the prespecified futility criteria related to the primary endpoint."
+  },
+  {
+   "nct": "NCT04988308",
+   "drug": "Bermekimab",
+   "molecule": "CHEMBL2109653",
+   "whyStopped": "Study has been prematurely terminated as the Interim Analysis 1 efficacy results met the prespecified futility criteria related to the primary endpoint."
+  },
+  {
+   "nct": "NCT04990440",
+   "drug": "Bermekimab",
+   "molecule": "CHEMBL2109653",
+   "whyStopped": "Premature study termination (efficacy)"
+  },
+  {
+   "nct": "NCT04990440",
+   "drug": "Bermekimab",
+   "molecule": "CHEMBL2109653",
+   "whyStopped": "Premature study termination (efficacy)"
+  },
+  {
+   "nct": "NCT04791319",
+   "drug": "Bermekimab",
+   "molecule": "CHEMBL2109653",
+   "whyStopped": "Premature Termination due to Interim Analysis (100 patients at Week 16) meeting futility."
+  },
+  {
+   "nct": "NCT04791319",
+   "drug": "Bermekimab",
+   "molecule": "CHEMBL2109653",
+   "whyStopped": "Premature Termination due to Interim Analysis (100 patients at Week 16) meeting futility."
+  }
+ ],
+ "CHEMBL1850": [
+  {
+   "nct": "NCT02847650",
+   "drug": "PF-06649751",
+   "molecule": "CHEMBL3697617",
+   "whyStopped": "Study B7601011 was terminated on 29 Jan 2018 due to lack of efficacy in moderate/advanced Parkinson's disease."
+  }
+ ],
+ "CHEMBL2014": [
+  {
+   "nct": "NCT01964378",
+   "drug": "Cebranopadol",
+   "molecule": "CHEMBL2364605",
+   "whyStopped": "low accrual made the study no longer feasible/decision not related to safety and efficacy"
+  },
+  {
+   "nct": "NCT01964378",
+   "drug": "Cebranopadol",
+   "molecule": "CHEMBL2364605",
+   "whyStopped": "low accrual made the study no longer feasible/decision not related to safety and efficacy"
+  },
+  {
+   "nct": "NCT01964378",
+   "drug": "GRT6005",
+   "molecule": "CHEMBL2364605",
+   "whyStopped": "low accrual made the study no longer feasible/decision not related to safety and efficacy"
+  },
+  {
+   "nct": "NCT01964378",
+   "drug": "GRT6005",
+   "molecule": "CHEMBL2364605",
+   "whyStopped": "low accrual made the study no longer feasible/decision not related to safety and efficacy"
+  }
+ ],
+ "CHEMBL3712938": [
+  {
+   "nct": "NCT01237678",
+   "drug": "IMGN901",
+   "molecule": "CHEMBL1743037",
+   "whyStopped": "Study was stopped early due to lack of efficacy signal and safety concerns"
+  },
+  {
+   "nct": "NCT01237678",
+   "drug": "IMGN901",
+   "molecule": "CHEMBL1743037",
+   "whyStopped": "Study was stopped early due to lack of efficacy signal and safety concerns"
+  }
+ ],
+ "CHEMBL4523374": [
+  {
+   "nct": "NCT00263874",
+   "drug": "UK-500,001",
+   "molecule": "CHEMBL3113734",
+   "whyStopped": "The decision to terminate was completely related to efficacy and there were no safety concerns."
+  }
+ ],
+ "CHEMBL4662941": [
+  {
+   "nct": "NCT00480025",
+   "drug": "GSK1572932A Antigen-Specific Cancer Immunotherapeutic",
+   "molecule": "CHEMBL2108705",
+   "whyStopped": "The study was terminated following assessment of the lack of efficacy of the study product by the Independent Data monitoring Committee for the study."
+  }
+ ],
+ "CHEMBL4630890": [
+  {
+   "nct": "NCT03738423",
+   "drug": "REGN3500",
+   "molecule": "CHEMBL4594594",
+   "whyStopped": "Lack of efficacy"
+  },
+  {
+   "nct": "NCT03738423",
+   "drug": "REGN3500",
+   "molecule": "CHEMBL4594594",
+   "whyStopped": "Lack of efficacy"
+  },
+  {
+   "nct": "NCT03738423",
+   "drug": "REGN3500-Matching Placebo",
+   "molecule": "CHEMBL4594594",
+   "whyStopped": "Lack of efficacy"
+  },
+  {
+   "nct": "NCT03831191",
+   "drug": "LY3375880",
+   "molecule": "CHEMBL4650487",
+   "whyStopped": "The study was terminated for lack of efficacy after an interim analysis was performed"
+  },
+  {
+   "nct": "NCT03831191",
+   "drug": "LY3375880",
+   "molecule": "CHEMBL4650487",
+   "whyStopped": "The study was terminated for lack of efficacy after an interim analysis was performed"
+  },
+  {
+   "nct": "NCT03736967",
+   "drug": "REGN3500",
+   "molecule": "CHEMBL4594594",
+   "whyStopped": "Lack of efficacy"
+  },
+  {
+   "nct": "NCT03736967",
+   "drug": "REGN3500",
+   "molecule": "CHEMBL4594594",
+   "whyStopped": "Lack of efficacy"
+  },
+  {
+   "nct": "NCT03736967",
+   "drug": "REGN3500 + Dupilumab Combo",
+   "molecule": "CHEMBL4594594",
+   "whyStopped": "Lack of efficacy"
+  }
+ ],
+ "CHEMBL2637": [
+  {
+   "nct": "NCT02809118",
+   "drug": "Brimapitide",
+   "molecule": "CHEMBL4297650",
+   "whyStopped": "Availability of relevant new efficacy data from another study"
+  },
+  {
+   "nct": "NCT02809118",
+   "drug": "Brimapitide",
+   "molecule": "CHEMBL4297650",
+   "whyStopped": "Availability of relevant new efficacy data from another study"
+  },
+  {
+   "nct": "NCT02809118",
+   "drug": "Brimapitide",
+   "molecule": "CHEMBL4297650",
+   "whyStopped": "Availability of relevant new efficacy data from another study"
+  },
+  {
+   "nct": "NCT02809118",
+   "drug": "Brimapitide",
+   "molecule": "CHEMBL4297650",
+   "whyStopped": "Availability of relevant new efficacy data from another study"
+  }
+ ],
+ "CHEMBL3778": [
+  {
+   "nct": "NCT04575610",
+   "drug": "PF-06650833",
+   "molecule": "CHEMBL4081711",
+   "whyStopped": "Study terminated due to lack of enrollment reflecting the decrease in number of COVID infections. There were no safety and/or efficacy concerns involved in the decision to stop enrollment."
+  }
+ ],
+ "CHEMBL2157": [
+  {
+   "nct": "NCT04347226",
+   "drug": "BMS-986253",
+   "molecule": "CHEMBL5314551",
+   "whyStopped": "Interim analysis indicated that futility boundary was reached."
+  }
+ ],
+ "CHEMBL1250358": [
+  {
+   "nct": "NCT00006113",
+   "drug": "recombinant CD40-ligand",
+   "molecule": "CHEMBL4297718",
+   "whyStopped": "Lack of efficacy"
+  },
+  {
+   "nct": "NCT03781414",
+   "drug": "CFZ533",
+   "molecule": "CHEMBL4298210",
+   "whyStopped": "The study was terminated following less favorable efficacy by Iscalimab (CFZ533) in liver transplant patients compared to tacrolimus."
+  },
+  {
+   "nct": "NCT03781414",
+   "drug": "CFZ533",
+   "molecule": "CHEMBL4298210",
+   "whyStopped": "The study was terminated following less favorable efficacy by Iscalimab (CFZ533) in liver transplant patients compared to tacrolimus."
+  }
+ ],
+ "CHEMBL3713020": [
+  {
+   "nct": "NCT01834235",
+   "drug": "NPC-1C",
+   "molecule": "CHEMBL1743013",
+   "whyStopped": "DSMB terminated the trial for futility."
+  },
+  {
+   "nct": "NCT01834235",
+   "drug": "Ensituximab",
+   "molecule": "CHEMBL1743013",
+   "whyStopped": "DSMB terminated the trial for futility."
+  },
+  {
+   "nct": "NCT01834235",
+   "drug": "Ensituximab",
+   "molecule": "CHEMBL1743013",
+   "whyStopped": "DSMB terminated the trial for futility."
+  }
+ ],
+ "CHEMBL4029": [
+  {
+   "nct": "NCT05254990",
+   "drug": "Reparixin",
+   "molecule": "CHEMBL191413",
+   "whyStopped": "The study was stopped due to futility as per protocol"
+  },
+  {
+   "nct": "NCT05254990",
+   "drug": "Reparixin",
+   "molecule": "CHEMBL191413",
+   "whyStopped": "The study was stopped due to futility as per protocol"
+  },
+  {
+   "nct": "NCT05254990",
+   "drug": "Repertaxin L-lysine salt",
+   "molecule": "CHEMBL191413",
+   "whyStopped": "The study was stopped due to futility as per protocol"
+  },
+  {
+   "nct": "NCT01571895",
+   "drug": "DF2156A",
+   "molecule": "CHEMBL189475",
+   "whyStopped": "Lack of efficacy observed at 1/3 of the enrollment at investigated dosage. No results available."
+  },
+  {
+   "nct": "NCT01571895",
+   "drug": "DF2156A",
+   "molecule": "CHEMBL189475",
+   "whyStopped": "Lack of efficacy observed at 1/3 of the enrollment at investigated dosage. No results available."
+  },
+  {
+   "nct": "NCT04628481",
+   "drug": "Ladarixin",
+   "molecule": "CHEMBL189475",
+   "whyStopped": "The study was stopped due to futility as per protocol"
+  },
+  {
+   "nct": "NCT04628481",
+   "drug": "Ladarixin",
+   "molecule": "CHEMBL189475",
+   "whyStopped": "The study was stopped due to futility as per protocol"
+  }
+ ],
+ "CHEMBL2434": [
+  {
+   "nct": "NCT05254990",
+   "drug": "Reparixin",
+   "molecule": "CHEMBL191413",
+   "whyStopped": "The study was stopped due to futility as per protocol"
+  },
+  {
+   "nct": "NCT05254990",
+   "drug": "Reparixin",
+   "molecule": "CHEMBL191413",
+   "whyStopped": "The study was stopped due to futility as per protocol"
+  },
+  {
+   "nct": "NCT05254990",
+   "drug": "Repertaxin L-lysine salt",
+   "molecule": "CHEMBL191413",
+   "whyStopped": "The study was stopped due to futility as per protocol"
+  },
+  {
+   "nct": "NCT01571895",
+   "drug": "DF2156A",
+   "molecule": "CHEMBL189475",
+   "whyStopped": "Lack of efficacy observed at 1/3 of the enrollment at investigated dosage. No results available."
+  },
+  {
+   "nct": "NCT01571895",
+   "drug": "DF2156A",
+   "molecule": "CHEMBL189475",
+   "whyStopped": "Lack of efficacy observed at 1/3 of the enrollment at investigated dosage. No results available."
+  },
+  {
+   "nct": "NCT03170232",
+   "drug": "Danirixin 35 mg tablets",
+   "molecule": "CHEMBL3039531",
+   "whyStopped": "Terminated based on lack of efficacy seen in participants taking danirixin in dose ranging study and Sponsor decision to stop development of danirixin for COPD"
+  },
+  {
+   "nct": "NCT04628481",
+   "drug": "Ladarixin",
+   "molecule": "CHEMBL189475",
+   "whyStopped": "The study was stopped due to futility as per protocol"
+  },
+  {
+   "nct": "NCT04628481",
+   "drug": "Ladarixin",
+   "molecule": "CHEMBL189475",
+   "whyStopped": "The study was stopped due to futility as per protocol"
+  }
+ ],
+ "CHEMBL3890": [
+  {
+   "nct": "NCT02433158",
+   "drug": "Rivipansel",
+   "molecule": "CHEMBL3707446",
+   "whyStopped": "The B5201003 OLE study was terminated based on the failure of the 'parent\" B5201002 study to meet its efficacy endpoints. Termination was not due to safety."
+  },
+  {
+   "nct": "NCT02433158",
+   "drug": "Rivipansel",
+   "molecule": "CHEMBL3707446",
+   "whyStopped": "The B5201003 OLE study was terminated based on the failure of the 'parent\" B5201002 study to meet its efficacy endpoints. Termination was not due to safety."
+  },
+  {
+   "nct": "NCT02433158",
+   "drug": "GMI-1070",
+   "molecule": "CHEMBL3707446",
+   "whyStopped": "The B5201003 OLE study was terminated based on the failure of the 'parent\" B5201002 study to meet its efficacy endpoints. Termination was not due to safety."
+  }
+ ],
+ "CHEMBL3161": [
+  {
+   "nct": "NCT02433158",
+   "drug": "Rivipansel",
+   "molecule": "CHEMBL3707446",
+   "whyStopped": "The B5201003 OLE study was terminated based on the failure of the 'parent\" B5201002 study to meet its efficacy endpoints. Termination was not due to safety."
+  },
+  {
+   "nct": "NCT02433158",
+   "drug": "Rivipansel",
+   "molecule": "CHEMBL3707446",
+   "whyStopped": "The B5201003 OLE study was terminated based on the failure of the 'parent\" B5201002 study to meet its efficacy endpoints. Termination was not due to safety."
+  },
+  {
+   "nct": "NCT02433158",
+   "drug": "GMI-1070",
+   "molecule": "CHEMBL3707446",
+   "whyStopped": "The B5201003 OLE study was terminated based on the failure of the 'parent\" B5201002 study to meet its efficacy endpoints. Termination was not due to safety."
+  }
+ ],
+ "CHEMBL3712975": [
+  {
+   "nct": "NCT01507545",
+   "drug": "MORAb-004",
+   "molecule": "CHEMBL2364659",
+   "whyStopped": "By the sponsor at the end of Stage 1 due to futility."
+  }
+ ],
+ "CHEMBL4692": [
+  {
+   "nct": "NCT01101594",
+   "drug": "hLL1-DOX (the doxorubicin conjugate of milatuzumab)",
+   "molecule": "CHEMBL1743040",
+   "whyStopped": "Study was terminated due to lack of efficacy"
+  },
+  {
+   "nct": "NCT01101594",
+   "drug": "hLL1-DOX (the doxorubicin conjugate of milatuzumab)",
+   "molecule": "CHEMBL1743040",
+   "whyStopped": "Study was terminated due to lack of efficacy"
+  },
+  {
+   "nct": "NCT01101594",
+   "drug": "hLL1-DOX",
+   "molecule": "CHEMBL1743040",
+   "whyStopped": "Study was terminated due to lack of efficacy"
+  },
+  {
+   "nct": "NCT01101594",
+   "drug": "Milatuzumab-DOX",
+   "molecule": "CHEMBL1743040",
+   "whyStopped": "Study was terminated due to lack of efficacy"
+  },
+  {
+   "nct": "NCT01585688",
+   "drug": "hLL1-DOX (IMMU-115)",
+   "molecule": "CHEMBL1743040",
+   "whyStopped": "Study was terminated due to lack of efficacy, as a result, the stability program for the drug product was discontinued"
+  },
+  {
+   "nct": "NCT01585688",
+   "drug": "IMMU-115",
+   "molecule": "CHEMBL1743040",
+   "whyStopped": "Study was terminated due to lack of efficacy, as a result, the stability program for the drug product was discontinued"
+  }
+ ],
+ "CHEMBL4805": [
+  {
+   "nct": "NCT00418782",
+   "drug": "CE-224535",
+   "molecule": "CHEMBL1823817",
+   "whyStopped": "Results of interim analysis indicate lack of efficacy when compared to placebo."
+  }
+ ],
+ "CHEMBL3712857": [
+  {
+   "nct": "NCT02951156",
+   "drug": "Utomilumab",
+   "molecule": "CHEMBL3707324",
+   "whyStopped": "Study was terminated due to closure of study arms following futility analysis and difficulty in enrolling participants due to evolving treatment landscape"
+  },
+  {
+   "nct": "NCT02951156",
+   "drug": "Utomilumab",
+   "molecule": "CHEMBL3707324",
+   "whyStopped": "Study was terminated due to closure of study arms following futility analysis and difficulty in enrolling participants due to evolving treatment landscape"
+  },
+  {
+   "nct": "NCT02951156",
+   "drug": "PF-05082566",
+   "molecule": "CHEMBL3707324",
+   "whyStopped": "Study was terminated due to closure of study arms following futility analysis and difficulty in enrolling participants due to evolving treatment landscape"
+  },
+  {
+   "nct": "NCT02554812",
+   "drug": "Utomilumab",
+   "molecule": "CHEMBL3707324",
+   "whyStopped": "The study was terminated since there was no need for further safety or efficacy data to be collected. The participants having benefit from the Investigational treatments have been moved to a continuat"
+  },
+  {
+   "nct": "NCT02554812",
+   "drug": "Utomilumab",
+   "molecule": "CHEMBL3707324",
+   "whyStopped": "The study was terminated since there was no need for further safety or efficacy data to be collected. The participants having benefit from the Investigational treatments have been moved to a continuat"
+  },
+  {
+   "nct": "NCT02554812",
+   "drug": "PF-05082566",
+   "molecule": "CHEMBL3707324",
+   "whyStopped": "The study was terminated since there was no need for further safety or efficacy data to be collected. The participants having benefit from the Investigational treatments have been moved to a continuat"
+  }
+ ],
+ "CHEMBL1795178": [
+  {
+   "nct": "NCT01113801",
+   "drug": "LY2382770",
+   "molecule": "CHEMBL2109585",
+   "whyStopped": "Interim Assessment: Lack of Efficacy"
+  },
+  {
+   "nct": "NCT01113801",
+   "drug": "LY2382770",
+   "molecule": "CHEMBL2109585",
+   "whyStopped": "Interim Assessment: Lack of Efficacy"
+  }
+ ],
+ "CHEMBL4630878": [
+  {
+   "nct": "NCT05226598",
+   "drug": "Pembrolizumab/Vibostolimab",
+   "molecule": "CHEMBL4297785",
+   "whyStopped": "MK-7684A-007 was terminated early due to futility. A non-submission CSR, not intended to support any registration, was issued; therefore, an abbreviated CSR was generated."
+  },
+  {
+   "nct": "NCT04832854",
+   "drug": "Tiragolumab",
+   "molecule": "CHEMBL4298050",
+   "whyStopped": "Study was terminated as data became available from Phase 3 trials of perioperative regimens combining chemotherapy with immunotherapy showing improved efficacy outcomes versus chemotherapy alone."
+  },
+  {
+   "nct": "NCT04832854",
+   "drug": "Tiragolumab",
+   "molecule": "CHEMBL4298050",
+   "whyStopped": "Study was terminated as data became available from Phase 3 trials of perioperative regimens combining chemotherapy with immunotherapy showing improved efficacy outcomes versus chemotherapy alone."
+  },
+  {
+   "nct": "NCT04832854",
+   "drug": "MTIG7192A",
+   "molecule": "CHEMBL4298050",
+   "whyStopped": "Study was terminated as data became available from Phase 3 trials of perioperative regimens combining chemotherapy with immunotherapy showing improved efficacy outcomes versus chemotherapy alone."
+  },
+  {
+   "nct": "NCT04832854",
+   "drug": "MTIG7192A",
+   "molecule": "CHEMBL4298050",
+   "whyStopped": "Study was terminated as data became available from Phase 3 trials of perioperative regimens combining chemotherapy with immunotherapy showing improved efficacy outcomes versus chemotherapy alone."
+  },
+  {
+   "nct": "NCT04746924",
+   "drug": "Ociperlimab",
+   "molecule": "CHEMBL4650411",
+   "whyStopped": "This decision was conducted by the sponsor based on lack of efficacy and not driven by safety concerns."
+  },
+  {
+   "nct": "NCT04746924",
+   "drug": "Ociperlimab",
+   "molecule": "CHEMBL4650411",
+   "whyStopped": "This decision was conducted by the sponsor based on lack of efficacy and not driven by safety concerns."
+  },
+  {
+   "nct": "NCT04746924",
+   "drug": "BGB-A1217",
+   "molecule": "CHEMBL4650411",
+   "whyStopped": "This decision was conducted by the sponsor based on lack of efficacy and not driven by safety concerns."
+  }
+ ],
+ "CHEMBL3227": [
+  {
+   "nct": "NCT01433354",
+   "drug": "AFQ056",
+   "molecule": "CHEMBL3087515",
+   "whyStopped": "The study treatment failed to demonstrate efficacy in target population in two other clinical studies (CAFQ056B2214 and CAFQ056A2212)."
+  },
+  {
+   "nct": "NCT01433354",
+   "drug": "AFQ056",
+   "molecule": "CHEMBL3087515",
+   "whyStopped": "The study treatment failed to demonstrate efficacy in target population in two other clinical studies (CAFQ056B2214 and CAFQ056A2212)."
+  },
+  {
+   "nct": "NCT01348087",
+   "drug": "AFQ056",
+   "molecule": "CHEMBL3087515",
+   "whyStopped": "Study treatment AFQ056 failed to demonstrate efficacy in the adult patient with Fragile X Syndrome in 2 other clinical studies (CAFQ056B2214 and CAFQ056A2212)"
+  },
+  {
+   "nct": "NCT01348087",
+   "drug": "AFQ056",
+   "molecule": "CHEMBL3087515",
+   "whyStopped": "Study treatment AFQ056 failed to demonstrate efficacy in the adult patient with Fragile X Syndrome in 2 other clinical studies (CAFQ056B2214 and CAFQ056A2212)"
+  },
+  {
+   "nct": "NCT01813019",
+   "drug": "AFQ056",
+   "molecule": "CHEMBL3087515",
+   "whyStopped": "Study was prematurely terminated at the time of the first Interim Analysis (IA) as the study did not meet its primary efficacy objective."
+  },
+  {
+   "nct": "NCT01813019",
+   "drug": "AFQ056",
+   "molecule": "CHEMBL3087515",
+   "whyStopped": "Study was prematurely terminated at the time of the first Interim Analysis (IA) as the study did not meet its primary efficacy objective."
+  },
+  {
+   "nct": "NCT01813019",
+   "drug": "Mavoglurant",
+   "molecule": "CHEMBL3087515",
+   "whyStopped": "Study was prematurely terminated at the time of the first Interim Analysis (IA) as the study did not meet its primary efficacy objective."
+  },
+  {
+   "nct": "NCT01813019",
+   "drug": "Mavoglurant",
+   "molecule": "CHEMBL3087515",
+   "whyStopped": "Study was prematurely terminated at the time of the first Interim Analysis (IA) as the study did not meet its primary efficacy objective."
+  }
+ ],
+ "CHEMBL1075153": [
+  {
+   "nct": "NCT00543712",
+   "drug": "PRO95780",
+   "molecule": "CHEMBL2109248",
+   "whyStopped": "Efficacy not evident in this population."
+  },
+  {
+   "nct": "NCT00543712",
+   "drug": "PRO95780",
+   "molecule": "CHEMBL2109248",
+   "whyStopped": "Efficacy not evident in this population."
+  }
+ ],
+ "CHEMBL3922": [
+  {
+   "nct": "NCT02324491",
+   "drug": "Beloranib",
+   "molecule": "CHEMBL4297504",
+   "whyStopped": "Sponsor decision to analyze available safety and efficacy data"
+  },
+  {
+   "nct": "NCT02324491",
+   "drug": "Beloranib",
+   "molecule": "CHEMBL4297504",
+   "whyStopped": "Sponsor decision to analyze available safety and efficacy data"
+  },
+  {
+   "nct": "NCT02324491",
+   "drug": "ZGN-440",
+   "molecule": "CHEMBL4297504",
+   "whyStopped": "Sponsor decision to analyze available safety and efficacy data"
+  }
+ ],
+ "CHEMBL2337": [
+  {
+   "nct": "NCT00764660",
+   "drug": "SCH 900435",
+   "molecule": "CHEMBL4228124",
+   "whyStopped": "Based on the outcome of a planned interim analysis, the study was stopped early due to futility."
+  },
+  {
+   "nct": "NCT00764660",
+   "drug": "Org 25935",
+   "molecule": "CHEMBL4228124",
+   "whyStopped": "Based on the outcome of a planned interim analysis, the study was stopped early due to futility."
+  }
+ ],
+ "CHEMBL1836": [
+  {
+   "nct": "NCT03696212",
+   "drug": "grapiprant and pembrolizumab",
+   "molecule": "CHEMBL3039498",
+   "whyStopped": "Based on the totality of the generated combined safety and efficacy data in the interim period, the company decided to terminate the combination study in NSCLC patients. There are no subjects on study"
+  }
+ ],
+ "CHEMBL2146302": [
+  {
+   "nct": "NCT02771626",
+   "drug": "CB-839",
+   "molecule": "CHEMBL3639788",
+   "whyStopped": "lack of efficacy"
+  },
+  {
+   "nct": "NCT02771626",
+   "drug": "telaglenastat",
+   "molecule": "CHEMBL3639788",
+   "whyStopped": "lack of efficacy"
+  },
+  {
+   "nct": "NCT02771626",
+   "drug": "telaglenastat",
+   "molecule": "CHEMBL3639788",
+   "whyStopped": "lack of efficacy"
+  }
+ ],
+ "CHEMBL4685": [
+  {
+   "nct": "NCT03823131",
+   "drug": "Epacadostat",
+   "molecule": "CHEMBL3545369",
+   "whyStopped": "Treatment Ineffective"
+  },
+  {
+   "nct": "NCT03823131",
+   "drug": "Epacadostat",
+   "molecule": "CHEMBL3545369",
+   "whyStopped": "Treatment Ineffective"
+  },
+  {
+   "nct": "NCT03823131",
+   "drug": "INCB 024360",
+   "molecule": "CHEMBL3545369",
+   "whyStopped": "Treatment Ineffective"
+  },
+  {
+   "nct": "NCT03823131",
+   "drug": "INCB024360",
+   "molecule": "CHEMBL3545369",
+   "whyStopped": "Treatment Ineffective"
+  },
+  {
+   "nct": "NCT03823131",
+   "drug": "INCB024360",
+   "molecule": "CHEMBL3545369",
+   "whyStopped": "Treatment Ineffective"
+  }
+ ],
+ "CHEMBL2979": [
+  {
+   "nct": "NCT02118584",
+   "drug": "Etrolizumab",
+   "molecule": "CHEMBL1743015",
+   "whyStopped": "The study was terminated due to program discontinuation, based on mixed efficacy results in the parent studies. There were no safety concerns."
+  },
+  {
+   "nct": "NCT02118584",
+   "drug": "Etrolizumab",
+   "molecule": "CHEMBL1743015",
+   "whyStopped": "The study was terminated due to program discontinuation, based on mixed efficacy results in the parent studies. There were no safety concerns."
+  },
+  {
+   "nct": "NCT02118584",
+   "drug": "PRO145223",
+   "molecule": "CHEMBL1743015",
+   "whyStopped": "The study was terminated due to program discontinuation, based on mixed efficacy results in the parent studies. There were no safety concerns."
+  },
+  {
+   "nct": "NCT02118584",
+   "drug": "PRO145223",
+   "molecule": "CHEMBL1743015",
+   "whyStopped": "The study was terminated due to program discontinuation, based on mixed efficacy results in the parent studies. There were no safety concerns."
+  },
+  {
+   "nct": "NCT02118584",
+   "drug": "rhuMAb Beta7",
+   "molecule": "CHEMBL1743015",
+   "whyStopped": "The study was terminated due to program discontinuation, based on mixed efficacy results in the parent studies. There were no safety concerns."
+  },
+  {
+   "nct": "NCT02403323",
+   "drug": "Etrolizumab",
+   "molecule": "CHEMBL1743015",
+   "whyStopped": "The study was terminated due to program discontinuation, based on mixed efficacy results in the parent studies. There were no safety concerns."
+  },
+  {
+   "nct": "NCT02403323",
+   "drug": "Etrolizumab",
+   "molecule": "CHEMBL1743015",
+   "whyStopped": "The study was terminated due to program discontinuation, based on mixed efficacy results in the parent studies. There were no safety concerns."
+  }
+ ],
+ "CHEMBL5838": [
+  {
+   "nct": "NCT02633800",
+   "drug": "Patritumab",
+   "molecule": "CHEMBL2109406",
+   "whyStopped": "Trial was terminated by sponsor due to lack of efficacy."
+  },
+  {
+   "nct": "NCT02633800",
+   "drug": "Patritumab",
+   "molecule": "CHEMBL2109406",
+   "whyStopped": "Trial was terminated by sponsor due to lack of efficacy."
+  },
+  {
+   "nct": "NCT02633800",
+   "drug": "U3-1287",
+   "molecule": "CHEMBL2109406",
+   "whyStopped": "Trial was terminated by sponsor due to lack of efficacy."
+  },
+  {
+   "nct": "NCT02633800",
+   "drug": "U3-1287",
+   "molecule": "CHEMBL2109396",
+   "whyStopped": "Trial was terminated by sponsor due to lack of efficacy."
+  },
+  {
+   "nct": "NCT01151215",
+   "drug": "AZD8931",
+   "molecule": "CHEMBL2408045",
+   "whyStopped": "Futility"
+  },
+  {
+   "nct": "NCT01151215",
+   "drug": "AZD8931",
+   "molecule": "CHEMBL2408045",
+   "whyStopped": "Futility"
+  }
+ ],
+ "CHEMBL5147": [
+  {
+   "nct": "NCT01149434",
+   "drug": "JI-101",
+   "molecule": "CHEMBL3545155",
+   "whyStopped": "Lack of drug efficacy"
+  }
+ ],
+ "CHEMBL2695": [
+  {
+   "nct": "NCT01870609",
+   "drug": "defactinib (VS-6063)",
+   "molecule": "CHEMBL3137331",
+   "whyStopped": "Interim analysis-DSMB stated good safety profile but lack of efficacy"
+  },
+  {
+   "nct": "NCT01870609",
+   "drug": "defactinib (VS-6063)",
+   "molecule": "CHEMBL3137331",
+   "whyStopped": "Interim analysis-DSMB stated good safety profile but lack of efficacy"
+  }
+ ],
+ "CHEMBL5469": [
+  {
+   "nct": "NCT01870609",
+   "drug": "defactinib (VS-6063)",
+   "molecule": "CHEMBL3137331",
+   "whyStopped": "Interim analysis-DSMB stated good safety profile but lack of efficacy"
+  },
+  {
+   "nct": "NCT01870609",
+   "drug": "defactinib (VS-6063)",
+   "molecule": "CHEMBL3137331",
+   "whyStopped": "Interim analysis-DSMB stated good safety profile but lack of efficacy"
+  }
+ ],
+ "CHEMBL4630879": [
+  {
+   "nct": "NCT04878432",
+   "drug": "MBG453",
+   "molecule": "CHEMBL4594575",
+   "whyStopped": "Lack of efficacy in the program as demonstrated in the earlier CMBG453B12301 (STIMULUS MDS-2) study."
+  },
+  {
+   "nct": "NCT04878432",
+   "drug": "MBG453",
+   "molecule": "CHEMBL4594575",
+   "whyStopped": "Lack of efficacy in the program as demonstrated in the earlier CMBG453B12301 (STIMULUS MDS-2) study."
+  },
+  {
+   "nct": "NCT04878432",
+   "drug": "sabatolimab",
+   "molecule": "CHEMBL4594575",
+   "whyStopped": "Lack of efficacy in the program as demonstrated in the earlier CMBG453B12301 (STIMULUS MDS-2) study."
+  },
+  {
+   "nct": "NCT04878432",
+   "drug": "sabatolimab",
+   "molecule": "CHEMBL4594575",
+   "whyStopped": "Lack of efficacy in the program as demonstrated in the earlier CMBG453B12301 (STIMULUS MDS-2) study."
+  }
+ ],
+ "CHEMBL226": [
+  {
+   "nct": "NCT03954106",
+   "drug": "Defibrotide",
+   "molecule": "CHEMBL2108396",
+   "whyStopped": "Primary endpoint would unlikely to be met based on the unplanned interim assessment on the first 20 efficacy evaluable patients."
+  },
+  {
+   "nct": "NCT03954106",
+   "drug": "Defibrotide",
+   "molecule": "CHEMBL2108396",
+   "whyStopped": "Primary endpoint would unlikely to be met based on the unplanned interim assessment on the first 20 efficacy evaluable patients."
+  }
+ ],
+ "CHEMBL4644": [
+  {
+   "nct": "NCT01897519",
+   "drug": "ABT-719",
+   "molecule": "CHEMBL3545104",
+   "whyStopped": "Topline results from study M13-796 showed an overall lack of efficacy. There were no safety concerns."
+  }
+ ]
+}

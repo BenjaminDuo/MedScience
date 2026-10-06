@@ -1,0 +1,5330 @@
+{
+"CHEMBL1075113": {
+"symbol": "TLR3",
+"accession": "O15455",
+"name": "Toll-like receptor 3",
+"maxPhase": 3.0
+},
+"CHEMBL1075126": {
+"symbol": "PKLR",
+"accession": "P30613",
+"name": "Pyruvate kinase PKLR",
+"maxPhase": 4.0
+},
+"CHEMBL1075153": {
+"symbol": "TNFRSF10B",
+"accession": "O14763",
+"name": "Tumor necrosis factor receptor superfamily member 10B",
+"maxPhase": 3.0
+},
+"CHEMBL1075094": {
+"symbol": "NFE2L2",
+"accession": "Q16236",
+"name": "Nuclear factor erythroid 2-related factor 2",
+"maxPhase": 4.0
+},
+"CHEMBL1075319": {
+"symbol": "TRPM8",
+"accession": "Q7Z2W7",
+"name": "Transient receptor potential cation channel subfamily M member 8",
+"maxPhase": 4.0
+},
+"CHEMBL1163124": {
+"symbol": "MAP3K13",
+"accession": "O43283",
+"name": "Mitogen-activated protein kinase kinase kinase 13",
+"maxPhase": 3.0
+},
+"CHEMBL1169596": {
+"symbol": "ARAF",
+"accession": "P10398",
+"name": "Serine/threonine-protein kinase A-Raf",
+"maxPhase": 1.0
+},
+"CHEMBL1169600": {
+"symbol": "IL5",
+"accession": "P05113",
+"name": "Interleukin-5",
+"maxPhase": 4.0
+},
+"CHEMBL1250358": {
+"symbol": "CD40",
+"accession": "P25942",
+"name": "Tumor necrosis factor receptor superfamily member 5",
+"maxPhase": 2.0
+},
+"CHEMBL1250360": {
+"symbol": "LTBR",
+"accession": "P36941",
+"name": "Tumor necrosis factor receptor superfamily member 3",
+"maxPhase": 1.0
+},
+"CHEMBL1250375": {
+"symbol": "NOX4",
+"accession": "Q9NPH5",
+"name": "NADPH oxidase 4",
+"maxPhase": 2.0
+},
+"CHEMBL1250417": {
+"symbol": "HCN4",
+"accession": "Q9Y3Q4",
+"name": "Potassium/sodium hyperpolarization-activated cyclic nucleotide-gated channel 4",
+"maxPhase": 4.0
+},
+"CHEMBL1255163": {
+"symbol": "PORCN",
+"accession": "Q9H237",
+"name": "Protein-serine O-palmitoleoyltransferase porcupine",
+"maxPhase": 2.0
+},
+"CHEMBL1275223": {
+"symbol": "HSPA8",
+"accession": "P11142",
+"name": "Heat shock cognate 71 kDa protein",
+"maxPhase": 3.0
+},
+"CHEMBL1287628": {
+"symbol": "NOX1",
+"accession": "Q9Y5S8",
+"name": "NADPH oxidase 1",
+"maxPhase": 2.0
+},
+"CHEMBL1293224": {
+"symbol": "MAPT",
+"accession": "P10636",
+"name": "Microtubule-associated protein tau",
+"maxPhase": 2.0
+},
+"CHEMBL1293232": {
+"symbol": "SMN1",
+"accession": "Q16637",
+"name": "Survival motor neuron protein",
+"maxPhase": 4.0
+},
+"CHEMBL1293266": {
+"symbol": "NOD2",
+"accession": "Q9HC29",
+"name": "Nucleotide-binding oligomerization domain-containing protein 2",
+"maxPhase": 4.0
+},
+"CHEMBL1293316": {
+"symbol": "RXFP1",
+"accession": "Q9HBX9",
+"name": "Relaxin receptor 1",
+"maxPhase": 3.0
+},
+"CHEMBL1615381": {
+"symbol": "MEN1",
+"accession": "O00255",
+"name": "Menin",
+"maxPhase": 4.0
+},
+"CHEMBL1628478": {
+"symbol": "CLCN2",
+"accession": "P51788",
+"name": "Chloride channel protein 2",
+"maxPhase": 4.0
+},
+"CHEMBL1628481": {
+"symbol": "APLNR",
+"accession": "P35414",
+"name": "Apelin receptor",
+"maxPhase": 2.0
+},
+"CHEMBL1628482": {
+"symbol": "RXFP2",
+"accession": "Q8WXD0",
+"name": "Relaxin receptor 2",
+"maxPhase": 3.0
+},
+"CHEMBL1641347": {
+"symbol": "SLC22A6",
+"accession": "Q4U2R8",
+"name": "Solute carrier family 22 member 6",
+"maxPhase": 4.0
+},
+"CHEMBL1641348": {
+"symbol": "SLC22A8",
+"accession": "Q8TCC7",
+"name": "Organic anion transporter 3",
+"maxPhase": 4.0
+},
+"CHEMBL1641353": {
+"symbol": "POLR2A",
+"accession": "P24928",
+"name": "DNA-directed RNA polymerase II subunit RPB1",
+"maxPhase": 2.0
+},
+"CHEMBL1649052": {
+"symbol": "CCL2",
+"accession": "P13500",
+"name": "C-C motif chemokine 2",
+"maxPhase": 2.0
+},
+"CHEMBL1649058": {
+"symbol": "NGF",
+"accession": "P01138",
+"name": "Beta-nerve growth factor",
+"maxPhase": 3.0
+},
+"CHEMBL1697671": {
+"symbol": "PGF",
+"accession": "P49763",
+"name": "Placenta growth factor",
+"maxPhase": 4.0
+},
+"CHEMBL1697674": {
+"symbol": "TREM1",
+"accession": "Q9NP99",
+"name": "Triggering receptor expressed on myeloid cells 1",
+"maxPhase": 2.0
+},
+"CHEMBL1801": {
+"symbol": "PLG",
+"accession": "P00747",
+"name": "Plasminogen",
+"maxPhase": 4.0
+},
+"CHEMBL1781": {
+"symbol": "TOP1",
+"accession": "P11387",
+"name": "DNA topoisomerase 1",
+"maxPhase": 4.0
+},
+"CHEMBL1806": {
+"symbol": "TOP2A",
+"accession": "P11388",
+"name": "DNA topoisomerase 2-alpha",
+"maxPhase": 4.0
+},
+"CHEMBL1808": {
+"symbol": "ACE",
+"accession": "P12821",
+"name": "Angiotensin-converting enzyme",
+"maxPhase": 4.0
+},
+"CHEMBL1782": {
+"symbol": "FDPS",
+"accession": "P14324",
+"name": "Farnesyl pyrophosphate synthase",
+"maxPhase": 4.0
+},
+"CHEMBL1812": {
+"symbol": "PNLIP",
+"accession": "P16233",
+"name": "Pancreatic triacylglycerol lipase",
+"maxPhase": 4.0
+},
+"CHEMBL1786": {
+"symbol": "IMPA1",
+"accession": "P29218",
+"name": "Inositol monophosphatase 1",
+"maxPhase": 4.0
+},
+"CHEMBL1790": {
+"symbol": "AVPR2",
+"accession": "P30518",
+"name": "Vasopressin V2 receptor",
+"maxPhase": 4.0
+},
+"CHEMBL1804": {
+"symbol": "SSTR2",
+"accession": "P30874",
+"name": "Somatostatin receptor type 2",
+"maxPhase": 4.0
+},
+"CHEMBL1800": {
+"symbol": "CRHR1",
+"accession": "P34998",
+"name": "Corticotropin-releasing factor receptor 1",
+"maxPhase": 4.0
+},
+"CHEMBL1793": {
+"symbol": "PTH1R",
+"accession": "Q03431",
+"name": "Parathyroid hormone/parathyroid hormone-related peptide receptor",
+"maxPhase": 4.0
+},
+"CHEMBL1798": {
+"symbol": "CYSLTR1",
+"accession": "Q9Y271",
+"name": "Cysteinyl leukotriene receptor 1",
+"maxPhase": 4.0
+},
+"CHEMBL1778": {
+"symbol": "IL2RA",
+"accession": "P01589",
+"name": "Interleukin-2 receptor subunit alpha",
+"maxPhase": 3.0
+},
+"CHEMBL1783": {
+"symbol": "VEGFA",
+"accession": "P15692",
+"name": "Vascular endothelial growth factor A, long form",
+"maxPhase": 4.0
+},
+"CHEMBL1803": {
+"symbol": "ITGAL",
+"accession": "P20701",
+"name": "Integrin alpha-L",
+"maxPhase": 3.0
+},
+"CHEMBL1817": {
+"symbol": "EPOR",
+"accession": "P19235",
+"name": "Erythropoietin receptor",
+"maxPhase": 4.0
+},
+"CHEMBL1821": {
+"symbol": "CHRM4",
+"accession": "P08173",
+"name": "Muscarinic acetylcholine receptor M4",
+"maxPhase": 4.0
+},
+"CHEMBL1785": {
+"symbol": "EDNRB",
+"accession": "P24530",
+"name": "Endothelin receptor type B",
+"maxPhase": 3.0
+},
+"CHEMBL1810": {
+"symbol": "TRHR",
+"accession": "P34981",
+"name": "Thyrotropin-releasing hormone receptor",
+"maxPhase": 4.0
+},
+"CHEMBL1811": {
+"symbol": "PTGER1",
+"accession": "P34995",
+"name": "Prostaglandin E2 receptor EP1 subtype",
+"maxPhase": 4.0
+},
+"CHEMBL1805": {
+"symbol": "HTR1F",
+"accession": "P30939",
+"name": "5-hydroxytryptamine receptor 1F",
+"maxPhase": 4.0
+},
+"CHEMBL1796": {
+"symbol": "LIPF",
+"accession": "P07098",
+"name": "Gastric triacylglycerol lipase",
+"maxPhase": 4.0
+},
+"CHEMBL1795": {
+"symbol": "NPR2",
+"accession": "P20594",
+"name": "Atrial natriuretic peptide receptor 2",
+"maxPhase": 4.0
+},
+"CHEMBL1792": {
+"symbol": "SSTR5",
+"accession": "P35346",
+"name": "Somatostatin receptor type 5",
+"maxPhase": 4.0
+},
+"CHEMBL1784": {
+"symbol": "GLP1R",
+"accession": "P43220",
+"name": "Glucagon-like peptide 1 receptor",
+"maxPhase": 4.0
+},
+"CHEMBL1741186": {
+"symbol": "RORC",
+"accession": "P51449",
+"name": "Nuclear receptor ROR-gamma",
+"maxPhase": 1.0
+},
+"CHEMBL1741208": {
+"symbol": "NLRP3",
+"accession": "Q96P20",
+"name": "NACHT, LRR and PYD domains-containing protein 3",
+"maxPhase": 2.0
+},
+"CHEMBL1741305": {
+"symbol": "IL18",
+"accession": "Q14116",
+"name": "Interleukin-18",
+"maxPhase": 3.0
+},
+"CHEMBL1741309": {
+"symbol": "SPP1",
+"accession": "P10451",
+"name": "Osteopontin",
+"maxPhase": 2.0
+},
+"CHEMBL1744522": {
+"symbol": "EPAS1",
+"accession": "Q99814",
+"name": "Endothelial PAS domain-containing protein 1",
+"maxPhase": 4.0
+},
+"CHEMBL1744525": {
+"symbol": "NAMPT",
+"accession": "P43490",
+"name": "Nicotinamide phosphoribosyltransferase",
+"maxPhase": 2.0
+},
+"CHEMBL1781870": {
+"symbol": "INPP5D",
+"accession": "Q92835",
+"name": "Phosphatidylinositol 3,4,5-trisphosphate 5-phosphatase 1",
+"maxPhase": 3.0
+},
+"CHEMBL1795108": {
+"symbol": "EEF2",
+"accession": "P13639",
+"name": "Elongation factor 2",
+"maxPhase": 4.0
+},
+"CHEMBL1795116": {
+"symbol": "PRMT5",
+"accession": "O14744",
+"name": "Protein arginine N-methyltransferase 5",
+"maxPhase": 2.0
+},
+"CHEMBL1795122": {
+"symbol": "EEF1A2",
+"accession": "Q05639",
+"name": "Elongation factor 1-alpha 2",
+"maxPhase": 4.0
+},
+"CHEMBL1795129": {
+"symbol": "IL6",
+"accession": "P05231",
+"name": "Interleukin-6",
+"maxPhase": 4.0
+},
+"CHEMBL1795178": {
+"symbol": "TGFB1",
+"accession": "P01137",
+"name": "Transforming growth factor beta-1 proprotein",
+"maxPhase": 2.0
+},
+"CHEMBL1795197": {
+"symbol": "GUCY2C",
+"accession": "P25092",
+"name": "Guanylyl cyclase C",
+"maxPhase": 4.0
+},
+"CHEMBL1827": {
+"symbol": "PDE5A",
+"accession": "O76074",
+"name": "cGMP-specific 3',5'-cyclic phosphodiesterase",
+"maxPhase": 4.0
+},
+"CHEMBL1859": {
+"symbol": "CACNA1H",
+"accession": "O95180",
+"name": "Voltage-dependent T-type calcium channel subunit alpha-1H",
+"maxPhase": 2.0
+},
+"CHEMBL1862": {
+"symbol": "ABL1",
+"accession": "P00519",
+"name": "Tyrosine-protein kinase ABL1",
+"maxPhase": 4.0
+},
+"CHEMBL1839": {
+"symbol": "TPO",
+"accession": "P07202",
+"name": "Thyroid peroxidase",
+"maxPhase": 4.0
+},
+"CHEMBL1871": {
+"symbol": "AR",
+"accession": "P10275",
+"name": "Androgen receptor",
+"maxPhase": 4.0
+},
+"CHEMBL1842": {
+"symbol": "CD33",
+"accession": "P20138",
+"name": "Myeloid cell surface antigen CD33",
+"maxPhase": 4.0
+},
+"CHEMBL1843": {
+"symbol": "DDC",
+"accession": "P20711",
+"name": "Aromatic-L-amino-acid decarboxylase",
+"maxPhase": 4.0
+},
+"CHEMBL1822": {
+"symbol": "IMPDH1",
+"accession": "P20839",
+"name": "Inosine-5'-monophosphate dehydrogenase 1",
+"maxPhase": 4.0
+},
+"CHEMBL1846": {
+"symbol": "RYR1",
+"accession": "P21817",
+"name": "Ryanodine receptor 1",
+"maxPhase": 4.0
+},
+"CHEMBL1854": {
+"symbol": "LHCGR",
+"accession": "P22888",
+"name": "Lutropin-choriogonadotropic hormone receptor",
+"maxPhase": 4.0
+},
+"CHEMBL1855": {
+"symbol": "GNRHR",
+"accession": "P30968",
+"name": "Gonadotropin-releasing hormone receptor",
+"maxPhase": 4.0
+},
+"CHEMBL1832": {
+"symbol": "CALCR",
+"accession": "P30988",
+"name": "Calcitonin receptor",
+"maxPhase": 4.0
+},
+"CHEMBL1856": {
+"symbol": "SRD5A2",
+"accession": "P31213",
+"name": "3-oxo-5-alpha-steroid 4-dehydrogenase 2",
+"maxPhase": 4.0
+},
+"CHEMBL1861": {
+"symbol": "HPD",
+"accession": "P32754",
+"name": "4-hydroxyphenylpyruvate dioxygenase",
+"maxPhase": 4.0
+},
+"CHEMBL1881": {
+"symbol": "PTGER2",
+"accession": "P43116",
+"name": "Prostaglandin E2 receptor EP2 subtype",
+"maxPhase": 4.0
+},
+"CHEMBL1876": {
+"symbol": "SLC12A3",
+"accession": "P55017",
+"name": "Solute carrier family 12 member 3",
+"maxPhase": 4.0
+},
+"CHEMBL1874": {
+"symbol": "SLC12A1",
+"accession": "Q13621",
+"name": "Solute carrier family 12 member 1",
+"maxPhase": 4.0
+},
+"CHEMBL1875": {
+"symbol": "HTR4",
+"accession": "Q13639",
+"name": "5-hydroxytryptamine receptor 4",
+"maxPhase": 4.0
+},
+"CHEMBL1825": {
+"symbol": "TNF",
+"accession": "P01375",
+"name": "Tumor necrosis factor",
+"maxPhase": 4.0
+},
+"CHEMBL1824": {
+"symbol": "ERBB2",
+"accession": "P04626",
+"name": "Receptor tyrosine-protein kinase erbB-2",
+"maxPhase": 4.0
+},
+"CHEMBL1850": {
+"symbol": "DRD5",
+"accession": "P21918",
+"name": "D(1B) dopamine receptor",
+"maxPhase": 3.0
+},
+"CHEMBL1833": {
+"symbol": "HTR2B",
+"accession": "P41595",
+"name": "5-hydroxytryptamine receptor 2B",
+"maxPhase": 4.0
+},
+"CHEMBL1834": {
+"symbol": "IGHE",
+"accession": "P01854",
+"name": "Immunoglobulin heavy constant epsilon",
+"maxPhase": 4.0
+},
+"CHEMBL1835": {
+"symbol": "TBXAS1",
+"accession": "P24557",
+"name": "Thromboxane-A synthase",
+"maxPhase": 4.0
+},
+"CHEMBL1836": {
+"symbol": "PTGER4",
+"accession": "P35408",
+"name": "Prostaglandin E2 receptor EP4 subtype",
+"maxPhase": 2.0
+},
+"CHEMBL1864": {
+"symbol": "MPL",
+"accession": "P40238",
+"name": "Thrombopoietin receptor",
+"maxPhase": 4.0
+},
+"CHEMBL1869": {
+"symbol": "ODC1",
+"accession": "P11926",
+"name": "Ornithine decarboxylase",
+"maxPhase": 4.0
+},
+"CHEMBL1878": {
+"symbol": "CASR",
+"accession": "P41180",
+"name": "Extracellular calcium-sensing receptor",
+"maxPhase": 4.0
+},
+"CHEMBL1853": {
+"symbol": "SSTR4",
+"accession": "P31391",
+"name": "Somatostatin receptor type 4",
+"maxPhase": 2.0
+},
+"CHEMBL1868": {
+"symbol": "FLT1",
+"accession": "P17948",
+"name": "Vascular endothelial growth factor receptor 1",
+"maxPhase": 4.0
+},
+"CHEMBL1829": {
+"symbol": "HDAC3",
+"accession": "O15379",
+"name": "Histone deacetylase 3",
+"maxPhase": 4.0
+},
+"CHEMBL1865": {
+"symbol": "HDAC6",
+"accession": "Q9UBN7",
+"name": "Protein deacetylase HDAC6",
+"maxPhase": 4.0
+},
+"CHEMBL1873": {
+"symbol": "PLAT",
+"accession": "P00750",
+"name": "Tissue-type plasminogen activator",
+"maxPhase": 4.0
+},
+"CHEMBL1841": {
+"symbol": "FYN",
+"accession": "P06241",
+"name": "Tyrosine-protein kinase Fyn",
+"maxPhase": 1.0
+},
+"CHEMBL1847": {
+"symbol": "GABRB3",
+"accession": "P28472",
+"name": "Gamma-aminobutyric acid receptor subunit beta-3",
+"maxPhase": 2.0
+},
+"CHEMBL1844": {
+"symbol": "CSF1R",
+"accession": "P07333",
+"name": "Macrophage colony-stimulating factor 1 receptor",
+"maxPhase": 4.0
+},
+"CHEMBL1910": {
+"symbol": "ADA",
+"accession": "P00813",
+"name": "Adenosine deaminase",
+"maxPhase": 4.0
+},
+"CHEMBL1908": {
+"symbol": "CYP11B1",
+"accession": "P15538",
+"name": "Cytochrome P450 11B1, mitochondrial",
+"maxPhase": 4.0
+},
+"CHEMBL1902": {
+"symbol": "FKBP1A",
+"accession": "P62942",
+"name": "Peptidyl-prolyl cis-trans isomerase FKBP1A",
+"maxPhase": 4.0
+},
+"CHEMBL1898": {
+"symbol": "HTR1B",
+"accession": "P28222",
+"name": "5-hydroxytryptamine receptor 1B",
+"maxPhase": 4.0
+},
+"CHEMBL1903": {
+"symbol": "SLC6A1",
+"accession": "P30531",
+"name": "Sodium- and chloride-dependent GABA transporter 1",
+"maxPhase": 4.0
+},
+"CHEMBL1889": {
+"symbol": "AVPR1A",
+"accession": "P37288",
+"name": "Vasopressin V1a receptor",
+"maxPhase": 4.0
+},
+"CHEMBL1899": {
+"symbol": "HTR3A",
+"accession": "P46098",
+"name": "5-hydroxytryptamine receptor 3A",
+"maxPhase": 4.0
+},
+"CHEMBL1925": {
+"symbol": "SCTR",
+"accession": "P47872",
+"name": "Secretin receptor",
+"maxPhase": 4.0
+},
+"CHEMBL1921": {
+"symbol": "AVPR1B",
+"accession": "P47901",
+"name": "Vasopressin V1b receptor",
+"maxPhase": 4.0
+},
+"CHEMBL1929": {
+"symbol": "XDH",
+"accession": "P47989",
+"name": "Xanthine dehydrogenase/oxidase",
+"maxPhase": 4.0
+},
+"CHEMBL1919": {
+"symbol": "CACNA2D1",
+"accession": "P54289",
+"name": "Voltage-dependent calcium channel subunit alpha-2/delta-1",
+"maxPhase": 0
+},
+"CHEMBL1893": {
+"symbol": "SLC18A2",
+"accession": "Q05940",
+"name": "Synaptic vesicular amine transporter",
+"maxPhase": 4.0
+},
+"CHEMBL1927": {
+"symbol": "TXNRD1",
+"accession": "Q16881",
+"name": "Thioredoxin reductase 1, cytoplasmic",
+"maxPhase": 4.0
+},
+"CHEMBL1892": {
+"symbol": "FOLH1",
+"accession": "Q04609",
+"name": "Glutamate carboxypeptidase 2",
+"maxPhase": 4.0
+},
+"CHEMBL1913": {
+"symbol": "PDGFRB",
+"accession": "P09619",
+"name": "Platelet-derived growth factor receptor beta",
+"maxPhase": 4.0
+},
+"CHEMBL1887": {
+"symbol": "IFNAR1",
+"accession": "P17181",
+"name": "Interferon alpha/beta receptor 1",
+"maxPhase": 4.0
+},
+"CHEMBL1912": {
+"symbol": "CD52",
+"accession": "P31358",
+"name": "CAMPATH-1 antigen",
+"maxPhase": 4.0
+},
+"CHEMBL1916": {
+"symbol": "ADRA2C",
+"accession": "P18825",
+"name": "Alpha-2C adrenergic receptor",
+"maxPhase": 2.0
+},
+"CHEMBL1900": {
+"symbol": "AKR1B1",
+"accession": "P15121",
+"name": "Aldo-keto reductase family 1 member B1",
+"maxPhase": 4.0
+},
+"CHEMBL1911": {
+"symbol": "ALDH5A1",
+"accession": "P51649",
+"name": "Succinate-semialdehyde dehydrogenase, mitochondrial",
+"maxPhase": 4.0
+},
+"CHEMBL1886": {
+"symbol": "KCNJ11",
+"accession": "Q14654",
+"name": "ATP-sensitive inward rectifier potassium channel 11",
+"maxPhase": 4.0
+},
+"CHEMBL1901": {
+"symbol": "CCKAR",
+"accession": "P32238",
+"name": "Cholecystokinin receptor type A",
+"maxPhase": 4.0
+},
+"CHEMBL1914": {
+"symbol": "BCHE",
+"accession": "P06276",
+"name": "Cholinesterase",
+"maxPhase": 4.0
+},
+"CHEMBL1906": {
+"symbol": "RAF1",
+"accession": "P04049",
+"name": "RAF proto-oncogene serine/threonine-protein kinase",
+"maxPhase": 4.0
+},
+"CHEMBL1918": {
+"symbol": "GRIK1",
+"accession": "P39086",
+"name": "Glutamate receptor ionotropic, kainate 1",
+"maxPhase": 2.0
+},
+"CHEMBL1917": {
+"symbol": "SSTR1",
+"accession": "P30872",
+"name": "Somatostatin receptor type 1",
+"maxPhase": 4.0
+},
+"CHEMBL1908389": {
+"symbol": "MAP3K12",
+"accession": "Q12852",
+"name": "Mitogen-activated protein kinase kinase kinase 12",
+"maxPhase": 3.0
+},
+"CHEMBL1909490": {
+"symbol": "IL1B",
+"accession": "P01584",
+"name": "Interleukin-1 beta",
+"maxPhase": 4.0
+},
+"CHEMBL1914276": {
+"symbol": "KCNJ2",
+"accession": "P63252",
+"name": "Inward rectifier potassium channel 2",
+"maxPhase": 4.0
+},
+"CHEMBL1950": {
+"symbol": "SERPINC1",
+"accession": "P01008",
+"name": "Antithrombin-III",
+"maxPhase": 4.0
+},
+"CHEMBL1952": {
+"symbol": "TYMS",
+"accession": "P04818",
+"name": "Thymidylate synthase",
+"maxPhase": 4.0
+},
+"CHEMBL1935": {
+"symbol": "ALDH2",
+"accession": "P05091",
+"name": "Aldehyde dehydrogenase, mitochondrial",
+"maxPhase": 4.0
+},
+"CHEMBL1981": {
+"symbol": "INSR",
+"accession": "P06213",
+"name": "Insulin receptor",
+"maxPhase": 4.0
+},
+"CHEMBL1969": {
+"symbol": "TH",
+"accession": "P07101",
+"name": "Tyrosine 3-monooxygenase",
+"maxPhase": 4.0
+},
+"CHEMBL1976": {
+"symbol": "GHR",
+"accession": "P10912",
+"name": "Growth hormone receptor",
+"maxPhase": 4.0
+},
+"CHEMBL1977": {
+"symbol": "VDR",
+"accession": "P11473",
+"name": "Vitamin D3 receptor",
+"maxPhase": 4.0
+},
+"CHEMBL1978": {
+"symbol": "CYP19A1",
+"accession": "P11511",
+"name": "Aromatase",
+"maxPhase": 4.0
+},
+"CHEMBL1973": {
+"symbol": "TYR",
+"accession": "P14679",
+"name": "Tyrosinase",
+"maxPhase": 4.0
+},
+"CHEMBL1962": {
+"symbol": "GABRA1",
+"accession": "P14867",
+"name": "Gamma-aminobutyric acid receptor subunit alpha-1",
+"maxPhase": 3.0
+},
+"CHEMBL1963": {
+"symbol": "TSHR",
+"accession": "P16473",
+"name": "Thyrotropin receptor",
+"maxPhase": 4.0
+},
+"CHEMBL1951": {
+"symbol": "MAOA",
+"accession": "P21397",
+"name": "Amine oxidase [flavin-containing] A",
+"maxPhase": 4.0
+},
+"CHEMBL1941": {
+"symbol": "HRH2",
+"accession": "P25021",
+"name": "Histamine H2 receptor",
+"maxPhase": 4.0
+},
+"CHEMBL1983": {
+"symbol": "HTR1D",
+"accession": "P28221",
+"name": "5-hydroxytryptamine receptor 1D",
+"maxPhase": 4.0
+},
+"CHEMBL1987": {
+"symbol": "PTGFR",
+"accession": "P43088",
+"name": "Prostaglandin F2-alpha receptor",
+"maxPhase": 4.0
+},
+"CHEMBL1985": {
+"symbol": "GCGR",
+"accession": "P47871",
+"name": "Glucagon receptor",
+"maxPhase": 4.0
+},
+"CHEMBL1965": {
+"symbol": "MC2R",
+"accession": "Q01718",
+"name": "Adrenocorticotropic hormone receptor",
+"maxPhase": 4.0
+},
+"CHEMBL1966": {
+"symbol": "DHODH",
+"accession": "Q02127",
+"name": "Dihydroorotate dehydrogenase (quinone), mitochondrial",
+"maxPhase": 4.0
+},
+"CHEMBL1972": {
+"symbol": "GRIN2A",
+"accession": "Q12879",
+"name": "Glutamate receptor ionotropic, NMDA 2A",
+"maxPhase": 4.0
+},
+"CHEMBL1949": {
+"symbol": "PPIA",
+"accession": "P62937",
+"name": "Peptidyl-prolyl cis-trans isomerase A",
+"maxPhase": 4.0
+},
+"CHEMBL1959": {
+"symbol": "IL1R1",
+"accession": "P14778",
+"name": "Interleukin-1 receptor type 1",
+"maxPhase": 4.0
+},
+"CHEMBL1930": {
+"symbol": "VKORC1",
+"accession": "Q9BQB6",
+"name": "Vitamin K epoxide reductase complex subunit 1",
+"maxPhase": 4.0
+},
+"CHEMBL1975": {
+"symbol": "CD3E",
+"accession": "P07766",
+"name": "T-cell surface glycoprotein CD3 epsilon chain",
+"maxPhase": 4.0
+},
+"CHEMBL1957": {
+"symbol": "IGF1R",
+"accession": "P08069",
+"name": "Insulin-like growth factor 1 receptor",
+"maxPhase": 4.0
+},
+"CHEMBL1944": {
+"symbol": "MME",
+"accession": "P08473",
+"name": "Neprilysin",
+"maxPhase": 4.0
+},
+"CHEMBL1936": {
+"symbol": "KIT",
+"accession": "P10721",
+"name": "Mast/stem cell growth factor receptor Kit",
+"maxPhase": 4.0
+},
+"CHEMBL1988": {
+"symbol": "NPR1",
+"accession": "P16066",
+"name": "Atrial natriuretic peptide receptor 1",
+"maxPhase": 4.0
+},
+"CHEMBL1989": {
+"symbol": "DPEP1",
+"accession": "P16444",
+"name": "Dipeptidase 1",
+"maxPhase": 4.0
+},
+"CHEMBL1947": {
+"symbol": "THRB",
+"accession": "P10828",
+"name": "Thyroid hormone receptor beta",
+"maxPhase": 4.0
+},
+"CHEMBL1964": {
+"symbol": "KCND3",
+"accession": "Q9UK17",
+"name": "A-type voltage-gated potassium channel KCND3",
+"maxPhase": 4.0
+},
+"CHEMBL1937": {
+"symbol": "HDAC2",
+"accession": "Q92769",
+"name": "Histone deacetylase 2",
+"maxPhase": 4.0
+},
+"CHEMBL1980": {
+"symbol": "SCN5A",
+"accession": "Q14524",
+"name": "Sodium channel protein type 5 subunit alpha",
+"maxPhase": 4.0
+},
+"CHEMBL1955": {
+"symbol": "FLT4",
+"accession": "P35916",
+"name": "Vascular endothelial growth factor receptor 3",
+"maxPhase": 4.0
+},
+"CHEMBL1974": {
+"symbol": "FLT3",
+"accession": "P36888",
+"name": "Receptor-type tyrosine-protein kinase FLT3",
+"maxPhase": 4.0
+},
+"CHEMBL1938222": {
+"symbol": "PIKFYVE",
+"accession": "Q9Y2I7",
+"name": "1-phosphatidylinositol 3-phosphate 5-kinase",
+"maxPhase": 2.0
+},
+"CHEMBL202": {
+"symbol": "DHFR",
+"accession": "P00374",
+"name": "Dihydrofolate reductase",
+"maxPhase": 4.0
+},
+"CHEMBL203": {
+"symbol": "EGFR",
+"accession": "P00533",
+"name": "Epidermal growth factor receptor",
+"maxPhase": 4.0
+},
+"CHEMBL204": {
+"symbol": "F2",
+"accession": "P00734",
+"name": "Prothrombin",
+"maxPhase": 4.0
+},
+"CHEMBL2000": {
+"symbol": "KLKB1",
+"accession": "P03952",
+"name": "Plasma kallikrein",
+"maxPhase": 4.0
+},
+"CHEMBL2034": {
+"symbol": "NR3C1",
+"accession": "P04150",
+"name": "Glucocorticoid receptor",
+"maxPhase": 4.0
+},
+"CHEMBL2033": {
+"symbol": "CYP11A1",
+"accession": "P05108",
+"name": "Cholesterol side-chain cleavage enzyme, mitochondrial",
+"maxPhase": 4.0
+},
+"CHEMBL1994": {
+"symbol": "NR3C2",
+"accession": "P08235",
+"name": "Mineralocorticoid receptor",
+"maxPhase": 4.0
+},
+"CHEMBL2023": {
+"symbol": "COMT",
+"accession": "P21964",
+"name": "Catechol O-methyltransferase",
+"maxPhase": 4.0
+},
+"CHEMBL2024": {
+"symbol": "FSHR",
+"accession": "P23945",
+"name": "Follicle-stimulating hormone receptor",
+"maxPhase": 4.0
+},
+"CHEMBL2039": {
+"symbol": "MAOB",
+"accession": "P27338",
+"name": "Amine oxidase [flavin-containing] B",
+"maxPhase": 4.0
+},
+"CHEMBL2014": {
+"symbol": "OPRL1",
+"accession": "P41146",
+"name": "Nociceptin receptor",
+"maxPhase": 3.0
+},
+"CHEMBL1995": {
+"symbol": "PTGIR",
+"accession": "P43119",
+"name": "Prostacyclin receptor",
+"maxPhase": 4.0
+},
+"CHEMBL2044": {
+"symbol": "ABAT",
+"accession": "P80404",
+"name": "4-aminobutyrate aminotransferase, mitochondrial",
+"maxPhase": 4.0
+},
+"CHEMBL2032": {
+"symbol": "GHRHR",
+"accession": "Q02643",
+"name": "Growth hormone-releasing hormone receptor",
+"maxPhase": 4.0
+},
+"CHEMBL1997": {
+"symbol": "SLC29A1",
+"accession": "Q99808",
+"name": "Equilibrative nucleoside transporter 1",
+"maxPhase": 4.0
+},
+"CHEMBL2001": {
+"symbol": "P2RY12",
+"accession": "Q9H244",
+"name": "P2Y purinoceptor 12",
+"maxPhase": 4.0
+},
+"CHEMBL2016": {
+"symbol": "F9",
+"accession": "P00740",
+"name": "Coagulation factor IX",
+"maxPhase": 4.0
+},
+"CHEMBL2040": {
+"symbol": "CD2",
+"accession": "P06729",
+"name": "T-cell surface antigen CD2",
+"maxPhase": 4.0
+},
+"CHEMBL1996": {
+"symbol": "CSF3R",
+"accession": "Q99062",
+"name": "Granulocyte colony-stimulating factor receptor",
+"maxPhase": 4.0
+},
+"CHEMBL2003": {
+"symbol": "RARG",
+"accession": "P13631",
+"name": "Retinoic acid receptor gamma",
+"maxPhase": 4.0
+},
+"CHEMBL2008": {
+"symbol": "RARB",
+"accession": "P10826",
+"name": "Retinoic acid receptor beta",
+"maxPhase": 4.0
+},
+"CHEMBL1993": {
+"symbol": "DNMT1",
+"accession": "P26358",
+"name": "DNA (cytosine-5)-methyltransferase 1",
+"maxPhase": 4.0
+},
+"CHEMBL1992": {
+"symbol": "DNMT3A",
+"accession": "Q9Y6K1",
+"name": "DNA (cytosine-5)-methyltransferase 3A",
+"maxPhase": 4.0
+},
+"CHEMBL2027": {
+"symbol": "NPC1L1",
+"accession": "Q9UHC9",
+"name": "NPC1-like intracellular cholesterol transporter 1",
+"maxPhase": 4.0
+},
+"CHEMBL1991": {
+"symbol": "IKBKB",
+"accession": "O14920",
+"name": "Inhibitor of nuclear factor kappa-B kinase subunit beta",
+"maxPhase": 3.0
+},
+"CHEMBL2009": {
+"symbol": "GRIA1",
+"accession": "P42261",
+"name": "Glutamate receptor 1",
+"maxPhase": 2.0
+},
+"CHEMBL2028": {
+"symbol": "SSTR3",
+"accession": "P32745",
+"name": "Somatostatin receptor type 3",
+"maxPhase": 4.0
+},
+"CHEMBL2007": {
+"symbol": "PDGFRA",
+"accession": "P16234",
+"name": "Platelet-derived growth factor receptor alpha",
+"maxPhase": 4.0
+},
+"CHEMBL2012": {
+"symbol": "GGCX",
+"accession": "P38435",
+"name": "Vitamin K-dependent gamma-carboxylase",
+"maxPhase": 4.0
+},
+"CHEMBL2019": {
+"symbol": "DIO1",
+"accession": "P49895",
+"name": "Type I iodothyronine deiodinase",
+"maxPhase": 4.0
+},
+"CHEMBL1998": {
+"symbol": "SV2A",
+"accession": "Q7L0J3",
+"name": "Synaptic vesicle glycoprotein 2A",
+"maxPhase": 4.0
+},
+"CHEMBL2041": {
+"symbol": "RET",
+"accession": "P07949",
+"name": "Proto-oncogene tyrosine-protein kinase receptor Ret",
+"maxPhase": 4.0
+},
+"CHEMBL2007625": {
+"symbol": "IDH1",
+"accession": "O75874",
+"name": "Isocitrate dehydrogenase [NADP] cytoplasmic",
+"maxPhase": 4.0
+},
+"CHEMBL2010624": {
+"symbol": "TXN",
+"accession": "P10599",
+"name": "Thioredoxin",
+"maxPhase": 2.0
+},
+"CHEMBL2021748": {
+"symbol": "VWF",
+"accession": "P04275",
+"name": "von Willebrand factor",
+"maxPhase": 4.0
+},
+"CHEMBL2074": {
+"symbol": "MGAM",
+"accession": "O43451",
+"name": "Maltase-glucoamylase",
+"maxPhase": 4.0
+},
+"CHEMBL205": {
+"symbol": "CA2",
+"accession": "P00918",
+"name": "Carbonic anhydrase 2",
+"maxPhase": 4.0
+},
+"CHEMBL206": {
+"symbol": "ESR1",
+"accession": "P03372",
+"name": "Estrogen receptor",
+"maxPhase": 4.0
+},
+"CHEMBL208": {
+"symbol": "PGR",
+"accession": "P06401",
+"name": "Progesterone receptor",
+"maxPhase": 4.0
+},
+"CHEMBL2055": {
+"symbol": "RARA",
+"accession": "P10276",
+"name": "Retinoic acid receptor alpha",
+"maxPhase": 4.0
+},
+"CHEMBL2056": {
+"symbol": "DRD1",
+"accession": "P21728",
+"name": "D(1A) dopamine receptor",
+"maxPhase": 4.0
+},
+"CHEMBL2049": {
+"symbol": "OXTR",
+"accession": "P30559",
+"name": "Oxytocin receptor",
+"maxPhase": 4.0
+},
+"CHEMBL2058": {
+"symbol": "MS4A1",
+"accession": "P11836",
+"name": "B-lymphocyte antigen CD20",
+"maxPhase": 4.0
+},
+"CHEMBL2059": {
+"symbol": "LTA",
+"accession": "P01374",
+"name": "Lymphotoxin-alpha",
+"maxPhase": 2.0
+},
+"CHEMBL2050": {
+"symbol": "IL11RA",
+"accession": "Q14626",
+"name": "Interleukin-11 receptor subunit alpha",
+"maxPhase": 4.0
+},
+"CHEMBL2062": {
+"symbol": "RYR3",
+"accession": "Q15413",
+"name": "Ryanodine receptor 3",
+"maxPhase": 4.0
+},
+"CHEMBL2069": {
+"symbol": "TBXA2R",
+"accession": "P21731",
+"name": "Thromboxane A2 receptor",
+"maxPhase": 4.0
+},
+"CHEMBL2061": {
+"symbol": "RXRA",
+"accession": "P19793",
+"name": "Retinoic acid receptor RXR-alpha",
+"maxPhase": 4.0
+},
+"CHEMBL2063": {
+"symbol": "UGCG",
+"accession": "Q16739",
+"name": "Ceramide glucosyltransferase",
+"maxPhase": 4.0
+},
+"CHEMBL2084": {
+"symbol": "ASGR1",
+"accession": "P07306",
+"name": "Asialoglycoprotein receptor 1",
+"maxPhase": 2.0
+},
+"CHEMBL2085": {
+"symbol": "MIF",
+"accession": "P14174",
+"name": "Macrophage migration inhibitory factor",
+"maxPhase": 3.0
+},
+"CHEMBL2064": {
+"symbol": "GABBR1",
+"accession": "Q9UBS5",
+"name": "Gamma-aminobutyric acid type B receptor subunit 1",
+"maxPhase": 2.0
+},
+"CHEMBL2045": {
+"symbol": "AMY2A",
+"accession": "P04746",
+"name": "Pancreatic alpha-amylase",
+"maxPhase": 4.0
+},
+"CHEMBL2047": {
+"symbol": "NR1H4",
+"accession": "Q96RI1",
+"name": "Bile acid receptor",
+"maxPhase": 4.0
+},
+"CHEMBL2048": {
+"symbol": "FGB",
+"accession": "P02675",
+"name": "Fibrinogen beta chain",
+"maxPhase": 1.0
+},
+"CHEMBL2073": {
+"symbol": "YES1",
+"accession": "P07947",
+"name": "Tyrosine-protein kinase Yes",
+"maxPhase": 1.0
+},
+"CHEMBL2072": {
+"symbol": "SCN4A",
+"accession": "P35499",
+"name": "Sodium channel protein type 4 subunit alpha",
+"maxPhase": 4.0
+},
+"CHEMBL2068": {
+"symbol": "EPHA2",
+"accession": "P29317",
+"name": "Ephrin type-A receptor 2",
+"maxPhase": 4.0
+},
+"CHEMBL2046267": {
+"symbol": "ANO1",
+"accession": "Q5XXA6",
+"name": "Anoctamin-1",
+"maxPhase": 4.0
+},
+"CHEMBL2062356": {
+"symbol": "ADM",
+"accession": "P35318",
+"name": "Pro-adrenomedullin",
+"maxPhase": 2.0
+},
+"CHEMBL2069156": {
+"symbol": "KEAP1",
+"accession": "Q14145",
+"name": "Kelch-like ECH-associated protein 1",
+"maxPhase": 4.0
+},
+"CHEMBL2073677": {
+"symbol": "SLC22A11",
+"accession": "Q9NSA0",
+"name": "Solute carrier family 22 member 11",
+"maxPhase": 4.0
+},
+"CHEMBL210": {
+"symbol": "ADRB2",
+"accession": "P07550",
+"name": "Beta-2 adrenergic receptor",
+"maxPhase": 4.0
+},
+"CHEMBL211": {
+"symbol": "CHRM2",
+"accession": "P08172",
+"name": "Muscarinic acetylcholine receptor M2",
+"maxPhase": 4.0
+},
+"CHEMBL2099": {
+"symbol": "KLK3",
+"accession": "P07288",
+"name": "Prostate-specific antigen",
+"maxPhase": 2.0
+},
+"CHEMBL2107": {
+"symbol": "CXCR4",
+"accession": "P61073",
+"name": "C-X-C chemokine receptor type 4",
+"maxPhase": 4.0
+},
+"CHEMBL213": {
+"symbol": "ADRB1",
+"accession": "P08588",
+"name": "Beta-1 adrenergic receptor",
+"maxPhase": 4.0
+},
+"CHEMBL214": {
+"symbol": "HTR1A",
+"accession": "P08908",
+"name": "5-hydroxytryptamine receptor 1A",
+"maxPhase": 4.0
+},
+"CHEMBL215": {
+"symbol": "ALOX5",
+"accession": "P09917",
+"name": "Polyunsaturated fatty acid 5-lipoxygenase",
+"maxPhase": 4.0
+},
+"CHEMBL216": {
+"symbol": "CHRM1",
+"accession": "P11229",
+"name": "Muscarinic acetylcholine receptor M1",
+"maxPhase": 4.0
+},
+"CHEMBL217": {
+"symbol": "DRD2",
+"accession": "P14416",
+"name": "D(2) dopamine receptor",
+"maxPhase": 4.0
+},
+"CHEMBL218": {
+"symbol": "CNR1",
+"accession": "P21554",
+"name": "Cannabinoid receptor 1",
+"maxPhase": 4.0
+},
+"CHEMBL219": {
+"symbol": "DRD4",
+"accession": "P21917",
+"name": "D(4) dopamine receptor",
+"maxPhase": 3.0
+},
+"CHEMBL220": {
+"symbol": "ACHE",
+"accession": "P22303",
+"name": "Acetylcholinesterase",
+"maxPhase": 4.0
+},
+"CHEMBL221": {
+"symbol": "PTGS1",
+"accession": "P23219",
+"name": "Prostaglandin G/H synthase 1",
+"maxPhase": 4.0
+},
+"CHEMBL222": {
+"symbol": "SLC6A2",
+"accession": "P23975",
+"name": "Sodium-dependent noradrenaline transporter",
+"maxPhase": 4.0
+},
+"CHEMBL223": {
+"symbol": "ADRA1D",
+"accession": "P25100",
+"name": "Alpha-1D adrenergic receptor",
+"maxPhase": 4.0
+},
+"CHEMBL224": {
+"symbol": "HTR2A",
+"accession": "P28223",
+"name": "5-hydroxytryptamine receptor 2A",
+"maxPhase": 4.0
+},
+"CHEMBL2157": {
+"symbol": "CXCL8",
+"accession": "P10145",
+"name": "Interleukin-8",
+"maxPhase": 2.0
+},
+"CHEMBL2120": {
+"symbol": "FGF1",
+"accession": "P05230",
+"name": "Fibroblast growth factor 1",
+"maxPhase": 3.0
+},
+"CHEMBL2121": {
+"symbol": "FOLR1",
+"accession": "P15328",
+"name": "Folate receptor alpha",
+"maxPhase": 4.0
+},
+"CHEMBL2123": {
+"symbol": "P2RY4",
+"accession": "P51582",
+"name": "P2Y purinoceptor 4",
+"maxPhase": 4.0
+},
+"CHEMBL2118": {
+"symbol": "AOC1",
+"accession": "P19801",
+"name": "Diamine oxidase [copper-containing]",
+"maxPhase": 4.0
+},
+"CHEMBL2179": {
+"symbol": "GBA1",
+"accession": "P04062",
+"name": "Lysosomal acid glucosylceramidase",
+"maxPhase": 2.0
+},
+"CHEMBL2185": {
+"symbol": "AURKB",
+"accession": "Q96GD4",
+"name": "Aurora kinase B",
+"maxPhase": 3.0
+},
+"CHEMBL2148": {
+"symbol": "JAK3",
+"accession": "P52333",
+"name": "Tyrosine-protein kinase JAK3",
+"maxPhase": 4.0
+},
+"CHEMBL2203": {
+"symbol": "MLNR",
+"accession": "O43193",
+"name": "Motilin receptor",
+"maxPhase": 3.0
+},
+"CHEMBL2208": {
+"symbol": "MAPKAPK2",
+"accession": "P49137",
+"name": "MAP kinase-activated protein kinase 2",
+"maxPhase": 1.0
+},
+"CHEMBL2243": {
+"symbol": "FAAH",
+"accession": "O00519",
+"name": "Fatty-acid amide hydrolase 1",
+"maxPhase": 4.0
+},
+"CHEMBL2146302": {
+"symbol": "GLS",
+"accession": "O94925",
+"name": "Glutaminase kidney isoform, mitochondrial",
+"maxPhase": 2.0
+},
+"CHEMBL2146346": {
+"symbol": "NOTCH1",
+"accession": "P46531",
+"name": "Neurogenic locus notch homolog protein 1",
+"maxPhase": 2.0
+},
+"CHEMBL2176771": {
+"symbol": "CFD",
+"accession": "P00746",
+"name": "Complement factor D",
+"maxPhase": 4.0
+},
+"CHEMBL2176839": {
+"symbol": "TLR5",
+"accession": "O60602",
+"name": "Toll-like receptor 5",
+"maxPhase": 2.0
+},
+"CHEMBL2176846": {
+"symbol": "AGER",
+"accession": "Q15109",
+"name": "Advanced glycosylation end product-specific receptor",
+"maxPhase": 3.0
+},
+"CHEMBL2176855": {
+"symbol": "CLEC4C",
+"accession": "Q8WTT0",
+"name": "C-type lectin domain family 4 member C",
+"maxPhase": 3.0
+},
+"CHEMBL2189110": {
+"symbol": "EZH2",
+"accession": "Q15910",
+"name": "Histone-lysine N-methyltransferase EZH2",
+"maxPhase": 4.0
+},
+"CHEMBL2189121": {
+"symbol": "KRAS",
+"accession": "P01116",
+"name": "GTPase KRas",
+"maxPhase": 4.0
+},
+"CHEMBL2216739": {
+"symbol": "CPT1B",
+"accession": "Q92523",
+"name": "Carnitine O-palmitoyltransferase 1, muscle isoform",
+"maxPhase": 4.0
+},
+"CHEMBL225": {
+"symbol": "HTR2C",
+"accession": "P28335",
+"name": "5-hydroxytryptamine receptor 2C",
+"maxPhase": 4.0
+},
+"CHEMBL226": {
+"symbol": "ADORA1",
+"accession": "P30542",
+"name": "Adenosine receptor A1",
+"maxPhase": 3.0
+},
+"CHEMBL227": {
+"symbol": "AGTR1",
+"accession": "P30556",
+"name": "Type-1 angiotensin II receptor",
+"maxPhase": 4.0
+},
+"CHEMBL228": {
+"symbol": "SLC6A4",
+"accession": "P31645",
+"name": "Sodium-dependent serotonin transporter",
+"maxPhase": 4.0
+},
+"CHEMBL229": {
+"symbol": "ADRA1A",
+"accession": "P35348",
+"name": "Alpha-1A adrenergic receptor",
+"maxPhase": 4.0
+},
+"CHEMBL230": {
+"symbol": "PTGS2",
+"accession": "P35354",
+"name": "Prostaglandin G/H synthase 2",
+"maxPhase": 4.0
+},
+"CHEMBL231": {
+"symbol": "HRH1",
+"accession": "P35367",
+"name": "Histamine H1 receptor",
+"maxPhase": 4.0
+},
+"CHEMBL233": {
+"symbol": "OPRM1",
+"accession": "P35372",
+"name": "Mu-type opioid receptor",
+"maxPhase": 4.0
+},
+"CHEMBL234": {
+"symbol": "DRD3",
+"accession": "P35462",
+"name": "D(3) dopamine receptor",
+"maxPhase": 4.0
+},
+"CHEMBL235": {
+"symbol": "PPARG",
+"accession": "P37231",
+"name": "Peroxisome proliferator-activated receptor gamma",
+"maxPhase": 4.0
+},
+"CHEMBL2327": {
+"symbol": "TACR2",
+"accession": "P21452",
+"name": "Substance-K receptor",
+"maxPhase": 3.0
+},
+"CHEMBL2326": {
+"symbol": "CA7",
+"accession": "P43166",
+"name": "Carbonic anhydrase 7",
+"maxPhase": 4.0
+},
+"CHEMBL2337": {
+"symbol": "SLC6A9",
+"accession": "P48067",
+"name": "Sodium- and chloride-dependent glycine transporter 1",
+"maxPhase": 3.0
+},
+"CHEMBL2273": {
+"symbol": "CASP9",
+"accession": "P55211",
+"name": "Caspase-9",
+"maxPhase": 2.0
+},
+"CHEMBL2274": {
+"symbol": "S1PR5",
+"accession": "Q9H228",
+"name": "Sphingosine 1-phosphate receptor 5",
+"maxPhase": 4.0
+},
+"CHEMBL2292": {
+"symbol": "DYRK1A",
+"accession": "Q13627",
+"name": "Dual specificity tyrosine-phosphorylation-regulated kinase 1A",
+"maxPhase": 3.0
+},
+"CHEMBL2276": {
+"symbol": "MAPK8",
+"accession": "P45983",
+"name": "Mitogen-activated protein kinase 8",
+"maxPhase": 2.0
+},
+"CHEMBL2252": {
+"symbol": "CTSC",
+"accession": "P53634",
+"name": "Dipeptidyl peptidase 1",
+"maxPhase": 3.0
+},
+"CHEMBL2285": {
+"symbol": "ADAMTS5",
+"accession": "Q9UNA0",
+"name": "A disintegrin and metalloproteinase with thrombospondin motifs 5",
+"maxPhase": 2.0
+},
+"CHEMBL2311236": {
+"symbol": "HMGB1",
+"accession": "P09429",
+"name": "High mobility group protein B1",
+"maxPhase": 3.0
+},
+"CHEMBL2321613": {
+"symbol": "KCNK3",
+"accession": "O14649",
+"name": "Potassium channel subfamily K member 3",
+"maxPhase": 4.0
+},
+"CHEMBL2321614": {
+"symbol": "KCNK9",
+"accession": "Q9NPC2",
+"name": "Potassium channel subfamily K member 9",
+"maxPhase": 4.0
+},
+"CHEMBL2321615": {
+"symbol": "KCNK2",
+"accession": "O95069",
+"name": "Potassium channel subfamily K member 2",
+"maxPhase": 4.0
+},
+"CHEMBL2331041": {
+"symbol": "KCNK10",
+"accession": "P57789",
+"name": "Potassium channel subfamily K member 10",
+"maxPhase": 4.0
+},
+"CHEMBL2331042": {
+"symbol": "KCNK18",
+"accession": "Q7Z418",
+"name": "Potassium channel subfamily K member 18",
+"maxPhase": 4.0
+},
+"CHEMBL2331059": {
+"symbol": "DHCR24",
+"accession": "Q15392",
+"name": "Delta(24)-sterol reductase",
+"maxPhase": 4.0
+},
+"CHEMBL2331065": {
+"symbol": "FTO",
+"accession": "Q9C0B1",
+"name": "Alpha-ketoglutarate-dependent dioxygenase FTO",
+"maxPhase": 3.0
+},
+"CHEMBL2346492": {
+"symbol": "ADAMTS13",
+"accession": "Q76LX8",
+"name": "A disintegrin and metalloproteinase with thrombospondin motifs 13",
+"maxPhase": 4.0
+},
+"CHEMBL2346493": {
+"symbol": "FZD1",
+"accession": "Q9UP38",
+"name": "Frizzled-1",
+"maxPhase": 2.0
+},
+"CHEMBL236": {
+"symbol": "OPRD1",
+"accession": "P41143",
+"name": "Delta-type opioid receptor",
+"maxPhase": 4.0
+},
+"CHEMBL2362986": {
+"symbol": "ABCA1",
+"accession": "O95477",
+"name": "Phospholipid-transporting ATPase ABCA1",
+"maxPhase": 4.0
+},
+"CHEMBL2362990": {
+"symbol": "CPS1",
+"accession": "P31327",
+"name": "Carbamoyl-phosphate synthase [ammonia], mitochondrial",
+"maxPhase": 4.0
+},
+"CHEMBL2362992": {
+"symbol": "PPAT",
+"accession": "Q06203",
+"name": "Amidophosphoribosyltransferase",
+"maxPhase": 4.0
+},
+"CHEMBL2364155": {
+"symbol": "IL6R",
+"accession": "P08887",
+"name": "Interleukin-6 receptor subunit alpha",
+"maxPhase": 4.0
+},
+"CHEMBL2364156": {
+"symbol": "CD86",
+"accession": "P42081",
+"name": "T-lymphocyte activation antigen CD86",
+"maxPhase": 4.0
+},
+"CHEMBL2364157": {
+"symbol": "CD80",
+"accession": "P33681",
+"name": "T-lymphocyte activation antigen CD80",
+"maxPhase": 4.0
+},
+"CHEMBL2364158": {
+"symbol": "TNFSF13B",
+"accession": "Q9Y275",
+"name": "Tumor necrosis factor ligand superfamily member 13B",
+"maxPhase": 4.0
+},
+"CHEMBL2364159": {
+"symbol": "SNAP25",
+"accession": "P60880",
+"name": "Synaptosomal-associated protein 25",
+"maxPhase": 4.0
+},
+"CHEMBL2364160": {
+"symbol": "VAMP2",
+"accession": "P63027",
+"name": "Vesicle-associated membrane protein 2",
+"maxPhase": 4.0
+},
+"CHEMBL2364161": {
+"symbol": "TNFRSF8",
+"accession": "P28908",
+"name": "Tumor necrosis factor receptor superfamily member 8",
+"maxPhase": 4.0
+},
+"CHEMBL2364162": {
+"symbol": "TNFSF11",
+"accession": "O14788",
+"name": "Tumor necrosis factor ligand superfamily member 11",
+"maxPhase": 4.0
+},
+"CHEMBL2364163": {
+"symbol": "C5",
+"accession": "P01031",
+"name": "Complement C5",
+"maxPhase": 4.0
+},
+"CHEMBL2364164": {
+"symbol": "CTLA4",
+"accession": "P16410",
+"name": "Cytotoxic T-lymphocyte protein 4",
+"maxPhase": 4.0
+},
+"CHEMBL237": {
+"symbol": "OPRK1",
+"accession": "P41145",
+"name": "Kappa-type opioid receptor",
+"maxPhase": 4.0
+},
+"CHEMBL238": {
+"symbol": "SLC6A3",
+"accession": "Q01959",
+"name": "Sodium-dependent dopamine transporter",
+"maxPhase": 4.0
+},
+"CHEMBL239": {
+"symbol": "PPARA",
+"accession": "Q07869",
+"name": "Peroxisome proliferator-activated receptor alpha",
+"maxPhase": 4.0
+},
+"CHEMBL240": {
+"symbol": "KCNH2",
+"accession": "Q12809",
+"name": "Voltage-gated inwardly rectifying potassium channel KCNH2",
+"maxPhase": 4.0
+},
+"CHEMBL2373": {
+"symbol": "C5AR1",
+"accession": "P21730",
+"name": "C5a anaphylatoxin chemotactic receptor 1",
+"maxPhase": 4.0
+},
+"CHEMBL2384897": {
+"symbol": "CD14",
+"accession": "P08571",
+"name": "Monocyte differentiation antigen CD14",
+"maxPhase": 2.0
+},
+"CHEMBL241": {
+"symbol": "PDE3A",
+"accession": "Q14432",
+"name": "cGMP-inhibited 3',5'-cyclic phosphodiesterase 3A",
+"maxPhase": 4.0
+},
+"CHEMBL242": {
+"symbol": "ESR2",
+"accession": "Q92731",
+"name": "Estrogen receptor beta",
+"maxPhase": 4.0
+},
+"CHEMBL244": {
+"symbol": "F10",
+"accession": "P00742",
+"name": "Coagulation factor X",
+"maxPhase": 4.0
+},
+"CHEMBL245": {
+"symbol": "CHRM3",
+"accession": "P20309",
+"name": "Muscarinic acetylcholine receptor M3",
+"maxPhase": 4.0
+},
+"CHEMBL246": {
+"symbol": "ADRB3",
+"accession": "P13945",
+"name": "Beta-3 adrenergic receptor",
+"maxPhase": 4.0
+},
+"CHEMBL248": {
+"symbol": "ELANE",
+"accession": "P08246",
+"name": "Neutrophil elastase",
+"maxPhase": 4.0
+},
+"CHEMBL252": {
+"symbol": "EDNRA",
+"accession": "P25101",
+"name": "Endothelin-1 receptor",
+"maxPhase": 4.0
+},
+"CHEMBL249": {
+"symbol": "TACR1",
+"accession": "P25103",
+"name": "Substance-P receptor",
+"maxPhase": 4.0
+},
+"CHEMBL250": {
+"symbol": "PTAFR",
+"accession": "P25105",
+"name": "Platelet-activating factor receptor",
+"maxPhase": 4.0
+},
+"CHEMBL251": {
+"symbol": "ADORA2A",
+"accession": "P29274",
+"name": "Adenosine receptor A2a",
+"maxPhase": 4.0
+},
+"CHEMBL253": {
+"symbol": "CNR2",
+"accession": "P34972",
+"name": "Cannabinoid receptor 2",
+"maxPhase": 2.0
+},
+"CHEMBL255": {
+"symbol": "ADORA2B",
+"accession": "P29275",
+"name": "Adenosine receptor A2b",
+"maxPhase": 2.0
+},
+"CHEMBL256": {
+"symbol": "ADORA3",
+"accession": "P0DMS8",
+"name": "Adenosine receptor A3",
+"maxPhase": 3.0
+},
+"CHEMBL258": {
+"symbol": "LCK",
+"accession": "P06239",
+"name": "Tyrosine-protein kinase Lck",
+"maxPhase": 4.0
+},
+"CHEMBL259": {
+"symbol": "MC4R",
+"accession": "P32245",
+"name": "Melanocortin receptor 4",
+"maxPhase": 4.0
+},
+"CHEMBL260": {
+"symbol": "MAPK14",
+"accession": "Q16539",
+"name": "Mitogen-activated protein kinase 14",
+"maxPhase": 3.0
+},
+"CHEMBL261": {
+"symbol": "CA1",
+"accession": "P00915",
+"name": "Carbonic anhydrase 1",
+"maxPhase": 4.0
+},
+"CHEMBL262": {
+"symbol": "GSK3B",
+"accession": "P49841",
+"name": "Glycogen synthase kinase-3 beta",
+"maxPhase": 2.0
+},
+"CHEMBL2476": {
+"symbol": "KCNQ2",
+"accession": "O43526",
+"name": "Potassium voltage-gated channel subfamily KQT member 2",
+"maxPhase": 3.0
+},
+"CHEMBL2508": {
+"symbol": "CDK6",
+"accession": "Q00534",
+"name": "Cyclin-dependent kinase 6",
+"maxPhase": 4.0
+},
+"CHEMBL2527": {
+"symbol": "CHEK2",
+"accession": "O96017",
+"name": "Serine/threonine-protein kinase Chk2",
+"maxPhase": 2.0
+},
+"CHEMBL2413": {
+"symbol": "CCR1",
+"accession": "P32246",
+"name": "C-C chemokine receptor type 1",
+"maxPhase": 2.0
+},
+"CHEMBL2435": {
+"symbol": "PPP2CB",
+"accession": "P62714",
+"name": "Serine/threonine-protein phosphatase 2A catalytic subunit beta isoform",
+"maxPhase": 2.0
+},
+"CHEMBL2439": {
+"symbol": "MPO",
+"accession": "P05164",
+"name": "Myeloperoxidase",
+"maxPhase": 3.0
+},
+"CHEMBL2414": {
+"symbol": "CCR4",
+"accession": "P51679",
+"name": "C-C chemokine receptor type 4",
+"maxPhase": 4.0
+},
+"CHEMBL2534": {
+"symbol": "PDPK1",
+"accession": "O15530",
+"name": "3-phosphoinositide-dependent protein kinase 1",
+"maxPhase": 2.0
+},
+"CHEMBL2492": {
+"symbol": "CHRNA7",
+"accession": "P36544",
+"name": "Neuronal acetylcholine receptor subunit alpha-7",
+"maxPhase": 3.0
+},
+"CHEMBL2487": {
+"symbol": "APP",
+"accession": "P05067",
+"name": "Amyloid-beta precursor protein",
+"maxPhase": 4.0
+},
+"CHEMBL2524": {
+"symbol": "GLA",
+"accession": "P06280",
+"name": "Alpha-galactosidase A",
+"maxPhase": 4.0
+},
+"CHEMBL2431": {
+"symbol": "AKT2",
+"accession": "P31751",
+"name": "RAC-beta serine/threonine-protein kinase",
+"maxPhase": 1.0
+},
+"CHEMBL2434": {
+"symbol": "CXCR2",
+"accession": "P25025",
+"name": "C-X-C chemokine receptor type 2",
+"maxPhase": 3.0
+},
+"CHEMBL2633": {
+"symbol": "ACP3",
+"accession": "P15309",
+"name": "Prostatic acid phosphatase",
+"maxPhase": 4.0
+},
+"CHEMBL2599": {
+"symbol": "SYK",
+"accession": "P43405",
+"name": "Tyrosine-protein kinase SYK",
+"maxPhase": 4.0
+},
+"CHEMBL2608": {
+"symbol": "GAA",
+"accession": "P10253",
+"name": "Lysosomal alpha-glucosidase",
+"maxPhase": 4.0
+},
+"CHEMBL2637": {
+"symbol": "MAPK10",
+"accession": "P53779",
+"name": "Mitogen-activated protein kinase 10",
+"maxPhase": 3.0
+},
+"CHEMBL2409": {
+"symbol": "EPHX2",
+"accession": "P34913",
+"name": "Bifunctional epoxide hydrolase 2",
+"maxPhase": 2.0
+},
+"CHEMBL2940": {
+"symbol": "FCER2",
+"accession": "P06734",
+"name": "Low affinity immunoglobulin epsilon Fc receptor",
+"maxPhase": 2.0
+},
+"CHEMBL2888": {
+"symbol": "GRM3",
+"accession": "Q14832",
+"name": "Metabotropic glutamate receptor 3",
+"maxPhase": 3.0
+},
+"CHEMBL264": {
+"symbol": "HRH3",
+"accession": "Q9Y5N1",
+"name": "Histamine H3 receptor",
+"maxPhase": 4.0
+},
+"CHEMBL267": {
+"symbol": "SRC",
+"accession": "P12931",
+"name": "Proto-oncogene tyrosine-protein kinase Src",
+"maxPhase": 4.0
+},
+"CHEMBL2754": {
+"symbol": "CD4",
+"accession": "P01730",
+"name": "T-cell surface glycoprotein CD4",
+"maxPhase": 4.0
+},
+"CHEMBL268": {
+"symbol": "CTSK",
+"accession": "P43235",
+"name": "Cathepsin K",
+"maxPhase": 3.0
+},
+"CHEMBL274": {
+"symbol": "CCR5",
+"accession": "P51681",
+"name": "C-C chemokine receptor type 5",
+"maxPhase": 4.0
+},
+"CHEMBL278": {
+"symbol": "ITGA4",
+"accession": "P13612",
+"name": "Integrin alpha-4",
+"maxPhase": 2.0
+},
+"CHEMBL2959": {
+"symbol": "ITK",
+"accession": "Q08881",
+"name": "Tyrosine-protein kinase ITK/TSK",
+"maxPhase": 4.0
+},
+"CHEMBL2835": {
+"symbol": "JAK1",
+"accession": "P23458",
+"name": "Tyrosine-protein kinase JAK1",
+"maxPhase": 4.0
+},
+"CHEMBL279": {
+"symbol": "KDR",
+"accession": "P35968",
+"name": "Vascular endothelial growth factor receptor 2",
+"maxPhase": 4.0
+},
+"CHEMBL2850": {
+"symbol": "GSK3A",
+"accession": "P49840",
+"name": "Glycogen synthase kinase-3 alpha",
+"maxPhase": 2.0
+},
+"CHEMBL280": {
+"symbol": "MMP13",
+"accession": "P45452",
+"name": "Collagenase 3",
+"maxPhase": 4.0
+},
+"CHEMBL2736": {
+"symbol": "GRM4",
+"accession": "Q14833",
+"name": "Metabotropic glutamate receptor 4",
+"maxPhase": 2.0
+},
+"CHEMBL283": {
+"symbol": "MMP3",
+"accession": "P08254",
+"name": "Stromelysin-1",
+"maxPhase": 3.0
+},
+"CHEMBL284": {
+"symbol": "DPP4",
+"accession": "P27487",
+"name": "Dipeptidyl peptidase 4",
+"maxPhase": 4.0
+},
+"CHEMBL286": {
+"symbol": "REN",
+"accession": "P00797",
+"name": "Renin",
+"maxPhase": 4.0
+},
+"CHEMBL2695": {
+"symbol": "PTK2",
+"accession": "Q05397",
+"name": "Focal adhesion kinase 1",
+"maxPhase": 3.0
+},
+"CHEMBL2808": {
+"symbol": "NR1H3",
+"accession": "Q13133",
+"name": "Oxysterols receptor LXR-alpha",
+"maxPhase": 1.0
+},
+"CHEMBL287": {
+"symbol": "SIGMAR1",
+"accession": "Q99720",
+"name": "Sigma non-opioid intracellular receptor 1",
+"maxPhase": 4.0
+},
+"CHEMBL2820": {
+"symbol": "F11",
+"accession": "P03951",
+"name": "Coagulation factor XI",
+"maxPhase": 4.0
+},
+"CHEMBL2821": {
+"symbol": "F12",
+"accession": "P00748",
+"name": "Coagulation factor XII",
+"maxPhase": 4.0
+},
+"CHEMBL288": {
+"symbol": "PDE4D",
+"accession": "Q08499",
+"name": "3',5'-cyclic-AMP phosphodiesterase 4D",
+"maxPhase": 3.0
+},
+"CHEMBL2689": {
+"symbol": "MST1R",
+"accession": "Q04912",
+"name": "Macrophage-stimulating protein receptor",
+"maxPhase": 4.0
+},
+"CHEMBL2842": {
+"symbol": "MTOR",
+"accession": "P42345",
+"name": "Serine/threonine-protein kinase mTOR",
+"maxPhase": 4.0
+},
+"CHEMBL2706": {
+"symbol": "PTPRB",
+"accession": "P23467",
+"name": "Receptor-type tyrosine-protein phosphatase beta",
+"maxPhase": 2.0
+},
+"CHEMBL2954": {
+"symbol": "CTSS",
+"accession": "P25774",
+"name": "Cathepsin S",
+"maxPhase": 2.0
+},
+"CHEMBL2722": {
+"symbol": "CYP11B2",
+"accession": "P19099",
+"name": "Cytochrome P450 11B2, mitochondrial",
+"maxPhase": 4.0
+},
+"CHEMBL2708": {
+"symbol": "MAP3K11",
+"accession": "Q16584",
+"name": "Mitogen-activated protein kinase kinase kinase 11",
+"maxPhase": 3.0
+},
+"CHEMBL2873": {
+"symbol": "MAP3K10",
+"accession": "Q02779",
+"name": "Mitogen-activated protein kinase kinase kinase 10",
+"maxPhase": 3.0
+},
+"CHEMBL2815": {
+"symbol": "NTRK1",
+"accession": "P04629",
+"name": "High affinity nerve growth factor receptor",
+"maxPhase": 4.0
+},
+"CHEMBL2742": {
+"symbol": "FGFR3",
+"accession": "P22607",
+"name": "Fibroblast growth factor receptor 3",
+"maxPhase": 4.0
+},
+"CHEMBL2925": {
+"symbol": "KCNQ5",
+"accession": "Q9NR82",
+"name": "Potassium voltage-gated channel subfamily KQT member 5",
+"maxPhase": 3.0
+},
+"CHEMBL2872": {
+"symbol": "MAP3K9",
+"accession": "P80192",
+"name": "Mitogen-activated protein kinase kinase kinase 9",
+"maxPhase": 3.0
+},
+"CHEMBL2929": {
+"symbol": "PCSK9",
+"accession": "Q8NBP7",
+"name": "Proprotein convertase subtilisin/kexin type 9",
+"maxPhase": 4.0
+},
+"CHEMBL2916": {
+"symbol": "TERT",
+"accession": "O14746",
+"name": "Telomerase reverse transcriptase",
+"maxPhase": 4.0
+},
+"CHEMBL2755": {
+"symbol": "GSR",
+"accession": "P00390",
+"name": "Glutathione reductase, mitochondrial",
+"maxPhase": 4.0
+},
+"CHEMBL2778": {
+"symbol": "SLC10A2",
+"accession": "Q12908",
+"name": "Ileal sodium/bile acid cotransporter",
+"maxPhase": 4.0
+},
+"CHEMBL2782": {
+"symbol": "SOAT1",
+"accession": "P35610",
+"name": "Sterol O-acyltransferase 1",
+"maxPhase": 4.0
+},
+"CHEMBL3076": {
+"symbol": "PAH",
+"accession": "P00439",
+"name": "Phenylalanine-4-hydroxylase",
+"maxPhase": 4.0
+},
+"CHEMBL3028": {
+"symbol": "EGLN2",
+"accession": "Q96KS0",
+"name": "Prolyl hydroxylase EGLN2",
+"maxPhase": 4.0
+},
+"CHEMBL3023": {
+"symbol": "SPHK2",
+"accession": "Q9NRA0",
+"name": "Sphingosine kinase 2",
+"maxPhase": 2.0
+},
+"CHEMBL3024": {
+"symbol": "PLK1",
+"accession": "P53350",
+"name": "Serine/threonine-protein kinase PLK1",
+"maxPhase": 3.0
+},
+"CHEMBL2979": {
+"symbol": "ITGB7",
+"accession": "P26010",
+"name": "Integrin beta-7",
+"maxPhase": 3.0
+},
+"CHEMBL2971": {
+"symbol": "JAK2",
+"accession": "O60674",
+"name": "Tyrosine-protein kinase JAK2",
+"maxPhase": 4.0
+},
+"CHEMBL2964": {
+"symbol": "MAP2K2",
+"accession": "P36507",
+"name": "Dual specificity mitogen-activated protein kinase kinase 2",
+"maxPhase": 4.0
+},
+"CHEMBL3070": {
+"symbol": "ICAM1",
+"accession": "P05362",
+"name": "Intercellular adhesion molecule 1",
+"maxPhase": 2.0
+},
+"CHEMBL3094": {
+"symbol": "MAPKAPK5",
+"accession": "Q8IW41",
+"name": "MAP kinase-activated protein kinase 5",
+"maxPhase": 2.0
+},
+"CHEMBL2973": {
+"symbol": "ROCK2",
+"accession": "O75116",
+"name": "Rho-associated protein kinase 2",
+"maxPhase": 4.0
+},
+"CHEMBL3130": {
+"symbol": "PIK3CD",
+"accession": "O00329",
+"name": "Phosphatidylinositol 4,5-bisphosphate 3-kinase catalytic subunit delta isoform",
+"maxPhase": 4.0
+},
+"CHEMBL3102": {
+"symbol": "DBH",
+"accession": "P09172",
+"name": "Dopamine beta-hydroxylase",
+"maxPhase": 2.0
+},
+"CHEMBL298": {
+"symbol": "CCKBR",
+"accession": "P32239",
+"name": "Gastrin/cholecystokinin type B receptor",
+"maxPhase": 2.0
+},
+"CHEMBL3116": {
+"symbol": "CDK9",
+"accession": "P50750",
+"name": "Cyclin-dependent kinase 9",
+"maxPhase": 3.0
+},
+"CHEMBL3117": {
+"symbol": "CHKA",
+"accession": "P35790",
+"name": "Choline kinase alpha",
+"maxPhase": 1.0
+},
+"CHEMBL3045": {
+"symbol": "PRKCB",
+"accession": "P05771",
+"name": "Protein kinase C beta type",
+"maxPhase": 3.0
+},
+"CHEMBL3105": {
+"symbol": "PARP1",
+"accession": "P09874",
+"name": "Poly [ADP-ribose] polymerase 1",
+"maxPhase": 4.0
+},
+"CHEMBL301": {
+"symbol": "CDK2",
+"accession": "P24941",
+"name": "Cyclin-dependent kinase 2",
+"maxPhase": 3.0
+},
+"CHEMBL3106": {
+"symbol": "TYMP",
+"accession": "P19971",
+"name": "Thymidine phosphorylase",
+"maxPhase": 4.0
+},
+"CHEMBL3107": {
+"symbol": "FGF2",
+"accession": "P09038",
+"name": "Fibroblast growth factor 2",
+"maxPhase": 3.0
+},
+"CHEMBL3119": {
+"symbol": "TRPV4",
+"accession": "Q9HBA0",
+"name": "Transient receptor potential cation channel subfamily V member 4",
+"maxPhase": 4.0
+},
+"CHEMBL2998": {
+"symbol": "P2RX3",
+"accession": "P56373",
+"name": "P2X purinoceptor 3",
+"maxPhase": 4.0
+},
+"CHEMBL3004": {
+"symbol": "ABCC1",
+"accession": "P33527",
+"name": "Multidrug resistance-associated protein 1",
+"maxPhase": 2.0
+},
+"CHEMBL308": {
+"symbol": "CDK1",
+"accession": "P06493",
+"name": "Cyclin-dependent kinase 1",
+"maxPhase": 3.0
+},
+"CHEMBL2996": {
+"symbol": "PRKCD",
+"accession": "Q05655",
+"name": "Protein kinase C delta type",
+"maxPhase": 2.0
+},
+"CHEMBL3009": {
+"symbol": "ERBB4",
+"accession": "Q15303",
+"name": "Receptor tyrosine-protein kinase erbB-4",
+"maxPhase": 4.0
+},
+"CHEMBL3026": {
+"symbol": "GABRA3",
+"accession": "P34903",
+"name": "Gamma-aminobutyric acid receptor subunit alpha-3",
+"maxPhase": 2.0
+},
+"CHEMBL3055": {
+"symbol": "CDK7",
+"accession": "P50613",
+"name": "Cyclin-dependent kinase 7",
+"maxPhase": 3.0
+},
+"CHEMBL3108633": {
+"symbol": "PDGFB",
+"accession": "P01127",
+"name": "Platelet-derived growth factor subunit B",
+"maxPhase": 3.0
+},
+"CHEMBL3157": {
+"symbol": "BDKRB2",
+"accession": "P30411",
+"name": "B2 bradykinin receptor",
+"maxPhase": 4.0
+},
+"CHEMBL3142": {
+"symbol": "PRKDC",
+"accession": "P78527",
+"name": "DNA-dependent protein kinase catalytic subunit",
+"maxPhase": 2.0
+},
+"CHEMBL3155": {
+"symbol": "HTR7",
+"accession": "P34969",
+"name": "5-hydroxytryptamine receptor 7",
+"maxPhase": 2.0
+},
+"CHEMBL3143": {
+"symbol": "F8",
+"accession": "P00451",
+"name": "Coagulation factor VIII",
+"maxPhase": 4.0
+},
+"CHEMBL3201": {
+"symbol": "AHR",
+"accession": "P35869",
+"name": "Aryl hydrocarbon receptor",
+"maxPhase": 4.0
+},
+"CHEMBL3238": {
+"symbol": "CPT2",
+"accession": "P23786",
+"name": "Carnitine O-palmitoyltransferase 2, mitochondrial",
+"maxPhase": 4.0
+},
+"CHEMBL3276": {
+"symbol": "IL2RB",
+"accession": "P14784",
+"name": "Interleukin-2 receptor subunit beta",
+"maxPhase": 1.0
+},
+"CHEMBL3230": {
+"symbol": "S1PR4",
+"accession": "O95977",
+"name": "Sphingosine 1-phosphate receptor 4",
+"maxPhase": 4.0
+},
+"CHEMBL3192": {
+"symbol": "HDAC8",
+"accession": "Q9BY41",
+"name": "Histone deacetylase 8",
+"maxPhase": 2.0
+},
+"CHEMBL3172": {
+"symbol": "DPYD",
+"accession": "Q12882",
+"name": "Dihydropyrimidine dehydrogenase [NADP(+)]",
+"maxPhase": 3.0
+},
+"CHEMBL3227": {
+"symbol": "GRM5",
+"accession": "P41594",
+"name": "Metabotropic glutamate receptor 5",
+"maxPhase": 2.0
+},
+"CHEMBL3218": {
+"symbol": "CD22",
+"accession": "P20273",
+"name": "B-cell receptor CD22",
+"maxPhase": 4.0
+},
+"CHEMBL3234": {
+"symbol": "HCK",
+"accession": "P08631",
+"name": "Tyrosine-protein kinase HCK",
+"maxPhase": 4.0
+},
+"CHEMBL3267": {
+"symbol": "PIK3CG",
+"accession": "P48736",
+"name": "Phosphatidylinositol 4,5-bisphosphate 3-kinase catalytic subunit gamma isoform",
+"maxPhase": 4.0
+},
+"CHEMBL3286": {
+"symbol": "PLAU",
+"accession": "P00749",
+"name": "Urokinase-type plasminogen activator",
+"maxPhase": 4.0
+},
+"CHEMBL3243": {
+"symbol": "PTPRC",
+"accession": "P08575",
+"name": "Receptor-type tyrosine-protein phosphatase C",
+"maxPhase": 2.0
+},
+"CHEMBL3242": {
+"symbol": "CA12",
+"accession": "O43570",
+"name": "Carbonic anhydrase 12",
+"maxPhase": 4.0
+},
+"CHEMBL3295": {
+"symbol": "PGA5",
+"accession": "P0DJD9",
+"name": "Pepsin A",
+"maxPhase": 4.0
+},
+"CHEMBL3145": {
+"symbol": "PIK3CB",
+"accession": "P42338",
+"name": "Phosphatidylinositol 4,5-bisphosphate 3-kinase catalytic subunit beta isoform",
+"maxPhase": 2.0
+},
+"CHEMBL3273": {
+"symbol": "SLC9A3",
+"accession": "P48764",
+"name": "Sodium/hydrogen exchanger 3",
+"maxPhase": 4.0
+},
+"CHEMBL321": {
+"symbol": "MMP9",
+"accession": "P14780",
+"name": "Matrix metalloproteinase-9",
+"maxPhase": 3.0
+},
+"CHEMBL325": {
+"symbol": "HDAC1",
+"accession": "Q13547",
+"name": "Histone deacetylase 1",
+"maxPhase": 4.0
+},
+"CHEMBL3194": {
+"symbol": "TTR",
+"accession": "P02766",
+"name": "Transthyretin",
+"maxPhase": 4.0
+},
+"CHEMBL3161": {
+"symbol": "SELL",
+"accession": "P14151",
+"name": "L-selectin",
+"maxPhase": 3.0
+},
+"CHEMBL3217393": {
+"symbol": "TGFB2",
+"accession": "P61812",
+"name": "Transforming growth factor beta-2 proprotein",
+"maxPhase": 3.0
+},
+"CHEMBL3217394": {
+"symbol": "IGF1",
+"accession": "P05019",
+"name": "Insulin-like growth factor 1",
+"maxPhase": 2.0
+},
+"CHEMBL3217395": {
+"symbol": "ANGPT1",
+"accession": "Q15389",
+"name": "Angiopoietin-1",
+"maxPhase": 3.0
+},
+"CHEMBL3232692": {
+"symbol": "CD44",
+"accession": "P16070",
+"name": "CD44 antigen",
+"maxPhase": 2.0
+},
+"CHEMBL3286067": {
+"symbol": "POLR1A",
+"accession": "O95602",
+"name": "DNA-directed RNA polymerase I subunit RPA1",
+"maxPhase": 2.0
+},
+"CHEMBL3286070": {
+"symbol": "HBEGF",
+"accession": "Q99075",
+"name": "Proheparin-binding EGF-like growth factor",
+"maxPhase": 1.0
+},
+"CHEMBL3286073": {
+"symbol": "IFNG",
+"accession": "P01579",
+"name": "Interferon gamma",
+"maxPhase": 4.0
+},
+"CHEMBL3286074": {
+"symbol": "CXCL12",
+"accession": "P48061",
+"name": "Stromal cell-derived factor 1",
+"maxPhase": 2.0
+},
+"CHEMBL3286077": {
+"symbol": "CCL11",
+"accession": "P51671",
+"name": "Eotaxin",
+"maxPhase": 2.0
+},
+"CHEMBL3307223": {
+"symbol": "PDCD1",
+"accession": "Q15116",
+"name": "Programmed cell death protein 1",
+"maxPhase": 4.0
+},
+"CHEMBL3474": {
+"symbol": "PLA2G2A",
+"accession": "P14555",
+"name": "Phospholipase A2, membrane associated",
+"maxPhase": 3.0
+},
+"CHEMBL3371": {
+"symbol": "HTR6",
+"accession": "P50406",
+"name": "5-hydroxytryptamine receptor 6",
+"maxPhase": 3.0
+},
+"CHEMBL3378": {
+"symbol": "TNFRSF1A",
+"accession": "P19438",
+"name": "Tumor necrosis factor receptor superfamily member 1A",
+"maxPhase": 1.0
+},
+"CHEMBL3338": {
+"symbol": "FDFT1",
+"accession": "P37268",
+"name": "Squalene synthase",
+"maxPhase": 3.0
+},
+"CHEMBL3385": {
+"symbol": "MAPK3",
+"accession": "P27361",
+"name": "Mitogen-activated protein kinase 3",
+"maxPhase": 2.0
+},
+"CHEMBL3439": {
+"symbol": "ENPEP",
+"accession": "Q07075",
+"name": "Glutamyl aminopeptidase",
+"maxPhase": 3.0
+},
+"CHEMBL3310": {
+"symbol": "HDAC11",
+"accession": "Q96DB2",
+"name": "Histone deacetylase 11",
+"maxPhase": 2.0
+},
+"CHEMBL331": {
+"symbol": "CDK4",
+"accession": "P11802",
+"name": "Cyclin-dependent kinase 4",
+"maxPhase": 4.0
+},
+"CHEMBL332": {
+"symbol": "MMP1",
+"accession": "P03956",
+"name": "Interstitial collagenase",
+"maxPhase": 4.0
+},
+"CHEMBL333": {
+"symbol": "MMP2",
+"accession": "P08253",
+"name": "72 kDa type IV collagenase",
+"maxPhase": 3.0
+},
+"CHEMBL340": {
+"symbol": "CYP3A4",
+"accession": "P08684",
+"name": "Cytochrome P450 3A4",
+"maxPhase": 2.0
+},
+"CHEMBL3357": {
+"symbol": "IRAK1",
+"accession": "P51617",
+"name": "Interleukin-1 receptor-associated kinase 1",
+"maxPhase": 4.0
+},
+"CHEMBL3437": {
+"symbol": "AOC3",
+"accession": "Q16853",
+"name": "Amine oxidase [copper-containing] 3",
+"maxPhase": 2.0
+},
+"CHEMBL3308912": {
+"symbol": "GP6",
+"accession": "Q9HCN6",
+"name": "Platelet glycoprotein VI",
+"maxPhase": 2.0
+},
+"CHEMBL3390821": {
+"symbol": "CD19",
+"accession": "P15391",
+"name": "B-lymphocyte antigen CD19",
+"maxPhase": 4.0
+},
+"CHEMBL3390822": {
+"symbol": "IL17A",
+"accession": "Q16552",
+"name": "Interleukin-17A",
+"maxPhase": 4.0
+},
+"CHEMBL3391681": {
+"symbol": "GPD2",
+"accession": "P43304",
+"name": "Glycerol-3-phosphate dehydrogenase, mitochondrial",
+"maxPhase": 4.0
+},
+"CHEMBL3407319": {
+"symbol": "NOTCH3",
+"accession": "Q9UM47",
+"name": "Neurogenic locus notch homolog protein 3",
+"maxPhase": 2.0
+},
+"CHEMBL3407320": {
+"symbol": "NOTCH2",
+"accession": "Q04721",
+"name": "Neurogenic locus notch homolog protein 2",
+"maxPhase": 2.0
+},
+"CHEMBL3407325": {
+"symbol": "MSTN",
+"accession": "O14793",
+"name": "Growth/differentiation factor 8",
+"maxPhase": 3.0
+},
+"CHEMBL3425389": {
+"symbol": "PPP5C",
+"accession": "P53041",
+"name": "Serine/threonine-protein phosphatase 5",
+"maxPhase": 2.0
+},
+"CHEMBL3430865": {
+"symbol": "PTGDS",
+"accession": "P41222",
+"name": "Prostaglandin-H2 D-isomerase",
+"maxPhase": 4.0
+},
+"CHEMBL3514": {
+"symbol": "PLA2G7",
+"accession": "Q13093",
+"name": "Platelet-activating factor acetylhydrolase",
+"maxPhase": 3.0
+},
+"CHEMBL3572": {
+"symbol": "CETP",
+"accession": "P11597",
+"name": "Cholesteryl ester transfer protein",
+"maxPhase": 3.0
+},
+"CHEMBL3475": {
+"symbol": "SERPINE1",
+"accession": "P05121",
+"name": "Plasminogen activator inhibitor 1",
+"maxPhase": 2.0
+},
+"CHEMBL3576": {
+"symbol": "KCNQ4",
+"accession": "P56696",
+"name": "Potassium voltage-gated channel subfamily KQT member 4",
+"maxPhase": 3.0
+},
+"CHEMBL3559": {
+"symbol": "STS",
+"accession": "P08842",
+"name": "Steryl-sulfatase",
+"maxPhase": 2.0
+},
+"CHEMBL3551": {
+"symbol": "TNFRSF10A",
+"accession": "O00220",
+"name": "Tumor necrosis factor receptor superfamily member 10A",
+"maxPhase": 2.0
+},
+"CHEMBL3553": {
+"symbol": "TYK2",
+"accession": "P29597",
+"name": "Non-receptor tyrosine-protein kinase TYK2",
+"maxPhase": 4.0
+},
+"CHEMBL3522": {
+"symbol": "CYP17A1",
+"accession": "P05093",
+"name": "Steroid 17-alpha-hydroxylase/17,20 lyase",
+"maxPhase": 4.0
+},
+"CHEMBL3535": {
+"symbol": "PDE9A",
+"accession": "O76083",
+"name": "High affinity cGMP-specific 3',5'-cyclic phosphodiesterase 9A",
+"maxPhase": 2.0
+},
+"CHEMBL3559386": {
+"symbol": "SLAMF7",
+"accession": "Q9NQ25",
+"name": "SLAM family member 7",
+"maxPhase": 4.0
+},
+"CHEMBL3559686": {
+"symbol": "FZD2",
+"accession": "Q14332",
+"name": "Frizzled-2",
+"maxPhase": 2.0
+},
+"CHEMBL3559687": {
+"symbol": "FZD5",
+"accession": "Q13467",
+"name": "Frizzled-5",
+"maxPhase": 2.0
+},
+"CHEMBL3559688": {
+"symbol": "FZD7",
+"accession": "O75084",
+"name": "Frizzled-7",
+"maxPhase": 2.0
+},
+"CHEMBL3559689": {
+"symbol": "FZD8",
+"accession": "Q9H461",
+"name": "Frizzled-8",
+"maxPhase": 2.0
+},
+"CHEMBL3559701": {
+"symbol": "MAS1",
+"accession": "P04201",
+"name": "Proto-oncogene Mas",
+"maxPhase": 2.0
+},
+"CHEMBL3580482": {
+"symbol": "MUC16",
+"accession": "Q8WXI7",
+"name": "Mucin-16",
+"maxPhase": 4.0
+},
+"CHEMBL3580483": {
+"symbol": "IL5RA",
+"accession": "Q01344",
+"name": "Interleukin-5 receptor subunit alpha",
+"maxPhase": 4.0
+},
+"CHEMBL3580485": {
+"symbol": "IL17RA",
+"accession": "Q96F46",
+"name": "Interleukin-17 receptor A",
+"maxPhase": 4.0
+},
+"CHEMBL3580486": {
+"symbol": "IL13",
+"accession": "P35225",
+"name": "Interleukin-13",
+"maxPhase": 4.0
+},
+"CHEMBL3580487": {
+"symbol": "SOST",
+"accession": "Q9BQB4",
+"name": "Sclerostin",
+"maxPhase": 4.0
+},
+"CHEMBL3629": {
+"symbol": "CSNK2A1",
+"accession": "P68400",
+"name": "Casein kinase II subunit alpha",
+"maxPhase": 2.0
+},
+"CHEMBL3650": {
+"symbol": "FGFR1",
+"accession": "P11362",
+"name": "Fibroblast growth factor receptor 1",
+"maxPhase": 4.0
+},
+"CHEMBL3710": {
+"symbol": "PTGER3",
+"accession": "P43115",
+"name": "Prostaglandin E2 receptor EP3 subtype",
+"maxPhase": 4.0
+},
+"CHEMBL3610": {
+"symbol": "CCND1",
+"accession": "P24385",
+"name": "G1/S-specific cyclin-D1",
+"maxPhase": 2.0
+},
+"CHEMBL3582": {
+"symbol": "PRKCE",
+"accession": "Q02156",
+"name": "Protein kinase C epsilon type",
+"maxPhase": 2.0
+},
+"CHEMBL3687": {
+"symbol": "ALOX12",
+"accession": "P18054",
+"name": "Polyunsaturated fatty acid lipoxygenase ALOX12",
+"maxPhase": 4.0
+},
+"CHEMBL3618": {
+"symbol": "F5",
+"accession": "P12259",
+"name": "Coagulation factor V",
+"maxPhase": 4.0
+},
+"CHEMBL3587": {
+"symbol": "MAP2K1",
+"accession": "Q02750",
+"name": "Dual specificity mitogen-activated protein kinase kinase 1",
+"maxPhase": 4.0
+},
+"CHEMBL3670": {
+"symbol": "HSD3B2",
+"accession": "P26439",
+"name": "3 beta-hydroxysteroid dehydrogenase/Delta 5-->4-isomerase type 2",
+"maxPhase": 4.0
+},
+"CHEMBL3706": {
+"symbol": "ADAM17",
+"accession": "P78536",
+"name": "Disintegrin and metalloproteinase domain-containing protein 17",
+"maxPhase": 2.0
+},
+"CHEMBL3660": {
+"symbol": "ITGAV",
+"accession": "P06756",
+"name": "Integrin alpha-V",
+"maxPhase": 1.0
+},
+"CHEMBL3631": {
+"symbol": "ITGB2",
+"accession": "P05107",
+"name": "Integrin beta-2",
+"maxPhase": 2.0
+},
+"CHEMBL3594": {
+"symbol": "CA9",
+"accession": "Q16790",
+"name": "Carbonic anhydrase 9",
+"maxPhase": 3.0
+},
+"CHEMBL3623": {
+"symbol": "NQO1",
+"accession": "P15559",
+"name": "NAD(P)H dehydrogenase [quinone] 1",
+"maxPhase": 3.0
+},
+"CHEMBL3691": {
+"symbol": "ENPP2",
+"accession": "Q13822",
+"name": "Autotaxin",
+"maxPhase": 3.0
+},
+"CHEMBL3580488": {
+"symbol": "VEGFB",
+"accession": "P49765",
+"name": "Vascular endothelial growth factor B",
+"maxPhase": 3.0
+},
+"CHEMBL3580489": {
+"symbol": "ANGPT2",
+"accession": "O15123",
+"name": "Angiopoietin-2",
+"maxPhase": 4.0
+},
+"CHEMBL3580490": {
+"symbol": "IL4R",
+"accession": "P24394",
+"name": "Interleukin-4 receptor subunit alpha",
+"maxPhase": 4.0
+},
+"CHEMBL3580491": {
+"symbol": "CD40LG",
+"accession": "P29965",
+"name": "CD40 ligand",
+"maxPhase": 3.0
+},
+"CHEMBL3580492": {
+"symbol": "BSG",
+"accession": "P35613",
+"name": "Basigin",
+"maxPhase": 3.0
+},
+"CHEMBL3580493": {
+"symbol": "EPCAM",
+"accession": "P16422",
+"name": "Epithelial cell adhesion molecule",
+"maxPhase": 4.0
+},
+"CHEMBL3580494": {
+"symbol": "MUC1",
+"accession": "P15941",
+"name": "Mucin-1",
+"maxPhase": 3.0
+},
+"CHEMBL3580496": {
+"symbol": "IL1A",
+"accession": "P01583",
+"name": "Interleukin-1 alpha",
+"maxPhase": 3.0
+},
+"CHEMBL3580522": {
+"symbol": "CD274",
+"accession": "Q9NZQ7",
+"name": "Programmed cell death 1 ligand 1",
+"maxPhase": 4.0
+},
+"CHEMBL3588735": {
+"symbol": "INHBA",
+"accession": "P08476",
+"name": "Inhibin beta A chain",
+"maxPhase": 4.0
+},
+"CHEMBL3596085": {
+"symbol": "AGT",
+"accession": "P01019",
+"name": "Angiotensinogen",
+"maxPhase": 2.0
+},
+"CHEMBL3616355": {
+"symbol": "EGR1",
+"accession": "P18146",
+"name": "Early growth response protein 1",
+"maxPhase": 2.0
+},
+"CHEMBL3632452": {
+"symbol": "MALT1",
+"accession": "Q9UDY8",
+"name": "Mucosa-associated lymphoid tissue lymphoma translocation protein 1",
+"maxPhase": 4.0
+},
+"CHEMBL3710485": {
+"symbol": "ANGPTL3",
+"accession": "Q9Y5C1",
+"name": "Angiopoietin-related protein 3",
+"maxPhase": 4.0
+},
+"CHEMBL3712850": {
+"symbol": "TNFRSF12A",
+"accession": "Q9NP84",
+"name": "Tumor necrosis factor receptor superfamily member 12A",
+"maxPhase": 2.0
+},
+"CHEMBL3712852": {
+"symbol": "CD79B",
+"accession": "P40259",
+"name": "B-cell antigen receptor complex-associated protein beta chain",
+"maxPhase": 4.0
+},
+"CHEMBL3712853": {
+"symbol": "CD6",
+"accession": "P30203",
+"name": "T-cell differentiation antigen CD6",
+"maxPhase": 3.0
+},
+"CHEMBL3712854": {
+"symbol": "VIM",
+"accession": "P08670",
+"name": "Vimentin",
+"maxPhase": 2.0
+},
+"CHEMBL3712856": {
+"symbol": "TNC",
+"accession": "P24821",
+"name": "Tenascin",
+"maxPhase": 2.0
+},
+"CHEMBL3712857": {
+"symbol": "TNFRSF9",
+"accession": "Q07011",
+"name": "Tumor necrosis factor receptor superfamily member 9",
+"maxPhase": 3.0
+},
+"CHEMBL3712859": {
+"symbol": "CLDN18",
+"accession": "P56856",
+"name": "Claudin-18",
+"maxPhase": 4.0
+},
+"CHEMBL3712860": {
+"symbol": "TFRC",
+"accession": "P02786",
+"name": "Transferrin receptor protein 1",
+"maxPhase": 1.0
+},
+"CHEMBL3712862": {
+"symbol": "ICAM3",
+"accession": "P32942",
+"name": "Intercellular adhesion molecule 3",
+"maxPhase": 2.0
+},
+"CHEMBL3712863": {
+"symbol": "MCAM",
+"accession": "P43121",
+"name": "Cell surface glycoprotein MUC18",
+"maxPhase": 1.0
+},
+"CHEMBL3712864": {
+"symbol": "AFP",
+"accession": "P02771",
+"name": "Alpha-fetoprotein",
+"maxPhase": 2.0
+},
+"CHEMBL3712869": {
+"symbol": "PTHLH",
+"accession": "P12272",
+"name": "Parathyroid hormone-related protein",
+"maxPhase": 2.0
+},
+"CHEMBL3712870": {
+"symbol": "CD200",
+"accession": "P41217",
+"name": "OX-2 membrane glycoprotein",
+"maxPhase": 2.0
+},
+"CHEMBL3712878": {
+"symbol": "MSLN",
+"accession": "Q13421",
+"name": "Mesothelin",
+"maxPhase": 2.0
+},
+"CHEMBL3712879": {
+"symbol": "CD276",
+"accession": "Q5ZPR3",
+"name": "CD276 antigen",
+"maxPhase": 2.0
+},
+"CHEMBL3712880": {
+"symbol": "CD37",
+"accession": "P11049",
+"name": "Leukocyte antigen CD37",
+"maxPhase": 2.0
+},
+"CHEMBL3712881": {
+"symbol": "CEACAM5",
+"accession": "P06731",
+"name": "Cell adhesion molecule CEACAM5",
+"maxPhase": 4.0
+},
+"CHEMBL3712885": {
+"symbol": "ENG",
+"accession": "P17813",
+"name": "Endoglin",
+"maxPhase": 3.0
+},
+"CHEMBL3712886": {
+"symbol": "TYRP1",
+"accession": "P17643",
+"name": "5,6-dihydroxyindole-2-carboxylic acid oxidase",
+"maxPhase": 2.0
+},
+"CHEMBL3712888": {
+"symbol": "CD5",
+"accession": "P06127",
+"name": "T-cell surface glycoprotein CD5",
+"maxPhase": 2.0
+},
+"CHEMBL3712894": {
+"symbol": "IL4",
+"accession": "P05112",
+"name": "Interleukin-4",
+"maxPhase": 2.0
+},
+"CHEMBL3712895": {
+"symbol": "RTN4",
+"accession": "Q9NQC3",
+"name": "Reticulon-4",
+"maxPhase": 2.0
+},
+"CHEMBL3712898": {
+"symbol": "SDC1",
+"accession": "P18827",
+"name": "Syndecan-1",
+"maxPhase": 2.0
+},
+"CHEMBL3712900": {
+"symbol": "TNFSF4",
+"accession": "P23510",
+"name": "Tumor necrosis factor ligand superfamily member 4",
+"maxPhase": 3.0
+},
+"CHEMBL3712901": {
+"symbol": "CCN2",
+"accession": "P29279",
+"name": "CCN family member 2",
+"maxPhase": 3.0
+},
+"CHEMBL3712903": {
+"symbol": "TGFB3",
+"accession": "P10600",
+"name": "Transforming growth factor beta-3 proprotein",
+"maxPhase": 2.0
+},
+"CHEMBL3712912": {
+"symbol": "KIR2DL1",
+"accession": "P43626",
+"name": "Killer cell immunoglobulin-like receptor 2DL1",
+"maxPhase": 2.0
+},
+"CHEMBL3712913": {
+"symbol": "CD70",
+"accession": "P32970",
+"name": "CD70 antigen",
+"maxPhase": 2.0
+},
+"CHEMBL3712914": {
+"symbol": "TNFSF14",
+"accession": "O43557",
+"name": "Tumor necrosis factor ligand superfamily member 14",
+"maxPhase": 2.0
+},
+"CHEMBL3712915": {
+"symbol": "IL22",
+"accession": "Q9GZX6",
+"name": "Interleukin-22",
+"maxPhase": 2.0
+},
+"CHEMBL3712916": {
+"symbol": "DLL4",
+"accession": "Q9NR61",
+"name": "Delta-like protein 4",
+"maxPhase": 2.0
+},
+"CHEMBL3712919": {
+"symbol": "GPNMB",
+"accession": "Q14956",
+"name": "Transmembrane glycoprotein NMB",
+"maxPhase": 2.0
+},
+"CHEMBL3712920": {
+"symbol": "IL10",
+"accession": "P22301",
+"name": "Interleukin-10",
+"maxPhase": 2.0
+},
+"CHEMBL3712927": {
+"symbol": "GPA33",
+"accession": "Q99795",
+"name": "Cell surface A33 antigen",
+"maxPhase": 2.0
+},
+"CHEMBL3712928": {
+"symbol": "NECTIN4",
+"accession": "Q96NY8",
+"name": "Nectin-4",
+"maxPhase": 4.0
+},
+"CHEMBL3712931": {
+"symbol": "TSLP",
+"accession": "Q969D9",
+"name": "Thymic stromal lymphopoietin",
+"maxPhase": 4.0
+},
+"CHEMBL3712932": {
+"symbol": "IL9",
+"accession": "P15248",
+"name": "Interleukin-9",
+"maxPhase": 2.0
+},
+"CHEMBL3712934": {
+"symbol": "TPBG",
+"accession": "Q13641",
+"name": "Trophoblast glycoprotein",
+"maxPhase": 2.0
+},
+"CHEMBL3712938": {
+"symbol": "NCAM1",
+"accession": "P13591",
+"name": "Neural cell adhesion molecule 1",
+"maxPhase": 2.0
+},
+"CHEMBL3712949": {
+"symbol": "ICOSLG",
+"accession": "O75144",
+"name": "ICOS ligand",
+"maxPhase": 2.0
+},
+"CHEMBL3712953": {
+"symbol": "ICOS",
+"accession": "Q9Y6W8",
+"name": "Inducible T-cell costimulator",
+"maxPhase": 3.0
+},
+"CHEMBL3764": {
+"symbol": "UTS2R",
+"accession": "Q9UKP6",
+"name": "Urotensin-2 receptor",
+"maxPhase": 2.0
+},
+"CHEMBL3759": {
+"symbol": "HRH4",
+"accession": "Q9H3N8",
+"name": "Histamine H4 receptor",
+"maxPhase": 2.0
+},
+"CHEMBL3717": {
+"symbol": "MET",
+"accession": "P08581",
+"name": "Hepatocyte growth factor receptor",
+"maxPhase": 4.0
+},
+"CHEMBL3720": {
+"symbol": "ACLY",
+"accession": "P53396",
+"name": "ATP-citrate synthase",
+"maxPhase": 4.0
+},
+"CHEMBL3729": {
+"symbol": "CA4",
+"accession": "P22748",
+"name": "Carbonic anhydrase 4",
+"maxPhase": 4.0
+},
+"CHEMBL3712954": {
+"symbol": "IL15",
+"accession": "P40933",
+"name": "Interleukin-15",
+"maxPhase": 2.0
+},
+"CHEMBL3712955": {
+"symbol": "CSF2",
+"accession": "P04141",
+"name": "Granulocyte-macrophage colony-stimulating factor",
+"maxPhase": 3.0
+},
+"CHEMBL3712956": {
+"symbol": "STEAP1",
+"accession": "Q9UHE8",
+"name": "STEAP1 protein",
+"maxPhase": 2.0
+},
+"CHEMBL3712957": {
+"symbol": "IGF2",
+"accession": "P01344",
+"name": "Insulin-like growth factor 2",
+"maxPhase": 2.0
+},
+"CHEMBL3712961": {
+"symbol": "PSCA",
+"accession": "O43653",
+"name": "Prostate stem cell antigen",
+"maxPhase": 2.0
+},
+"CHEMBL3712964": {
+"symbol": "CXCL10",
+"accession": "P02778",
+"name": "C-X-C motif chemokine 10",
+"maxPhase": 2.0
+},
+"CHEMBL3712965": {
+"symbol": "LINGO1",
+"accession": "Q96FE5",
+"name": "Leucine-rich repeat and immunoglobulin-like domain-containing nogo receptor-interacting protein 1",
+"maxPhase": 2.0
+},
+"CHEMBL3712972": {
+"symbol": "EGFL7",
+"accession": "Q9UHF1",
+"name": "Epidermal growth factor-like protein 7",
+"maxPhase": 2.0
+},
+"CHEMBL3712975": {
+"symbol": "CD248",
+"accession": "Q9HCU0",
+"name": "Endosialin",
+"maxPhase": 2.0
+},
+"CHEMBL3712987": {
+"symbol": "IL3RA",
+"accession": "P26951",
+"name": "Interleukin-3 receptor subunit alpha",
+"maxPhase": 4.0
+},
+"CHEMBL3712988": {
+"symbol": "PMEL",
+"accession": "P40967",
+"name": "Melanocyte protein PMEL",
+"maxPhase": 4.0
+},
+"CHEMBL3712995": {
+"symbol": "TNFRSF18",
+"accession": "Q9Y5U5",
+"name": "Tumor necrosis factor receptor superfamily member 18",
+"maxPhase": 2.0
+},
+"CHEMBL3712996": {
+"symbol": "RHD",
+"accession": "Q02161",
+"name": "Blood group Rh(D) polypeptide",
+"maxPhase": 2.0
+},
+"CHEMBL3713000": {
+"symbol": "IFNA2",
+"accession": "P01563",
+"name": "Interferon alpha-2",
+"maxPhase": 3.0
+},
+"CHEMBL3713006": {
+"symbol": "PDCD1LG2",
+"accession": "Q9BQ51",
+"name": "Programmed cell death 1 ligand 2",
+"maxPhase": 1.0
+},
+"CHEMBL3713007": {
+"symbol": "IFNA1",
+"accession": "P01562",
+"name": "Interferon alpha-1/13",
+"maxPhase": 2.0
+},
+"CHEMBL3713014": {
+"symbol": "SLC44A4",
+"accession": "Q53GD3",
+"name": "Choline transporter-like protein 4",
+"maxPhase": 1.0
+},
+"CHEMBL3713020": {
+"symbol": "MUC5AC",
+"accession": "P98088",
+"name": "Mucin-5AC",
+"maxPhase": 3.0
+},
+"CHEMBL3713023": {
+"symbol": "TNFSF12",
+"accession": "O43508",
+"name": "Tumor necrosis factor ligand superfamily member 12",
+"maxPhase": 2.0
+},
+"CHEMBL3713025": {
+"symbol": "CRIPTO",
+"accession": "P13385",
+"name": "Protein Cripto",
+"maxPhase": 1.0
+},
+"CHEMBL3713026": {
+"symbol": "KIR2DL3",
+"accession": "P43628",
+"name": "Killer cell immunoglobulin-like receptor 2DL3",
+"maxPhase": 2.0
+},
+"CHEMBL3713062": {
+"symbol": "TFPI",
+"accession": "P10646",
+"name": "Tissue factor pathway inhibitor",
+"maxPhase": 4.0
+},
+"CHEMBL3713333": {
+"symbol": "CD27",
+"accession": "P26842",
+"name": "CD27 antigen",
+"maxPhase": 2.0
+},
+"CHEMBL3713343": {
+"symbol": "MFGE8",
+"accession": "Q08431",
+"name": "Lactadherin",
+"maxPhase": 1.0
+},
+"CHEMBL3713436": {
+"symbol": "TNFSF13",
+"accession": "O75888",
+"name": "Tumor necrosis factor ligand superfamily member 13",
+"maxPhase": 3.0
+},
+"CHEMBL3713449": {
+"symbol": "IL20",
+"accession": "Q9NYY1",
+"name": "Interleukin-20",
+"maxPhase": 2.0
+},
+"CHEMBL3713453": {
+"symbol": "BMP10",
+"accession": "O95393",
+"name": "Bone morphogenetic protein 10",
+"maxPhase": 3.0
+},
+"CHEMBL3713643": {
+"symbol": "CR1",
+"accession": "P17927",
+"name": "Complement receptor type 1",
+"maxPhase": 2.0
+},
+"CHEMBL3713712": {
+"symbol": "ELN",
+"accession": "P15502",
+"name": "Elastin",
+"maxPhase": 3.0
+},
+"CHEMBL3713913": {
+"symbol": "FGF23",
+"accession": "Q9GZV9",
+"name": "Fibroblast growth factor 23",
+"maxPhase": 4.0
+},
+"CHEMBL3713941": {
+"symbol": "IL13RA2",
+"accession": "Q14627",
+"name": "Interleukin-13 receptor subunit alpha-2",
+"maxPhase": 3.0
+},
+"CHEMBL3714029": {
+"symbol": "LOXL2",
+"accession": "Q9Y4K0",
+"name": "Lysyl oxidase homolog 2",
+"maxPhase": 2.0
+},
+"CHEMBL3714079": {
+"symbol": "GPR84",
+"accession": "Q9NQS5",
+"name": "G-protein coupled receptor 84",
+"maxPhase": 2.0
+},
+"CHEMBL3714157": {
+"symbol": "VEGFC",
+"accession": "P49767",
+"name": "Vascular endothelial growth factor C",
+"maxPhase": 3.0
+},
+"CHEMBL3714583": {
+"symbol": "CD47",
+"accession": "Q08722",
+"name": "Leukocyte surface antigen CD47",
+"maxPhase": 3.0
+},
+"CHEMBL3776": {
+"symbol": "CASP8",
+"accession": "Q14790",
+"name": "Caspase-8",
+"maxPhase": 2.0
+},
+"CHEMBL3816": {
+"symbol": "PLA2G4A",
+"accession": "P47712",
+"name": "Cytosolic phospholipase A2",
+"maxPhase": 2.0
+},
+"CHEMBL3819": {
+"symbol": "LPAR1",
+"accession": "Q92633",
+"name": "Lysophosphatidic acid receptor 1",
+"maxPhase": 2.0
+},
+"CHEMBL3795": {
+"symbol": "MC1R",
+"accession": "Q01726",
+"name": "Melanocyte-stimulating hormone receptor",
+"maxPhase": 4.0
+},
+"CHEMBL3810": {
+"symbol": "FN1",
+"accession": "P02751",
+"name": "Fibronectin",
+"maxPhase": 4.0
+},
+"CHEMBL3778": {
+"symbol": "IRAK4",
+"accession": "Q9NWZ3",
+"name": "Interleukin-1 receptor-associated kinase 4",
+"maxPhase": 2.0
+},
+"CHEMBL3798": {
+"symbol": "CALCRL",
+"accession": "Q16602",
+"name": "Calcitonin gene-related peptide type 1 receptor",
+"maxPhase": 4.0
+},
+"CHEMBL3820": {
+"symbol": "GCK",
+"accession": "P35557",
+"name": "Hexokinase-4",
+"maxPhase": 3.0
+},
+"CHEMBL3788": {
+"symbol": "PLK4",
+"accession": "O00444",
+"name": "Serine/threonine-protein kinase PLK4",
+"maxPhase": 2.0
+},
+"CHEMBL3785": {
+"symbol": "HCAR2",
+"accession": "Q8TDS4",
+"name": "Hydroxycarboxylic acid receptor 2",
+"maxPhase": 2.0
+},
+"CHEMBL3831181": {
+"symbol": "GDF2",
+"accession": "Q9UK05",
+"name": "Growth/differentiation factor 2",
+"maxPhase": 3.0
+},
+"CHEMBL3831182": {
+"symbol": "RPE65",
+"accession": "Q16518",
+"name": "Retinoid isomerohydrolase",
+"maxPhase": 4.0
+},
+"CHEMBL3831291": {
+"symbol": "HLA-DRB1",
+"accession": "P01911",
+"name": "HLA class II histocompatibility antigen, DRB1-15 beta chain",
+"maxPhase": 3.0
+},
+"CHEMBL3833441": {
+"symbol": "KIR2DL2",
+"accession": "P43627",
+"name": "Killer cell immunoglobulin-like receptor 2DL2",
+"maxPhase": 2.0
+},
+"CHEMBL3833481": {
+"symbol": "GFRA1",
+"accession": "P56159",
+"name": "GDNF family receptor alpha-1",
+"maxPhase": 2.0
+},
+"CHEMBL3961": {
+"symbol": "MAPK11",
+"accession": "Q15759",
+"name": "Mitogen-activated protein kinase 11",
+"maxPhase": 4.0
+},
+"CHEMBL3911": {
+"symbol": "LTB4R",
+"accession": "Q15722",
+"name": "Leukotriene B4 receptor 1",
+"maxPhase": 2.0
+},
+"CHEMBL3974": {
+"symbol": "F2R",
+"accession": "P25116",
+"name": "Proteinase-activated receptor 1",
+"maxPhase": 4.0
+},
+"CHEMBL3913": {
+"symbol": "C1S",
+"accession": "P09871",
+"name": "Complement C1s subcomponent",
+"maxPhase": 4.0
+},
+"CHEMBL3922": {
+"symbol": "METAP2",
+"accession": "P50579",
+"name": "Methionine aminopeptidase 2",
+"maxPhase": 3.0
+},
+"CHEMBL3869": {
+"symbol": "MMP14",
+"accession": "P50281",
+"name": "Matrix metalloproteinase-14",
+"maxPhase": 2.0
+},
+"CHEMBL3902": {
+"symbol": "GSTP1",
+"accession": "P09211",
+"name": "Glutathione S-transferase P",
+"maxPhase": 2.0
+},
+"CHEMBL3890": {
+"symbol": "SELE",
+"accession": "P16581",
+"name": "E-selectin",
+"maxPhase": 3.0
+},
+"CHEMBL3864": {
+"symbol": "PTPN11",
+"accession": "Q06124",
+"name": "Tyrosine-protein phosphatase non-receptor type 11",
+"maxPhase": 2.0
+},
+"CHEMBL3921": {
+"symbol": "HPSE",
+"accession": "Q9Y251",
+"name": "Heparanase",
+"maxPhase": 3.0
+},
+"CHEMBL3923": {
+"symbol": "NISCH",
+"accession": "Q9Y2I1",
+"name": "Nischarin",
+"maxPhase": 4.0
+},
+"CHEMBL3901": {
+"symbol": "ATP2A2",
+"accession": "P16615",
+"name": "Sarcoplasmic/endoplasmic reticulum calcium ATPase 2",
+"maxPhase": 2.0
+},
+"CHEMBL3955": {
+"symbol": "ITGA5",
+"accession": "P08648",
+"name": "Integrin alpha-5",
+"maxPhase": 1.0
+},
+"CHEMBL3905": {
+"symbol": "LYN",
+"accession": "P07948",
+"name": "Tyrosine-protein kinase Lyn",
+"maxPhase": 4.0
+},
+"CHEMBL3973": {
+"symbol": "FGFR4",
+"accession": "P22455",
+"name": "Fibroblast growth factor receptor 4",
+"maxPhase": 2.0
+},
+"CHEMBL3896": {
+"symbol": "CACNA2D2",
+"accession": "Q9NY47",
+"name": "Voltage-dependent calcium channel subunit alpha-2/delta-2",
+"maxPhase": 0
+},
+"CHEMBL3979": {
+"symbol": "PPARD",
+"accession": "Q03181",
+"name": "Peroxisome proliferator-activated receptor delta",
+"maxPhase": 4.0
+},
+"CHEMBL3956": {
+"symbol": "MAP3K1",
+"accession": "Q13233",
+"name": "Mitogen-activated protein kinase kinase kinase 1",
+"maxPhase": 2.0
+},
+"CHEMBL3972": {
+"symbol": "GART",
+"accession": "P22102",
+"name": "Trifunctional purine biosynthetic protein adenosine-3",
+"maxPhase": 4.0
+},
+"CHEMBL3884": {
+"symbol": "SLC5A2",
+"accession": "P31639",
+"name": "Sodium/glucose cotransporter 2",
+"maxPhase": 4.0
+},
+"CHEMBL3935": {
+"symbol": "AURKC",
+"accession": "Q9UQB9",
+"name": "Aurora kinase C",
+"maxPhase": 1.0
+},
+"CHEMBL3983": {
+"symbol": "TTK",
+"accession": "P33981",
+"name": "Dual specificity protein kinase TTK",
+"maxPhase": 2.0
+},
+"CHEMBL3856162": {
+"symbol": "FCGR3A",
+"accession": "P08637",
+"name": "Low affinity immunoglobulin gamma Fc region receptor III-A",
+"maxPhase": 3.0
+},
+"CHEMBL3856163": {
+"symbol": "TACSTD2",
+"accession": "P09758",
+"name": "Tumor-associated calcium signal transducer 2",
+"maxPhase": 4.0
+},
+"CHEMBL402": {
+"symbol": "HMGCR",
+"accession": "P04035",
+"name": "3-hydroxy-3-methylglutaryl-coenzyme A reductase",
+"maxPhase": 4.0
+},
+"CHEMBL4018": {
+"symbol": "NPY2R",
+"accession": "P49146",
+"name": "Neuropeptide Y receptor type 2",
+"maxPhase": 2.0
+},
+"CHEMBL4016": {
+"symbol": "GRIA2",
+"accession": "P42262",
+"name": "Glutamate receptor 2",
+"maxPhase": 2.0
+},
+"CHEMBL4005": {
+"symbol": "PIK3CA",
+"accession": "P42336",
+"name": "Phosphatidylinositol 4,5-bisphosphate 3-kinase catalytic subunit alpha isoform",
+"maxPhase": 4.0
+},
+"CHEMBL4029": {
+"symbol": "CXCR1",
+"accession": "P25024",
+"name": "C-X-C chemokine receptor type 1",
+"maxPhase": 3.0
+},
+"CHEMBL4015": {
+"symbol": "CCR2",
+"accession": "P41597",
+"name": "C-C chemokine receptor type 2",
+"maxPhase": 3.0
+},
+"CHEMBL3991": {
+"symbol": "F7",
+"accession": "P08709",
+"name": "Coagulation factor VII",
+"maxPhase": 4.0
+},
+"CHEMBL3988505": {
+"symbol": "COL4A4",
+"accession": "P53420",
+"name": "Collagen alpha-4(IV) chain",
+"maxPhase": 1.0
+},
+"CHEMBL3989381": {
+"symbol": "HAMP",
+"accession": "P81172",
+"name": "Hepcidin",
+"maxPhase": 1.0
+},
+"CHEMBL3989382": {
+"symbol": "CSF1",
+"accession": "P09603",
+"name": "Macrophage colony-stimulating factor 1",
+"maxPhase": 2.0
+},
+"CHEMBL3989383": {
+"symbol": "TNFRSF4",
+"accession": "P43489",
+"name": "Tumor necrosis factor receptor superfamily member 4",
+"maxPhase": 3.0
+},
+"CHEMBL3989384": {
+"symbol": "CDH3",
+"accession": "P22223",
+"name": "Cadherin-3",
+"maxPhase": 1.0
+},
+"CHEMBL3991501": {
+"symbol": "IDH2",
+"accession": "P48735",
+"name": "Isocitrate dehydrogenase [NADP], mitochondrial",
+"maxPhase": 4.0
+},
+"CHEMBL4068": {
+"symbol": "CMA1",
+"accession": "P23946",
+"name": "Chymase",
+"maxPhase": 2.0
+},
+"CHEMBL4116": {
+"symbol": "ADH5",
+"accession": "P11766",
+"name": "Alcohol dehydrogenase class-3",
+"maxPhase": 3.0
+},
+"CHEMBL4142": {
+"symbol": "FGFR2",
+"accession": "P21802",
+"name": "Fibroblast growth factor receptor 2",
+"maxPhase": 4.0
+},
+"CHEMBL4081": {
+"symbol": "F3",
+"accession": "P13726",
+"name": "Tissue factor",
+"maxPhase": 4.0
+},
+"CHEMBL4245": {
+"symbol": "ESRRG",
+"accession": "P62508",
+"name": "Estrogen-related receptor gamma",
+"maxPhase": 3.0
+},
+"CHEMBL4179": {
+"symbol": "MAPK9",
+"accession": "P45984",
+"name": "Mitogen-activated protein kinase 9",
+"maxPhase": 2.0
+},
+"CHEMBL4183": {
+"symbol": "SELPLG",
+"accession": "Q14242",
+"name": "P-selectin glycoprotein ligand 1",
+"maxPhase": 2.0
+},
+"CHEMBL4235": {
+"symbol": "HSD11B1",
+"accession": "P28845",
+"name": "11-beta-hydroxysteroid dehydrogenase 1",
+"maxPhase": 2.0
+},
+"CHEMBL4051": {
+"symbol": "CFTR",
+"accession": "P13569",
+"name": "Cystic fibrosis transmembrane conductance regulator",
+"maxPhase": 4.0
+},
+"CHEMBL4040": {
+"symbol": "MAPK1",
+"accession": "P28482",
+"name": "Mitogen-activated protein kinase 1",
+"maxPhase": 2.0
+},
+"CHEMBL4282": {
+"symbol": "AKT1",
+"accession": "P31749",
+"name": "RAC-alpha serine/threonine-protein kinase",
+"maxPhase": 2.0
+},
+"CHEMBL4073": {
+"symbol": "MMP7",
+"accession": "P09237",
+"name": "Matrilysin",
+"maxPhase": 4.0
+},
+"CHEMBL4123": {
+"symbol": "NTSR1",
+"accession": "P30989",
+"name": "Neurotensin receptor type 1",
+"maxPhase": 3.0
+},
+"CHEMBL4128": {
+"symbol": "TEK",
+"accession": "Q02763",
+"name": "Angiopoietin-1 receptor",
+"maxPhase": 4.0
+},
+"CHEMBL4036": {
+"symbol": "CDK5",
+"accession": "Q00535",
+"name": "Cyclin-dependent kinase 5",
+"maxPhase": 3.0
+},
+"CHEMBL4266": {
+"symbol": "CACNA1A",
+"accession": "O00555",
+"name": "Voltage-dependent P/Q-type calcium channel subunit alpha-1A",
+"maxPhase": 2.0
+},
+"CHEMBL4296": {
+"symbol": "SCN9A",
+"accession": "Q15858",
+"name": "Sodium channel protein type 9 subunit alpha",
+"maxPhase": 3.0
+},
+"CHEMBL4187": {
+"symbol": "SCN2A",
+"accession": "Q99250",
+"name": "Sodium channel protein type 2 subunit alpha",
+"maxPhase": 2.0
+},
+"CHEMBL4096": {
+"symbol": "TP53",
+"accession": "P04637",
+"name": "Cellular tumor antigen p53",
+"maxPhase": 3.0
+},
+"CHEMBL4093": {
+"symbol": "NR1H2",
+"accession": "P55055",
+"name": "Oxysterols receptor LXR-beta",
+"maxPhase": 1.0
+},
+"CHEMBL4223": {
+"symbol": "FRK",
+"accession": "P42685",
+"name": "Tyrosine-protein kinase FRK",
+"maxPhase": 4.0
+},
+"CHEMBL4225": {
+"symbol": "CLK2",
+"accession": "P49760",
+"name": "Dual specificity protein kinase CLK2",
+"maxPhase": 3.0
+},
+"CHEMBL4191": {
+"symbol": "MGLL",
+"accession": "Q99685",
+"name": "Monoglyceride lipase",
+"maxPhase": 2.0
+},
+"CHEMBL4247": {
+"symbol": "ALK",
+"accession": "Q9UM73",
+"name": "ALK tyrosine kinase receptor",
+"maxPhase": 4.0
+},
+"CHEMBL4163": {
+"symbol": "TLR2",
+"accession": "O60603",
+"name": "Toll-like receptor 2",
+"maxPhase": 2.0
+},
+"CHEMBL4295646": {
+"symbol": "MASP2",
+"accession": "O00187",
+"name": "Mannan-binding lectin serine protease 2",
+"maxPhase": 3.0
+},
+"CHEMBL4295685": {
+"symbol": "SLC34A2",
+"accession": "O95436",
+"name": "Sodium-dependent phosphate transport protein 2B",
+"maxPhase": 2.0
+},
+"CHEMBL4295690": {
+"symbol": "A2M",
+"accession": "P01023",
+"name": "Alpha-2-macroglobulin",
+"maxPhase": 4.0
+},
+"CHEMBL4296022": {
+"symbol": "MAGEA4",
+"accession": "P43358",
+"name": "Melanoma-associated antigen 4",
+"maxPhase": 4.0
+},
+"CHEMBL4306": {
+"symbol": "KCNA5",
+"accession": "P22460",
+"name": "Potassium voltage-gated channel subfamily A member 5",
+"maxPhase": 4.0
+},
+"CHEMBL4467": {
+"symbol": "MADCAM1",
+"accession": "Q13477",
+"name": "Mucosal addressin cell adhesion molecule 1",
+"maxPhase": 3.0
+},
+"CHEMBL4478": {
+"symbol": "CACNA1B",
+"accession": "Q00975",
+"name": "Voltage-dependent N-type calcium channel subunit alpha-1B",
+"maxPhase": 4.0
+},
+"CHEMBL4315": {
+"symbol": "P2RY1",
+"accession": "P47900",
+"name": "P2Y purinoceptor 1",
+"maxPhase": 4.0
+},
+"CHEMBL4429": {
+"symbol": "TACR3",
+"accession": "P29371",
+"name": "Neuromedin-K receptor",
+"maxPhase": 4.0
+},
+"CHEMBL4305": {
+"symbol": "KCNN4",
+"accession": "O15554",
+"name": "Intermediate conductance calcium-activated potassium channel protein 4",
+"maxPhase": 4.0
+},
+"CHEMBL4308": {
+"symbol": "BDKRB1",
+"accession": "P46663",
+"name": "B1 bradykinin receptor",
+"maxPhase": 2.0
+},
+"CHEMBL4465": {
+"symbol": "SOAT2",
+"accession": "O75908",
+"name": "Sterol O-acyltransferase 2",
+"maxPhase": 2.0
+},
+"CHEMBL4302": {
+"symbol": "ABCB1",
+"accession": "P08183",
+"name": "ATP-dependent translocase ABCB1",
+"maxPhase": 3.0
+},
+"CHEMBL4342": {
+"symbol": "PLA2G10",
+"accession": "O15496",
+"name": "Group 10 secretory phospholipase A2",
+"maxPhase": 3.0
+},
+"CHEMBL4331": {
+"symbol": "HBB",
+"accession": "P68871",
+"name": "Hemoglobin subunit beta",
+"maxPhase": 4.0
+},
+"CHEMBL4333": {
+"symbol": "S1PR1",
+"accession": "P21453",
+"name": "Sphingosine 1-phosphate receptor 1",
+"maxPhase": 4.0
+},
+"CHEMBL4304": {
+"symbol": "KCNMA1",
+"accession": "Q12791",
+"name": "Calcium-activated potassium channel subunit alpha-1",
+"maxPhase": 3.0
+},
+"CHEMBL4393": {
+"symbol": "MMP12",
+"accession": "P39900",
+"name": "Macrophage metalloelastase",
+"maxPhase": 3.0
+},
+"CHEMBL4398": {
+"symbol": "P2RY2",
+"accession": "P41231",
+"name": "P2Y purinoceptor 2",
+"maxPhase": 4.0
+},
+"CHEMBL4481": {
+"symbol": "NOS2",
+"accession": "P35228",
+"name": "Nitric oxide synthase, inducible",
+"maxPhase": 2.0
+},
+"CHEMBL4445": {
+"symbol": "PPP3CA",
+"accession": "Q08209",
+"name": "Protein phosphatase 3 catalytic subunit alpha",
+"maxPhase": 4.0
+},
+"CHEMBL4427": {
+"symbol": "PTGDR",
+"accession": "Q13258",
+"name": "Prostaglandin D2 receptor",
+"maxPhase": 4.0
+},
+"CHEMBL4338": {
+"symbol": "PNP",
+"accession": "P00491",
+"name": "Purine nucleoside phosphorylase",
+"maxPhase": 4.0
+},
+"CHEMBL4444": {
+"symbol": "PROC",
+"accession": "P04070",
+"name": "Vitamin K-dependent protein C",
+"maxPhase": 4.0
+},
+"CHEMBL4323": {
+"symbol": "PLA2G5",
+"accession": "P39877",
+"name": "Phospholipase A2 group V",
+"maxPhase": 3.0
+},
+"CHEMBL4439": {
+"symbol": "TGFBR1",
+"accession": "P36897",
+"name": "TGF-beta receptor type-1",
+"maxPhase": 2.0
+},
+"CHEMBL4409": {
+"symbol": "PDE10A",
+"accession": "Q9Y233",
+"name": "cAMP and cAMP-inhibited cGMP 3',5'-cyclic phosphodiesterase 10A",
+"maxPhase": 4.0
+},
+"CHEMBL4482": {
+"symbol": "PAK4",
+"accession": "O96013",
+"name": "Serine/threonine-protein kinase PAK 4",
+"maxPhase": 1.0
+},
+"CHEMBL4383": {
+"symbol": "GIPR",
+"accession": "P48546",
+"name": "Gastric inhibitory polypeptide receptor",
+"maxPhase": 4.0
+},
+"CHEMBL4422": {
+"symbol": "FFAR1",
+"accession": "O14842",
+"name": "Free fatty acid receptor 1",
+"maxPhase": 3.0
+},
+"CHEMBL4361": {
+"symbol": "MCL1",
+"accession": "Q07820",
+"name": "Induced myeloid leukemia cell differentiation protein Mcl-1",
+"maxPhase": 3.0
+},
+"CHEMBL4303061": {
+"symbol": "SIGLEC10",
+"accession": "Q96LC7",
+"name": "Sialic acid-binding Ig-like lectin 10",
+"maxPhase": 3.0
+},
+"CHEMBL4618": {
+"symbol": "LTA4H",
+"accession": "P09960",
+"name": "Leukotriene A-4 hydrolase",
+"maxPhase": 2.0
+},
+"CHEMBL4550": {
+"symbol": "ALOX5AP",
+"accession": "P20292",
+"name": "Arachidonate 5-lipoxygenase-activating protein",
+"maxPhase": 3.0
+},
+"CHEMBL4607": {
+"symbol": "AGTR2",
+"accession": "P50052",
+"name": "Type-2 angiotensin II receptor",
+"maxPhase": 2.0
+},
+"CHEMBL4588": {
+"symbol": "MMP8",
+"accession": "P22894",
+"name": "Neutrophil collagenase",
+"maxPhase": 4.0
+},
+"CHEMBL4561": {
+"symbol": "NPY5R",
+"accession": "Q15761",
+"name": "Neuropeptide Y receptor type 5",
+"maxPhase": 3.0
+},
+"CHEMBL4616": {
+"symbol": "GHSR",
+"accession": "Q92847",
+"name": "Growth hormone secretagogue receptor type 1",
+"maxPhase": 4.0
+},
+"CHEMBL4501": {
+"symbol": "RPS6KB1",
+"accession": "P23443",
+"name": "Ribosomal protein S6 kinase beta-1",
+"maxPhase": 1.0
+},
+"CHEMBL4502": {
+"symbol": "CDA",
+"accession": "P32320",
+"name": "Cytidine deaminase",
+"maxPhase": 4.0
+},
+"CHEMBL4601": {
+"symbol": "PTK6",
+"accession": "Q13882",
+"name": "Protein-tyrosine kinase 6",
+"maxPhase": 4.0
+},
+"CHEMBL4530": {
+"symbol": "F13A1",
+"accession": "P00488",
+"name": "Coagulation factor XIII A chain",
+"maxPhase": 4.0
+},
+"CHEMBL4531": {
+"symbol": "LGALS3",
+"accession": "P17931",
+"name": "Galectin-3",
+"maxPhase": 2.0
+},
+"CHEMBL4581": {
+"symbol": "KIF11",
+"accession": "P52732",
+"name": "Kinesin-like protein KIF11",
+"maxPhase": 2.0
+},
+"CHEMBL4506": {
+"symbol": "SIRT1",
+"accession": "Q96EB6",
+"name": "NAD-dependent protein deacetylase sirtuin-1",
+"maxPhase": 2.0
+},
+"CHEMBL4523230": {
+"symbol": "UTRN",
+"accession": "P46939",
+"name": "Utrophin",
+"maxPhase": 2.0
+},
+"CHEMBL4523374": {
+"symbol": "PDE4",
+"accession": "Q86V67",
+"name": "Phosphodiesterase isozyme 4",
+"maxPhase": 2.0
+},
+"CHEMBL4523377": {
+"symbol": "STING1",
+"accession": "Q86WV6",
+"name": "Stimulator of interferon genes protein",
+"maxPhase": 2.0
+},
+"CHEMBL4523510": {
+"symbol": "CYP46A1",
+"accession": "Q9Y6A2",
+"name": "Cholesterol 24-hydroxylase",
+"maxPhase": 3.0
+},
+"CHEMBL4523581": {
+"symbol": "SLC39A6",
+"accession": "Q13433",
+"name": "Zinc transporter ZIP6",
+"maxPhase": 2.0
+},
+"CHEMBL4523584": {
+"symbol": "LY6E",
+"accession": "Q16553",
+"name": "Lymphocyte antigen 6E",
+"maxPhase": 1.0
+},
+"CHEMBL4523586": {
+"symbol": "TRAF3IP2",
+"accession": "O43734",
+"name": "E3 ubiquitin ligase TRAF3IP2",
+"maxPhase": 3.0
+},
+"CHEMBL4523587": {
+"symbol": "TNFRSF17",
+"accession": "Q02223",
+"name": "Tumor necrosis factor receptor superfamily member 17",
+"maxPhase": 4.0
+},
+"CHEMBL4523925": {
+"symbol": "GPRC5D",
+"accession": "Q9NZD1",
+"name": "G-protein coupled receptor family C group 5 member D",
+"maxPhase": 4.0
+},
+"CHEMBL4630": {
+"symbol": "CHEK1",
+"accession": "O14757",
+"name": "Serine/threonine-protein kinase Chk1",
+"maxPhase": 2.0
+},
+"CHEMBL4625": {
+"symbol": "BCL2L1",
+"accession": "Q07817",
+"name": "Bcl-2-like protein 1",
+"maxPhase": 3.0
+},
+"CHEMBL4630876": {
+"symbol": "IFNB1",
+"accession": "P01574",
+"name": "Interferon beta",
+"maxPhase": 3.0
+},
+"CHEMBL4630877": {
+"symbol": "SIGLEC8",
+"accession": "Q9NYZ4",
+"name": "Sialic acid-binding Ig-like lectin 8",
+"maxPhase": 3.0
+},
+"CHEMBL4630878": {
+"symbol": "TIGIT",
+"accession": "Q495A1",
+"name": "T-cell immunoreceptor with Ig and ITIM domains",
+"maxPhase": 3.0
+},
+"CHEMBL4630879": {
+"symbol": "HAVCR2",
+"accession": "Q8TDQ0",
+"name": "Hepatitis A virus cellular receptor 2",
+"maxPhase": 3.0
+},
+"CHEMBL4630880": {
+"symbol": "IL17F",
+"accession": "Q96PD4",
+"name": "Interleukin-17F",
+"maxPhase": 4.0
+},
+"CHEMBL4630881": {
+"symbol": "LAG3",
+"accession": "P18627",
+"name": "Lymphocyte activation gene 3 protein",
+"maxPhase": 4.0
+},
+"CHEMBL4630882": {
+"symbol": "TNFRSF13C",
+"accession": "Q96RJ3",
+"name": "Tumor necrosis factor receptor superfamily member 13C",
+"maxPhase": 3.0
+},
+"CHEMBL4630883": {
+"symbol": "CX3CL1",
+"accession": "P78423",
+"name": "Fractalkine",
+"maxPhase": 2.0
+},
+"CHEMBL4630884": {
+"symbol": "LRP1",
+"accession": "Q07954",
+"name": "Prolow-density lipoprotein receptor-related protein 1",
+"maxPhase": 3.0
+},
+"CHEMBL4630885": {
+"symbol": "OSMR",
+"accession": "Q99650",
+"name": "Oncostatin-M-specific receptor subunit beta",
+"maxPhase": 2.0
+},
+"CHEMBL4644": {
+"symbol": "MC3R",
+"accession": "P41968",
+"name": "Melanocortin receptor 3",
+"maxPhase": 2.0
+},
+"CHEMBL4660": {
+"symbol": "CD38",
+"accession": "P28907",
+"name": "ADP-ribosyl cyclase/cyclic ADP-ribose hydrolase 1",
+"maxPhase": 4.0
+},
+"CHEMBL4630886": {
+"symbol": "RGMA",
+"accession": "Q96B86",
+"name": "Repulsive guidance molecule A",
+"maxPhase": 2.0
+},
+"CHEMBL4630887": {
+"symbol": "SEMA4D",
+"accession": "Q92854",
+"name": "Semaphorin-4D",
+"maxPhase": 2.0
+},
+"CHEMBL4630888": {
+"symbol": "DLL3",
+"accession": "Q9NYJ7",
+"name": "Delta-like protein 3",
+"maxPhase": 4.0
+},
+"CHEMBL4630889": {
+"symbol": "GPC3",
+"accession": "P51654",
+"name": "Glypican-3",
+"maxPhase": 2.0
+},
+"CHEMBL4630890": {
+"symbol": "IL33",
+"accession": "O95760",
+"name": "Interleukin-33",
+"maxPhase": 3.0
+},
+"CHEMBL4630891": {
+"symbol": "GP1BA",
+"accession": "P07359",
+"name": "Platelet glycoprotein Ib alpha chain",
+"maxPhase": 2.0
+},
+"CHEMBL4630892": {
+"symbol": "KLRC1",
+"accession": "P26715",
+"name": "NKG2-A/NKG2-B type II integral membrane protein",
+"maxPhase": 3.0
+},
+"CHEMBL4630894": {
+"symbol": "IL31RA",
+"accession": "Q8NI17",
+"name": "Interleukin-31 receptor subunit alpha",
+"maxPhase": 4.0
+},
+"CHEMBL4630895": {
+"symbol": "KIR3DL2",
+"accession": "P43630",
+"name": "Killer cell immunoglobulin-like receptor 3DL2",
+"maxPhase": 2.0
+},
+"CHEMBL4662938": {
+"symbol": "TGFA",
+"accession": "P01135",
+"name": "Protransforming growth factor alpha",
+"maxPhase": 2.0
+},
+"CHEMBL4662939": {
+"symbol": "EREG",
+"accession": "O14944",
+"name": "Proepiregulin",
+"maxPhase": 2.0
+},
+"CHEMBL4662940": {
+"symbol": "FCGR2B",
+"accession": "P31994",
+"name": "Low affinity immunoglobulin gamma Fc region receptor II-b",
+"maxPhase": 3.0
+},
+"CHEMBL4662941": {
+"symbol": "MAGEA3",
+"accession": "P43357",
+"name": "Melanoma-associated antigen 3",
+"maxPhase": 3.0
+},
+"CHEMBL4662942": {
+"symbol": "WT1",
+"accession": "P19544",
+"name": "Wilms tumor protein",
+"maxPhase": 3.0
+},
+"CHEMBL4714": {
+"symbol": "P2RY6",
+"accession": "Q15077",
+"name": "P2Y purinoceptor 6",
+"maxPhase": 4.0
+},
+"CHEMBL4794": {
+"symbol": "TRPV1",
+"accession": "Q8NER1",
+"name": "Transient receptor potential cation channel subfamily V member 1",
+"maxPhase": 4.0
+},
+"CHEMBL4770": {
+"symbol": "KCNJ8",
+"accession": "Q15842",
+"name": "ATP-sensitive inward rectifier potassium channel 8",
+"maxPhase": 4.0
+},
+"CHEMBL4791": {
+"symbol": "ECE1",
+"accession": "P42892",
+"name": "Endothelin-converting enzyme 1",
+"maxPhase": 2.0
+},
+"CHEMBL4801": {
+"symbol": "CASP1",
+"accession": "P29466",
+"name": "Caspase-1",
+"maxPhase": 2.0
+},
+"CHEMBL4703": {
+"symbol": "PPP2CA",
+"accession": "P67775",
+"name": "Serine/threonine-protein phosphatase 2A catalytic subunit alpha isoform",
+"maxPhase": 2.0
+},
+"CHEMBL4792": {
+"symbol": "HCRTR2",
+"accession": "O43614",
+"name": "Orexin receptor type 2",
+"maxPhase": 4.0
+},
+"CHEMBL4691": {
+"symbol": "F2RL3",
+"accession": "Q96RI0",
+"name": "Proteinase-activated receptor 4",
+"maxPhase": 2.0
+},
+"CHEMBL4722": {
+"symbol": "AURKA",
+"accession": "O14965",
+"name": "Aurora kinase A",
+"maxPhase": 3.0
+},
+"CHEMBL4683": {
+"symbol": "FAP",
+"accession": "Q12884",
+"name": "Prolyl endopeptidase FAP",
+"maxPhase": 3.0
+},
+"CHEMBL4677": {
+"symbol": "BCL2L2",
+"accession": "Q92843",
+"name": "Bcl-2-like protein 2",
+"maxPhase": 3.0
+},
+"CHEMBL4685": {
+"symbol": "IDO1",
+"accession": "P14902",
+"name": "Indoleamine 2,3-dioxygenase 1",
+"maxPhase": 3.0
+},
+"CHEMBL4692": {
+"symbol": "CD74",
+"accession": "P04233",
+"name": "HLA class II histocompatibility antigen gamma chain",
+"maxPhase": 2.0
+},
+"CHEMBL4662944": {
+"symbol": "ERVW-1",
+"accession": "Q9UQF0",
+"name": "Syncytin-1",
+"maxPhase": 2.0
+},
+"CHEMBL4665582": {
+"symbol": "POLR3A",
+"accession": "O14802",
+"name": "DNA-directed RNA polymerase III subunit RPC1",
+"maxPhase": 2.0
+},
+"CHEMBL4665584": {
+"symbol": "ALCAM",
+"accession": "Q13740",
+"name": "CD166 antigen",
+"maxPhase": 2.0
+},
+"CHEMBL4665585": {
+"symbol": "ROR1",
+"accession": "Q01973",
+"name": "Inactive tyrosine-protein kinase transmembrane receptor ROR1",
+"maxPhase": 3.0
+},
+"CHEMBL4665586": {
+"symbol": "IL21",
+"accession": "Q9HBE4",
+"name": "Interleukin-21",
+"maxPhase": 2.0
+},
+"CHEMBL4877": {
+"symbol": "NPY4R",
+"accession": "P50391",
+"name": "Neuropeptide Y receptor type 4",
+"maxPhase": 2.0
+},
+"CHEMBL4805": {
+"symbol": "P2RX7",
+"accession": "Q99572",
+"name": "P2X purinoceptor 7",
+"maxPhase": 2.0
+},
+"CHEMBL4816": {
+"symbol": "AKT3",
+"accession": "Q9Y243",
+"name": "RAC-gamma serine/threonine-protein kinase",
+"maxPhase": 2.0
+},
+"CHEMBL4876": {
+"symbol": "ITGB6",
+"accession": "P18564",
+"name": "Integrin beta-6",
+"maxPhase": 3.0
+},
+"CHEMBL4937": {
+"symbol": "CSNK1E",
+"accession": "P49674",
+"name": "Casein kinase I isoform epsilon",
+"maxPhase": 4.0
+},
+"CHEMBL4929": {
+"symbol": "APCS",
+"accession": "P02743",
+"name": "Serum amyloid P-component",
+"maxPhase": 2.0
+},
+"CHEMBL4822": {
+"symbol": "BACE1",
+"accession": "P56817",
+"name": "Beta-secretase 1",
+"maxPhase": 3.0
+},
+"CHEMBL4956": {
+"symbol": "GABRA2",
+"accession": "P47869",
+"name": "Gamma-aminobutyric acid receptor subunit alpha-2",
+"maxPhase": 4.0
+},
+"CHEMBL4979": {
+"symbol": "SLC5A1",
+"accession": "P13866",
+"name": "Sodium/glucose cotransporter 1",
+"maxPhase": 4.0
+},
+"CHEMBL4954": {
+"symbol": "EPHA3",
+"accession": "P29320",
+"name": "Ephrin type-A receptor 3",
+"maxPhase": 1.0
+},
+"CHEMBL4917": {
+"symbol": "C3",
+"accession": "P01024",
+"name": "Complement C3",
+"maxPhase": 4.0
+},
+"CHEMBL4860": {
+"symbol": "BCL2",
+"accession": "P10415",
+"name": "Apoptosis regulator Bcl-2",
+"maxPhase": 4.0
+},
+"CHEMBL4895": {
+"symbol": "AXL",
+"accession": "P30530",
+"name": "Tyrosine-protein kinase receptor UFO",
+"maxPhase": 4.0
+},
+"CHEMBL4898": {
+"symbol": "NTRK2",
+"accession": "Q16620",
+"name": "BDNF/NT-3 growth factors receptor",
+"maxPhase": 4.0
+},
+"CHEMBL4899": {
+"symbol": "MAP3K8",
+"accession": "P41279",
+"name": "Mitogen-activated protein kinase kinase kinase 8",
+"maxPhase": 2.0
+},
+"CHEMBL4915": {
+"symbol": "LGALS1",
+"accession": "P09382",
+"name": "Galectin-1",
+"maxPhase": 2.0
+},
+"CHEMBL4804243": {
+"symbol": "FLNA",
+"accession": "P21333",
+"name": "Filamin-A",
+"maxPhase": 3.0
+},
+"CHEMBL4804244": {
+"symbol": "MARCKS",
+"accession": "P29966",
+"name": "Myristoylated alanine-rich C-kinase substrate",
+"maxPhase": 2.0
+},
+"CHEMBL4804245": {
+"symbol": "EFNB2",
+"accession": "P52799",
+"name": "Ephrin-B2",
+"maxPhase": 2.0
+},
+"CHEMBL4804246": {
+"symbol": "LILRA4",
+"accession": "P59901",
+"name": "Leukocyte immunoglobulin-like receptor subfamily A member 4",
+"maxPhase": 2.0
+},
+"CHEMBL4804247": {
+"symbol": "GAS6",
+"accession": "Q14393",
+"name": "Growth arrest-specific protein 6",
+"maxPhase": 3.0
+},
+"CHEMBL4804257": {
+"symbol": "CTAG1A",
+"accession": "P78358",
+"name": "Cancer/testis antigen 1",
+"maxPhase": 2.0
+},
+"CHEMBL4804258": {
+"symbol": "LY75",
+"accession": "O60449",
+"name": "Lymphocyte antigen 75",
+"maxPhase": 2.0
+},
+"CHEMBL5113": {
+"symbol": "HCRTR1",
+"accession": "O43613",
+"name": "Orexin/Hypocretin receptor type 1",
+"maxPhase": 4.0
+},
+"CHEMBL5137": {
+"symbol": "GRM2",
+"accession": "Q14416",
+"name": "Metabotropic glutamate receptor 2",
+"maxPhase": 3.0
+},
+"CHEMBL5163": {
+"symbol": "SCN3A",
+"accession": "Q9NY46",
+"name": "Sodium channel protein type 3 subunit alpha",
+"maxPhase": 2.0
+},
+"CHEMBL5167": {
+"symbol": "SCN11A",
+"accession": "Q9UI33",
+"name": "Sodium channel protein type 11 subunit alpha",
+"maxPhase": 2.0
+},
+"CHEMBL5202": {
+"symbol": "SCN8A",
+"accession": "Q9UQD0",
+"name": "Sodium channel protein type 8 subunit alpha",
+"maxPhase": 2.0
+},
+"CHEMBL5024": {
+"symbol": "ATR",
+"accession": "Q13535",
+"name": "Serine/threonine-protein kinase ATR",
+"maxPhase": 3.0
+},
+"CHEMBL5071": {
+"symbol": "PTGDR2",
+"accession": "Q9Y5Y4",
+"name": "Prostaglandin D2 receptor 2",
+"maxPhase": 4.0
+},
+"CHEMBL5285": {
+"symbol": "MAP3K5",
+"accession": "Q99683",
+"name": "Mitogen-activated protein kinase kinase kinase 5",
+"maxPhase": 3.0
+},
+"CHEMBL5034": {
+"symbol": "GABBR2",
+"accession": "O75899",
+"name": "Gamma-aminobutyric acid type B receptor subunit 2",
+"maxPhase": 2.0
+},
+"CHEMBL5251": {
+"symbol": "BTK",
+"accession": "Q06187",
+"name": "Tyrosine-protein kinase BTK",
+"maxPhase": 4.0
+},
+"CHEMBL5145": {
+"symbol": "BRAF",
+"accession": "P15056",
+"name": "Serine/threonine-protein kinase B-raf",
+"maxPhase": 4.0
+},
+"CHEMBL5147": {
+"symbol": "EPHB4",
+"accession": "P54760",
+"name": "Ephrin type-B receptor 4",
+"maxPhase": 3.0
+},
+"CHEMBL5141": {
+"symbol": "CYP26A1",
+"accession": "O43174",
+"name": "Cytochrome P450 26A1",
+"maxPhase": 2.0
+},
+"CHEMBL5287": {
+"symbol": "SLC10A1",
+"accession": "Q14973",
+"name": "Hepatic sodium/bile acid cotransporter",
+"maxPhase": 4.0
+},
+"CHEMBL5255": {
+"symbol": "TLR4",
+"accession": "O00206",
+"name": "Toll-like receptor 4",
+"maxPhase": 3.0
+},
+"CHEMBL5174": {
+"symbol": "NRP1",
+"accession": "O14786",
+"name": "Neuropilin-1",
+"maxPhase": 2.0
+},
+"CHEMBL5274": {
+"symbol": "TIE1",
+"accession": "P35590",
+"name": "Tyrosine-protein kinase receptor Tie-1",
+"maxPhase": 1.0
+},
+"CHEMBL5275": {
+"symbol": "BMPR1A",
+"accession": "P36894",
+"name": "Bone morphogenetic protein receptor type-1A",
+"maxPhase": 4.0
+},
+"CHEMBL5122": {
+"symbol": "DDR2",
+"accession": "Q16832",
+"name": "Discoidin domain-containing receptor 2",
+"maxPhase": 4.0
+},
+"CHEMBL5191": {
+"symbol": "CD28",
+"accession": "P10747",
+"name": "T-cell-specific surface glycoprotein CD28",
+"maxPhase": 2.0
+},
+"CHEMBL5216": {
+"symbol": "UMPS",
+"accession": "P11172",
+"name": "Uridine 5'-monophosphate synthase",
+"maxPhase": 4.0
+},
+"CHEMBL4998": {
+"symbol": "ITGA2",
+"accession": "P17301",
+"name": "Integrin alpha-2",
+"maxPhase": 2.0
+},
+"CHEMBL5378": {
+"symbol": "SELP",
+"accession": "P16109",
+"name": "P-selectin",
+"maxPhase": 4.0
+},
+"CHEMBL5451": {
+"symbol": "SCN10A",
+"accession": "Q9Y5Y9",
+"name": "Sodium channel protein type 10 subunit alpha",
+"maxPhase": 4.0
+},
+"CHEMBL5443": {
+"symbol": "CDC7",
+"accession": "O00311",
+"name": "Cell division cycle 7-related protein kinase",
+"maxPhase": 2.0
+},
+"CHEMBL5491": {
+"symbol": "WEE1",
+"accession": "P30291",
+"name": "Wee1-like protein kinase",
+"maxPhase": 2.0
+},
+"CHEMBL5493": {
+"symbol": "FFAR2",
+"accession": "O15552",
+"name": "Free fatty acid receptor 2",
+"maxPhase": 2.0
+},
+"CHEMBL5311": {
+"symbol": "ACVRL1",
+"accession": "P37023",
+"name": "Activin receptor type-1-like",
+"maxPhase": 2.0
+},
+"CHEMBL5366": {
+"symbol": "PARP2",
+"accession": "Q9UGN5",
+"name": "Poly [ADP-ribose] polymerase 2",
+"maxPhase": 4.0
+},
+"CHEMBL5331": {
+"symbol": "MERTK",
+"accession": "Q12866",
+"name": "Tyrosine-protein kinase Mer",
+"maxPhase": 2.0
+},
+"CHEMBL5464": {
+"symbol": "RIPK1",
+"accession": "Q13546",
+"name": "Receptor-interacting serine/threonine-protein kinase 1",
+"maxPhase": 2.0
+},
+"CHEMBL5466": {
+"symbol": "ACVR2B",
+"accession": "Q13705",
+"name": "Activin receptor type-2B",
+"maxPhase": 4.0
+},
+"CHEMBL5467": {
+"symbol": "BMPR2",
+"accession": "Q13873",
+"name": "Bone morphogenetic protein receptor type-2",
+"maxPhase": 4.0
+},
+"CHEMBL5469": {
+"symbol": "PTK2B",
+"accession": "Q14289",
+"name": "Protein-tyrosine kinase 2-beta",
+"maxPhase": 3.0
+},
+"CHEMBL5349": {
+"symbol": "FCGR1A",
+"accession": "P12314",
+"name": "High affinity immunoglobulin gamma Fc receptor I",
+"maxPhase": 2.0
+},
+"CHEMBL5398": {
+"symbol": "HNF4A",
+"accession": "P41235",
+"name": "Hepatocyte nuclear factor 4-alpha",
+"maxPhase": 2.0
+},
+"CHEMBL5476": {
+"symbol": "BMPR1B",
+"accession": "O00238",
+"name": "Bone morphogenetic protein receptor type-1B",
+"maxPhase": 4.0
+},
+"CHEMBL5479": {
+"symbol": "HGF",
+"accession": "P14210",
+"name": "Hepatocyte growth factor",
+"maxPhase": 3.0
+},
+"CHEMBL5305024": {
+"symbol": "SERPING1",
+"accession": "P05155",
+"name": "Plasma protease C1 inhibitor",
+"maxPhase": 4.0
+},
+"CHEMBL5568": {
+"symbol": "ROS1",
+"accession": "P08922",
+"name": "Proto-oncogene tyrosine-protein kinase ROS",
+"maxPhase": 4.0
+},
+"CHEMBL5608": {
+"symbol": "NTRK3",
+"accession": "Q16288",
+"name": "NT-3 growth factor receptor",
+"maxPhase": 4.0
+},
+"CHEMBL5522": {
+"symbol": "TRPV3",
+"accession": "Q8NET8",
+"name": "Transient receptor potential cation channel subfamily V member 3",
+"maxPhase": 2.0
+},
+"CHEMBL5580": {
+"symbol": "ENPP3",
+"accession": "O14638",
+"name": "Ectonucleotide pyrophosphatase/phosphodiesterase family member 3",
+"maxPhase": 2.0
+},
+"CHEMBL5652": {
+"symbol": "GPR119",
+"accession": "Q8TDV5",
+"name": "Glucose-dependent insulinotropic receptor",
+"maxPhase": 2.0
+},
+"CHEMBL5661": {
+"symbol": "XPO1",
+"accession": "O14980",
+"name": "Exportin-1",
+"maxPhase": 4.0
+},
+"CHEMBL5689": {
+"symbol": "TPH1",
+"accession": "P17752",
+"name": "Tryptophan 5-hydroxylase 1",
+"maxPhase": 2.0
+},
+"CHEMBL5714": {
+"symbol": "FASLG",
+"accession": "P48023",
+"name": "Tumor necrosis factor ligand superfamily member 6",
+"maxPhase": 3.0
+},
+"CHEMBL5616": {
+"symbol": "ACVR2A",
+"accession": "P27037",
+"name": "Activin receptor type-2A",
+"maxPhase": 4.0
+},
+"CHEMBL5619": {
+"symbol": "APEX1",
+"accession": "P27695",
+"name": "DNA repair nuclease/redox regulator APEX1",
+"maxPhase": 2.0
+},
+"CHEMBL5697": {
+"symbol": "EGLN1",
+"accession": "Q9GZT9",
+"name": "Egl nine homolog 1",
+"maxPhase": 4.0
+},
+"CHEMBL5705": {
+"symbol": "EGLN3",
+"accession": "Q9H6Z9",
+"name": "Prolyl hydroxylase EGLN3",
+"maxPhase": 4.0
+},
+"CHEMBL5498501": {
+"symbol": "PROS1",
+"accession": "P07225",
+"name": "Vitamin K-dependent protein S",
+"maxPhase": 4.0
+},
+"CHEMBL5498502": {
+"symbol": "BCL11A",
+"accession": "Q9H165",
+"name": "BCL11 transcription factor A",
+"maxPhase": 4.0
+},
+"CHEMBL5498504": {
+"symbol": "DMD",
+"accession": "P11532",
+"name": "Dystrophin",
+"maxPhase": 4.0
+},
+"CHEMBL5498505": {
+"symbol": "COL7A1",
+"accession": "Q02388",
+"name": "Collagen alpha-1(VII) chain",
+"maxPhase": 4.0
+},
+"CHEMBL5721": {
+"symbol": "GMPS",
+"accession": "P49915",
+"name": "GMP synthase [glutamine-hydrolyzing]",
+"maxPhase": 3.0
+},
+"CHEMBL5807": {
+"symbol": "MAG",
+"accession": "P20916",
+"name": "Myelin-associated glycoprotein",
+"maxPhase": 2.0
+},
+"CHEMBL5815": {
+"symbol": "CCR9",
+"accession": "P51686",
+"name": "C-C chemokine receptor type 9",
+"maxPhase": 3.0
+},
+"CHEMBL5857": {
+"symbol": "TAAR1",
+"accession": "Q96RJ0",
+"name": "Trace amine-associated receptor 1",
+"maxPhase": 3.0
+},
+"CHEMBL5966": {
+"symbol": "FCGRT",
+"accession": "P55899",
+"name": "IgG receptor FcRn large subunit p51",
+"maxPhase": 4.0
+},
+"CHEMBL5971": {
+"symbol": "SMO",
+"accession": "Q99835",
+"name": "Protein smoothened",
+"maxPhase": 4.0
+},
+"CHEMBL6007": {
+"symbol": "TRPA1",
+"accession": "O75762",
+"name": "Transient receptor potential cation channel subfamily A member 1",
+"maxPhase": 4.0
+},
+"CHEMBL6009": {
+"symbol": "DGAT1",
+"accession": "O75907",
+"name": "Diacylglycerol O-acyltransferase 1",
+"maxPhase": 3.0
+},
+"CHEMBL6093": {
+"symbol": "CALM1",
+"accession": "P0DP23",
+"name": "Calmodulin-1",
+"maxPhase": 4.0
+},
+"CHEMBL5731": {
+"symbol": "CFB",
+"accession": "P00751",
+"name": "Complement factor B",
+"maxPhase": 4.0
+},
+"CHEMBL5742": {
+"symbol": "TSPO",
+"accession": "P30536",
+"name": "Translocator protein",
+"maxPhase": 4.0
+},
+"CHEMBL5804": {
+"symbol": "TLR9",
+"accession": "Q9NR96",
+"name": "Toll-like receptor 9",
+"maxPhase": 4.0
+},
+"CHEMBL5805": {
+"symbol": "TLR8",
+"accession": "Q9NR97",
+"name": "Toll-like receptor 8",
+"maxPhase": 2.0
+},
+"CHEMBL5903": {
+"symbol": "ACVR1",
+"accession": "Q04771",
+"name": "Activin receptor type-1",
+"maxPhase": 4.0
+},
+"CHEMBL5936": {
+"symbol": "TLR7",
+"accession": "Q9NYK1",
+"name": "Toll-like receptor 7",
+"maxPhase": 4.0
+},
+"CHEMBL6044": {
+"symbol": "BCL2A1",
+"accession": "Q16548",
+"name": "Bcl-2-related protein A1",
+"maxPhase": 3.0
+},
+"CHEMBL6136": {
+"symbol": "KDM1A",
+"accession": "O60341",
+"name": "Lysine-specific histone demethylase 1A",
+"maxPhase": 3.0
+},
+"CHEMBL5957": {
+"symbol": "NT5E",
+"accession": "P21589",
+"name": "5'-nucleotidase",
+"maxPhase": 3.0
+},
+"CHEMBL5988": {
+"symbol": "BCL2L10",
+"accession": "Q9HD36",
+"name": "Bcl-2-like protein 10",
+"maxPhase": 3.0
+},
+"CHEMBL5989": {
+"symbol": "BIRC5",
+"accession": "O15392",
+"name": "Baculoviral IAP repeat-containing protein 5",
+"maxPhase": 2.0
+},
+"CHEMBL6024": {
+"symbol": "DKK1",
+"accession": "O94907",
+"name": "Dickkopf-related protein 1",
+"maxPhase": 2.0
+},
+"CHEMBL5838": {
+"symbol": "ERBB3",
+"accession": "P21860",
+"name": "Receptor tyrosine-protein kinase erbB-3",
+"maxPhase": 3.0
+},
+"CHEMBL5844": {
+"symbol": "GLP2R",
+"accession": "O95838",
+"name": "Glucagon-like peptide 2 receptor",
+"maxPhase": 4.0
+},
+"CHEMBL5913": {
+"symbol": "LEPR",
+"accession": "P48357",
+"name": "Leptin receptor",
+"maxPhase": 4.0
+},
+"CHEMBL6120": {
+"symbol": "SLC22A12",
+"accession": "Q96S37",
+"name": "Solute carrier family 22 member 12",
+"maxPhase": 4.0
+},
+"CHEMBL6152": {
+"symbol": "SNCA",
+"accession": "P37840",
+"name": "Alpha-synuclein",
+"maxPhase": 2.0
+},
+"CHEMBL6157": {
+"symbol": "TSG101",
+"accession": "Q99816",
+"name": "Tumor susceptibility gene 101 protein",
+"maxPhase": 1.0
+},
+"CHEMBL6066101": {
+"symbol": "FCRL5",
+"accession": "Q96RD9",
+"name": "Fc receptor-like protein 5",
+"maxPhase": 1.0
+}
+}
