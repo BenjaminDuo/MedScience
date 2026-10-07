@@ -196,7 +196,7 @@ function shot(s, file, pxW, pxH, x, y, w, h, caption) {
 }
 
 // ================================================================ slides
-// Storyline (12 slides): why -> what -> how it flows -> key designs ->
+// Storyline (13 slides): why -> what -> how it flows -> key designs ->
 // supporting designs -> how to use -> status and the ask.
 
 const TEAL_TINT = 'E3F3F1';
@@ -263,7 +263,7 @@ pres.addSection({ title: '为什么' });
     label(s, MX + i * kw, 5.8, kw, 0.4, t, { size: 13, align: 'center' });
   });
   s.addNotes(
-    '这一页给出全貌：问题是什么、我们怎么做、做到哪一步。后面按“为什么、怎么设计、怎么用、下一步”的顺序展开，共 12 页。'
+    '这一页给出全貌：问题是什么、我们怎么做、做到哪一步。后面按“为什么、怎么设计、怎么用、下一步”的顺序展开，共 13 页。'
   );
 }
 
@@ -502,22 +502,64 @@ function designHeader(s, x, y, w, text) {
   const rx = MX + lw + 0.3;
   const rw = CW - lw - 0.3;
   const half = (rw - 0.2) / 2;
-  card(s, rx, 1.7, half, 2.95);
+  card(s, rx, 1.7, half, 3.0);
   label(s, rx + 0.2, 1.82, half - 0.4, 0.32, '普通检索智能体', { size: 13, bold: true, color: C.accent6 });
   bullets(s, rx + 0.2, 2.25, half - 0.4, 2.3, ['按相关性排序取前 N 篇', '继续寻找支持性文献', '很少主动找反证', '容易形成确认偏差'], { size: 12, gap: 6, color: C.accent6 });
-  card(s, rx + half + 0.2, 1.7, half, 2.95, TEAL_TINT);
+  card(s, rx + half + 0.2, 1.7, half, 3.0, TEAL_TINT);
   label(s, rx + half + 0.4, 1.82, half - 0.4, 0.32, 'MedScience', { size: 13, bold: true, color: C.accent1 });
   bullets(s, rx + half + 0.4, 2.25, half - 0.4, 2.3, ['在固定预算内排序', '先查可能推翻结论的证据', '主动找失败复现', '优先找独立来源'], { size: 12, gap: 6 });
-  card(s, rx, 4.8, rw, 1.5, AMBER_TINT);
-  label(s, rx + 0.2, 4.9, rw - 0.4, 0.32, '例：17-OHPC（Makena）预防早产', { size: 12.5, bold: true, color: C.text2 });
-  label(s, rx + 0.2, 5.22, rw - 0.4, 1.05, '已有支持：Meis 试验（NEJM 2003，PMID 12802023）。矛盾优先会主动去找最可能推翻它的证据——确证试验 PROLONG（Am J Perinatol 2020，PMID 31652479）未见效果，FDA 于 2023 年撤销批准。', { size: 11, color: C.text1 });
+  box(s, rx, 4.85, rw, 1.45, '真实例子见下一页：\nCETP 抑制剂与 HDL', { fill: AMBER_TINT, line: HEX.accent3, size: 15, bold: true, color: C.text2 });
   box(s, MX, 6.42, CW, 0.45, DESIGN_A3_NOTE, { fill: C.background1, line: HEX.accent1, size: 12, bold: true, color: C.text2, align: 'left', margin: 0.12 });
   s.addNotes(
-    '第三个设计是矛盾优先主动验证。痛点是：普通检索智能体倾向于继续寻找支持性文献，很少主动寻找反证、失败复现或独立来源，容易形成确认偏差。设计上，在固定证据预算下，优先选择最可能改变当前结论的证据、与现有结论矛盾的证据、与已有来源最不依赖的证据，以及预期信息增益最高的证据。它不是简单选择“相关性最高”的论文，而是主动寻找最有可能改变决策的证据。以 Makena 为例：已有 Meis 试验支持，矛盾优先会主动去找最可能推翻它的确证试验 PROLONG。实现上，3.0 已有按预期信息增益排序的规划器原型，“矛盾优先”和“来源独立性”两个排序因素是新增的设计。'
+    '第三个设计是矛盾优先主动验证。痛点是：普通检索智能体倾向于继续寻找支持性文献，很少主动寻找反证、失败复现或独立来源，容易形成确认偏差。设计上，在固定证据预算下，优先选择最可能改变当前结论的证据、与现有结论矛盾的证据、与已有来源最不依赖的证据，以及预期信息增益最高的证据。它不是简单选择“相关性最高”的论文，而是主动寻找最有可能改变决策的证据。下一页用 CETP 抑制剂的真实例子说明。实现上，3.0 已有按预期信息增益排序的规划器原型，“矛盾优先”和“来源独立性”两个排序因素是新增的设计。'
   );
 }
 
-// 9 -- B class: multi-agent collaboration
+// 9 -- A3 worked example: CETP inhibitors and HDL. Wording is the author's; every
+// citation checked against PubMed / ClinicalTrials.gov (NCT01687998: start 2012-10,
+// 12,092 enrolled, terminated for insufficient efficacy).
+{
+  const s = content('A 类设计 3 例子：CETP 抑制剂与 HDL', '在做决定之前，先去找最可能推翻结论的证据。', '怎么设计');
+  box(s, MX, 1.65, CW, 0.52, '结论（claim）：用 CETP 抑制剂升高"好胆固醇" HDL，可以降低心血管风险。', { fill: C.text2, color: C.background1, bold: true, size: 15, align: 'left', margin: 0.15 });
+
+  const lw = 4.15;
+  card(s, MX, 2.32, lw, 1.62);
+  label(s, MX + 0.2, 2.42, lw - 0.4, 0.3, '按相关性检索会看到什么：', { size: 12.5, bold: true, color: C.accent6 });
+  label(s, MX + 0.2, 2.75, lw - 0.4, 1.15, 'HDL 越高、心血管风险越低的观察性研究，以及 CETP 抑制剂能大幅升高 HDL 的研究，看起来全都支持这个结论。', { size: 11.5, color: C.text1 });
+  card(s, MX, 4.06, lw, 1.62, AMBER_TINT);
+  label(s, MX + 0.2, 4.14, lw - 0.4, 0.3, '后来发生了什么：', { size: 12.5, bold: true, color: C.accent3 });
+  bullets(s, MX + 0.2, 4.46, lw - 0.4, 1.2, [
+    'ACCELERATE 试验（伊塞曲匹，NCT01687998）于 2012 年 10 月开始入组，共 12,092 人，最终因疗效不足终止（NEJM 2017，PMID 28514624）。',
+    '同类药物达塞曲匹的 dal-OUTCOMES 试验也没有显示获益（NEJM 2012，PMID 23126252）。',
+  ], { size: 10.5, gap: 4 });
+
+  const rx = MX + lw + 0.25;
+  const rw = CW - lw - 0.25;
+  label(s, rx, 2.32, rw, 0.3, '按矛盾优先，会先去找这些证据：', { size: 12.5, bold: true, color: C.accent1 });
+  const head = (t) => ({ text: t, options: { bold: true, color: 'FFFFFF', fill: { color: HEX.accent1 }, fontSize: 11.5, valign: 'middle' } });
+  const k = (t) => ({ text: t, options: { bold: true, fontSize: 11, color: HEX.dk2, valign: 'middle' } });
+  const v = (t) => ({ text: t, options: { fontSize: 11, color: HEX.dk1, valign: 'middle' } });
+  s.addTable(
+    [
+      [head('A3 的四个优先项'), head('对应的真实证据')],
+      [k('与现有结论矛盾的证据'), v('托彻普（torcetrapib）的 ILLUMINATE 试验（NEJM 2007，PMID 17984165）：心血管事件和死亡反而增加')],
+      [k('与已有来源最不依赖的证据'), v('孟德尔随机化研究（Voight 等，Lancet 2012，PMID 22607825）：用基因数据检验，基因决定的 HDL 升高并不降低心肌梗死风险。这是独立于观察性研究的另一类证据')],
+      [k('最可能改变当前结论的证据'), v('以临床硬终点为结局的大型随机试验')],
+      [k('预期信息增益最高的证据'), v('以上两类（基因证据、硬终点试验），而不是再多一篇"HDL 与风险相关"的观察性研究')],
+    ],
+    {
+      x: rx, y: 2.66, w: rw, colW: [2.4, rw - 2.4], rowH: [0.36, 0.62, 0.9, 0.45, 0.62],
+      border: { type: 'solid', pt: 0.75, color: 'D5DCE4' }, fill: { color: 'FFFFFF' }, margin: [0.04, 0.1, 0.04, 0.1], fontFace: THEME.bodyFontFace,
+      objectName: name('table'),
+    }
+  );
+  box(s, MX, 5.85, CW, 0.88, '这个例子要讲的一句话：在 ACCELERATE 开始入组之前，ILLUMINATE（2007）和孟德尔随机化研究（2012 年 8 月刊出）都已经发表。只按相关性检索，它们会淹没在大量支持性文献里；矛盾优先会把它们放到决策者面前。', { fill: TEAL_TINT, line: HEX.accent1, size: 12.5, bold: true, align: 'left', margin: 0.15, color: C.text2 });
+  s.addNotes(
+    '这一页用一个真实例子说明矛盾优先主动验证。结论是：用 CETP 抑制剂升高“好胆固醇” HDL，可以降低心血管风险。只按相关性检索，看到的是大量 HDL 越高、风险越低的观察性研究，以及 CETP 抑制剂能大幅升高 HDL 的研究，看起来全都支持。按矛盾优先，会先去找四类证据：与结论矛盾的，是托彻普的 ILLUMINATE 试验，心血管事件和死亡反而增加；与已有来源最不依赖的，是孟德尔随机化研究，用基因数据检验，基因决定的 HDL 升高并不降低心肌梗死风险，这是独立于观察性研究的另一类证据；最可能改变结论的，是以临床硬终点为结局的大型随机试验；预期信息增益最高的，就是基因证据和硬终点试验，而不是再多一篇观察性研究。后来，一万两千多人的 ACCELERATE 试验因疗效不足终止，同类药物的 dal-OUTCOMES 试验也没有显示获益。要讲的一句话是：在 ACCELERATE 开始入组之前，这些反向证据都已经发表；只按相关性检索，它们会被淹没，矛盾优先会把它们放到决策者面前。注意，我们不说“用了系统就能避免这个试验”，那是无法证明的反事实。'
+  );
+}
+
+// 10 -- B class: multi-agent collaboration
 {
   const s = content('B 类设计：多智能体协作：像课题组一样分工', 'B 类管“谁来做、谁把关”：像课题组一样，有人规划、有人执行、有人审查、有人成文。', '怎么设计');
   const flow = [['研究课题', '用户提出'], ['队长规划', 'PI 拆解任务'], ['成员并行', '领域专家执行'], ['质量门', '规则 + 审查员'], ['综合报告', '写作专家成文']];
@@ -555,7 +597,7 @@ function designHeader(s, x, y, w, text) {
   );
 }
 
-// 10 -- C class: local runtime
+// 11 -- C class: local runtime
 {
   const s = content('C 类设计：本地运行时：直接用已有 AI 订阅', 'C 类管“在哪里跑、用谁的额度”：科研与临床数据留在本机，复用已订阅的 AI 命令行工具。', '怎么设计');
   const lw = 6.6;
@@ -584,7 +626,7 @@ function designHeader(s, x, y, w, text) {
   );
 }
 
-// 11 -- usage
+// 12 -- usage
 pres.addSection({ title: '怎么用' });
 {
   const s = content('使用说明：四步完成一次可追溯的研究', '截图来自真实运行的 v3.0 应用。', '怎么用');
@@ -615,7 +657,7 @@ pres.addSection({ title: '怎么用' });
   );
 }
 
-// 12 -- status and next steps
+// 13 -- status and next steps
 pres.addSection({ title: '下一步' });
 {
   const s = content('当前进展与下一步', 'B、C 已落地；A 类三个设计中，时间证据状态机已有原型，其余两个在设计中。', '下一步');
