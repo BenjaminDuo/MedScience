@@ -15,8 +15,10 @@ import { SubagentTreeEngine, globalSubagentTreeEngine } from './SubagentTreeEngi
 import { HypothesisNode } from './HypothesisTree.js';
 import { HookRegistry, globalHookRegistry } from '../hooks/HookRegistry.js';
 import { HookContext } from '../hooks/types.js';
-import { RuntimeSession, Turn, ToolCall, ToolResult, Artifact, Citation } from '../types/runtime.js';
+import { RuntimeSession, Turn, ToolCall, ToolResult, Artifact, Citation, ToolCategory } from '../types/runtime.js';
 import { getResearchProfile, buildPlanTasksForProfile } from './ResearchProfiles.js';
+import { SubagentOrchestrator } from '../subagents/SubagentOrchestrator.js';
+import { createDelegateResearchTool, DelegateResearchInput, DELEGATE_RESEARCH_TOOL_NAME } from '../subagents/tools/DelegateResearchTool.js';
 
 export interface AutonomousResearchEngineOptions {
   maxTurns?: number;
@@ -31,6 +33,7 @@ export interface AutonomousResearchEngineOptions {
   evidenceVerifier?: EvidenceVerifier;
   planTracker?: PlanTracker;
   subagentTreeEngine?: SubagentTreeEngine;
+  subagentOrchestrator?: SubagentOrchestrator;
   hookRegistry?: HookRegistry;
 }
 
@@ -47,7 +50,14 @@ export class AutonomousResearchEngine {
   private evidenceVerifier: EvidenceVerifier;
   private planTracker: PlanTracker;
   private subagentTreeEngine: SubagentTreeEngine;
+  private subagentOrchestrator: SubagentOrchestrator;
   private hookRegistry: HookRegistry;
+  private delegationContexts: Map<string, {
+    userInquiry: string;
+    evidenceTracker: EvidenceTracker;
+    allowedToolCategories: Set<ToolCategory>;
+    allowedToolNames: Set<string>;
+  }> = new Map();
 
   constructor(options: AutonomousResearchEngineOptions) {
     this.maxTurns = options.maxTurns || 16;
@@ -62,11 +72,35 @@ export class AutonomousResearchEngine {
     this.evidenceVerifier = options.evidenceVerifier || globalEvidenceVerifier;
     this.planTracker = options.planTracker || globalPlanTracker;
     this.subagentTreeEngine = options.subagentTreeEngine || globalSubagentTreeEngine;
+    this.subagentOrchestrator = options.subagentOrchestrator || new SubagentOrchestrator({ modelProvider: this.modelProvider, toolRegistry: this.toolRegistry, eventBus: this.eventBus, evidenceVerifier: this.evidenceVerifier, hookRegistry: options.hookRegistry || globalHookRegistry });
+    this.subagentTreeEngine.setModelProvider(this.modelProvider);
     this.hookRegistry = options.hookRegistry || globalHookRegistry;
+    this.toolRegistry.register(
+      createDelegateResearchTool(this.subagentOrchestrator, (input: DelegateResearchInput, context) => {
+        const active = this.delegationContexts.get(context.sessionId);
+        if (!active) {
+          throw new Error(`No active parent research context for session '${context.sessionId}'.`);
+        }
+        return {
+          parentSessionId: context.sessionId,
+          context: {
+            originalInquiry: active.userInquiry,
+            objective: input.tasks.map((task) => task.objective).join('; '),
+            parentSummary: active.evidenceTracker.formatEvidenceContext(),
+            relevantEvidence: active.evidenceTracker.list(),
+          },
+          parentEvidenceTracker: active.evidenceTracker,
+          parentAllowedToolCategories: active.allowedToolCategories,
+          parentAllowedToolNames: active.allowedToolNames,
+        };
+      })
+    );
   }
 
   public setModelProvider(provider: ModelProvider): void {
     this.modelProvider = provider;
+    this.subagentTreeEngine.setModelProvider(provider);
+    this.subagentOrchestrator.setModelProvider(provider);
   }
 
   public getModelProvider(): ModelProvider {
@@ -98,6 +132,7 @@ export class AutonomousResearchEngine {
     parentEvidenceTracker: EvidenceTracker,
     maxConcurrency?: number
   ) {
+    this.subagentTreeEngine.setModelProvider(this.modelProvider);
     return this.subagentTreeEngine.exploreHypothesesParallel(
       parentSessionId,
       hypotheses,
@@ -117,7 +152,8 @@ export class AutonomousResearchEngine {
   ): Promise<Turn> {
     const sessionId = session.id;
     const turnIndex = session.turns.length + 1;
-    const evidenceTracker = new EvidenceTracker();
+    const evidenceTracker = new EvidenceTracker(this.evidenceVerifier, sessionId);
+    this.subagentOrchestrator.setModel(session.activeModel || undefined);
 
     const hookContext: HookContext = {
       sessionId,
@@ -156,6 +192,18 @@ export class AutonomousResearchEngine {
     const toolDefinitions = persona
       ? this.toolRegistry.list().filter((tool) => persona.allowedToolCategories.includes(tool.category))
       : this.toolRegistry.list();
+    // Orchestration is a first-class capability, separate from domain tool
+    // categories. It is offered to the Main Agent so the model can decide
+    // whether delegation is worthwhile; the prompt below explicitly discourages
+    // spawning agents for trivial one-tool questions.
+    const delegationTool = this.toolRegistry.get(DELEGATE_RESEARCH_TOOL_NAME);
+    if (delegationTool && !toolDefinitions.some((tool) => tool.name === delegationTool.name)) toolDefinitions.push(delegationTool);
+    this.delegationContexts.set(sessionId, {
+      userInquiry,
+      evidenceTracker,
+      allowedToolCategories: new Set<ToolCategory>((persona?.allowedToolCategories || this.toolRegistry.list().map((tool) => tool.category)) as ToolCategory[]),
+      allowedToolNames: new Set(toolDefinitions.filter((tool) => tool.category !== 'orchestration').map((tool) => tool.name)),
+    });
 
     // Match skills
     const skillInjectionPrompt = this.skillRegistry.formatPromptForInquiry(userInquiry);
@@ -173,9 +221,16 @@ Guidelines for genuine research inquiries:
 3. Every empirical finding is verified by the Evidence Verification Gate before adoption as [Evidence: EV-xxx].
 4. Ground every conclusion in [Evidence: EV-xxx] tags. Never hallucinate unverified findings.
 ${researchProfile.systemPromptFocus ? `\n${researchProfile.systemPromptFocus}` : ''}${skillInjectionPrompt ? `\n${skillInjectionPrompt}` : ''}${personaPromptBlock(session.activeAgent)}`;
+    const delegationPrompt = `
+SubAgent delegation rules:
+- Use ${DELEGATE_RESEARCH_TOOL_NAME} only when the inquiry benefits from independent, parallel or context-isolated work (competing hypotheses, broad literature exploration, independent verification, or separate data analysis).
+- Do not delegate a simple one-tool lookup or a task whose value depends on one continuous context.
+- A child never receives capabilities that you do not have. Review each structured handoff, its limitations, and any failed branch before synthesis.
+- Delegation is bounded and may return partial results; never hide a failed or inconclusive branch.`;
+    const baseSystemPromptWithDelegation = `${baseSystemPrompt}${delegationPrompt}`;
 
     let messages: ModelMessage[] = [
-      { role: 'system', content: baseSystemPrompt },
+      { role: 'system', content: baseSystemPromptWithDelegation },
       { role: 'user', content: userInquiry },
     ];
 
@@ -280,6 +335,7 @@ ${researchProfile.systemPromptFocus ? `\n${researchProfile.systemPromptFocus}` :
         };
         this.sessionManager.addTurn(sessionId, blockedTurn);
         this.sessionManager.updateSessionStatus(sessionId, 'cancelled');
+        this.delegationContexts.delete(sessionId);
         return blockedTurn;
       }
 
@@ -368,18 +424,30 @@ ${researchProfile.systemPromptFocus ? `\n${researchProfile.systemPromptFocus}` :
             call.arguments?.scriptName ||
             JSON.stringify(call.arguments);
 
-          const recordedEv = evidenceTracker.record(
-            call.name,
-            result.execution?.category || 'databases',
-            String(queryStr),
-            result.execution?.resultSummary || 'Tool executed successfully',
-            result.output,
-            result.citations,
-            result.artifacts,
-            result.evidenceVerification
-          );
-          const evId = recordedEv.id;
-          this.planTracker.completeTask(sessionId, activeTaskId, [evId], recordedEv.summary);
+          const toolDefinition = this.toolRegistry.get(call.name);
+          let evidenceId: string | undefined;
+          let evidenceSummary = result.execution?.resultSummary || 'Tool executed successfully';
+          if (toolDefinition?.producesEvidence !== false) {
+            const recordedEv = evidenceTracker.record(
+              call.name,
+              result.execution?.category || 'databases',
+              String(queryStr),
+              evidenceSummary,
+              result.output,
+              result.citations,
+              result.artifacts,
+              result.evidenceVerification
+            );
+            evidenceId = recordedEv.id;
+            evidenceSummary = recordedEv.summary;
+            this.planTracker.completeTask(sessionId, activeTaskId, [recordedEv.id], recordedEv.summary);
+          } else {
+            // Control/orchestration results remain visible in tool/runtime
+            // events but are not scientific observations in the Evidence
+            // Ledger. Child evidence has already been adopted by the
+            // delegation tool itself.
+            this.planTracker.completeTask(sessionId, activeTaskId, [], evidenceSummary);
+          }
 
           // Register artifacts & citations in session
           if (result.artifacts) {
@@ -390,10 +458,14 @@ ${researchProfile.systemPromptFocus ? `\n${researchProfile.systemPromptFocus}` :
           }
 
           // Append tool result into model history for next turn
+          const rawToolContent = typeof result.output === 'string' ? result.output : JSON.stringify(result.output || result.error);
+          const toolContent = evidenceId
+            ? `[Evidence recorded: ${evidenceId}]\n${rawToolContent}`
+            : rawToolContent;
           messages.push({
             role: 'tool',
             name: call.name,
-            content: typeof result.output === 'string' ? result.output : JSON.stringify(result.output || result.error),
+            content: toolContent,
             toolCallId: call.id,
           });
         }
@@ -480,6 +552,7 @@ ${researchProfile.systemPromptFocus ? `\n${researchProfile.systemPromptFocus}` :
 
     this.sessionManager.addTurn(sessionId, completedTurn);
     this.sessionManager.updateSessionStatus(sessionId, critiquePassed ? 'completed' : 'error');
+    this.delegationContexts.delete(sessionId);
 
     return completedTurn;
   }

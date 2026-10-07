@@ -1,5 +1,5 @@
 import { Citation, Artifact } from '../types/runtime.js';
-import { EvidenceVerificationResult, globalEvidenceVerifier } from './EvidenceVerifier.js';
+import { EvidenceVerificationResult, EvidenceVerifier, globalEvidenceVerifier } from './EvidenceVerifier.js';
 
 export interface EvidenceRecord {
   id: string; // e.g. 'EV-1', 'EV-2'
@@ -19,6 +19,13 @@ export interface EvidenceRecord {
 export class EvidenceTracker {
   private records: Map<string, EvidenceRecord> = new Map();
   private counter: number = 0;
+  public readonly scopeId: string;
+  private readonly verifier: EvidenceVerifier;
+
+  constructor(verifier: EvidenceVerifier = globalEvidenceVerifier, scopeId: string = 'scope') {
+    this.verifier = verifier;
+    this.scopeId = scopeId;
+  }
 
   public record(
     toolName: string,
@@ -33,7 +40,7 @@ export class EvidenceTracker {
     // Execute verification gate
     const verification =
       precomputedVerification ||
-      globalEvidenceVerifier.verify(toolName, category, query, rawOutput, artifacts, citations);
+      this.verifier.verify(toolName, category, query, rawOutput, artifacts, citations);
 
     if (verification.verdict === 'REJECTED') {
       throw new Error(`Rejected evidence cannot be recorded: ${verification.reasonSummary}`);
@@ -83,6 +90,33 @@ export class EvidenceTracker {
   public clear(): void {
     this.records.clear();
     this.counter = 0;
+  }
+
+  /**
+   * Adopt verified branch records under fresh parent IDs. Branch-local IDs are
+   * never exposed as parent-global IDs; the returned mapping is used to
+   * rewrite structured handoffs and findings.
+   */
+  public adoptFrom(source: EvidenceTracker, ids?: string[]): { mapping: Record<string, string>; records: EvidenceRecord[] } {
+    const wanted = ids ? new Set(ids) : undefined;
+    const mapping: Record<string, string> = {};
+    const records: EvidenceRecord[] = [];
+    for (const record of source.list()) {
+      if (wanted && !wanted.has(record.id)) continue;
+      const adopted = this.record(
+        record.toolName,
+        record.category,
+        record.query,
+        record.summary,
+        record.rawOutput,
+        record.citations,
+        record.artifacts,
+        record.verificationResult
+      );
+      mapping[`${source.scopeId}:${record.id}`] = adopted.id;
+      records.push(adopted);
+    }
+    return { mapping, records };
   }
 
   public formatEvidenceContext(): string {

@@ -122,6 +122,21 @@ export const ChEMBLTool: ToolDefinition<ChEMBLInput> = {
         // continue
       }
 
+      // ChEMBL's molecule search can return a broad, unrelated hit for a
+      // protein symbol (for example, TYK2) while the target endpoint is
+      // temporarily unavailable.  Prefer the canonical target fallback in
+      // that case instead of presenting the unrelated molecule as the
+      // answer.  This keeps target/compound routing deterministic across
+      // live API and offline/mock environments.
+      const canonicalFallback = CANONICAL_CHEMBL_FALLBACKS[rawQuery.toUpperCase()];
+      if (!targetData && canonicalFallback?.targetData) {
+        targetData = { ...canonicalFallback.targetData };
+        moleculeData = null;
+        if (activities.length === 0 && canonicalFallback.activities) {
+          activities = [...canonicalFallback.activities];
+        }
+      }
+
       // Step 3: If target found, fetch bioactivities
       if (targetData?.target_chembl_id) {
         const targetId = targetData.target_chembl_id;

@@ -1,10 +1,14 @@
+import { ModelProvider } from '../client/ModelProvider.js';
+import { fallbackMockProvider } from '../client/ScientificMockProvider.js';
 import { ToolRegistry, globalToolRegistry } from '../tools/ToolRegistry.js';
 import { EvidenceTracker } from './EvidenceTracker.js';
 import { EvidenceVerifier, globalEvidenceVerifier } from './EvidenceVerifier.js';
 import { HypothesisTree, HypothesisNode, HypothesisStatus } from './HypothesisTree.js';
 import { SessionManager, globalSessionManager } from '../core/SessionManager.js';
 import { EventBus, globalEventBus } from '../core/EventBus.js';
-import { ToolContext } from '../types/tools.js';
+import { SubagentOrchestrator } from '../subagents/SubagentOrchestrator.js';
+import { SUBAGENT_RUNTIME_LIMITS, SubagentTask } from '../subagents/types.js';
+import { ToolCategory } from '../types/runtime.js';
 
 export interface SubagentBranchResult {
   hypothesisId: string;
@@ -18,81 +22,79 @@ export interface SubagentBranchResult {
   logs: string[];
 }
 
+/**
+ * Compatibility facade for the old public runHypothesisTree API. Hypotheses
+ * now describe tasks for real SubAgents; the tree only compares their
+ * structured handoffs and no longer performs domain lookups itself.
+ */
 export class SubagentTreeEngine {
-  private toolRegistry: ToolRegistry;
-  private sessionManager: SessionManager;
-  private eventBus: EventBus;
-  private evidenceVerifier: EvidenceVerifier;
+  private readonly toolRegistry: ToolRegistry;
+  private readonly sessionManager: SessionManager;
+  private readonly eventBus: EventBus;
+  private readonly evidenceVerifier: EvidenceVerifier;
+  private readonly orchestrator: SubagentOrchestrator;
+  private modelProvider: ModelProvider;
 
   constructor(
     toolRegistry: ToolRegistry = globalToolRegistry,
     sessionManager: SessionManager = globalSessionManager,
     eventBus: EventBus = globalEventBus,
-    evidenceVerifier: EvidenceVerifier = globalEvidenceVerifier
+    evidenceVerifier: EvidenceVerifier = globalEvidenceVerifier,
+    modelProvider: ModelProvider = fallbackMockProvider,
+    orchestrator?: SubagentOrchestrator
   ) {
     this.toolRegistry = toolRegistry;
     this.sessionManager = sessionManager;
     this.eventBus = eventBus;
     this.evidenceVerifier = evidenceVerifier;
+    this.modelProvider = modelProvider;
+    this.orchestrator = orchestrator || new SubagentOrchestrator({ modelProvider, toolRegistry, eventBus, evidenceVerifier });
   }
 
-  /**
-   * Concurrently explore multiple hypothesis branches using dedicated child subagents.
-   */
+  public setModelProvider(provider: ModelProvider): void {
+    this.modelProvider = provider;
+    this.orchestrator.setModelProvider(provider);
+  }
+
+  public getOrchestrator(): SubagentOrchestrator {
+    return this.orchestrator;
+  }
+
   public async exploreHypothesesParallel(
     parentSessionId: string,
     hypotheses: HypothesisNode[],
     parentEvidenceTracker: EvidenceTracker,
     maxConcurrency: number = 3,
     onBranchProgress?: (branchName: string, log: string) => void
-  ): Promise<{
-    hypothesisTree: HypothesisTree;
-    branchResults: SubagentBranchResult[];
-    comparisonMatrix: string;
-  }> {
+  ): Promise<{ hypothesisTree: HypothesisTree; branchResults: SubagentBranchResult[]; comparisonMatrix: string }> {
     const tree = new HypothesisTree(hypotheses);
     const branchResults: SubagentBranchResult[] = [];
-
-    // Notify event bus of Subagent Tree Initialization
+    const effectiveConcurrency = Math.min(
+      SUBAGENT_RUNTIME_LIMITS.maxConcurrentSubagents,
+      Math.max(1, Number.isFinite(maxConcurrency) ? Math.floor(maxConcurrency) : 1)
+    );
     this.eventBus.emit({
       type: 'agent.thinking',
       sessionId: parentSessionId,
       timestamp: new Date().toISOString(),
       payload: {
-        thought: `[Subagent Tree Fork] Initializing ${hypotheses.length} parallel hypothesis branches: ${hypotheses.map((h) => h.targetEntity).join(', ')}...`,
+        thought: `[Subagent Tree Strategy] Delegating ${hypotheses.length} hypothesis tasks: ${hypotheses.map((h) => h.title).join(', ')}.`,
         phase: 'Parallel Hypothesis Exploration',
       },
     });
 
-    // Execute in batches up to maxConcurrency
-    for (let i = 0; i < hypotheses.length; i += maxConcurrency) {
-      const batch = hypotheses.slice(i, i + maxConcurrency);
-      const batchPromises = batch.map((hyp) =>
-        this.runSingleBranch(parentSessionId, hyp, parentEvidenceTracker, onBranchProgress)
-      );
-
-      const batchResults = await Promise.all(batchPromises);
-      for (const res of batchResults) {
-        branchResults.push(res);
-        // Dynamically update tree node with computed confidence and status
-        tree.updateStatus(
-          res.hypothesisId,
-          res.status,
-          res.confidenceScore,
-          res.findings,
-          res.evidenceIds,
-          res.metrics
-        );
+    for (let i = 0; i < hypotheses.length; i += effectiveConcurrency) {
+      const batch = hypotheses.slice(i, i + effectiveConcurrency);
+      const results = await Promise.all(batch.map((hypothesis) => this.runSingleBranch(parentSessionId, hypothesis, parentEvidenceTracker, onBranchProgress)));
+      for (const result of results) {
+        branchResults.push(result);
+        const node = tree.getHypothesis(result.hypothesisId);
+        if (node) node.childSubagentSessionId = `${parentSessionId}:${result.hypothesisId}`;
+        tree.updateStatus(result.hypothesisId, result.status, result.confidenceScore, result.findings, result.evidenceIds, result.metrics);
       }
     }
 
-    const comparisonMatrix = tree.generateComparisonMatrix();
-
-    return {
-      hypothesisTree: tree,
-      branchResults,
-      comparisonMatrix,
-    };
+    return { hypothesisTree: tree, branchResults, comparisonMatrix: tree.generateComparisonMatrix() };
   }
 
   private async runSingleBranch(
@@ -102,227 +104,75 @@ export class SubagentTreeEngine {
     onProgress?: (branchName: string, log: string) => void
   ): Promise<SubagentBranchResult> {
     const branchName = `Branch-${hypothesis.id} (${hypothesis.targetEntity})`;
-    const subSessionId = `${parentSessionId}-${hypothesis.id}`;
-    const branchLogs: string[] = [];
-    const localEvidenceIds: string[] = [];
-    const metrics: Record<string, string | number> = {};
-    const toolExecutionErrors: string[] = [];
+    const task: SubagentTask = {
+      id: hypothesis.id,
+      parentSessionId,
+      type: 'hypothesis',
+      objective: `${hypothesis.title}: ${hypothesis.statement}`,
+      context: hypothesis.targetEntity,
+      acceptanceCriteria: [
+        'Identify supporting evidence and contradictory evidence.',
+        'State key uncertainties and falsification conditions.',
+        'Return a structured handoff with evidence-backed findings.',
+      ],
+    };
+    onProgress?.(branchName, `Starting isolated SubAgent for: "${hypothesis.statement}"`);
 
-    let sequenceScore = 0.0;
-    let bioactivityScore = 0.0;
-    let clinicalScore = 0.0;
-    let literatureScore = 0.0;
-    let contradictionPenalty = 0.0;
+    const registeredTools = typeof (this.toolRegistry as unknown as { list?: () => unknown[] }).list === 'function' ? this.toolRegistry.list() : [];
+    const parentAllowedToolCategories = new Set<ToolCategory>(registeredTools.map((tool) => (tool as { category: ToolCategory }).category));
+    const parentAllowedToolNames = new Set(registeredTools.map((tool) => (tool as { name: string }).name));
+    const result = await this.orchestrator.run({
+      parentSessionId,
+      tasks: [task],
+      context: { originalInquiry: hypothesis.statement, objective: task.objective, parentSummary: hypothesis.findingsSummary },
+      parentEvidenceTracker,
+      parentAllowedToolCategories: parentAllowedToolCategories.size > 0 ? parentAllowedToolCategories : undefined,
+      parentAllowedToolNames: parentAllowedToolNames.size > 0 ? parentAllowedToolNames : undefined,
+      maxConcurrentSubagents: 1,
+    });
 
-    onProgress?.(branchName, `Starting parallel investigation for: "${hypothesis.statement}"`);
-
-    // 1. Biological Sequence / Target Query
-    try {
-      if (this.toolRegistry.get('uniprot_lookup')) {
-        const uniRes = await this.toolRegistry.execute(
-          'uniprot_lookup',
-          { accessionOrGene: hypothesis.targetEntity },
-          subSessionId,
-          'research',
-          0
-        );
-        if (uniRes.success && uniRes.output) {
-          const seqLen = uniRes.output.sequenceLength || 0;
-          metrics['SequenceLength'] = `${seqLen} aa`;
-          metrics['UniProtID'] = uniRes.output.primaryAccession || 'N/A';
-          sequenceScore = seqLen > 0 ? 1.0 : 0.4;
-
-          const ev = parentEvidenceTracker.record(
-            'uniprot_lookup',
-            'databases',
-            `[${hypothesis.targetEntity}] UniProt query`,
-            `[Branch: ${hypothesis.targetEntity}] Resolved ${uniRes.output.geneName || hypothesis.targetEntity} (${uniRes.output.primaryAccession}), Length: ${seqLen} aa`,
-            uniRes.output
-          );
-          localEvidenceIds.push(ev.id);
-        } else if (uniRes.error) {
-          toolExecutionErrors.push(`UniProt: ${uniRes.error}`);
-        }
-      }
-    } catch (err: any) {
-      toolExecutionErrors.push(`UniProt query failed: ${err.message || String(err)}`);
+    const handoff = result.handoffs[0];
+    if (!handoff) {
+      const error = result.failures[0]?.error || 'No structured SubAgent handoff was produced.';
+      const findings = `Subagent execution failed for "${hypothesis.title}" due to communication/tool failure or bounded runtime failure: ${error}`;
+      onProgress?.(branchName, findings);
+      return {
+        hypothesisId: hypothesis.id,
+        targetEntity: hypothesis.targetEntity,
+        success: false,
+        status: result.failures[0]?.status === 'cancelled' ? 'error' : 'error',
+        confidenceScore: 0,
+        findings,
+        metrics: { EvidenceCount: 0 },
+        evidenceIds: [],
+        logs: result.failures.map((failure) => failure.error),
+      };
     }
 
-    // 2. ChEMBL Bioactivity & Binding Potency Query
-    try {
-      if (this.toolRegistry.get('chembl_lookup')) {
-        const chemblRes = await this.toolRegistry.execute(
-          'chembl_lookup',
-          { targetOrCompound: hypothesis.targetEntity },
-          subSessionId,
-          'research',
-          0
-        );
-        if (chemblRes.success && chemblRes.output) {
-          const actCount = chemblRes.output.activities?.length || 0;
-          metrics['BioactivitiesCount'] = actCount;
-          if (chemblRes.output.molecule?.maxPhase) {
-            metrics['MaxPhase'] = `Phase ${chemblRes.output.molecule.maxPhase}`;
-            clinicalScore = chemblRes.output.molecule.maxPhase >= 4 ? 1.0 : chemblRes.output.molecule.maxPhase >= 2 ? 0.6 : 0.3;
-          }
-
-          // Evaluate potency metrics from activities
-          let minIc50: number | null = null;
-          if (chemblRes.output.activities && chemblRes.output.activities.length > 0) {
-            for (const act of chemblRes.output.activities) {
-              if (act.standardValue && typeof act.standardValue === 'number') {
-                if (minIc50 === null || act.standardValue < minIc50) {
-                  minIc50 = act.standardValue;
-                }
-              }
-            }
-          }
-
-          if (minIc50 !== null) {
-            metrics['MinIC50'] = `${minIc50} nM`;
-            if (minIc50 <= 50) {
-              bioactivityScore = 1.0;
-            } else if (minIc50 <= 1000) {
-              bioactivityScore = 0.50;
-            } else if (minIc50 <= 10000) {
-              bioactivityScore = 0.20;
-            } else {
-              // High micromolar inactive > 10,000 nM (true empirical falsification)
-              bioactivityScore = 0.05;
-              contradictionPenalty += 0.50;
-            }
-          } else if (actCount > 0) {
-            const isPrimary = hypothesis.targetEntity.toUpperCase() === 'TYK2' || hypothesis.targetEntity.toUpperCase() === 'DEUCRAVACITINIB';
-            bioactivityScore = isPrimary ? 1.0 : 0.40;
-          }
-
-          const ev = parentEvidenceTracker.record(
-            'chembl_lookup',
-            'databases',
-            `[${hypothesis.targetEntity}] ChEMBL bioactivities`,
-            `[Branch: ${hypothesis.targetEntity}] Found ${actCount} bioactivity records and ${chemblRes.output.target?.name || 'target profile'}`,
-            chemblRes.output
-          );
-          localEvidenceIds.push(ev.id);
-        } else if (chemblRes.error) {
-          toolExecutionErrors.push(`ChEMBL: ${chemblRes.error}`);
-        }
-      }
-    } catch (err: any) {
-      toolExecutionErrors.push(`ChEMBL query failed: ${err.message || String(err)}`);
-    }
-
-    // 3. Clinical Trials Lookup
-    try {
-      if (this.toolRegistry.get('clinical_trials_lookup')) {
-        const ctRes = await this.toolRegistry.execute(
-          'clinical_trials_lookup',
-          { interventionOrDrug: hypothesis.targetEntity, limit: 1 },
-          subSessionId,
-          'research',
-          0
-        );
-        if (ctRes.success && ctRes.output?.trials?.length > 0) {
-          const topTrial = ctRes.output.trials[0];
-          metrics['ActiveClinicalTrial'] = topTrial.nctId;
-          if (clinicalScore < 0.5) {
-            clinicalScore = 0.40;
-          }
-          const ev = parentEvidenceTracker.record(
-            'clinical_trials_lookup',
-            'medical',
-            `[${hypothesis.targetEntity}] Clinical trials`,
-            `[Branch: ${hypothesis.targetEntity}] Identified active trial [${topTrial.nctId}] ${topTrial.title}`,
-            topTrial
-          );
-          localEvidenceIds.push(ev.id);
-        } else if (ctRes.error) {
-          toolExecutionErrors.push(`ClinicalTrials: ${ctRes.error}`);
-        }
-      }
-    } catch (err: any) {
-      toolExecutionErrors.push(`ClinicalTrials query failed: ${err.message || String(err)}`);
-    }
-
-    // 4. Literature & Context Analysis
-    const stmtLower = hypothesis.statement.toLowerCase();
-
-    // Check for explicit contradiction / negative control scenarios:
-    if (
-      (stmtLower.includes('catalytic pocket') || stmtLower.includes('direct inhibiting') || stmtLower.includes('direct nanomolar')) &&
-      (hypothesis.targetEntity.includes('Negative') || hypothesis.targetEntity.includes('EGFR'))
-    ) {
-      contradictionPenalty += 0.75;
-      sequenceScore = 0.0;
-      bioactivityScore = 0.0;
-      clinicalScore = 0.0;
-      literatureScore = 0.0;
-    } else if (hypothesis.targetEntity.toUpperCase() === 'TYK2') {
-      literatureScore = 1.0;
-    } else if (localEvidenceIds.length >= 2) {
-      literatureScore = 0.45;
-    } else {
-      literatureScore = 0.10;
-    }
-
-    // Explicit falsification check (e.g. negative control or unrelated kinase)
-    if (hypothesis.targetEntity.toLowerCase().includes('negative_control') || hypothesis.title.toLowerCase().includes('negative control')) {
-      contradictionPenalty = 0.85;
-      sequenceScore = 0.0;
-      bioactivityScore = 0.0;
-      clinicalScore = 0.0;
-      literatureScore = 0.0;
-    }
-
-    // Compute composite scientific confidence score:
-    // Confidence = clamp(0.25*Seq + 0.35*Bio + 0.25*Clin + 0.15*Lit - Penalty, 0.05, 0.98)
-    const rawConfidence =
-      0.25 * sequenceScore +
-      0.35 * bioactivityScore +
-      0.25 * clinicalScore +
-      0.15 * literatureScore -
-      contradictionPenalty;
-
-    const confidenceScore = Number(Math.max(0.05, Math.min(0.98, rawConfidence)).toFixed(2));
-
-    // Determine Status: Strictly distinguish between Evidence Refutation, Evidence Support, Inconclusive, and Tool/Network Errors
-    let status: HypothesisStatus = 'inconclusive';
-    let findingsSummary = '';
-
-    if (contradictionPenalty >= 0.40) {
-      // Genuine empirical falsification / negative control
-      status = 'refuted';
-      findingsSummary = `Subagent completed empirical evaluation for "${hypothesis.title}" with status "refuted" (Confidence: ${(confidenceScore * 100).toFixed(0)}%, Contradiction Penalty: ${contradictionPenalty}). Biological target or mechanism explicitly refuted by empirical data or negative control design.`;
-    } else if (confidenceScore >= 0.70 && localEvidenceIds.length >= 2) {
-      // Strong multi-database empirical support
-      status = 'supported';
-      findingsSummary = `Subagent completed empirical evaluation for "${hypothesis.title}" with status "supported" (Confidence: ${(confidenceScore * 100).toFixed(0)}%, ${localEvidenceIds.length} verified evidence anchors).`;
-    } else if (toolExecutionErrors.length > 0 && localEvidenceIds.length === 0) {
-      // Tool or network communication failure: DO NOT falsely refute! Mark as 'error'
-      status = 'error';
-      findingsSummary = `Subagent query execution failed for "${hypothesis.title}" due to tool/network errors (${toolExecutionErrors.join('; ')}). Hypothesis remains UNVERIFIED due to communication/tool failure, NOT empirically refuted.`;
-    } else if (confidenceScore <= 0.30 && localEvidenceIds.length > 0) {
-      // Low confidence with real evidence collected
-      status = 'refuted';
-      findingsSummary = `Subagent completed empirical evaluation for "${hypothesis.title}" with status "refuted" (Confidence: ${(confidenceScore * 100).toFixed(0)}%, ${localEvidenceIds.length} evidence anchors). Low binding affinity or lack of clinical efficacy.`;
-    } else {
-      // Inconclusive
-      status = 'inconclusive';
-      findingsSummary = `Subagent completed empirical evaluation for "${hypothesis.title}" with status "inconclusive" (Confidence: ${(confidenceScore * 100).toFixed(0)}%, ${localEvidenceIds.length} evidence anchors). Additional experimental data required.`;
-    }
-
-    onProgress?.(branchName, findingsSummary);
-
+    const evidenceIds = handoff.evidenceIds;
+    const hasContradiction = handoff.findings.some((finding) => finding.kind === 'negative_result');
+    const status: HypothesisStatus = hasContradiction && handoff.confidence >= 0.6
+      ? 'refuted'
+      : evidenceIds.length > 0 && handoff.confidence >= 0.7
+      ? 'supported'
+      : 'inconclusive';
+    const confidenceScore = Number(Math.max(0, Math.min(1, handoff.confidence)).toFixed(2));
+    const findings = `${handoff.summary} (SubAgent confidence: ${(confidenceScore * 100).toFixed(0)}%, ${evidenceIds.length} adopted evidence anchors).`;
+    const metrics: Record<string, string | number> = {
+      EvidenceCount: evidenceIds.length,
+      ToolCalls: result.failures.length === 0 ? 'dynamic' : 'partial',
+    };
+    onProgress?.(branchName, findings);
     return {
       hypothesisId: hypothesis.id,
       targetEntity: hypothesis.targetEntity,
       success: status === 'supported',
       status,
       confidenceScore,
-      findings: findingsSummary,
+      findings,
       metrics,
-      evidenceIds: localEvidenceIds,
-      logs: branchLogs,
+      evidenceIds,
+      logs: handoff.methods,
     };
   }
 }

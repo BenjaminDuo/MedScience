@@ -23,6 +23,12 @@ export interface ToolDefinition<Input = any> {
   description: string;
   category: ToolCategory;
   requiredPermission: OperationType;
+  /**
+   * Whether a successful call should become a scientific EvidenceRecord.
+   * This defaults to true for existing domain tools; control/orchestration
+   * tools can explicitly opt out while remaining fully auditable.
+   */
+  producesEvidence?: boolean;
   /** Concrete external origins/resources that must be authorized before execution. */
   permissionTargets?: string[];
   inputSchema: Record<string, any>;

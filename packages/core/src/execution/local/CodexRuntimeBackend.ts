@@ -35,6 +35,8 @@ interface SessionRuntimeHandle {
   codexHome: string;
   activeRunId?: string;
   activeTurnId?: string;
+  /** Shared promise keeps fatal/cancel/dispose cleanup awaitable and idempotent. */
+  cleanupPromise?: Promise<void>;
   // Storing the timer alongside the resolver lets respondApproval() clear
   // it once answered -- otherwise every approval leaves its 5-minute
   // default-deny timer running even after being resolved normally, which
@@ -141,6 +143,33 @@ export class CodexRuntimeBackend implements ExecutionBackend {
     callbacks?.onEvent?.(event);
   }
 
+  private cleanupHandle(sessionId: string, handle: SessionRuntimeHandle): Promise<void> {
+    if (handle.cleanupPromise) return handle.cleanupPromise;
+
+    handle.cleanupPromise = (async () => {
+      // Resolve approval waiters before closing the transport. Otherwise a
+      // server-initiated approval request can retain an unresolved Promise
+      // after the process has already been marked dead.
+      for (const pending of handle.pendingApprovals.values()) {
+        clearTimeout(pending.timer);
+        pending.resolve('decline');
+      }
+      handle.pendingApprovals.clear();
+
+      try {
+        handle.rpc.dispose();
+      } finally {
+        try {
+          await handle.supervisor.terminate();
+        } finally {
+          if (this.handles.get(sessionId) === handle) this.handles.delete(sessionId);
+        }
+      }
+    })();
+
+    return handle.cleanupPromise;
+  }
+
   private async ensureSessionHandle(
     sessionId: string,
     profile: LocalRuntimeExecutionProfile,
@@ -227,8 +256,7 @@ export class CodexRuntimeBackend implements ExecutionBackend {
         });
       }
     } catch (error) {
-      this.handles.delete(sessionId);
-      await supervisor.terminate();
+      await this.cleanupHandle(sessionId, handle);
       throw error;
     }
 
@@ -494,8 +522,6 @@ export class CodexRuntimeBackend implements ExecutionBackend {
           // would hang forever instead of surfacing an error. The handle is
           // dead either way, so drop it and terminate the process rather than
           // leaving a future execute() for this session reuse a closed transport.
-          this.handles.delete(sessionId);
-          void handle.supervisor.terminate();
           this.emitEvent(
             sessionId,
             {
@@ -506,7 +532,14 @@ export class CodexRuntimeBackend implements ExecutionBackend {
           },
             callbacks
           );
-          finish(error);
+          // Keep the handle owned until the shared cleanup promise resolves.
+          // The rejected execute() therefore cannot race a later dispose()
+          // and lose the only awaitable reference to the child teardown.
+          const cleanup = this.cleanupHandle(sessionId, handle);
+          void cleanup.then(
+            () => finish(error),
+            () => finish(error)
+          );
         },
       });
 
@@ -527,7 +560,15 @@ export class CodexRuntimeBackend implements ExecutionBackend {
           },
             callbacks
           );
-          finish(error);
+          const cleanup = handle.cleanupPromise;
+          if (cleanup) {
+            void cleanup.then(
+              () => finish(error),
+              () => finish(error)
+            );
+          } else {
+            finish(error);
+          }
         });
     });
   }
@@ -573,14 +614,20 @@ export class CodexRuntimeBackend implements ExecutionBackend {
           // this still stops the run promptly.
           throw new Error('No active Codex turn id yet.');
         }
-        await Promise.race([
-          handle.client.turnInterrupt(handle.threadId, handle.activeTurnId),
-          new Promise((_, reject) => setTimeout(() => reject(new Error('interrupt timeout')), 5000)),
-        ]);
+        let interruptTimer: NodeJS.Timeout | undefined;
+        try {
+          await Promise.race([
+            handle.client.turnInterrupt(handle.threadId, handle.activeTurnId),
+            new Promise<never>((_, reject) => {
+              interruptTimer = setTimeout(() => reject(new Error('interrupt timeout')), 5000);
+            }),
+          ]);
+        } finally {
+          if (interruptTimer) clearTimeout(interruptTimer);
+        }
         return true;
       } catch {
-        await handle.supervisor.terminate();
-        this.handles.delete(sessionId);
+        await this.cleanupHandle(sessionId, handle);
         this.emitEvent(sessionId, {
           type: 'runtime.turn.completed',
           sessionId,
@@ -594,18 +641,8 @@ export class CodexRuntimeBackend implements ExecutionBackend {
   }
 
   public async dispose(): Promise<void> {
-    const all = Array.from(this.handles.values());
-    this.handles.clear();
-    // Clear any still-pending approval timers (default-deny-on-timeout) so a
-    // disposed backend doesn't keep the process alive for up to 5 more
-    // minutes over approvals nobody will ever answer now.
-    for (const handle of all) {
-      for (const pending of handle.pendingApprovals.values()) {
-        clearTimeout(pending.timer);
-      }
-      handle.pendingApprovals.clear();
-    }
-    await Promise.all(all.map((h) => h.supervisor.terminate()));
+    const all = Array.from(this.handles.entries());
+    await Promise.all(all.map(([sessionId, handle]) => this.cleanupHandle(sessionId, handle)));
   }
 }
 

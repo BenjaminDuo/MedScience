@@ -19,7 +19,8 @@ export type ToolCategory =
   | 'databases'
   | 'execution'
   | 'artifacts'
-  | 'medical';
+  | 'medical'
+  | 'orchestration';
 
 export interface ToolExecution {
   id: string;
